@@ -2,7 +2,7 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "zones")
+@Table(name = "courses")
 public class CourseModel {
 
 

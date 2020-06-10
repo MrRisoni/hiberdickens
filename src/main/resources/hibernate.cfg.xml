@@ -14,6 +14,8 @@
         <property name="connection.pool_size">100</property>
 
         <mapping class="models.CourseModel"/>
+        <mapping class="models.GroupModel"/>
+        <mapping class="models.HistoryModel"/>
 
     </session-factory>
 </hibernate-configuration>

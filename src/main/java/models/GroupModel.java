@@ -1,5 +1,6 @@
 package models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class GroupModel {
 
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<HistoryModel> historyList = new ArrayList<>();
 
     public GroupModel() {

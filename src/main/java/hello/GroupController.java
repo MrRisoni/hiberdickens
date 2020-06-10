@@ -2,6 +2,7 @@ package hello;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,8 @@ public class GroupController {
     public String getHistory() {
         try {
            // Session session = HibernateUtil.getSessionFactory().openSession();
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            ObjectMapper omp = new ObjectMapper();
+            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
            /* * List<HistoryModel> history = session.createCriteria(HistoryModel.class)
                     .list(); */
@@ -34,7 +36,7 @@ public class GroupController {
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
             EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-            return ow.writeValueAsString(entityManager.createQuery(
+            return omp.writeValueAsString(entityManager.createQuery(
                     "select hs from HistoryModel hs ", HistoryModel.class)
                     .getResultList());
         }

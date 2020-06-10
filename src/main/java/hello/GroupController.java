@@ -23,14 +23,16 @@ import java.util.List;
 public class GroupController {
 
 
-    @RequestMapping(value = "/api/group", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
     public String getHistory() {
         try {
+            // specific group only, do not fetch group details
             Session session = HibernateUtil.getSessionFactory().openSession();
             ObjectMapper omp = new ObjectMapper();
             omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
             List<HistoryModel> history = session.createCriteria(HistoryModel.class)
+                    .add(Restrictions.eq("groupId",1))
                     .list();
 
             return omp.writeValueAsString(history);

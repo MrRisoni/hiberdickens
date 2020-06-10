@@ -20,6 +20,11 @@ public class HistoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date started;
 
+
+    @Column(name="group_id")
+    private int groupId;
+
+
     public HistoryModel() {
     }
 
@@ -46,5 +51,14 @@ public class HistoryModel {
 
     public void setStarted(Date started) {
         this.started = started;
+    }
+
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 }

@@ -13,9 +13,9 @@ public class HistoryModel {
     private int id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY )
+   /* @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name="group_id", nullable=false)
-    private GroupModel groupObj;
+    private GroupModel groupObj; */
 
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date started;
@@ -32,13 +32,13 @@ public class HistoryModel {
         this.id = id;
     }
 
-    public GroupModel getGroupObj() {
+    /*public GroupModel getGroupObj() {
         return groupObj;
     }
 
     public void setGroupObj(GroupModel groupObj) {
         this.groupObj = groupObj;
-    }
+    } */
 
     public Date getStarted() {
         return started;

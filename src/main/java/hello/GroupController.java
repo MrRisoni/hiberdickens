@@ -26,19 +26,21 @@ public class GroupController {
     @RequestMapping(value = "/api/group", method = RequestMethod.GET)
     public String getHistory() {
         try {
-           // Session session = HibernateUtil.getSessionFactory().openSession();
+            Session session = HibernateUtil.getSessionFactory().openSession();
             ObjectMapper omp = new ObjectMapper();
             omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-           /* * List<HistoryModel> history = session.createCriteria(HistoryModel.class)
-                    .list(); */
+            List<HistoryModel> history = session.createCriteria(HistoryModel.class)
+                    .list();
 
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            return omp.writeValueAsString(history);
 
-            return omp.writeValueAsString(entityManager.createQuery(
+           /// EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
+           // EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+         /*   return omp.writeValueAsString(entityManager.createQuery(
                     "select hs from HistoryModel hs ", HistoryModel.class)
-                    .getResultList());
+                    .getResultList()); */
         }
         catch(Exception ex) {
             ex.printStackTrace();

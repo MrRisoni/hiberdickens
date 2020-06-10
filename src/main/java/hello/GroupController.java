@@ -12,6 +12,9 @@ import org.hibernate.Transaction;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 @CrossOrigin
@@ -22,14 +25,21 @@ public class GroupController {
     @RequestMapping(value = "/api/group", method = RequestMethod.GET)
     public String getHistory() {
         try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
+           // Session session = HibernateUtil.getSessionFactory().openSession();
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
-            List<HistoryModel> history = session.createCriteria(HistoryModel.class)
-                    .list();
-            return ow.writeValueAsString(history);
+           /* * List<HistoryModel> history = session.createCriteria(HistoryModel.class)
+                    .list(); */
+
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+            return ow.writeValueAsString(entityManager.createQuery(
+                    "select hs from HistoryModel hs ", HistoryModel.class)
+                    .getResultList());
         }
         catch(Exception ex) {
+            ex.printStackTrace();
             return ex.getMessage();
         }
     }

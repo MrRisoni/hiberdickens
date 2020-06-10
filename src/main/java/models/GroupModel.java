@@ -1,10 +1,12 @@
 package models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "groupakia")
 public class GroupModel {
 
 
@@ -21,7 +23,8 @@ public class GroupModel {
 
 
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<GroupModel> historyList = new ArrayList<>();
+    @JsonIgnore
+    private List<HistoryModel> historyList = new ArrayList<>();
 
     public GroupModel() {
     }
@@ -44,11 +47,11 @@ public class GroupModel {
     }
 
 
-    public List<GroupModel> getHistoryList() {
+    public List<HistoryModel> getHistoryList() {
         return historyList;
     }
 
-    public void setHistoryList(List<GroupModel> historyList) {
+    public void setHistoryList(List<HistoryModel> historyList) {
         this.historyList = historyList;
     }
 }

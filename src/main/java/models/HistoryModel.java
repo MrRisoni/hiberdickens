@@ -12,7 +12,8 @@ public class HistoryModel {
     private int id;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name="group_id", nullable=false)
     private GroupModel groupObj;
 
 

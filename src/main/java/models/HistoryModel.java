@@ -13,7 +13,7 @@ public class HistoryModel {
     private int id;
 
 
-    @ManyToOne(fetch = FetchType.EAGER )
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name="group_id", nullable=false)
     private GroupModel groupObj;
 

@@ -1,5 +1,6 @@
 package models;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "history")
@@ -16,6 +17,8 @@ public class HistoryModel {
     @JoinColumn(name="group_id", nullable=false)
     private GroupModel groupObj;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date started;
 
     public HistoryModel() {
     }
@@ -35,5 +38,13 @@ public class HistoryModel {
 
     public void setGroupObj(GroupModel groupObj) {
         this.groupObj = groupObj;
+    }
+
+    public Date getStarted() {
+        return started;
+    }
+
+    public void setStarted(Date started) {
+        this.started = started;
     }
 }

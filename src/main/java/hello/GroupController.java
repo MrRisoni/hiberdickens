@@ -22,9 +22,29 @@ import java.util.List;
 @RestController
 public class GroupController {
 
+    @RequestMapping(value = "/api/timetable", method = RequestMethod.GET)
+    public String getTimeTable() {
+        try {
+            // specific group only, do not fetch group details
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            ObjectMapper omp = new ObjectMapper();
+            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            List<HistoryModel> history = session.createQuery("SELECT h from HistoryModel AS hm join fetch hm.groupObj")
+                    .getResultList();
+
+            return omp.writeValueAsString(history);
+
+
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+            return ex.getMessage();
+        }
+    }
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
-    public String getHistory() {
+    public String getGroupDetails() {
         try {
             // specific group only, do not fetch group details
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -32,7 +52,7 @@ public class GroupController {
             omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
             List<HistoryModel> history = session.createCriteria(HistoryModel.class)
-                    .add(Restrictions.eq("groupId",1))
+                    .add(Restrictions.eq("groupObj.id",1))
                     .list();
 
             return omp.writeValueAsString(history);

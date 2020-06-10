@@ -22,8 +22,7 @@ public class GroupModel {
 
 
 
-  //  @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<HistoryModel> historyList = new ArrayList<>();

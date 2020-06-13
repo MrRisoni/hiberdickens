@@ -13,35 +13,19 @@ import org.hibernate.Transaction;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class GroupController {
 
-    @RequestMapping(value = "/api/timetable", method = RequestMethod.GET)
-    public String getTimeTable() {
-        try {
-            // specific group only, do not fetch group details
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            ObjectMapper omp = new ObjectMapper();
-            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-            List<HistoryModel> history = session.createQuery("SELECT h from HistoryModel AS hm join fetch hm.groupObj")
-                    .getResultList();
-
-            return omp.writeValueAsString(history);
-
-
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            return ex.getMessage();
-        }
-    }
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
     public String getGroupDetails() {
@@ -51,14 +35,16 @@ public class GroupController {
             ObjectMapper omp = new ObjectMapper();
             omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-            List<HistoryModel> history = session.createCriteria(HistoryModel.class)
-                    .add(Restrictions.eq("groupObj.id",1))
-                    .list();
+             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
+             EntityManager entityManager = entityManagerFactory.createEntityManager();
+            EntityGraph graph = entityManager.getEntityGraph("HistoryModel.nogroupObj");
 
-            return omp.writeValueAsString(history);
+            Map hints = new HashMap();
+            hints.put("javax.persistence.fetchgraph", graph);
 
-           /// EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
-           // EntityManager entityManager = entityManagerFactory.createEntityManager();
+            return omp.writeValueAsString(entityManager.find(HistoryModel.class, 1, hints));
+
+
 
          /*   return omp.writeValueAsString(entityManager.createQuery(
                     "select hs from HistoryModel hs ", HistoryModel.class)

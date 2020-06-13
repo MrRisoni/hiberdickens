@@ -4,6 +4,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "history")
+@NamedEntityGraphs(value = {
+        @NamedEntityGraph(name="HistoryModel.grouppen",attributeNodes=@NamedAttributeNode("groupObj")),
+        @NamedEntityGraph(name = "HistoryModel.nogroupObj")
+
+})
 public class HistoryModel {
 
 

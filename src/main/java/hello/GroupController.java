@@ -34,21 +34,33 @@ public class GroupController {
             // specific group only, do not fetch group details
            // Session session = HibernateUtil.getSessionFactory().openSession();
             ObjectMapper omp = new ObjectMapper();
-            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            //omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
              EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
              EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+           /* CriteriaBuilder builder = entityManager.getCriteriaBuilder();
             CriteriaQuery<GroupModel> query = builder.createQuery(GroupModel.class);
 
             Root<GroupModel> root = query.from(GroupModel.class);
-            root.join(GroupModel_.daskalos, JoinType.INNER);
+          //  root.join(GroupModel_.historylist, JoinType.INNER);
+            //root.join(GroupModel_.daskalos, JoinType.INNER);
 
             TypedQuery<GroupModel> typedQuery = entityManager.createQuery(query);
             List<GroupModel> resultList = typedQuery.getResultList();
-            System.out.println(resultList.get(0).getDaskalos().getMember().getName());
-            return omp.writeValueAsString(resultList);
+            System.out.println(resultList.get(0).getDaskalos().getMember().getName()); */
+
+          /*  EntityGraph graph = entityManager.getEntityGraph("groupsWithHistories");
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("javax.persistence.loadgraph", graph);
+            GroupModel user = entityManager.find(GroupModel.class, 1, properties);
+
+
+
+           */
+            TypedQuery<GroupModel> ga = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g INNER JOIN FETCH g.historyList WHERE g.id = 1",GroupModel.class);
+            List<GroupModel> lg = ga.getResultList();
+            return omp.writeValueAsString(lg);
 
 
 

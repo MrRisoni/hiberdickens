@@ -11,6 +11,20 @@ import java.util.Set;
 
 @Entity
 @Table(name = "groupakia")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "groupsWithTeachers",
+                attributeNodes = {
+                        @NamedAttributeNode("daskalos")
+                }
+        ),
+        @NamedEntityGraph(
+                name = "groupsWithHistories",
+                attributeNodes = {
+                        @NamedAttributeNode("historyList")
+                }
+        )
+})
 public class GroupModel {
 
 
@@ -26,7 +40,9 @@ public class GroupModel {
 
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JsonBackReference
-    private Set<HistoryModel> historyList ;
+    private List<HistoryModel> historyList = new ArrayList<HistoryModel>();
+
+
 
     @ManyToOne(fetch = FetchType.LAZY )
     @JsonManagedReference
@@ -53,11 +69,11 @@ public class GroupModel {
         this.title = title;
     }
 
-    public Set<HistoryModel> getHistoryList() {
+    public List<HistoryModel> getHistoryList() {
         return historyList;
     }
 
-    public void setHistoryList(Set<HistoryModel> historyList) {
+    public void setHistoryList(List<HistoryModel> historyList) {
         this.historyList = historyList;
     }
 

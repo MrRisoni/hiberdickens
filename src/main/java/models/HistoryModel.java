@@ -6,11 +6,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "history")
-@NamedEntityGraphs(value = {
-        @NamedEntityGraph(name="HistoryModel.grouppen",attributeNodes=@NamedAttributeNode("groupObj")),
-        @NamedEntityGraph(name = "HistoryModel.nogroupObj")
-
-})
 public class HistoryModel {
 
 
@@ -20,7 +15,7 @@ public class HistoryModel {
     private int id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY )
+    @ManyToOne
     @JoinColumn(name="group_id", nullable=false)
     @JsonManagedReference
     private GroupModel groupObj;

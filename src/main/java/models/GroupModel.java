@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -39,14 +40,13 @@ public class GroupModel {
 
 
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonSerialize(using = CustomListSerializer.class)
     private List<HistoryModel> historyList = new ArrayList<HistoryModel>();
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY )
-    @JsonManagedReference
-    @JoinColumn(name="teacher_id", nullable=false)
+    @OneToOne
+    @JoinColumn(name = "teacher_id")
     private Teacher daskalos;
 
     public GroupModel() {

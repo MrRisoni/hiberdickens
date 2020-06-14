@@ -60,6 +60,7 @@ public class GroupController {
            */
             TypedQuery<GroupModel> ga = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g INNER JOIN FETCH g.historyList WHERE g.id = 1",GroupModel.class);
             List<GroupModel> lg = ga.getResultList();
+            System.out.println(lg.get(0).getHistoryList().get(0).getStarted());
             return omp.writeValueAsString(lg);
 
 

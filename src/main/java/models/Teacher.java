@@ -21,9 +21,9 @@ public class Teacher {
     private Member member;
 
 
-    @OneToMany(mappedBy = "daskalos", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonBackReference
-    private List<GroupModel> grouppen = new ArrayList<>();
+  //  @OneToMany(mappedBy = "daskalos", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+  //  @JsonBackReference
+  //  private List<GroupModel> grouppen = new ArrayList<>();
 
 
     public Teacher() {
@@ -44,12 +44,12 @@ public class Teacher {
     public void setMember(Member member) {
         this.member = member;
     }
-
+/*
     public List<GroupModel> getGrouppen() {
         return grouppen;
     }
 
     public void setGrouppen(List<GroupModel> grouppen) {
         this.grouppen = grouppen;
-    }
+    } */
 }

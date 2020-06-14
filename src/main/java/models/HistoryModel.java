@@ -17,7 +17,6 @@ public class HistoryModel {
 
     @ManyToOne
     @JoinColumn(name="group_id", nullable=false)
-    @JsonManagedReference
     private GroupModel groupObj;
 
     @Temporal(TemporalType.TIMESTAMP)

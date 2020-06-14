@@ -16,6 +16,8 @@
         <mapping class="models.CourseModel"/>
         <mapping class="models.GroupModel"/>
         <mapping class="models.HistoryModel"/>
+        <mapping class="models.Teacher"/>
+        <mapping class="models.Member"/>
 
     </session-factory>
 </hibernate-configuration>

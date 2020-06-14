@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "groupakia")
@@ -21,11 +22,14 @@ public class GroupModel {
     private String title;
 
 
-
-    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JsonIgnore
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<HistoryModel> historyList = new ArrayList<>();
+    private Set<HistoryModel> historyList ;
+
+    @ManyToOne(fetch = FetchType.LAZY )
+    @JsonIgnore
+    @JoinColumn(name="teacher_id", nullable=false)
+    private Teacher daskalos;
 
     public GroupModel() {
     }
@@ -48,11 +52,20 @@ public class GroupModel {
     }
 
 
-    public List<HistoryModel> getHistoryList() {
+    public Set<HistoryModel> getHistoryList() {
         return historyList;
     }
 
-    public void setHistoryList(List<HistoryModel> historyList) {
+    public void setHistoryList(Set<HistoryModel> historyList) {
         this.historyList = historyList;
+    }
+
+
+    public Teacher getDaskalos() {
+        return daskalos;
+    }
+
+    public void setDaskalos(Teacher daskalos) {
+        this.daskalos = daskalos;
     }
 }

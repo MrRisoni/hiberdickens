@@ -13,10 +13,11 @@ import org.hibernate.Transaction;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,18 +32,24 @@ public class GroupController {
     public String getGroupDetails() {
         try {
             // specific group only, do not fetch group details
-            Session session = HibernateUtil.getSessionFactory().openSession();
+           // Session session = HibernateUtil.getSessionFactory().openSession();
             ObjectMapper omp = new ObjectMapper();
             omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
              EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
              EntityManager entityManager = entityManagerFactory.createEntityManager();
-            EntityGraph graph = entityManager.getEntityGraph("HistoryModel.nogroupObj");
 
-            Map hints = new HashMap();
-            hints.put("javax.persistence.fetchgraph", graph);
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<GroupModel> query = builder.createQuery(GroupModel.class);
 
-            return omp.writeValueAsString(entityManager.find(HistoryModel.class, 1, hints));
+            Root<GroupModel> root = query.from(GroupModel.class);
+            root.join(GroupModel_.daskalos, JoinType.INNER);
+
+
+            TypedQuery<GroupModel> typedQuery = entityManager.createQuery(query);
+            List<GroupModel> resultList = typedQuery.getResultList();
+
+            return omp.writeValueAsString(resultList);
 
 
 

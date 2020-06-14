@@ -1,6 +1,8 @@
 package models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,11 +25,11 @@ public class GroupModel {
 
 
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private Set<HistoryModel> historyList ;
 
     @ManyToOne(fetch = FetchType.LAZY )
-    @JsonIgnore
+    @JsonManagedReference
     @JoinColumn(name="teacher_id", nullable=false)
     private Teacher daskalos;
 
@@ -51,7 +53,6 @@ public class GroupModel {
         this.title = title;
     }
 
-
     public Set<HistoryModel> getHistoryList() {
         return historyList;
     }
@@ -59,7 +60,6 @@ public class GroupModel {
     public void setHistoryList(Set<HistoryModel> historyList) {
         this.historyList = historyList;
     }
-
 
     public Teacher getDaskalos() {
         return daskalos;

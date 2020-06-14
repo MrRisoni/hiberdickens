@@ -1,4 +1,5 @@
 package models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Teacher {
 
 
     @OneToMany(mappedBy = "daskalos", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private List<GroupModel> grouppen = new ArrayList<>();
 
 

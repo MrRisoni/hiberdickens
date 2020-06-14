@@ -45,10 +45,9 @@ public class GroupController {
             Root<GroupModel> root = query.from(GroupModel.class);
             root.join(GroupModel_.daskalos, JoinType.INNER);
 
-
             TypedQuery<GroupModel> typedQuery = entityManager.createQuery(query);
             List<GroupModel> resultList = typedQuery.getResultList();
-
+            System.out.println(resultList.get(0).getDaskalos().getMember().getName());
             return omp.writeValueAsString(resultList);
 
 

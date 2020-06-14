@@ -1,4 +1,6 @@
 package models;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,8 +20,9 @@ public class HistoryModel {
     private int id;
 
 
-   @ManyToOne(fetch = FetchType.LAZY )
+    @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name="group_id", nullable=false)
+    @JsonManagedReference
     private GroupModel groupObj;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -41,18 +41,7 @@ public class TimetableController {
     public String getLanguages()
     {
         try {
-            // where on criteria
-        /*    Session session = HibernateUtil.getSessionFactory().openSession();
-            Criteria c = session.createCriteria(Language.class, "glosses");
-            c.createAlias("glosses.diplomas", "langDiplomas");
-
-          //  List<Language> langlist = c.add(Restrictions.eq("langDiplomas.active", 1))
-          //          .list();
-         //  ;
-         */
-
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
+             EntityManager entityManager= HibernateUtil.getEM();
 
             TypedQuery<Language> ga = entityManager.createQuery("SELECT DISTINCT l FROM Language l INNER JOIN FETCH l.diplomas d WHERE d.active = 1",Language.class);
             List<Language> lg = ga.getResultList();

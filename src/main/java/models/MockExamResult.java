@@ -16,6 +16,10 @@ public class MockExamResult {
     private  float grade;
 
 
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
     public MockExamResult() {
     }
 
@@ -34,5 +38,13 @@ public class MockExamResult {
 
     public void setGrade(float grade) {
         this.grade = grade;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

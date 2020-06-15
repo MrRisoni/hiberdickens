@@ -27,6 +27,7 @@
         <mapping class="models.HourModel"/>
         <mapping class="models.MockExam"/>
         <mapping class="models.MockExamResult"/>
+        <mapping class="models.Student"/>
 
 
     </session-factory>

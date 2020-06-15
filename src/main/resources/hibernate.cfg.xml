@@ -23,6 +23,7 @@
         <mapping class="models.Language"/>
         <mapping class="models.CourseType"/>
         <mapping class="models.SchoolClass"/>
+        <mapping class="models.Diploma"/>
 
 
     </session-factory>

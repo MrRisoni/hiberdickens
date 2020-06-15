@@ -35,13 +35,22 @@ public class GroupController {
         try {
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
             EntityManager entityManager = entityManagerFactory.createEntityManager();
+            ObjectMapper omp = new ObjectMapper();
 
-             EntityGraph graph = entityManager.getEntityGraph("groupsWithHistories");
+          /*   EntityGraph graph = entityManager.getEntityGraph("historiesWithRooms");
             Map<String, Object> properties = new HashMap<>();
             properties.put("javax.persistence.loadgraph", graph);
-            GroupModel user = entityManager.find(GroupModel.class, 1, properties);
+            HistoryModel user = entityManager.find(HistoryModel.class, 1, properties); */
 
-            return "";
+            EntityGraph<HistoryModel> graph = entityManager.createEntityGraph(HistoryModel.class);
+            graph.addAttributeNodes("groupObj");
+
+            Map<String, Object> hints = new HashMap<String, Object>();
+            hints.put("javax.persistence.loadgraph", graph);
+
+
+            return omp.writeValueAsString(entityManager.find(HistoryModel.class, 1, hints));
+
         }
         catch (Exception ex) {
             return ex.getMessage();

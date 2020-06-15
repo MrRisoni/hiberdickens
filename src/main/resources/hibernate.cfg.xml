@@ -19,6 +19,9 @@
         <mapping class="models.Teacher"/>
         <mapping class="models.Member"/>
         <mapping class="models.Room"/>
+        <mapping class="models.Building"/>
+        <mapping class="models.Language"/>
+
 
     </session-factory>
 </hibernate-configuration>

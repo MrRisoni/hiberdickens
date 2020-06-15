@@ -7,6 +7,14 @@ import java.util.Date;
 
 @Entity
 @Table(name = "history")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "historiesWithRooms",
+                attributeNodes = {
+                        @NamedAttributeNode("groupObj")
+                }
+        )
+})
 public class HistoryModel {
 
 

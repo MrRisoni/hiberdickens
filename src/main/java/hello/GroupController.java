@@ -30,25 +30,7 @@ import java.util.Map;
 public class GroupController {
 
 
-    @RequestMapping(value = "/api/group/mockexams", method = RequestMethod.GET)
-    public String getMockExams() {
-        try {
-            ObjectMapper omp = new ObjectMapper();
 
-          //  EntityManager entityManager =  HibernateUtil.getEM();
-
-            Session session = HibernateUtil.getSessionFactory().openSession();
-
-            return omp.writeValueAsString( session.createCriteria(MockExam.class)
-                    .add(Restrictions.eq("groupObj.id", 1)).list());
-
-
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            return ex.getMessage();
-        }
-    }
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
     public String getGroupDetails() {

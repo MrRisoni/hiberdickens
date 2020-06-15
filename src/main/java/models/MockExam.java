@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,6 @@ public class MockExam {
     @Column
     private int id;
 
-    @Column
-    private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="group_id", nullable=false)
@@ -36,6 +35,9 @@ public class MockExam {
     @JoinColumn(name = "grad_sys_id")
     private GradingSystem gradSys;
 
+    @Column
+    private java.sql.Date exam_year;
+
     public MockExam() {
     }
 
@@ -48,13 +50,6 @@ public class MockExam {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public List<MockExamResult> getExam_results() {
         return exam_results;
@@ -78,5 +73,13 @@ public class MockExam {
 
     public void setGradSys(GradingSystem gradSys) {
         this.gradSys = gradSys;
+    }
+
+    public Date getExam_year() {
+        return exam_year;
+    }
+
+    public void setExam_year(Date exam_year) {
+        this.exam_year = exam_year;
     }
 }

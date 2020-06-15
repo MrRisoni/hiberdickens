@@ -28,7 +28,10 @@
         <mapping class="models.MockExam"/>
         <mapping class="models.MockExamResult"/>
         <mapping class="models.Student"/>
-
+        <mapping class="models.RealExam"/>
+        <mapping class="models.RealExamResult"/>
+        <mapping class="models.Period"/>
+        <mapping class="models.GradingSystem"/>
 
     </session-factory>
 </hibernate-configuration>

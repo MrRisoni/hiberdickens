@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "mock_exams")
-public class MockExam {
+@Table(name = "real_exams")
+public class RealExam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,16 +27,7 @@ public class MockExam {
     @JoinColumn(name="exam_id")
     private List<MockExamResult> exam_results = new ArrayList<MockExamResult>();
 
-    @OneToOne
-    @JoinColumn(name = "period_id")
-    private Period period;
-
-
-    @OneToOne
-    @JoinColumn(name = "grad_sys_id")
-    private GradingSystem gradSys;
-
-    public MockExam() {
+    public RealExam() {
     }
 
 
@@ -62,21 +53,5 @@ public class MockExam {
 
     public void setExam_results(List<MockExamResult> exam_results) {
         this.exam_results = exam_results;
-    }
-
-    public Period getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Period period) {
-        this.period = period;
-    }
-
-    public GradingSystem getGradSys() {
-        return gradSys;
-    }
-
-    public void setGradSys(GradingSystem gradSys) {
-        this.gradSys = gradSys;
     }
 }

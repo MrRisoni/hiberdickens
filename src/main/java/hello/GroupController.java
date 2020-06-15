@@ -39,10 +39,6 @@ public class GroupController {
 
             Session session = HibernateUtil.getSessionFactory().openSession();
 
-
-
-
-
             return omp.writeValueAsString( session.createCriteria(MockExam.class)
                     .add(Restrictions.eq("groupObj.id", 1)).list());
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 10, 2020 at 10:31 AM
+-- Generation Time: Jun 15, 2020 at 06:14 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.6
 
@@ -52,16 +52,17 @@ CREATE TABLE `buildings` (
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `municipality_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `municipality_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `buildings`
 --
 
-INSERT INTO `buildings` (`id`, `address`, `created_at`, `updated_at`, `municipality_id`) VALUES
-(1, 'Melpomeni', '2020-06-02 05:54:21', '2020-06-02 05:54:21', 1),
-(2, 'Sophocles', '2020-06-02 05:54:21', '2020-06-02 05:54:21', 2);
+INSERT INTO `buildings` (`id`, `address`, `created_at`, `updated_at`, `municipality_id`, `title`) VALUES
+(1, 'Melpomeni', '2020-06-02 05:54:21', '2020-06-02 05:54:21', 1, NULL),
+(2, 'Sophocles', '2020-06-02 05:54:21', '2020-06-02 05:54:21', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,8 @@ INSERT INTO `courses` (`id`, `title`, `active`, `created_at`, `updated_at`, `cou
 (10, 'Groses Deutsches Srpachdiplom', 1, '2020-06-07 05:18:08', '2020-06-07 05:18:08', 2),
 (11, 'Sorbonne', 1, '2020-06-07 05:19:38', '2020-06-07 05:19:38', 2),
 (12, 'Λατινικά Β Λυκειου', 1, '2020-06-07 14:27:40', '2020-06-07 14:27:40', 1),
-(13, 'Hey do', 1, '2020-06-07 15:02:12', '2020-06-07 15:02:12', 2);
+(13, 'Hey do', 1, '2020-06-07 15:02:12', '2020-06-07 15:02:12', 2),
+(14, 'Πάλσο', 1, '2020-06-15 09:43:53', '2020-06-15 09:43:53', 2);
 
 -- --------------------------------------------------------
 
@@ -208,11 +210,13 @@ CREATE TABLE `diplomas` (
 --
 
 INSERT INTO `diplomas` (`id`, `active`, `created_at`, `updated_at`, `level`, `language_id`, `course_id`, `institut_id`) VALUES
-(1, 1, '2020-06-01 14:22:22', '2020-06-01 14:22:22', '', 1, 1, 1),
-(2, 1, '2020-06-02 14:27:40', '2020-06-02 14:27:40', '', 2, 1, 1),
-(3, 1, '2020-05-28 14:48:19', '2020-06-01 15:05:26', 'C2', 1, 1, 1),
+(1, 1, '2020-06-01 14:22:22', '2020-06-01 14:22:22', '', 1, 3, 1),
+(2, 1, '2020-06-02 14:27:40', '2020-06-02 14:27:40', '', 2, 9, 1),
 (4, 1, '2020-06-07 05:19:54', '2020-06-07 05:19:54', 'C1', 4, 5, 5),
-(5, 1, '2020-05-28 14:48:19', '2020-05-23 07:13:31', 'B1', 7, 13, 1);
+(5, 1, '2020-05-28 14:48:19', '2020-05-23 07:13:31', 'B1', 7, 13, 1),
+(6, 0, '2020-06-01 09:44:09', '2020-06-01 09:44:09', 'Α2', 1, 14, 2),
+(7, 1, '2020-06-01 14:22:22', '2020-06-01 14:22:22', '', 2, 1, 1),
+(8, 1, '2020-06-01 09:56:29', '2020-06-01 09:56:29', 'C2', 1, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -394,7 +398,7 @@ INSERT INTO `history` (`id`, `wage`, `fee`, `vat`, `started`, `ended`, `group_id
 (1, '12.00', '3.00', '3.00', '2019-09-01 10:00:00', '2019-09-01 11:30:00', 1, 1, 4, 1.5),
 (2, '12.00', '3.00', '3.00', '2019-09-06 10:00:00', '2019-09-06 11:30:00', 1, 1, 4, 1.5),
 (3, '12.00', '3.00', '3.00', '2019-09-12 17:00:00', '2019-09-12 18:30:00', 1, 2, 18, 1.5),
-(4, '12.00', '3.00', '3.00', '2019-09-18 17:00:00', '2019-09-12 18:30:00', 1, 2, 18, 1.5),
+(4, '12.00', '3.00', '3.00', '2019-09-21 10:00:00', '2019-09-12 11:30:00', 1, 6, 4, 1.5),
 (5, '12.00', '3.00', '3.00', '2019-09-24 18:00:00', '2019-09-24 19:30:00', 1, 2, 18, 1.5),
 (6, '12.00', '3.00', '3.00', '2019-09-30 18:30:00', '2019-09-30 20:00:00', 1, 2, 21, 1.5),
 (7, '12.00', '3.00', '3.00', '2019-10-03 18:30:00', '2019-10-03 20:00:00', 1, 2, 21, 1.5),
@@ -406,7 +410,7 @@ INSERT INTO `history` (`id`, `wage`, `fee`, `vat`, `started`, `ended`, `group_id
 (13, '12.00', '3.00', '3.00', '2019-09-09 19:30:00', '2019-09-09 21:30:00', 2, 4, 22, 2),
 (14, '12.00', '3.00', '3.00', '2019-09-12 19:00:00', '2019-09-12 21:00:00', 2, 4, 22, 2),
 (15, '12.00', '3.00', '3.00', '2019-09-17 19:00:00', '2019-09-17 20:30:00', 2, 4, 22, 1.5),
-(16, '12.00', '3.00', '3.00', '2019-09-21 19:00:00', '2019-09-21 21:00:00', 2, 5, 22, 1.5),
+(16, '12.00', '3.00', '3.00', '2019-09-21 09:30:00', '2019-09-21 11:00:00', 2, 5, 3, 1.5),
 (17, '12.00', '3.00', '3.00', '2019-09-27 19:00:00', '2019-09-27 20:30:00', 2, 5, 22, 1.5),
 (18, '12.00', '3.00', '3.00', '2019-10-04 19:00:00', '2019-10-04 21:00:00', 2, 5, 22, 1.5);
 
@@ -822,7 +826,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (96, '2020_06_07_144520_add_duration_to_history', 76),
 (97, '2020_06_07_153015_rename_col_to_history', 77),
 (98, '2020_06_08_101141_rename_table_group_members', 78),
-(99, '2020_06_10_102047_rename_group_to_groupakia', 79);
+(99, '2020_06_10_102047_rename_group_to_groupakia', 79),
+(100, '2020_06_15_180945_add_exam_year_to_mock_exams_table', 80),
+(101, '2020_06_15_181341_add_exam_year_to_real_exams_table', 81);
 
 -- --------------------------------------------------------
 
@@ -836,8 +842,17 @@ CREATE TABLE `mock_exams` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `period_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `grad_sys_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `grad_sys_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exam_year` date NOT NULL DEFAULT '1907-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mock_exams`
+--
+
+INSERT INTO `mock_exams` (`id`, `created_at`, `updated_at`, `period_id`, `group_id`, `grad_sys_id`, `title`, `exam_year`) VALUES
+(1, '2020-06-01 11:21:41', '2020-06-01 11:21:41', 1, 1, 1, NULL, '1907-01-01');
 
 -- --------------------------------------------------------
 
@@ -854,6 +869,14 @@ CREATE TABLE `mock_exams_results` (
   `grade` decimal(8,2) UNSIGNED NOT NULL,
   `text_grade_id` bigint UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mock_exams_results`
+--
+
+INSERT INTO `mock_exams_results` (`id`, `created_at`, `updated_at`, `exam_id`, `student_id`, `grade`, `text_grade_id`) VALUES
+(1, '2020-05-28 14:48:19', '2020-05-23 07:13:31', 1, 1, '12.00', 1),
+(2, '2020-05-28 14:48:19', '2020-05-23 07:13:31', 1, 2, '12.00', 1);
 
 -- --------------------------------------------------------
 
@@ -974,15 +997,16 @@ CREATE TABLE `real_exams` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `period_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `grad_sys_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `grad_sys_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `exam_year` date NOT NULL DEFAULT '1907-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `real_exams`
 --
 
-INSERT INTO `real_exams` (`id`, `created_at`, `updated_at`, `period_id`, `group_id`, `grad_sys_id`) VALUES
-(1, '2020-06-05 16:51:24', '2020-06-05 16:51:24', 1, 1, 1);
+INSERT INTO `real_exams` (`id`, `created_at`, `updated_at`, `period_id`, `group_id`, `grad_sys_id`, `exam_year`) VALUES
+(1, '2020-06-05 16:51:24', '2020-06-05 16:51:24', 1, 1, 1, '1907-01-01');
 
 -- --------------------------------------------------------
 
@@ -1034,7 +1058,8 @@ INSERT INTO `rooms` (`id`, `title`, `created_at`, `updated_at`, `building_id`) V
 (2, 'Ικαρος', '2020-06-07 14:54:58', '2020-06-07 14:54:58', 1),
 (3, 'Ευρώπη', '2020-06-07 14:56:42', '2020-06-07 14:56:42', 1),
 (4, 'Strindberg', '2020-06-07 15:09:49', '2020-06-07 15:09:49', 2),
-(5, 'Ibsen', '2020-06-07 15:33:51', '2020-06-07 15:33:51', 2);
+(5, 'Ibsen', '2020-06-07 15:33:51', '2020-06-07 15:33:51', 2),
+(6, 'Δίας', '2020-06-11 08:37:19', '2020-06-11 08:37:19', 2);
 
 -- --------------------------------------------------------
 
@@ -1686,7 +1711,7 @@ ALTER TABLE `buildings`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `courses_fees_history`
@@ -1722,7 +1747,7 @@ ALTER TABLE `course_wages`
 -- AUTO_INCREMENT for table `diplomas`
 --
 ALTER TABLE `diplomas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `diploma_grades`
@@ -1800,19 +1825,19 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `mock_exams`
 --
 ALTER TABLE `mock_exams`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mock_exams_results`
 --
 ALTER TABLE `mock_exams_results`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `months`
@@ -1872,7 +1897,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `school_classes`

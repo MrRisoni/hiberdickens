@@ -4,8 +4,8 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "mock_exams_results")
-public class MockExamResult {
+@Table(name = "real_exams_results")
+public class RealExamResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,13 +15,13 @@ public class MockExamResult {
     @Column
     private  float grade;
 
-
     @OneToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
-    public MockExamResult() {
+    public RealExamResult() {
     }
+
 
     public int getId() {
         return id;

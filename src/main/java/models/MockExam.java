@@ -23,14 +23,11 @@ public class MockExam {
     @JsonIgnoreProperties("mockExams")
     private GroupModel groupObj;
 
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="exam_id")
     private List<MockExamResult> exam_results = new ArrayList<MockExamResult>();
 
-    public MockExam(int id, String title) {
-        this.id = id;
-        this.title = title;
+    public MockExam() {
     }
 
 

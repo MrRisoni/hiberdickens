@@ -30,6 +30,29 @@ import java.util.Map;
 public class GroupController {
 
 
+    @RequestMapping(value = "/api/group/mockexams", method = RequestMethod.GET)
+    public String getMockExams() {
+        try {
+            ObjectMapper omp = new ObjectMapper();
+
+          //  EntityManager entityManager =  HibernateUtil.getEM();
+
+            Session session = HibernateUtil.getSessionFactory().openSession();
+
+
+
+
+
+            return omp.writeValueAsString( session.createCriteria(MockExam.class)
+                    .add(Restrictions.eq("groupObj.id", 1)).list());
+
+
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+            return ex.getMessage();
+        }
+    }
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
     public String getGroupDetails() {
@@ -39,8 +62,7 @@ public class GroupController {
             ObjectMapper omp = new ObjectMapper();
             //omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
-             EntityManager entityManager = entityManagerFactory.createEntityManager();
+            EntityManager entityManager =  HibernateUtil.getEM();
 
            /* CriteriaBuilder builder = entityManager.getCriteriaBuilder();
             CriteriaQuery<GroupModel> query = builder.createQuery(GroupModel.class);
@@ -58,17 +80,13 @@ public class GroupController {
             properties.put("javax.persistence.loadgraph", graph);
             GroupModel user = entityManager.find(GroupModel.class, 1, properties);
 
-
-
            */
             TypedQuery<GroupModel> ga = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g INNER JOIN FETCH g.historyList WHERE g.id = 1",GroupModel.class);
             List<GroupModel> lg = ga.getResultList();
             System.out.println(lg.get(0).getHistoryList().get(0).getStarted());
 
 
-
              return omp.writeValueAsString(lg);
-
 
         }
         catch(Exception ex) {

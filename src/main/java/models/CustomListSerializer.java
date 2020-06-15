@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomListSerializer extends JsonSerializer<List<HistoryModel>> {
 
-   
+
     @Override
     public void serialize(
             List<HistoryModel> items,
@@ -20,10 +20,13 @@ public class CustomListSerializer extends JsonSerializer<List<HistoryModel>> {
             SerializerProvider provider)
             throws IOException, JsonProcessingException {
 
-        List<Integer> ids = new ArrayList<>();
-        for (HistoryModel item : items) {
-            ids.add(item.getId());
+        List<HistoryModel> ids = new ArrayList<>();
+       for (HistoryModel item : items) {
+           HistoryModel mdl = new HistoryModel();
+           mdl.setStarted(item.getStarted());
+            ids.add(mdl);
         }
+        ids = items;
         generator.writeObject(ids);
     }
 }

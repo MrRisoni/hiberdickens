@@ -40,7 +40,6 @@ public class GroupModel {
 
 
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonSerialize(using = CustomListSerializer.class)
     private List<HistoryModel> historyList = new ArrayList<HistoryModel>();
 
 

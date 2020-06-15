@@ -3,6 +3,9 @@ package hello;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.GsonBuilder;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,8 +64,10 @@ public class GroupController {
             TypedQuery<GroupModel> ga = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g INNER JOIN FETCH g.historyList WHERE g.id = 1",GroupModel.class);
             List<GroupModel> lg = ga.getResultList();
             System.out.println(lg.get(0).getHistoryList().get(0).getStarted());
-            return omp.writeValueAsString(lg);
 
+
+
+             return omp.writeValueAsString(lg);
 
 
          /*   return omp.writeValueAsString(entityManager.createQuery(

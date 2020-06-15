@@ -1,6 +1,7 @@
 package models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ public class Teacher {
     private Member member;
 
 
-  //  @OneToMany(mappedBy = "daskalos", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-  //  @JsonBackReference
-  //  private List<GroupModel> grouppen = new ArrayList<>();
+    @OneToMany(mappedBy = "daskalos", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("daskalos")
+    private List<GroupModel> grouppen = new ArrayList<>();
 
 
     public Teacher() {

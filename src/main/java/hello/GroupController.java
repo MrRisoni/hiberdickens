@@ -29,33 +29,6 @@ import java.util.Map;
 @RestController
 public class GroupController {
 
-    @RequestMapping(value = "/api/timetable", method = RequestMethod.GET)
-    public String timetable()
-    {
-        try {
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            ObjectMapper omp = new ObjectMapper();
-
-          /*   EntityGraph graph = entityManager.getEntityGraph("historiesWithRooms");
-            Map<String, Object> properties = new HashMap<>();
-            properties.put("javax.persistence.loadgraph", graph);
-            HistoryModel user = entityManager.find(HistoryModel.class, 1, properties); */
-
-            EntityGraph<HistoryModel> graph = entityManager.createEntityGraph(HistoryModel.class);
-            graph.addAttributeNodes("groupObj");
-
-            Map<String, Object> hints = new HashMap<String, Object>();
-            hints.put("javax.persistence.loadgraph", graph);
-
-
-            return omp.writeValueAsString(entityManager.find(HistoryModel.class, 1, hints));
-
-        }
-        catch (Exception ex) {
-            return ex.getMessage();
-        }
-    }
 
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)

@@ -2,6 +2,7 @@ package hello;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import models.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -11,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -85,4 +85,24 @@ public class TimetableController {
             return ex.getMessage();
         }
     }
+
+    @RequestMapping(value = "/api/timetable", method = RequestMethod.GET)
+    public String timetable()
+    {
+        try {
+            EntityManager entityManager= HibernateUtil.getEM();
+
+            TypedQuery<HistoryModel> timetable = entityManager.createQuery("SELECT DISTINCT hs FROM HistoryModel hs",HistoryModel.class);
+
+            ObjectMapper omp = new ObjectMapper();
+            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            return omp.writeValueAsString(timetable.getResultList());
+
+        }
+        catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
 }

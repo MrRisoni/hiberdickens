@@ -24,6 +24,7 @@
         <mapping class="models.CourseType"/>
         <mapping class="models.SchoolClass"/>
         <mapping class="models.Diploma"/>
+        <mapping class="models.HourModel"/>
 
 
     </session-factory>

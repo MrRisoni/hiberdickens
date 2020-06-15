@@ -37,6 +37,15 @@ public class HistoryModel {
     private Room room;
 
 
+    @Column
+    private float duration;
+
+
+    @OneToOne
+    @JoinColumn(name = "hour_id")
+    private HourModel hour;
+
+
     public HistoryModel() {
     }
 
@@ -71,5 +80,23 @@ public class HistoryModel {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+
+    public float getDuration() {
+        return duration;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
+    }
+
+
+    public HourModel getHour() {
+        return hour;
+    }
+
+    public void setHour(HourModel hour) {
+        this.hour = hour;
     }
 }

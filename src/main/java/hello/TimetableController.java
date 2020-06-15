@@ -7,6 +7,7 @@ import models.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,12 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 public class TimetableController {
+
+
+
+    @Value("${app.beginning}")
+    private String startingDate;
+
 
     @RequestMapping(value = "/api/buildings", method = RequestMethod.GET)
     public String getBuildings()
@@ -92,11 +99,12 @@ public class TimetableController {
         try {
             EntityManager entityManager= HibernateUtil.getEM();
 
-            TypedQuery<HistoryModel> timetable = entityManager.createQuery("SELECT DISTINCT hs FROM HistoryModel hs",HistoryModel.class);
+            TypedQuery<HistoryModel> timetable = entityManager.createQuery("SELECT DISTINCT hs FROM HistoryModel hs WHERE started >= '" + startingDate + "'",HistoryModel.class);
 
             ObjectMapper omp = new ObjectMapper();
             omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
+            System.out.println(this.startingDate);
             return omp.writeValueAsString(timetable.getResultList());
 
         }

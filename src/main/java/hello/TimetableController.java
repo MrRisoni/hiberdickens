@@ -3,7 +3,9 @@ package hello;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import models.*;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,8 +37,12 @@ public class TimetableController {
     public String getLanguages()
     {
         try {
+            // where on criteria
             Session session = HibernateUtil.getSessionFactory().openSession();
-            List<Language> langlist = session.createCriteria(Language.class)
+            Criteria c = session.createCriteria(Language.class, "glosses");
+            c.createAlias("glosses.diplomas", "langDiplomas");
+
+            List<Language> langlist = c.add(Restrictions.eq("langDiplomas.active", 1))
                     .list();
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return ow.writeValueAsString(langlist);

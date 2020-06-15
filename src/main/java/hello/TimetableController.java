@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @CrossOrigin
@@ -38,14 +42,23 @@ public class TimetableController {
     {
         try {
             // where on criteria
-            Session session = HibernateUtil.getSessionFactory().openSession();
+        /*    Session session = HibernateUtil.getSessionFactory().openSession();
             Criteria c = session.createCriteria(Language.class, "glosses");
             c.createAlias("glosses.diplomas", "langDiplomas");
 
-            List<Language> langlist = c.add(Restrictions.eq("langDiplomas.active", 1))
-                    .list();
+          //  List<Language> langlist = c.add(Restrictions.eq("langDiplomas.active", 1))
+          //          .list();
+         //  ;
+         */
+
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+            TypedQuery<Language> ga = entityManager.createQuery("SELECT DISTINCT l FROM Language l INNER JOIN FETCH l.diplomas d WHERE d.active = 1",Language.class);
+            List<Language> lg = ga.getResultList();
+
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            return ow.writeValueAsString(langlist);
+            return ow.writeValueAsString(lg);
         }
         catch (Exception ex){
             return ex.getMessage();

@@ -42,7 +42,8 @@ public class GroupModel {
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<HistoryModel> historyList = new ArrayList<HistoryModel>();
 
-
+    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<MockExam> mockExams = new ArrayList<MockExam>();
 
     @OneToOne
     @JoinColumn(name = "teacher_id")

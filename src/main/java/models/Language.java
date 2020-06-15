@@ -15,9 +15,6 @@ public class Language {
     @Column
     private String title;
 
-
-
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="language_id")
     private List<Diploma> diplomas = new ArrayList<Diploma>();

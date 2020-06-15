@@ -36,9 +36,17 @@ public class HistoryModel {
     @JoinColumn(name = "room_id")
     private Room room;
 
-
     @Column
     private float duration;
+
+    @Column
+    private float wage;
+
+    @Column
+    private float fee;
+
+    @Column
+    private float vat;
 
 
     @OneToOne
@@ -98,5 +106,29 @@ public class HistoryModel {
 
     public void setHour(HourModel hour) {
         this.hour = hour;
+    }
+
+    public float getWage() {
+        return wage;
+    }
+
+    public void setWage(float wage) {
+        this.wage = wage;
+    }
+
+    public float getFee() {
+        return fee;
+    }
+
+    public void setFee(float fee) {
+        this.fee = fee;
+    }
+
+    public float getVat() {
+        return vat;
+    }
+
+    public void setVat(float vat) {
+        this.vat = vat;
     }
 }

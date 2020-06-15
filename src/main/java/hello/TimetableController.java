@@ -2,10 +2,7 @@ package hello;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import models.Building;
-import models.CourseModel;
-import models.HibernateUtil;
-import models.Language;
+import models.*;
 import org.hibernate.Session;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +40,38 @@ public class TimetableController {
                     .list();
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return ow.writeValueAsString(langlist);
+        }
+        catch (Exception ex){
+            return ex.getMessage();
+        }
+    }
+
+
+    @RequestMapping(value = "/api/coursetypes", method = RequestMethod.GET)
+    public String getCourseTypes()
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            List<CourseType> typesList = session.createCriteria(CourseType.class)
+                    .list();
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            return ow.writeValueAsString(typesList);
+        }
+        catch (Exception ex){
+            return ex.getMessage();
+        }
+    }
+
+
+    @RequestMapping(value = "/api/schoolclasses", method = RequestMethod.GET)
+    public String getSchoolClasses()
+    {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            List<SchoolClass> classesList = session.createCriteria(SchoolClass.class)
+                    .list();
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            return ow.writeValueAsString(classesList);
         }
         catch (Exception ex){
             return ex.getMessage();

@@ -21,6 +21,8 @@
         <mapping class="models.Room"/>
         <mapping class="models.Building"/>
         <mapping class="models.Language"/>
+        <mapping class="models.CourseType"/>
+        <mapping class="models.SchoolClass"/>
 
 
     </session-factory>

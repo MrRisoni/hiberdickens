@@ -18,6 +18,7 @@
         <mapping class="models.HistoryModel"/>
         <mapping class="models.Teacher"/>
         <mapping class="models.Member"/>
+        <mapping class="models.Room"/>
 
     </session-factory>
 </hibernate-configuration>

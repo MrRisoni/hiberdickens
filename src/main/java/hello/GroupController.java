@@ -29,6 +29,24 @@ import java.util.Map;
 @RestController
 public class GroupController {
 
+    @RequestMapping(value = "/api/timetable", method = RequestMethod.GET)
+    public String timetable()
+    {
+        try {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+             EntityGraph graph = entityManager.getEntityGraph("groupsWithHistories");
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("javax.persistence.loadgraph", graph);
+            GroupModel user = entityManager.find(GroupModel.class, 1, properties);
+
+            return "";
+        }
+        catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
 
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
@@ -70,9 +88,6 @@ public class GroupController {
              return omp.writeValueAsString(lg);
 
 
-         /*   return omp.writeValueAsString(entityManager.createQuery(
-                    "select hs from HistoryModel hs ", HistoryModel.class)
-                    .getResultList()); */
         }
         catch(Exception ex) {
             ex.printStackTrace();

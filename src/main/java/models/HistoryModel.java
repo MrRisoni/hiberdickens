@@ -24,6 +24,9 @@ public class HistoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date started;
 
+    @OneToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
 
 
     public HistoryModel() {
@@ -54,5 +57,11 @@ public class HistoryModel {
         this.started = started;
     }
 
+    public Room getRoom() {
+        return room;
+    }
 
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 }

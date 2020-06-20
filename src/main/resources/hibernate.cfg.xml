@@ -32,6 +32,11 @@
         <mapping class="models.RealExamResult"/>
         <mapping class="models.Period"/>
         <mapping class="models.GradingSystem"/>
+        <mapping class="models.GroupStudent"/>
+        <mapping class="models.TeacherDebt"/>
+        <mapping class="models.TeacherPayment"/>
+        <mapping class="models.StudentDebt"/>
+        <mapping class="models.StudentPayment"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -49,6 +49,16 @@ public class GroupModel {
     @JoinColumn(name = "teacher_id")
     private Teacher daskalos;
 
+
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<StudentDebt> studentsDebt = new ArrayList<StudentDebt>();
+
+
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<GroupStudent> studentsList = new ArrayList<GroupStudent>();
+
+
+
     public GroupModel() {
     }
 
@@ -83,5 +93,29 @@ public class GroupModel {
 
     public void setDaskalos(Teacher daskalos) {
         this.daskalos = daskalos;
+    }
+
+    public List<MockExam> getMockExams() {
+        return mockExams;
+    }
+
+    public void setMockExams(List<MockExam> mockExams) {
+        this.mockExams = mockExams;
+    }
+
+    public List<StudentDebt> getStudentsDebt() {
+        return studentsDebt;
+    }
+
+    public void setStudentsDebt(List<StudentDebt> studentsDebt) {
+        this.studentsDebt = studentsDebt;
+    }
+
+    public List<GroupStudent> getStudentsList() {
+        return studentsList;
+    }
+
+    public void setStudentsList(List<GroupStudent> studentsList) {
+        this.studentsList = studentsList;
     }
 }

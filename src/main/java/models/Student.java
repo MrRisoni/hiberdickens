@@ -2,6 +2,8 @@ package models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -17,6 +19,8 @@ public class Student {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "studentObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<StudentDebt> debtsList = new ArrayList<StudentDebt>();
 
     public Student() {
     }
@@ -35,5 +39,14 @@ public class Student {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+
+    public List<StudentDebt> getDebtsList() {
+        return debtsList;
+    }
+
+    public void setDebtsList(List<StudentDebt> debtsList) {
+        this.debtsList = debtsList;
     }
 }

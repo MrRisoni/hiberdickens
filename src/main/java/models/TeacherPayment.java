@@ -1,22 +1,18 @@
 package models;
 
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "hours")
-public class HourModel {
-
+@Table(name = "teacher_payments")
+public class TeacherPayment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
-    @Column
-    private String title;
-
-
-    public HourModel() {
+    public TeacherPayment() {
     }
 
     public int getId() {
@@ -25,13 +21,5 @@ public class HourModel {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }

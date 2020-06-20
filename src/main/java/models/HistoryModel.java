@@ -53,7 +53,6 @@ public class HistoryModel {
     @JoinColumn(name = "hour_id")
     private HourModel hour;
 
-
     public HistoryModel() {
     }
 
@@ -131,4 +130,6 @@ public class HistoryModel {
     public void setVat(float vat) {
         this.vat = vat;
     }
+
+
 }

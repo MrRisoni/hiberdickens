@@ -73,7 +73,8 @@ public class GroupController {
 
             EntityManager entityManager =  HibernateUtil.getEM();
 
-            TypedQuery<GroupModel> ga = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g  WHERE g.id = 1",GroupModel.class);
+            TypedQuery<GroupModel> ga = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g  " +
+                    "   JOIN HistoryModel h WHERE g.id = 1",GroupModel.class);
             List<GroupModel> lg = ga.getResultList();
             System.out.println("###############################################");
 

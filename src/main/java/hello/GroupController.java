@@ -31,40 +31,6 @@ import java.util.Map;
 public class GroupController {
 
 
-
-    @RequestMapping(value = "/api/group_data", method = RequestMethod.GET)
-    public String getGroupGraph() {
-        try {
-            ObjectMapper omp = new ObjectMapper();
-            //omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
-          //  Session sess = HibernateUtil.getSessionFactory().openSession();
-
-              EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-          EntityGraph<GroupModel> grpMd = entityManager.createEntityGraph(GroupModel.class);
-          grpMd.addSubgraph(GroupModel_.historyList);
-
-            TypedQuery<GroupModel> query = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g WHERE g.id = 1",GroupModel.class);
-            query.setHint("javax.persistence.loadgraph", grpMd);
-
-            return omp.writeValueAsString(query.getResultList());
-
-
-           /* EntityGraph graph = entityManager.getEntityGraph("groupsWithHistories");
-            Map<String, Object> properties = new HashMap<>();
-            properties.put("javax.persistence.fetchgraph", graph);
-            GroupModel user = entityManager.find(GroupModel.class, 1, properties);
-            return omp.writeValueAsString(user); */
-
-
-        }catch(Exception ex) {
-            ex.printStackTrace();
-            return ex.getMessage();
-        }
-    }
-
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
     public String getGroupDetails() {
         try {
@@ -73,15 +39,15 @@ public class GroupController {
 
             EntityManager entityManager =  HibernateUtil.getEM();
 
-            TypedQuery<GroupModel> ga = entityManager.createQuery("SELECT DISTINCT g FROM GroupModel g  " +
-                    "   JOIN HistoryModel h WHERE g.id = 1",GroupModel.class);
-            List<GroupModel> lg = ga.getResultList();
             System.out.println("###############################################");
 
-            System.out.println("Get Results");
-            // return "hey";
+            TypedQuery<GroupModel> ga = entityManager.createQuery("select g from GroupModel g  inner join g.daskalos where g.id = 1",GroupModel.class);
+            List<GroupModel> lg = ga.getResultList();
 
-            return omp.writeValueAsString(lg);
+            System.out.println("Get Results");
+             return "hey";
+
+           // return omp.writeValueAsString(lg);
 
         }
         catch(Exception ex) {

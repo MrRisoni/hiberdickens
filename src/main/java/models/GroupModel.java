@@ -45,17 +45,10 @@ public class GroupModel {
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<MockExam> mockExams = new ArrayList<MockExam>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id")
     private Teacher daskalos;
 
-
-    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<StudentDebt> studentsDebt = new ArrayList<StudentDebt>();
-
-
-    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<GroupStudent> studentsList = new ArrayList<GroupStudent>();
 
 
 
@@ -103,19 +96,5 @@ public class GroupModel {
         this.mockExams = mockExams;
     }
 
-    public List<StudentDebt> getStudentsDebt() {
-        return studentsDebt;
-    }
 
-    public void setStudentsDebt(List<StudentDebt> studentsDebt) {
-        this.studentsDebt = studentsDebt;
-    }
-
-    public List<GroupStudent> getStudentsList() {
-        return studentsList;
-    }
-
-    public void setStudentsList(List<GroupStudent> studentsList) {
-        this.studentsList = studentsList;
-    }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import records.TimetableRcd;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -109,6 +110,28 @@ public class TimetableController {
 
         }
         catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+
+    @RequestMapping(value = "/api/istoria", method = RequestMethod.GET)
+    public String istoria()
+    {
+        try {
+            EntityManager entityManager= HibernateUtil.getEM();
+            System.out.println("###############################################");
+
+            TypedQuery<TimetableRcd> timetable = entityManager.createQuery("SELECT new records.TimetableRcd(hs.id, gr.id, gr.title,  hs.started, hs.duration, rm.title)  FROM HistoryModel hs  JOIN hs.room rm JOIN hs.groupObj gr ",TimetableRcd.class);
+            System.out.println("###############################################");
+
+            ObjectMapper omp = new ObjectMapper();
+            System.out.println(this.startingDate);
+            return omp.writeValueAsString(timetable.getResultList());
+
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
             return ex.getMessage();
         }
     }

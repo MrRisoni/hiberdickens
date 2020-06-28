@@ -8,17 +8,28 @@ public class TimetableRcd {
     private int groupId;
     private String courseName;
     private String teacherName;
+    private String ageName;
+    private String speedName;
     private java.util.Date started;
     private float duration;
     private String roomName;
+    private int cancelled;
+    private float wage;
+    private float fee;
 
-    public TimetableRcd(int historyId, int groupId, String courseName,  Date started, float duration, String roomName) {
+    public TimetableRcd(int historyId, int groupId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
         this.historyId = historyId;
         this.groupId = groupId;
         this.courseName = courseName;
+        this.teacherName = teacherName;
+        this.ageName = ageName;
+        this.speedName = speedName;
         this.started = started;
         this.duration = duration;
         this.roomName = roomName;
+        this.cancelled = cancelled;
+        this.wage = wage;
+        this.fee = fee;
     }
 
     public int getHistoryId() {
@@ -75,5 +86,45 @@ public class TimetableRcd {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public String getAgeName() {
+        return ageName;
+    }
+
+    public void setAgeName(String ageName) {
+        this.ageName = ageName;
+    }
+
+    public String getSpeedName() {
+        return speedName;
+    }
+
+    public void setSpeedName(String speedName) {
+        this.speedName = speedName;
+    }
+
+    public int getCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(int cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    public float getWage() {
+        return wage;
+    }
+
+    public void setWage(float wage) {
+        this.wage = wage;
+    }
+
+    public float getFee() {
+        return fee;
+    }
+
+    public void setFee(float fee) {
+        this.fee = fee;
     }
 }

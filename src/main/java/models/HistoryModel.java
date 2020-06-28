@@ -48,6 +48,8 @@ public class HistoryModel {
     @Column
     private float vat;
 
+    @Column
+    private int cancelled;
 
     @OneToOne
     @JoinColumn(name = "hour_id")
@@ -131,5 +133,11 @@ public class HistoryModel {
         this.vat = vat;
     }
 
+    public int getCancelled() {
+        return cancelled;
+    }
 
+    public void setCancelled(int cancelled) {
+        this.cancelled = cancelled;
+    }
 }

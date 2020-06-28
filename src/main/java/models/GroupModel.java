@@ -27,8 +27,6 @@ import java.util.Set;
         )
 })
 public class GroupModel {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -49,6 +47,17 @@ public class GroupModel {
     @JoinColumn(name = "teacher_id")
     private Teacher daskalos;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private CourseModel courseObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "age_id")
+    private Age ageObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "speed_id")
+    private Speed speedObj;
 
 
 
@@ -96,5 +105,27 @@ public class GroupModel {
         this.mockExams = mockExams;
     }
 
+    public CourseModel getCourseObj() {
+        return courseObj;
+    }
 
+    public void setCourseObj(CourseModel courseObj) {
+        this.courseObj = courseObj;
+    }
+
+    public Age getAgeObj() {
+        return ageObj;
+    }
+
+    public void setAgeObj(Age ageObj) {
+        this.ageObj = ageObj;
+    }
+
+    public Speed getSpeedObj() {
+        return speedObj;
+    }
+
+    public void setSpeedObj(Speed speedObj) {
+        this.speedObj = speedObj;
+    }
 }

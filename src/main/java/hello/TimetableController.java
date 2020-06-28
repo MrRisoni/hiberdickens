@@ -122,7 +122,13 @@ public class TimetableController {
             EntityManager entityManager= HibernateUtil.getEM();
             System.out.println("###############################################");
 
-            TypedQuery<TimetableRcd> timetable = entityManager.createQuery("SELECT new records.TimetableRcd(hs.id, gr.id, gr.title,  hs.started, hs.duration, rm.title)  FROM HistoryModel hs  JOIN hs.room rm JOIN hs.groupObj gr ",TimetableRcd.class);
+            TypedQuery<TimetableRcd> timetable = entityManager.createQuery("SELECT new records.TimetableRcd(hs.id, gr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
+                    " FROM HistoryModel hs  JOIN hs.room rm " +
+                    " JOIN hs.groupObj gr " +
+                    " JOIN gr.speedObj spd " +
+                    " JOIN gr.ageObj ag " +
+                    " JOIN gr.daskalos dsk JOIN dsk.member mb " +
+                    " JOIN gr.courseObj crs",TimetableRcd.class);
             System.out.println("###############################################");
 
             ObjectMapper omp = new ObjectMapper();

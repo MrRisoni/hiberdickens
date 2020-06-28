@@ -30,6 +30,22 @@ import java.util.Map;
 @RestController
 public class GroupController {
 
+  /*  @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
+    public String temp() {
+        try {
+            ObjectMapper omp = new ObjectMapper();
+            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            Session s = HibernateUtil.getSessionFactory().openSession();
+            List<GroupModel> lgm = s.createCriteria()
+
+            return "";
+        }
+        catch(Exception ex) {
+        ex.printStackTrace();
+        return ex.getMessage();
+    } */
+
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
     public String getGroupDetails() {
@@ -41,11 +57,16 @@ public class GroupController {
 
             System.out.println("###############################################");
 
-            TypedQuery<GroupModel> ga = entityManager.createQuery("select g from GroupModel g  inner join g.daskalos where g.id = 1",GroupModel.class);
-            List<GroupModel> lg = ga.getResultList();
+            List<Foo> lg = entityManager.createQuery("select new hello.Foo(g.title, gdsk.member.name) from GroupModel g  inner join  g.daskalos  gdsk" +
+                    " inner join gdsk.member where g.id = 1",Foo.class).getResultList();
+            System.out.println("----------------");
 
-            System.out.println("Get Results");
-             return "hey";
+            System.out.println(lg.get(0).getTeacherName());
+
+           // System.out.println(lg.get(0).getDaskalos().getId());
+           // System.out.println(lg.get(0).getDaskalos().getMember().getName());
+
+            return "hey";
 
            // return omp.writeValueAsString(lg);
 

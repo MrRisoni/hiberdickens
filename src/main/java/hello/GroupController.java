@@ -16,6 +16,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import repositories.GroupRepository;
+import responses.GroupStudentsResponse;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -62,20 +64,18 @@ public class GroupController {
 
 
     @RequestMapping(value = "/api/group/students", method = RequestMethod.GET)
-    public List<Object> getGroupMembers() {
+    public GroupStudentsResponse getGroupMembers() {
+        GroupStudentsResponse rsp = new GroupStudentsResponse();
         try {
-            ObjectMapper omp = new ObjectMapper();
-            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
-            EntityManager entityManager =  HibernateUtil.getEM();
-            Session session = HibernateUtil.getSessionFactory().openSession();
-
-
-            return entityManager.createQuery("SELECT gs.joined, gs.dropped FROM GroupStudent gs ").getResultList();
+            GroupRepository groupRepo = new GroupRepository();
+            groupRepo.setEntityManager(HibernateUtil.getEM());
+            rsp.setData(groupRepo.getGroupStudents(1));
+            return rsp;
         }
         catch(Exception ex) {
             ex.printStackTrace();
-            return null;
+            rsp.setErrorMessage(ex.getMessage());
+            return rsp;
         }
     }
 }

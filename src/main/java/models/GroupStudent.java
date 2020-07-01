@@ -19,11 +19,11 @@ public class GroupStudent {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dropped;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     private Student studentObj;
 
-    private int group_id;
+
 
     public GroupStudent() {
     }
@@ -61,11 +61,5 @@ public class GroupStudent {
         this.studentObj = studentObj;
     }
 
-    public int getGroup_id() {
-        return group_id;
-    }
 
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
-    }
 }

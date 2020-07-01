@@ -30,23 +30,6 @@ import java.util.Map;
 @RestController
 public class GroupController {
 
-  /*  @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
-    public String temp() {
-        try {
-            ObjectMapper omp = new ObjectMapper();
-            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
-            Session s = HibernateUtil.getSessionFactory().openSession();
-            List<GroupModel> lgm = s.createCriteria()
-
-            return "";
-        }
-        catch(Exception ex) {
-        ex.printStackTrace();
-        return ex.getMessage();
-    } */
-
-
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
     public String getGroupDetails() {
         try {
@@ -74,6 +57,25 @@ public class GroupController {
         catch(Exception ex) {
             ex.printStackTrace();
             return ex.getMessage();
+        }
+    }
+
+
+    @RequestMapping(value = "/api/group/students", method = RequestMethod.GET)
+    public List<Object> getGroupMembers() {
+        try {
+            ObjectMapper omp = new ObjectMapper();
+            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+            EntityManager entityManager =  HibernateUtil.getEM();
+            Session session = HibernateUtil.getSessionFactory().openSession();
+
+
+            return entityManager.createQuery("SELECT gs.joined, gs.dropped FROM GroupStudent gs ").getResultList();
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+            return null;
         }
     }
 }

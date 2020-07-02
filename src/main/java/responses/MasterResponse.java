@@ -1,6 +1,7 @@
 package responses;
 
 import models.GroupStudent;
+import repositories.GroupMember;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class MasterResponse {
     private String errorMessage;
     private boolean hasError;
     private List<Object> data;
-    private List<GroupStudent> datei;
+    private List<GroupMember> datei;
 
     public MasterResponse() {
         this.hasError = false;
@@ -41,11 +42,11 @@ public class MasterResponse {
         this.data = data;
     }
 
-    public List<GroupStudent> getDatei() {
+    public List<GroupMember> getDatei() {
         return datei;
     }
 
-    public void setDatei(List<GroupStudent> datei) {
+    public void setDatei(List<GroupMember> datei) {
         this.datei = datei;
     }
 }

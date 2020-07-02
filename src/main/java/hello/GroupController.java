@@ -69,7 +69,7 @@ public class GroupController {
         try {
             GroupRepository groupRepo = new GroupRepository();
             groupRepo.setEntityManager(HibernateUtil.getEM());
-            rsp.setData(groupRepo.getGroupStudents(1));
+            rsp.setDatei(groupRepo.getGroupStudents(1));
             return rsp;
         }
         catch(Exception ex) {

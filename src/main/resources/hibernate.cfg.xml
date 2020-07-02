@@ -41,6 +41,7 @@
         <mapping class="models.StudentPayment"/>
         <mapping class="models.Age"/>
         <mapping class="models.Speed"/>
+        <mapping class="models.Discipline"/>
 
     </session-factory>
 </hibernate-configuration>

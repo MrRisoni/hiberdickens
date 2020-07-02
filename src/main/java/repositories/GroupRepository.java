@@ -14,12 +14,8 @@ public class GroupRepository extends Repository {
     }
 
     public List<GroupMember> getGroupStudents(int groupId) {
-      /* return  this.getEntityManager().createQuery("SELECT new repositories.GroupMember(gs.joined, gs.dropped, mb.name) " +
-                "  FROM GroupStudent gs " +
-                "JOIN gs.studentObj s" +
-                " JOIN s.member mb WHERE gs.groupId = :gid").setParameter("gid",groupId).getResultList(); */
 
-                Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, m.name, " +
+                Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, CONCAT(m.name' ',m.surname), " +
                 " IF (CURRENT_DATE > gs.dropped, 1,0) AS hasDropped,  " +
                 " IF (studentsPayed.student_id IS NULL,0, studentsPayed.sumPayed) AS hasPayed,  " +
                 " IF (studentsDebt.student_id IS NULL,0,  " +

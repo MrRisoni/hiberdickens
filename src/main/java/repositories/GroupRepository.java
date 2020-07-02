@@ -97,8 +97,9 @@ public class GroupRepository extends Repository {
 
     public List<Object> getStudentPaymentsList(int groupId)
     {
-         return this.getEntityManager().createQuery("SELECT sp.amount, sp.lesson_year, sp.studentObj.id, m.name " +
+         return this.getEntityManager().createQuery("SELECT sp.amount, sp.lesson_year, mon.title, sp.studentObj.id, m.name " +
          " FROM StudentPayment sp " +
+         " JOIN sp.monthObj mon " +
          " JOIN sp.studentObj stObj " +
          " JOIN stObj.member m  " +
          " JOIN sp.groupObj " +
@@ -106,25 +107,41 @@ public class GroupRepository extends Repository {
 
     }
 
- /*
-    public List<StudentDebt> getStudentDebtsList(int groupId)
-    {
 
+    public List<Object> getStudentDebtsList(int groupId)
+    {
+        return this.getEntityManager().createQuery("SELECT sb.amount, sb.lesson_year, sb.studentObj.id,mon.title, m.name " +
+                " FROM StudentDebt sb " +
+                " JOIN sb.monthObj mon " +
+                " JOIN sb.studentObj stObj " +
+                " JOIN stObj.member m  " +
+                " JOIN sb.groupObj " +
+                " WHERE sb.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
     }
 
+
+    public List<Object> getTeacherPaymentsList(int groupId)
+    {
+        return this.getEntityManager().createQuery("SELECT tp.amount, tp.lesson_year,mon.title" +
+                " FROM TeacherPayment tp " +
+                " JOIN tp.groupObj " +
+                " JOIN tp.monthObj mon " +
+                " WHERE tp.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+    }
 
 
 
     public List<TeacherDebt> getTeacherDebtsList(int groupId)
     {
-
+        return this.getEntityManager().createQuery("SELECT tb.amount, tb.lesson_year,mon.title" +
+                " FROM TeacherDebt tb " +
+                " JOIN tb.groupObj " +
+                " JOIN tb.monthObj mon " +
+                " WHERE tb.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
     }
 
-    public List<TeacherPayment> getTeacherPaymentsList(int groupId)
-    {
 
-    }
-
+/*
     public List<HistoryModel> getHistory(int  groupId)
     {
 

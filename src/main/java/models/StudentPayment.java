@@ -27,6 +27,10 @@ public class StudentPayment {
     @JoinColumn(name = "group_id")
     private GroupModel groupObj;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "month_id")
+    private Month monthObj;
+
     public StudentPayment() {
     }
 
@@ -69,5 +73,13 @@ public class StudentPayment {
 
     public void setGroupObj(GroupModel groupObj) {
         this.groupObj = groupObj;
+    }
+
+    public Month getMonthObj() {
+        return monthObj;
+    }
+
+    public void setMonthObj(Month monthObj) {
+        this.monthObj = monthObj;
     }
 }

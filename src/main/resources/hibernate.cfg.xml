@@ -45,6 +45,7 @@
         <mapping class="models.Suburb"/>
         <mapping class="models.Perfecture"/>
         <mapping class="models.Discipline"/>
+        <mapping class="models.Month"/>
 
 
     </session-factory>

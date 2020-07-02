@@ -98,6 +98,11 @@ public class GroupController {
         rsp.put("studentsList", groupRepo.getGroupStudents(1));
 
         rsp.put("studentsPayments",groupRepo.getStudentPaymentsList(1));
+        rsp.put("studentsDebts",groupRepo.getStudentDebtsList(1));
+
+        rsp.put("teacherPayments",groupRepo.getTeacherPaymentsList(1));
+        rsp.put("teacherDebts",groupRepo.getTeacherDebtsList(1));
+
         return rsp;
     }
 }

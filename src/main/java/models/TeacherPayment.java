@@ -17,7 +17,7 @@ public class TeacherPayment {
     private float amount;
 
     @Column
-    private Year year;
+    private int lesson_year;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id")
@@ -26,6 +26,11 @@ public class TeacherPayment {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private GroupModel groupObj;
+
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "month_id")
+    private Month monthObj;
 
 
     public TeacherPayment() {
@@ -48,14 +53,13 @@ public class TeacherPayment {
         this.amount = amount;
     }
 
-    public Year getYear() {
-        return year;
+    public int getLesson_year() {
+        return lesson_year;
     }
 
-    public void setYear(Year year) {
-        this.year = year;
+    public void setLesson_year(int lesson_year) {
+        this.lesson_year = lesson_year;
     }
-
 
     public Teacher getTeacherObj() {
         return teacherObj;
@@ -71,5 +75,13 @@ public class TeacherPayment {
 
     public void setGroupObj(GroupModel groupObj) {
         this.groupObj = groupObj;
+    }
+
+    public Month getMonthObj() {
+        return monthObj;
+    }
+
+    public void setMonthObj(Month monthObj) {
+        this.monthObj = monthObj;
     }
 }

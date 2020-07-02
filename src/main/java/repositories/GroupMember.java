@@ -8,11 +8,16 @@ public class GroupMember {
     private java.util.Date joined;
     private java.util.Date dropped;
     private String fullName;
+    private boolean hasDropped;
+    private float sumPayed;
+    private  float sumOwns;
 
     public GroupMember(Date joined, Date dropped, String fullName) {
         this.joined = joined;
         this.dropped = dropped;
         this.fullName = fullName;
+        this.hasDropped = false;
+        this.sumOwns = this.sumPayed = 0;
     }
 
     public int getStudentId() {
@@ -45,5 +50,29 @@ public class GroupMember {
 
     public void setDropped(Date dropped) {
         this.dropped = dropped;
+    }
+
+    public boolean isHasDropped() {
+        return hasDropped;
+    }
+
+    public void setHasDropped(boolean hasDropped) {
+        this.hasDropped = hasDropped;
+    }
+
+    public float getSumPayed() {
+        return sumPayed;
+    }
+
+    public void setSumPayed(float sumPayed) {
+        this.sumPayed = sumPayed;
+    }
+
+    public float getSumOwns() {
+        return sumOwns;
+    }
+
+    public void setSumOwns(float sumOwns) {
+        this.sumOwns = sumOwns;
     }
 }

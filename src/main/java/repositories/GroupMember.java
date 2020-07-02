@@ -1,12 +1,10 @@
 package repositories;
 
-import java.util.Date;
-
 public class GroupMember {
 
     private int studentId;
-    private java.util.Date joined;
-    private java.util.Date dropped;
+    private String joined;
+    private String dropped;
     private String fullName;
     private boolean hasDropped;
     private float sumPayed;
@@ -33,19 +31,19 @@ public class GroupMember {
         this.fullName = fullName;
     }
 
-    public Date getJoined() {
+    public String getJoined() {
         return joined;
     }
 
-    public void setJoined(Date joined) {
+    public void setJoined(String joined) {
         this.joined = joined;
     }
 
-    public Date getDropped() {
+    public String getDropped() {
         return dropped;
     }
 
-    public void setDropped(Date dropped) {
+    public void setDropped(String dropped) {
         this.dropped = dropped;
     }
 

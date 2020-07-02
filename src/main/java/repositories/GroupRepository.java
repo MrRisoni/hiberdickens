@@ -47,7 +47,13 @@ public class GroupRepository extends Repository {
 
                 return results.stream().map(el -> {
                    GroupMember gpm = new GroupMember();
-                   gpm.setFullName(el[1].toString());
+                   gpm.setFullName(el[3].toString());
+                   gpm.setDropped(el[2].toString());
+                   gpm.setHasDropped(Boolean.parseBoolean(el[4].toString()));
+                   gpm.setJoined(el[1].toString());
+                   gpm.setStudentId(Integer.parseInt(el[0].toString()));
+                   gpm.setSumOwns(Float.parseFloat(el[6].toString()));
+                   gpm.setSumPayed(Float.parseFloat(el[5].toString()));
                    return gpm;
                 }).collect(Collectors.toList());
 

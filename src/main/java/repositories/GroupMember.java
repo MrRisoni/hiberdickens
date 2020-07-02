@@ -12,10 +12,7 @@ public class GroupMember {
     private float sumPayed;
     private  float sumOwns;
 
-    public GroupMember(Date joined, Date dropped, String fullName) {
-        this.joined = joined;
-        this.dropped = dropped;
-        this.fullName = fullName;
+    public GroupMember() {
         this.hasDropped = false;
         this.sumOwns = this.sumPayed = 0;
     }

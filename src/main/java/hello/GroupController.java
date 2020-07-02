@@ -33,7 +33,7 @@ import java.util.Map;
 public class GroupController {
 
     @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
-    public String getGroupDetails() {
+    public String testtmp() {
         try {
             ObjectMapper omp = new ObjectMapper();
             omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
@@ -77,5 +77,16 @@ public class GroupController {
             rsp.setErrorMessage(ex.getMessage());
             return rsp;
         }
+    }
+
+
+    @RequestMapping(value = "/api/group/info", method = RequestMethod.GET)
+    public HashMap<String,Double> getGroupDetails()
+    {
+        GroupRepository groupRepo = new GroupRepository();
+        groupRepo.setEntityManager(HibernateUtil.getEM());
+        HashMap<String,Double> rsp = new HashMap<>();
+        rsp.put("sum",groupRepo.getSumTeacherPayments(1));
+        return rsp;
     }
 }

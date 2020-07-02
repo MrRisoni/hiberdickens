@@ -18,22 +18,7 @@ import java.util.List;
 @RestController
 public class GeneralController {
 
-    @RequestMapping(value = "/api/languages", method = RequestMethod.GET)
-    public String getLanguages()
-    {
-        try {
-            EntityManager entityManager= HibernateUtil.getEM();
 
-            TypedQuery<Language> ga = entityManager.createQuery("SELECT DISTINCT l FROM Language l INNER JOIN FETCH l.diplomas d WHERE d.active = 1",Language.class);
-            List<Language> lg = ga.getResultList();
-
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            return ow.writeValueAsString(lg);
-        }
-        catch (Exception ex){
-            return ex.getMessage();
-        }
-    }
 
     @RequestMapping(value = "/api/classes", method = RequestMethod.GET)
     public List<SchoolClass> getClasses() {

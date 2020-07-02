@@ -13,6 +13,8 @@ public class Diploma {
     @Column
     private int active;
 
+    @Column
+    private String level;
 
     @OneToOne
     @JoinColumn(name = "course_id")
@@ -46,5 +48,13 @@ public class Diploma {
 
     public void setCours(CourseModel cours) {
         this.cours = cours;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

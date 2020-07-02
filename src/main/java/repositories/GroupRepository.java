@@ -69,13 +69,19 @@ public class GroupRepository extends Repository {
     private float getSumStudentPayments(int groupId)
     {
 
-    }
+    } */
 
-    private float getSumTeacherPayments(int groupId)
+    public double getSumTeacherPayments(int groupId)
     {
+        return this.getEntityManager().createQuery(
+                "select sum(amount)  " +
+                        "from TeacherPayment " +
+                        "where id = :id ", Double.class )
+                .setParameter( "id", groupId ).getSingleResult();
 
     }
 
+/*
     private List<StudentDebt> getStudentDebtsList(int groupId)
     {
 

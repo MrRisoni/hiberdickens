@@ -60,6 +60,12 @@ public class GroupModel {
     private Speed speedObj;
 
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "group_students",
+            joinColumns = @JoinColumn(name = "group_id"))
+    private List<GroupStudent> studentsList;
+
 
     public GroupModel() {
     }
@@ -127,5 +133,13 @@ public class GroupModel {
 
     public void setSpeedObj(Speed speedObj) {
         this.speedObj = speedObj;
+    }
+
+    public List<GroupStudent> getStudentsList() {
+        return studentsList;
+    }
+
+    public void setStudentsList(List<GroupStudent> studentsList) {
+        this.studentsList = studentsList;
     }
 }

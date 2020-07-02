@@ -23,6 +23,8 @@ public class GroupStudent {
     @JoinColumn(name = "student_id")
     private Student studentObj;
 
+    @Column(name = "group_id")
+    private int groupId;
 
 
     public GroupStudent() {
@@ -61,5 +63,11 @@ public class GroupStudent {
         this.studentObj = studentObj;
     }
 
+    public int getGroupId() {
+        return groupId;
+    }
 
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 }

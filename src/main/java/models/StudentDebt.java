@@ -18,13 +18,14 @@ public class StudentDebt {
     @Column
     private int lesson_year;
 
-    @Column
-    private  int group_id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="student_id", nullable=false)
     @JsonIgnoreProperties("debtsList")
     private Student studentObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private GroupModel groupObj;
 
     public StudentDebt() {
     }
@@ -53,11 +54,19 @@ public class StudentDebt {
         this.lesson_year = lesson_year;
     }
 
-    public int getGroup_id() {
-        return group_id;
+     public Student getStudentObj() {
+        return studentObj;
     }
 
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
+    public void setStudentObj(Student studentObj) {
+        this.studentObj = studentObj;
+    }
+
+    public GroupModel getGroupObj() {
+        return groupObj;
+    }
+
+    public void setGroupObj(GroupModel groupObj) {
+        this.groupObj = groupObj;
     }
 }

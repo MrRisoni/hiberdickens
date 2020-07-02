@@ -15,7 +15,7 @@ public class GroupRepository extends Repository {
 
     public List<GroupMember> getGroupStudents(int groupId) {
 
-                Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, CONCAT(m.name' ',m.surname), " +
+                Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, CONCAT(m.name,' ',m.surname), " +
                 " IF (CURRENT_DATE > gs.dropped, 1,0) AS hasDropped,  " +
                 " IF (studentsPayed.student_id IS NULL,0, studentsPayed.sumPayed) AS hasPayed,  " +
                 " IF (studentsDebt.student_id IS NULL,0,  " +
@@ -55,21 +55,35 @@ public class GroupRepository extends Repository {
 
     }
 
-    /*
-    private float getSumStudentDebts(int groupId)
+    public double getSumStudentDebts(int groupId)
     {
+        return this.getEntityManager().createQuery(
+                "select sum(stdb.amount)  " +
+                        "from StudentDebt stdb JOIN stdb.groupObj " +
+                        "where stdb.groupObj.id = :id ", Double.class )
+                .setParameter( "id", groupId ).getSingleResult();
+    }
+
+
+    public double getSumStudentPayments(int groupId)
+    {
+        return this.getEntityManager().createQuery(
+                "select sum(stp.amount)  " +
+                        "from StudentPayment stp JOIN stp.groupObj " +
+                        "where stp.groupObj.id = :id ", Double.class )
+                .setParameter( "id", groupId ).getSingleResult();
 
     }
 
-    private float getSumTeacherDebts(int groupId)
+    public double getSumTeacherDebts(int groupId)
     {
-
+        return this.getEntityManager().createQuery(
+                "select sum(tb.amount)  " +
+                        "from TeacherDebt tb JOIN tb.groupObj " +
+                        "where tb.groupObj.id = :id ", Double.class )
+                .setParameter( "id", groupId ).getSingleResult();
     }
 
-    private float getSumStudentPayments(int groupId)
-    {
-
-    } */
 
     public double getSumTeacherPayments(int groupId)
     {
@@ -82,27 +96,27 @@ public class GroupRepository extends Repository {
     }
 
 /*
-    private List<StudentDebt> getStudentDebtsList(int groupId)
+    public List<StudentDebt> getStudentDebtsList(int groupId)
     {
 
     }
 
-    private List<StudentPayment> getStudentPaymentsList(int groupId)
+    public List<StudentPayment> getStudentPaymentsList(int groupId)
     {
 
     }
 
-    private List<TeacherDebt> getTeacherDebtsList(int groupId)
+    public List<TeacherDebt> getTeacherDebtsList(int groupId)
     {
 
     }
 
-    private List<TeacherPayment> getTeacherPaymentsList(int groupId)
+    public List<TeacherPayment> getTeacherPaymentsList(int groupId)
     {
 
     }
 
-    private List<HistoryModel> getHistory(int  groupId)
+    public List<HistoryModel> getHistory(int  groupId)
     {
 
     }

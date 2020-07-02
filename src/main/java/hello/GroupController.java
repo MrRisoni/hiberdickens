@@ -81,12 +81,35 @@ public class GroupController {
 
 
     @RequestMapping(value = "/api/group/info", method = RequestMethod.GET)
-    public HashMap<String,Double> getGroupDetails()
+    public HashMap<String,Object> getGroupDetails()
     {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
-        HashMap<String,Double> rsp = new HashMap<>();
-        rsp.put("sum",groupRepo.getSumTeacherPayments(1));
+        HashMap<String,Object> rsp = new HashMap<>();
+        double remainDebt = 0;
+        double sumTeacherPay = 0;
+        double sumTeacherDebts = 0;
+
+        double remainStudentDebt = 0;
+        double sumStudentPay = 0;
+        double sumStudentDebts = 0;
+
+        sumTeacherPay = groupRepo.getSumTeacherPayments(1);
+        sumTeacherDebts = groupRepo.getSumTeacherDebts(1);
+        remainDebt = sumTeacherDebts - sumTeacherPay;
+
+
+        sumStudentPay = groupRepo.getSumStudentPayments(1);
+        sumStudentDebts = groupRepo.getSumStudentDebts(1);
+        remainStudentDebt = sumStudentDebts - sumStudentPay;
+
+        rsp.put("sumPayments",sumTeacherPay);
+        rsp.put("sumDebts",remainDebt);
+
+        rsp.put("sumStudentPayments",sumStudentPay);
+        rsp.put("sumStudentDebts",remainStudentDebt);
+
+        rsp.put("studentsList", groupRepo.getGroupStudents(1));
         return rsp;
     }
 }

@@ -19,7 +19,15 @@ public class TeacherPayment {
     @Column
     private Year year;
 
-    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacherObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private GroupModel groupObj;
+
+
     public TeacherPayment() {
     }
 
@@ -46,5 +54,22 @@ public class TeacherPayment {
 
     public void setYear(Year year) {
         this.year = year;
+    }
+
+
+    public Teacher getTeacherObj() {
+        return teacherObj;
+    }
+
+    public void setTeacherObj(Teacher teacherObj) {
+        this.teacherObj = teacherObj;
+    }
+
+    public GroupModel getGroupObj() {
+        return groupObj;
+    }
+
+    public void setGroupObj(GroupModel groupObj) {
+        this.groupObj = groupObj;
     }
 }

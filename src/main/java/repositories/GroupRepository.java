@@ -74,9 +74,9 @@ public class GroupRepository extends Repository {
     public double getSumTeacherPayments(int groupId)
     {
         return this.getEntityManager().createQuery(
-                "select sum(amount)  " +
-                        "from TeacherPayment " +
-                        "where id = :id ", Double.class )
+                "select sum(tp.amount)  " +
+                        "from TeacherPayment tp JOIN tp.groupObj " +
+                        "where tp.groupObj.id = :id ", Double.class )
                 .setParameter( "id", groupId ).getSingleResult();
 
     }

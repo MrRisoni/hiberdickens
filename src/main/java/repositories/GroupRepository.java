@@ -97,7 +97,7 @@ public class GroupRepository extends Repository {
 
     public List<Object> getStudentPaymentsList(int groupId)
     {
-         return this.getEntityManager().createQuery("SELECT sp.amount, sp.lesson_year, mon.title, sp.studentObj.id, m.name " +
+         return this.getEntityManager().createQuery("SELECT new hqlmappers.StudentPaymentDebt(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id, m.name) " +
          " FROM StudentPayment sp " +
          " JOIN sp.monthObj mon " +
          " JOIN sp.studentObj stObj " +

@@ -1,32 +1,18 @@
 package hello;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.GsonBuilder;
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.gson.Gson;
 import models.*;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.springframework.http.MediaType;
+
 import org.springframework.web.bind.annotation.*;
 import repositories.GroupRepository;
 import responses.GroupStudentsResponse;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -110,6 +96,8 @@ public class GroupController {
         rsp.put("sumStudentDebts",remainStudentDebt);
 
         rsp.put("studentsList", groupRepo.getGroupStudents(1));
+
+        rsp.put("studentsPayments",groupRepo.getStudentPaymentsList(1));
         return rsp;
     }
 }

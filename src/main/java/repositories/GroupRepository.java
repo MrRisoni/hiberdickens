@@ -95,16 +95,25 @@ public class GroupRepository extends Repository {
 
     }
 
-/*
+    public List<Object> getStudentPaymentsList(int groupId)
+    {
+         return this.getEntityManager().createQuery("SELECT sp.amount, sp.lesson_year, sp.studentObj.id, m.name " +
+         " FROM StudentPayment sp " +
+         " JOIN sp.studentObj stObj " +
+         " JOIN stObj.member m  " +
+         " JOIN sp.groupObj " +
+         " WHERE sp.groupObj.id = 1").getResultList();
+
+    }
+
+ /*
     public List<StudentDebt> getStudentDebtsList(int groupId)
     {
 
     }
 
-    public List<StudentPayment> getStudentPaymentsList(int groupId)
-    {
 
-    }
+
 
     public List<TeacherDebt> getTeacherDebtsList(int groupId)
     {

@@ -72,9 +72,17 @@ public class GeneralController {
     }
 
     @RequestMapping(value = "/api/buildings", method = RequestMethod.GET)
-    public String getBuildings() {
-        return "hello greeeting";
+    public List<Building> getBuildings() {
+        GeneralRepository genRepo = new GeneralRepository();
+        genRepo.setEntityManager(HibernateUtil.getEM());
+        return genRepo.getBuildings();
     }
 
+    @RequestMapping(value = "/api/languages", method = RequestMethod.GET)
+    public List<Language> getLanguages() {
+        GeneralRepository genRepo = new GeneralRepository();
+        genRepo.setEntityManager(HibernateUtil.getEM());
+        return genRepo.getLanguages();
+    }
 }
 

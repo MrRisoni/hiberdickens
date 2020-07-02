@@ -13,6 +13,10 @@ public class Building {
     @Column
     private String address;
 
+    @OneToOne
+    @JoinColumn(name = "suburb_id")
+    private Suburb suburbObj;
+
     public Building() {
     }
 
@@ -30,5 +34,13 @@ public class Building {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Suburb getSuburbObj() {
+        return suburbObj;
+    }
+
+    public void setSuburbObj(Suburb suburbObj) {
+        this.suburbObj = suburbObj;
     }
 }

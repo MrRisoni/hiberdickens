@@ -1,7 +1,7 @@
 package repositories;
 
 
-import models.GroupStudent;
+import models.*;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -54,6 +54,53 @@ public class GroupRepository extends Repository {
                 }).collect(Collectors.toList());
 
     }
+
+    /*
+    private float getSumStudentDebts(int groupId)
+    {
+
+    }
+
+    private float getSumTeacherDebts(int groupId)
+    {
+
+    }
+
+    private float getSumStudentPayments(int groupId)
+    {
+
+    }
+
+    private float getSumTeacherPayments(int groupId)
+    {
+
+    }
+
+    private List<StudentDebt> getStudentDebtsList(int groupId)
+    {
+
+    }
+
+    private List<StudentPayment> getStudentPaymentsList(int groupId)
+    {
+
+    }
+
+    private List<TeacherDebt> getTeacherDebtsList(int groupId)
+    {
+
+    }
+
+    private List<TeacherPayment> getTeacherPaymentsList(int groupId)
+    {
+
+    }
+
+    private List<HistoryModel> getHistory(int  groupId)
+    {
+
+    }
+*/
 
 
 

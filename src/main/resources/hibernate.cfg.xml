@@ -46,6 +46,10 @@
         <mapping class="models.Perfecture"/>
         <mapping class="models.Discipline"/>
         <mapping class="models.Month"/>
+        <mapping class="models.ReviewQuestionnaire"/>
+        <mapping class="models.ReviewQuestionnaireChapter"/>
+        <mapping class="models.ReviewQuestionnaireQuestion"/>
+        <mapping class="models.ReviewQuestion"/>
 
 
     </session-factory>

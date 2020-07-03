@@ -13,3 +13,6 @@ student view
 teacher view
 timetable view
 interviews planning...
+
+
+a little less than 100 tables!!!

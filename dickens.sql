@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 03, 2020 at 09:03 AM
+-- Generation Time: Jul 03, 2020 at 09:27 AM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -2015,6 +2015,99 @@ INSERT INTO `teaches` (`id`, `created_at`, `updated_at`, `teacher_id`, `course_i
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tests`
+--
+
+CREATE TABLE `tests` (
+  `id` bigint UNSIGNED NOT NULL,
+  `course_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(65) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `difficulty` tinyint UNSIGNED NOT NULL,
+  `duration_minutes` smallint UNSIGNED NOT NULL DEFAULT '60',
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `active` tinyint UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_answers`
+--
+
+CREATE TABLE `test_answers` (
+  `id` bigint UNSIGNED NOT NULL,
+  `question_id` bigint UNSIGNED NOT NULL,
+  `body` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `wrong` tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_chapters`
+--
+
+CREATE TABLE `test_chapters` (
+  `id` bigint UNSIGNED NOT NULL,
+  `test_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `show_order` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_questions`
+--
+
+CREATE TABLE `test_questions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `points` tinyint UNSIGNED NOT NULL,
+  `penalty` tinyint UNSIGNED NOT NULL,
+  `shown_order` tinyint NOT NULL,
+  `active` tinyint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_submissions`
+--
+
+CREATE TABLE `test_submissions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `test_id` bigint UNSIGNED NOT NULL,
+  `starts` datetime NOT NULL,
+  `ends` datetime NOT NULL,
+  `duration_mins` smallint UNSIGNED NOT NULL,
+  `mins_remaining` smallint UNSIGNED NOT NULL,
+  `grade` decimal(10,2) NOT NULL,
+  `completed` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_submission_answers`
+--
+
+CREATE TABLE `test_submission_answers` (
+  `id` bigint UNSIGNED NOT NULL,
+  `submission_id` bigint UNSIGNED NOT NULL,
+  `answer_id` bigint UNSIGNED NOT NULL,
+  `points` tinyint UNSIGNED NOT NULL,
+  `is_penalty` tinyint UNSIGNED NOT NULL DEFAULT '0',
+  `shown_at` datetime NOT NULL,
+  `answered_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `towns`
 --
 
@@ -2751,6 +2844,50 @@ ALTER TABLE `teaches`
   ADD KEY `teaches_course_id_foreign` (`course_id`);
 
 --
+-- Indexes for table `tests`
+--
+ALTER TABLE `tests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
+-- Indexes for table `test_answers`
+--
+ALTER TABLE `test_answers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `test_chapters`
+--
+ALTER TABLE `test_chapters`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `test_id` (`test_id`);
+
+--
+-- Indexes for table `test_questions`
+--
+ALTER TABLE `test_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chapter_id` (`chapter_id`);
+
+--
+-- Indexes for table `test_submissions`
+--
+ALTER TABLE `test_submissions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`),
+  ADD KEY `test_id` (`test_id`);
+
+--
+-- Indexes for table `test_submission_answers`
+--
+ALTER TABLE `test_submission_answers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `submission_id` (`submission_id`),
+  ADD KEY `aswer_id` (`answer_id`);
+
+--
 -- Indexes for table `towns`
 --
 ALTER TABLE `towns`
@@ -3298,6 +3435,42 @@ ALTER TABLE `teaches`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `tests`
+--
+ALTER TABLE `tests`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `test_answers`
+--
+ALTER TABLE `test_answers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `test_chapters`
+--
+ALTER TABLE `test_chapters`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `test_questions`
+--
+ALTER TABLE `test_questions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `test_submissions`
+--
+ALTER TABLE `test_submissions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `test_submission_answers`
+--
+ALTER TABLE `test_submission_answers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `towns`
 --
 ALTER TABLE `towns`
@@ -3757,6 +3930,44 @@ ALTER TABLE `teacher_payments`
 ALTER TABLE `teaches`
   ADD CONSTRAINT `teaches_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `teaches_teacher_id_foreign` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
+
+--
+-- Constraints for table `tests`
+--
+ALTER TABLE `tests`
+  ADD CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `test_answers`
+--
+ALTER TABLE `test_answers`
+  ADD CONSTRAINT `test_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `test_chapters`
+--
+ALTER TABLE `test_chapters`
+  ADD CONSTRAINT `test_chapters_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `test_questions`
+--
+ALTER TABLE `test_questions`
+  ADD CONSTRAINT `test_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `test_submissions`
+--
+ALTER TABLE `test_submissions`
+  ADD CONSTRAINT `test_submissions_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `test_submissions_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `test_submission_answers`
+--
+ALTER TABLE `test_submission_answers`
+  ADD CONSTRAINT `test_submission_answers_ibfk_1` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `test_submission_answers_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `test_answers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `towns`

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 03, 2020 at 07:01 AM
+-- Generation Time: Jul 03, 2020 at 09:03 AM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -42,8 +42,8 @@ CREATE TABLE `absencies` (
 
 CREATE TABLE `ages` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ages`
@@ -64,7 +64,7 @@ CREATE TABLE `buildings` (
   `id` bigint UNSIGNED NOT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `suburb_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `buildings`
@@ -82,10 +82,10 @@ INSERT INTO `buildings` (`id`, `address`, `suburb_id`) VALUES
 
 CREATE TABLE `courses` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL,
   `course_type_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `courses`
@@ -121,7 +121,7 @@ CREATE TABLE `courses_fees_history` (
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `created_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -134,7 +134,7 @@ CREATE TABLE `courses_wages_history` (
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `created_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE `course_fees` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `course_fees`
@@ -166,9 +166,9 @@ INSERT INTO `course_fees` (`id`, `amount`, `created_at`, `updated_at`, `course_i
 
 CREATE TABLE `course_grades` (
   `id` bigint UNSIGNED NOT NULL,
-  `grade_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `grade_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `course_grades`
@@ -186,10 +186,10 @@ INSERT INTO `course_grades` (`id`, `grade_title`, `course_id`) VALUES
 
 CREATE TABLE `course_ranks` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `rank` tinyint UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `course_ranks`
@@ -207,8 +207,8 @@ INSERT INTO `course_ranks` (`id`, `title`, `rank`, `course_id`) VALUES
 
 CREATE TABLE `course_type` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `course_type`
@@ -233,7 +233,7 @@ CREATE TABLE `course_wages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `course_wages`
@@ -253,11 +253,11 @@ CREATE TABLE `diplomas` (
   `id` bigint UNSIGNED NOT NULL,
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `language_id` bigint UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `institut_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `diplomas`
@@ -280,8 +280,8 @@ INSERT INTO `diplomas` (`id`, `active`, `created_at`, `level`, `language_id`, `c
 
 CREATE TABLE `disciplines` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(35) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `name` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `disciplines`
@@ -307,7 +307,7 @@ CREATE TABLE `discounts` (
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -317,13 +317,13 @@ CREATE TABLE `discounts` (
 
 CREATE TABLE `discount_model` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `percentage` double(8,2) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `expires_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -333,8 +333,8 @@ CREATE TABLE `discount_model` (
 
 CREATE TABLE `grading_sys` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `grading_sys`
@@ -352,7 +352,7 @@ INSERT INTO `grading_sys` (`id`, `title`) VALUES
 
 CREATE TABLE `groupakia` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -365,7 +365,7 @@ CREATE TABLE `groupakia` (
   `max_seats` tinyint UNSIGNED NOT NULL DEFAULT '10',
   `remaining_seats` tinyint UNSIGNED NOT NULL DEFAULT '2',
   `num_students` tinyint UNSIGNED NOT NULL DEFAULT '8'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `groupakia`
@@ -403,7 +403,7 @@ CREATE TABLE `group_students` (
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `studentsList_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `group_students`
@@ -447,7 +447,7 @@ CREATE TABLE `history` (
   `hour_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `duration` double NOT NULL COMMENT 'in hours',
   `cancelled` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `history`
@@ -482,8 +482,8 @@ INSERT INTO `history` (`id`, `wage`, `fee`, `vat`, `started`, `ended`, `group_id
 
 CREATE TABLE `hours` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `hours`
@@ -533,7 +533,7 @@ CREATE TABLE `installments` (
   `per_days` tinyint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -543,9 +543,9 @@ CREATE TABLE `installments` (
 
 CREATE TABLE `instituts` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `instituts`
@@ -557,6 +557,35 @@ INSERT INTO `instituts` (`id`, `title`, `active`) VALUES
 (3, 'Michigan', 1),
 (4, 'Sorbonne', 1),
 (5, 'Institut Française', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interviews_grading`
+--
+
+CREATE TABLE `interviews_grading` (
+  `id` bigint UNSIGNED NOT NULL,
+  `stage_id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `grade` decimal(5,2) NOT NULL,
+  `passed` tinyint UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interview_stages`
+--
+
+CREATE TABLE `interview_stages` (
+  `id` bigint UNSIGNED NOT NULL,
+  `opening_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `active` tinyint UNSIGNED NOT NULL,
+  `shown_order` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -617,32 +646,63 @@ CREATE TABLE `job_opening_courses` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `job_opening_studies`
+--
+
+CREATE TABLE `job_opening_studies` (
+  `id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `school_title` varchar(120) NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `grade` float UNSIGNED NOT NULL,
+  `joined` date NOT NULL,
+  `graduated` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_opening_work`
+--
+
+CREATE TABLE `job_opening_work` (
+  `id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `job_title` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `company_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `joined` date NOT NULL,
+  `left_on` date DEFAULT NULL,
+  `still_work_there` tinyint UNSIGNED NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `languages`
 --
 
 CREATE TABLE `languages` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `languages`
 --
 
-INSERT INTO `languages` (`id`, `title`, `active`, `created_at`, `updated_at`) VALUES
-(1, 'Αγγλικά', 1, '2020-06-01 14:22:01', '2020-06-01 14:22:01'),
-(2, 'Γερμανικά', 1, '2020-06-01 14:27:26', '2020-06-01 14:27:26'),
-(3, 'Ρωσικά', 1, '2020-06-04 13:46:37', '2020-06-04 13:46:37'),
-(4, 'Γαλλικά', 1, '2020-06-07 05:00:13', '2020-06-07 05:00:13'),
-(5, 'Ισπανικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20'),
-(6, 'Ιταλικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20'),
-(7, 'Σουηδικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20'),
-(8, 'Αραβικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20'),
-(9, 'Κινεζικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20'),
-(10, 'Ιαπωνικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20');
+INSERT INTO `languages` (`id`, `title`, `active`) VALUES
+(1, 'Αγγλικά', 1),
+(2, 'Γερμανικά', 1),
+(3, 'Ρωσικά', 1),
+(4, 'Γαλλικά', 1),
+(5, 'Ισπανικά', 1),
+(6, 'Ιταλικά', 1),
+(7, 'Σουηδικά', 1),
+(8, 'Αραβικά', 1),
+(9, 'Κινεζικά', 1),
+(10, 'Ιαπωνικά', 1);
 
 -- --------------------------------------------------------
 
@@ -666,18 +726,18 @@ CREATE TABLE `logbook` (
 
 CREATE TABLE `members` (
   `id` bigint UNSIGNED NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `surname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `address` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `post_code` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `post_code` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `suburb_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `town_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `perfecture_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `members`
@@ -1030,9 +1090,9 @@ CREATE TABLE `mock_exams` (
   `period_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `grad_sys_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `exam_year` date NOT NULL DEFAULT '1907-01-01'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `mock_exams`
@@ -1054,7 +1114,7 @@ CREATE TABLE `mock_exams_results_numeric` (
   `exam_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `grade` decimal(8,2) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `mock_exams_results_numeric`
@@ -1077,7 +1137,7 @@ CREATE TABLE `mock_exams_results_text` (
   `exam_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `text_grade_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `mock_exams_results_text`
@@ -1095,8 +1155,8 @@ INSERT INTO `mock_exams_results_text` (`id`, `created_at`, `updated_at`, `exam_i
 
 CREATE TABLE `months` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `months`
@@ -1330,6 +1390,83 @@ CREATE TABLE `registration_fees` (
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_questionnaire`
+--
+
+CREATE TABLE `review_questionnaire` (
+  `id` bigint UNSIGNED NOT NULL,
+  `teacher_id` bigint UNSIGNED NOT NULL,
+  `created_at` date NOT NULL,
+  `avg_grade` float UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_questionnaire_chapters`
+--
+
+CREATE TABLE `review_questionnaire_chapters` (
+  `id` bigint UNSIGNED NOT NULL,
+  `questionnaire_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `show_order` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_questionnaire_questions`
+--
+
+CREATE TABLE `review_questionnaire_questions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `questionnaire_id` bigint UNSIGNED NOT NULL,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `question_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='discrete answers 1 to 10';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_questionnaire_submission`
+--
+
+CREATE TABLE `review_questionnaire_submission` (
+  `id` bigint UNSIGNED NOT NULL,
+  `questionnaire_id` bigint UNSIGNED NOT NULL,
+  `pseudonym` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `created_at` date NOT NULL,
+  `avg_grade` decimal(5,2) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='pseudonym is used instead of student_id for anonymity';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_questions`
+--
+
+CREATE TABLE `review_questions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `question` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_submission_answers`
+--
+
+CREATE TABLE `review_submission_answers` (
+  `id` bigint UNSIGNED NOT NULL,
+  `submission_id` bigint UNSIGNED NOT NULL,
+  `question_id` bigint UNSIGNED NOT NULL,
+  `grade` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1713,10 +1850,10 @@ CREATE TABLE `student_progress_book` (
   `id` bigint UNSIGNED NOT NULL,
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `comments` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comments` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1730,7 +1867,7 @@ CREATE TABLE `student_requests` (
   `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `fulfilled` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1740,9 +1877,9 @@ CREATE TABLE `student_requests` (
 
 CREATE TABLE `suburbs` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `town_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `suburbs`
@@ -1763,9 +1900,9 @@ CREATE TABLE `table_absency` (
   `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `history_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `justified` tinyint(1) NOT NULL DEFAULT '0',
-  `comments` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comments` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1775,13 +1912,13 @@ CREATE TABLE `table_absency` (
 
 CREATE TABLE `teachers` (
   `id` bigint UNSIGNED NOT NULL,
-  `amka` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `afm` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amka` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `afm` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `current_salary` decimal(10,2) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `member_id` bigint UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `teachers`
@@ -1807,7 +1944,7 @@ CREATE TABLE `teacher_debts` (
   `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `lesson_year` year NOT NULL,
   `year` tinyblob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `teacher_debts`
@@ -1844,7 +1981,7 @@ CREATE TABLE `teacher_payments` (
   `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `lesson_year` year NOT NULL,
   `year` tinyblob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `teacher_payments`
@@ -1865,7 +2002,7 @@ CREATE TABLE `teaches` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `teacher_id` bigint UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `teaches`
@@ -1883,9 +2020,9 @@ INSERT INTO `teaches` (`id`, `created_at`, `updated_at`, `teacher_id`, `course_i
 
 CREATE TABLE `towns` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `perfecture_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `towns`
@@ -1902,9 +2039,9 @@ INSERT INTO `towns` (`id`, `title`, `perfecture_id`) VALUES
 
 CREATE TABLE `university` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `type_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `university`
@@ -1922,10 +2059,10 @@ INSERT INTO `university` (`id`, `title`, `type_id`) VALUES
 
 CREATE TABLE `university_department` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `univ_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `active` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `university_department`
@@ -1942,8 +2079,8 @@ INSERT INTO `university_department` (`id`, `title`, `univ_id`, `active`) VALUES
 
 CREATE TABLE `university_type` (
   `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `university_type`
@@ -1963,7 +2100,7 @@ CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -2141,6 +2278,21 @@ ALTER TABLE `instituts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `interviews_grading`
+--
+ALTER TABLE `interviews_grading`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `stage_id` (`stage_id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
+-- Indexes for table `interview_stages`
+--
+ALTER TABLE `interview_stages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `opening_id` (`opening_id`);
+
+--
 -- Indexes for table `job_applications`
 --
 ALTER TABLE `job_applications`
@@ -2168,6 +2320,20 @@ ALTER TABLE `job_opening_courses`
   ADD PRIMARY KEY (`id`),
   ADD KEY `opening_id` (`opening_id`),
   ADD KEY `course_id` (`course_id`);
+
+--
+-- Indexes for table `job_opening_studies`
+--
+ALTER TABLE `job_opening_studies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
+-- Indexes for table `job_opening_work`
+--
+ALTER TABLE `job_opening_work`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`);
 
 --
 -- Indexes for table `languages`
@@ -2326,6 +2492,52 @@ ALTER TABLE `registration_fees`
   ADD PRIMARY KEY (`id`),
   ADD KEY `registration_fees_group_id_foreign` (`group_id`),
   ADD KEY `registration_fees_student_id_foreign` (`student_id`);
+
+--
+-- Indexes for table `review_questionnaire`
+--
+ALTER TABLE `review_questionnaire`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teacher_id` (`teacher_id`);
+
+--
+-- Indexes for table `review_questionnaire_chapters`
+--
+ALTER TABLE `review_questionnaire_chapters`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `questionnaire_id` (`questionnaire_id`);
+
+--
+-- Indexes for table `review_questionnaire_questions`
+--
+ALTER TABLE `review_questionnaire_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `questionnaire_id` (`questionnaire_id`),
+  ADD KEY `chapter_id` (`chapter_id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `review_questionnaire_submission`
+--
+ALTER TABLE `review_questionnaire_submission`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `questionnaire_id` (`questionnaire_id`);
+
+--
+-- Indexes for table `review_questions`
+--
+ALTER TABLE `review_questions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `review_submission_answers`
+--
+ALTER TABLE `review_submission_answers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `submission_id_2` (`submission_id`,`question_id`),
+  ADD KEY `submission_id` (`submission_id`),
+  ADD KEY `question_id` (`question_id`),
+  ADD KEY `question_id_2` (`question_id`);
 
 --
 -- Indexes for table `roles`
@@ -2708,6 +2920,18 @@ ALTER TABLE `instituts`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `interviews_grading`
+--
+ALTER TABLE `interviews_grading`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `interview_stages`
+--
+ALTER TABLE `interview_stages`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `job_applications`
 --
 ALTER TABLE `job_applications`
@@ -2729,6 +2953,18 @@ ALTER TABLE `job_openings`
 -- AUTO_INCREMENT for table `job_opening_courses`
 --
 ALTER TABLE `job_opening_courses`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_opening_studies`
+--
+ALTER TABLE `job_opening_studies`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_opening_work`
+--
+ALTER TABLE `job_opening_work`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -2855,6 +3091,42 @@ ALTER TABLE `real_exams_results_text`
 -- AUTO_INCREMENT for table `registration_fees`
 --
 ALTER TABLE `registration_fees`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review_questionnaire`
+--
+ALTER TABLE `review_questionnaire`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review_questionnaire_chapters`
+--
+ALTER TABLE `review_questionnaire_chapters`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review_questionnaire_questions`
+--
+ALTER TABLE `review_questionnaire_questions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review_questionnaire_submission`
+--
+ALTER TABLE `review_questionnaire_submission`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review_questions`
+--
+ALTER TABLE `review_questions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review_submission_answers`
+--
+ALTER TABLE `review_submission_answers`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -3172,6 +3444,19 @@ ALTER TABLE `installments`
   ADD CONSTRAINT `installments_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
+-- Constraints for table `interviews_grading`
+--
+ALTER TABLE `interviews_grading`
+  ADD CONSTRAINT `interviews_grading_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `interviews_grading_ibfk_2` FOREIGN KEY (`stage_id`) REFERENCES `interview_stages` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `interview_stages`
+--
+ALTER TABLE `interview_stages`
+  ADD CONSTRAINT `interview_stages_ibfk_1` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `job_application_courses`
 --
 ALTER TABLE `job_application_courses`
@@ -3184,6 +3469,12 @@ ALTER TABLE `job_application_courses`
 ALTER TABLE `job_opening_courses`
   ADD CONSTRAINT `job_opening_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `job_opening_courses_ibfk_2` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `job_opening_studies`
+--
+ALTER TABLE `job_opening_studies`
+  ADD CONSTRAINT `job_opening_studies_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `logbook`
@@ -3271,6 +3562,39 @@ ALTER TABLE `real_exams_results_numeric`
 ALTER TABLE `registration_fees`
   ADD CONSTRAINT `registration_fees_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
   ADD CONSTRAINT `registration_fees_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `review_questionnaire`
+--
+ALTER TABLE `review_questionnaire`
+  ADD CONSTRAINT `review_questionnaire_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `review_questionnaire_chapters`
+--
+ALTER TABLE `review_questionnaire_chapters`
+  ADD CONSTRAINT `review_questionnaire_chapters_ibfk_1` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `review_questionnaire_questions`
+--
+ALTER TABLE `review_questionnaire_questions`
+  ADD CONSTRAINT `review_questionnaire_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `review_questionnaire_chapters` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `review_questionnaire_questions_ibfk_2` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `review_questionnaire_questions_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `review_questionnaire_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `review_questionnaire_submission`
+--
+ALTER TABLE `review_questionnaire_submission`
+  ADD CONSTRAINT `review_questionnaire_submission_ibfk_1` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `review_submission_answers`
+--
+ALTER TABLE `review_submission_answers`
+  ADD CONSTRAINT `review_submission_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `review_questionnaire_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `review_submission_answers_ibfk_2` FOREIGN KEY (`submission_id`) REFERENCES `review_questionnaire_submission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `rooms`

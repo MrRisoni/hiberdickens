@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 03, 2020 at 06:09 AM
+-- Generation Time: Jul 03, 2020 at 07:01 AM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `dickens`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `absencies`
+--
+
+CREATE TABLE `absencies` (
+  `id` bigint UNSIGNED NOT NULL,
+  `history_id` bigint UNSIGNED NOT NULL,
+  `student_id` bigint UNSIGNED NOT NULL,
+  `justified` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -368,6 +381,18 @@ INSERT INTO `groupakia` (`id`, `title`, `active`, `created_at`, `updated_at`, `t
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `groups_extra_teachers`
+--
+
+CREATE TABLE `groups_extra_teachers` (
+  `id` bigint UNSIGNED NOT NULL,
+  `group_id` bigint UNSIGNED NOT NULL,
+  `teacher_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `group_students`
 --
 
@@ -417,6 +442,7 @@ CREATE TABLE `history` (
   `started` datetime NOT NULL,
   `ended` datetime NOT NULL,
   `group_id` bigint UNSIGNED NOT NULL,
+  `teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `room_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `hour_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `duration` double NOT NULL COMMENT 'in hours',
@@ -427,26 +453,26 @@ CREATE TABLE `history` (
 -- Dumping data for table `history`
 --
 
-INSERT INTO `history` (`id`, `wage`, `fee`, `vat`, `started`, `ended`, `group_id`, `room_id`, `hour_id`, `duration`, `cancelled`) VALUES
-(1, '12.00', '3.00', '3.00', '2019-09-01 10:00:00', '2019-09-01 11:30:00', 1, 1, 4, 1.5, 0),
-(2, '12.00', '3.00', '3.00', '2019-09-06 10:00:00', '2019-09-06 11:30:00', 1, 1, 4, 1.5, 0),
-(3, '12.00', '3.00', '3.00', '2019-09-12 17:00:00', '2019-09-12 18:30:00', 1, 2, 18, 1.5, 0),
-(4, '12.00', '3.00', '3.00', '2019-09-21 10:00:00', '2019-09-21 11:30:00', 1, 6, 4, 1.5, 0),
-(5, '12.00', '3.00', '3.00', '2019-09-24 18:00:00', '2019-09-24 19:30:00', 1, 2, 18, 1.5, 0),
-(6, '12.00', '3.00', '3.00', '2019-09-30 18:30:00', '2019-09-30 20:00:00', 1, 2, 21, 1.5, 0),
-(7, '12.00', '3.00', '3.00', '2019-10-03 18:30:00', '2019-10-03 20:00:00', 1, 2, 21, 1.5, 0),
-(8, '12.00', '3.00', '3.00', '2019-08-21 12:00:00', '2019-08-21 14:00:00', 2, 4, 8, 2, 0),
-(9, '12.00', '3.00', '3.00', '2019-08-24 12:00:00', '2019-08-24 14:00:00', 2, 4, 8, 2, 0),
-(10, '12.00', '3.00', '3.00', '2019-08-29 19:00:00', '2019-08-29 21:00:00', 2, 4, 22, 2, 0),
-(11, '12.00', '3.00', '3.00', '2019-09-02 19:00:00', '2019-09-02 21:00:00', 2, 4, 22, 2, 0),
-(12, '12.00', '3.00', '3.00', '2019-09-05 19:30:00', '2019-09-05 21:30:00', 2, 4, 22, 2, 0),
-(13, '12.00', '3.00', '3.00', '2019-09-09 19:30:00', '2019-09-09 21:30:00', 2, 4, 22, 2, 0),
-(14, '12.00', '3.00', '3.00', '2019-09-12 19:00:00', '2019-09-12 21:00:00', 2, 4, 22, 2, 0),
-(15, '12.00', '3.00', '3.00', '2019-09-17 19:00:00', '2019-09-17 20:30:00', 2, 4, 22, 1.5, 0),
-(16, '12.00', '3.00', '3.00', '2019-09-21 09:30:00', '2019-09-21 11:00:00', 2, 5, 3, 1.5, 0),
-(17, '12.00', '3.00', '3.00', '2019-09-27 19:00:00', '2019-09-27 20:30:00', 2, 5, 22, 1.5, 0),
-(18, '12.00', '3.00', '3.00', '2019-10-04 19:00:00', '2019-10-04 21:00:00', 2, 5, 22, 1.5, 0),
-(19, '12.00', '3.00', '3.00', '2019-09-24 19:00:00', '2019-09-24 21:00:00', 5, 7, 22, 2, 0);
+INSERT INTO `history` (`id`, `wage`, `fee`, `vat`, `started`, `ended`, `group_id`, `teacher_id`, `room_id`, `hour_id`, `duration`, `cancelled`) VALUES
+(1, '12.00', '3.00', '3.00', '2019-09-01 10:00:00', '2019-09-01 11:30:00', 1, 1, 1, 4, 1.5, 0),
+(2, '12.00', '3.00', '3.00', '2019-09-06 10:00:00', '2019-09-06 11:30:00', 1, 1, 1, 4, 1.5, 0),
+(3, '12.00', '3.00', '3.00', '2019-09-12 17:00:00', '2019-09-12 18:30:00', 1, 1, 2, 18, 1.5, 0),
+(4, '12.00', '3.00', '3.00', '2019-09-21 10:00:00', '2019-09-21 11:30:00', 1, 1, 6, 4, 1.5, 0),
+(5, '12.00', '3.00', '3.00', '2019-09-24 18:00:00', '2019-09-24 19:30:00', 1, 1, 2, 18, 1.5, 0),
+(6, '12.00', '3.00', '3.00', '2019-09-30 18:30:00', '2019-09-30 20:00:00', 1, 1, 2, 21, 1.5, 0),
+(7, '12.00', '3.00', '3.00', '2019-10-03 18:30:00', '2019-10-03 20:00:00', 1, 1, 2, 21, 1.5, 0),
+(8, '12.00', '3.00', '3.00', '2019-08-21 12:00:00', '2019-08-21 14:00:00', 2, 2, 4, 8, 2, 0),
+(9, '12.00', '3.00', '3.00', '2019-08-24 12:00:00', '2019-08-24 14:00:00', 2, 2, 4, 8, 2, 0),
+(10, '12.00', '3.00', '3.00', '2019-08-29 19:00:00', '2019-08-29 21:00:00', 2, 2, 4, 22, 2, 0),
+(11, '12.00', '3.00', '3.00', '2019-09-02 19:00:00', '2019-09-02 21:00:00', 2, 2, 4, 22, 2, 0),
+(12, '12.00', '3.00', '3.00', '2019-09-05 19:30:00', '2019-09-05 21:30:00', 2, 2, 4, 22, 2, 0),
+(13, '12.00', '3.00', '3.00', '2019-09-09 19:30:00', '2019-09-09 21:30:00', 2, 2, 4, 22, 2, 0),
+(14, '12.00', '3.00', '3.00', '2019-09-12 19:00:00', '2019-09-12 21:00:00', 2, 2, 4, 22, 2, 0),
+(15, '12.00', '3.00', '3.00', '2019-09-17 19:00:00', '2019-09-17 20:30:00', 2, 2, 4, 22, 1.5, 0),
+(16, '12.00', '3.00', '3.00', '2019-09-21 09:30:00', '2019-09-21 11:00:00', 2, 2, 5, 3, 1.5, 0),
+(17, '12.00', '3.00', '3.00', '2019-09-27 19:00:00', '2019-09-27 20:30:00', 2, 2, 5, 22, 1.5, 0),
+(18, '12.00', '3.00', '3.00', '2019-10-04 19:00:00', '2019-10-04 21:00:00', 2, 2, 5, 22, 1.5, 0),
+(19, '12.00', '3.00', '3.00', '2019-09-24 19:00:00', '2019-09-24 21:00:00', 5, 2, 7, 22, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -535,6 +561,62 @@ INSERT INTO `instituts` (`id`, `title`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `job_applications`
+--
+
+CREATE TABLE `job_applications` (
+  `id` bigint UNSIGNED NOT NULL,
+  `opening_id` bigint UNSIGNED NOT NULL,
+  `full_name` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `phone` varchar(22) NOT NULL,
+  `email` varchar(65) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `dob` date NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_application_courses`
+--
+
+CREATE TABLE `job_application_courses` (
+  `id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `course_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_openings`
+--
+
+CREATE TABLE `job_openings` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `active` tinyint UNSIGNED NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `starts_at` datetime NOT NULL,
+  `ends_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_opening_courses`
+--
+
+CREATE TABLE `job_opening_courses` (
+  `id` bigint UNSIGNED NOT NULL,
+  `opening_id` bigint UNSIGNED NOT NULL,
+  `course_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `languages`
 --
 
@@ -561,6 +643,20 @@ INSERT INTO `languages` (`id`, `title`, `active`, `created_at`, `updated_at`) VA
 (8, 'Αραβικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20'),
 (9, 'Κινεζικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20'),
 (10, 'Ιαπωνικά', 1, '2020-06-07 05:00:13', '2020-05-22 07:19:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logbook`
+--
+
+CREATE TABLE `logbook` (
+  `id` bigint UNSIGNED NOT NULL,
+  `history_id` bigint UNSIGNED NOT NULL,
+  `teacher_id` bigint UNSIGNED NOT NULL,
+  `notes` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='βιβλίο ύλης';
 
 -- --------------------------------------------------------
 
@@ -1874,6 +1970,14 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexes for table `absencies`
+--
+ALTER TABLE `absencies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `history_id` (`history_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `ages`
 --
 ALTER TABLE `ages`
@@ -1991,6 +2095,15 @@ ALTER TABLE `groupakia`
   ADD KEY `FKat205al2gpkgh81q73blgn0r5` (`speed_id`);
 
 --
+-- Indexes for table `groups_extra_teachers`
+--
+ALTER TABLE `groups_extra_teachers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `group_id_2` (`group_id`,`teacher_id`),
+  ADD KEY `group_id` (`group_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
+
+--
 -- Indexes for table `group_students`
 --
 ALTER TABLE `group_students`
@@ -2004,8 +2117,9 @@ ALTER TABLE `group_students`
 ALTER TABLE `history`
   ADD PRIMARY KEY (`id`),
   ADD KEY `history_group_id_foreign` (`group_id`),
-  ADD KEY `history_room_id_foreign` (`room_id`),
-  ADD KEY `history_hour_id_foreign` (`hour_id`);
+  ADD KEY `history_hour_id_foreign` (`hour_id`),
+  ADD KEY `room_id` (`room_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `hours`
@@ -2027,10 +2141,47 @@ ALTER TABLE `instituts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `job_applications`
+--
+ALTER TABLE `job_applications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `opening_id` (`opening_id`);
+
+--
+-- Indexes for table `job_application_courses`
+--
+ALTER TABLE `job_application_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
+-- Indexes for table `job_openings`
+--
+ALTER TABLE `job_openings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `job_opening_courses`
+--
+ALTER TABLE `job_opening_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `opening_id` (`opening_id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
 -- Indexes for table `languages`
 --
 ALTER TABLE `languages`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logbook`
+--
+ALTER TABLE `logbook`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `history_id` (`history_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
 
 --
 -- Indexes for table `members`
@@ -2521,6 +2672,12 @@ ALTER TABLE `groupakia`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `groups_extra_teachers`
+--
+ALTER TABLE `groups_extra_teachers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `group_students`
 --
 ALTER TABLE `group_students`
@@ -2551,10 +2708,40 @@ ALTER TABLE `instituts`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `job_applications`
+--
+ALTER TABLE `job_applications`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_application_courses`
+--
+ALTER TABLE `job_application_courses`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_openings`
+--
+ALTER TABLE `job_openings`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_opening_courses`
+--
+ALTER TABLE `job_opening_courses`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `logbook`
+--
+ALTER TABLE `logbook`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `members`
@@ -2873,6 +3060,13 @@ ALTER TABLE `users`
 --
 
 --
+-- Constraints for table `absencies`
+--
+ALTER TABLE `absencies`
+  ADD CONSTRAINT `absencies_ibfk_1` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `absencies_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `buildings`
 --
 ALTER TABLE `buildings`
@@ -2949,6 +3143,13 @@ ALTER TABLE `groupakia`
   ADD CONSTRAINT `groups_wage_id_foreign` FOREIGN KEY (`wage_id`) REFERENCES `course_wages` (`id`);
 
 --
+-- Constraints for table `groups_extra_teachers`
+--
+ALTER TABLE `groups_extra_teachers`
+  ADD CONSTRAINT `groups_extra_teachers_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `groups_extra_teachers_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `group_students`
 --
 ALTER TABLE `group_students`
@@ -2961,6 +3162,7 @@ ALTER TABLE `group_students`
 ALTER TABLE `history`
   ADD CONSTRAINT `history_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
   ADD CONSTRAINT `history_hour_id_foreign` FOREIGN KEY (`hour_id`) REFERENCES `hours` (`id`),
+  ADD CONSTRAINT `history_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `history_room_id_foreign` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
@@ -2968,6 +3170,27 @@ ALTER TABLE `history`
 --
 ALTER TABLE `installments`
   ADD CONSTRAINT `installments_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `job_application_courses`
+--
+ALTER TABLE `job_application_courses`
+  ADD CONSTRAINT `job_application_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `job_application_courses_ibfk_2` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `job_opening_courses`
+--
+ALTER TABLE `job_opening_courses`
+  ADD CONSTRAINT `job_opening_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `job_opening_courses_ibfk_2` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `logbook`
+--
+ALTER TABLE `logbook`
+  ADD CONSTRAINT `logbook_ibfk_1` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `logbook_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `members`

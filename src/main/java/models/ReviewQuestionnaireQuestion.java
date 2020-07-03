@@ -1,7 +1,6 @@
 package models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -14,10 +13,12 @@ public class ReviewQuestionnaireQuestion {
     @Column
     private int id;
 
-    /*
-   @OneToOne(fetch = FetchType.LAZY)
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chapter_id")
     private ReviewQuestionnaireChapter chapterObj;
+
+ /*
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
@@ -36,7 +37,7 @@ public class ReviewQuestionnaireQuestion {
         this.id = id;
     }
 
- /*
+
     public ReviewQuestionnaireChapter getChapterObj() {
         return chapterObj;
     }
@@ -44,12 +45,4 @@ public class ReviewQuestionnaireQuestion {
     public void setChapterObj(ReviewQuestionnaireChapter chapterObj) {
         this.chapterObj = chapterObj;
     }
-
-    public ReviewQuestion getQuestionObj() {
-        return questionObj;
-    }
-
-    public void setQuestionObj(ReviewQuestion questionObj) {
-        this.questionObj = questionObj;
-    }*/
 }

@@ -3,8 +3,8 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "review_questionnaire_chapters")
-public class ReviewQuestionnaireChapter {
+@Table(name = "tests")
+public class TestModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class ReviewQuestionnaireChapter {
     @Column
     private String title;
 
-    public ReviewQuestionnaireChapter() {
+    public TestModel() {
     }
 
     public int getId() {

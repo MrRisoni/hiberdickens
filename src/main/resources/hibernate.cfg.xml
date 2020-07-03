@@ -52,6 +52,7 @@
         <mapping class="models.ReviewQuestion"/>
         <mapping class="models.TestModel"/>
         <mapping class="models.TestChapterModel"/>
+        <mapping class="models.TestQuestion"/>
 
 
     </session-factory>

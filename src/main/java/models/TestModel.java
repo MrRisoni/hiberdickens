@@ -16,7 +16,6 @@ public class TestModel {
     @Column
     private String title;
 
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="test_id")
     private List<TestChapterModel> chapters = new ArrayList<TestChapterModel>();

@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "test_questions")
@@ -17,6 +18,10 @@ public class TestQuestion {
 
     @Column
     private int points;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="question_id")
+    private List<TestAnswer> possibleAnswers = new ArrayList<TestAnswer>();
 
     public TestQuestion() {
     }
@@ -43,5 +48,13 @@ public class TestQuestion {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public List<TestAnswer> getPossibleAnswers() {
+        return possibleAnswers;
+    }
+
+    public void setPossibleAnswers(List<TestAnswer> possibleAnswers) {
+        this.possibleAnswers = possibleAnswers;
     }
 }

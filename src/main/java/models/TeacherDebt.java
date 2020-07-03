@@ -12,7 +12,6 @@ public class TeacherDebt {
     @Column
     private int id;
 
-
     @Column
     private float amount;
 

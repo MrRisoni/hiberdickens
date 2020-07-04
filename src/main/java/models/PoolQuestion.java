@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pool_questions")
@@ -32,4 +34,6 @@ public class PoolQuestion {
     public void setBody(String body) {
         this.body = body;
     }
+
+
 }

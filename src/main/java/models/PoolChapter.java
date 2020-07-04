@@ -18,16 +18,11 @@ public class PoolChapter {
     @Column
     private String title;
 
-    /*
-       @ManyToOne(fetch = FetchType.LAZY)
-       @JoinColumn(name="pool_id", nullable=false)
-       private Pools poolObj;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "chapter_id")
+    private List<PoolQuestion> questionsList = new ArrayList<PoolQuestion>();
 
-       @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-       @JoinColumn(name = "chapter_id")
-       private List<PoolQuestion> questionsList = new ArrayList<PoolQuestion>();
-   */
     public PoolChapter() {
     }
 
@@ -47,11 +42,11 @@ public class PoolChapter {
         this.title = title;
     }
 
-   /* public List<PoolQuestion> getQuestionsList() {
+    public List<PoolQuestion> getQuestionsList() {
         return questionsList;
     }
 
     public void setQuestionsList(List<PoolQuestion> questionsList) {
         this.questionsList = questionsList;
-    }*/
+    }
 }

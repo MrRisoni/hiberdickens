@@ -55,6 +55,8 @@
         <mapping class="models.PoolChapter"/>
         <mapping class="models.PoolQuestion"/>
         <mapping class="models.PoolQuestionAnswer"/>
+        <mapping class="models.TestSubmission"/>
+        <mapping class="models.TestModel"/>
 
 
     </session-factory>

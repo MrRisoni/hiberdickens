@@ -14,6 +14,9 @@ public class PoolQuestionAnswer {
     @Column
     private String body;
 
+    @Column
+    private int wrong;
+
     public PoolQuestionAnswer() {
     }
 
@@ -31,5 +34,13 @@ public class PoolQuestionAnswer {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public int getWrong() {
+        return wrong;
+    }
+
+    public void setWrong(int wrong) {
+        this.wrong = wrong;
     }
 }

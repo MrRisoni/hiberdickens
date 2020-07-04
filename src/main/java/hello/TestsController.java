@@ -32,7 +32,7 @@ public class TestsController {
 
 
     @RequestMapping(value = "/api/tests/next_question", method = RequestMethod.GET)
-    public HashMap<String,Boolean> getNextQuestion()
+    public HashMap<String,Object> getNextQuestion()
     {
         System.out.println("this.beginning");
 

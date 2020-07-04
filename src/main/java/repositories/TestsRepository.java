@@ -43,23 +43,23 @@ public class TestsRepository extends Repository {
         return null;
     }
 
-    public HashMap<String,Boolean> isTestActive(int testId,int submissionId)
+    public HashMap<String,Object> isTestActive(int testId,int submissionId)
     {
         boolean isActive = true;
 
         TestSubmission submiss =  this.getEntityManager().createQuery("FROM TestSubmission sb" +
                 " INNER JOIN FETCH sb.testObj WHERE sb.testObj.id =1 AND sb.id = 1",TestSubmission.class).getResultList().get(0);
 
-        Long windowStarts = submiss.getTime_window_starts().getTime();
-        Long windowEnds = submiss.getTime_window_ends().getTime();
+        Long windowStarts = submiss.getTime_window_starts().getTime()/ 1000L;
+        Long windowEnds = submiss.getTime_window_ends().getTime()/ 1000L;
 
-        Long testStarted = submiss.getStarted_at().getTime() / 1000L;;
+        Long testStarted = submiss.getStarted_at().getTime() / 1000L;
 
-        Long deadline = submiss.getDeadline_at().getTime();
+        Long deadline = submiss.getDeadline_at().getTime()/ 1000L;
 
-        Long thisMoment = WaterClock.getDate().getTime() / 1000L;;
+        Long thisMoment = WaterClock.getUnix();
 
-        HashMap<String,Boolean> mp = new HashMap<String, Boolean>();
+        HashMap<String,Object> mp = new HashMap<String, Object>();
 
         System.out.println("thismom " + thisMoment);
         System.out.println("testStarted " + testStarted);

@@ -20,7 +20,7 @@ public class WaterClock {
         try {
             System.out.println(getStrDate());
 
-            return new SimpleDateFormat("YYYY-MM-dd H:m:s").parse(getStrDate());
+            return new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").parse(getStrDate());
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());

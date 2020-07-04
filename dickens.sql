@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 04, 2020 at 12:24 PM
+-- Generation Time: Jul 04, 2020 at 05:07 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -242,6 +242,30 @@ CREATE TABLE `course_wages` (
 INSERT INTO `course_wages` (`id`, `amount`, `created_at`, `updated_at`, `course_id`) VALUES
 (1, '5.20', '2020-06-05 17:43:46', '2020-06-05 17:43:46', 1),
 (2, '7.20', '2020-06-05 17:43:46', '2020-06-05 17:43:46', 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `days`
+--
+
+CREATE TABLE `days` (
+  `id` bigint NOT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `days`
+--
+
+INSERT INTO `days` (`id`, `name`) VALUES
+(6, 'Friday'),
+(2, 'Monday'),
+(7, 'Saturday'),
+(1, 'Sunday'),
+(5, 'Thursday'),
+(3, 'Tuesday'),
+(4, 'Wednesday');
 
 -- --------------------------------------------------------
 
@@ -1206,7 +1230,7 @@ CREATE TABLE `pools` (
 --
 
 INSERT INTO `pools` (`id`, `course_id`, `title`) VALUES
-(1, 12, 'Προκαταρτικό τεστ');
+(1, 1, 'Προκαταρτικό τεστ');
 
 -- --------------------------------------------------------
 
@@ -1746,6 +1770,19 @@ CREATE TABLE `seminar_teachers` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shifts`
+--
+
+CREATE TABLE `shifts` (
+  `id` bigint UNSIGNED NOT NULL,
+  `days_id` bigint DEFAULT NULL,
+  `starting_hour_id` bigint UNSIGNED DEFAULT NULL,
+  `ending_hour_id` bigint UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='secretary shifts';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `speeds`
 --
 
@@ -1895,21 +1932,6 @@ CREATE TABLE `suburbs` (
 INSERT INTO `suburbs` (`id`, `title`, `town_id`) VALUES
 (1, 'Χολαργός', 1),
 (2, 'Καλλιθέα', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `table_absency`
---
-
-CREATE TABLE `table_absency` (
-  `id` bigint UNSIGNED NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `history_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `justified` tinyint(1) NOT NULL DEFAULT '0',
-  `comments` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2065,8 +2087,8 @@ CREATE TABLE `test_questions` (
 --
 
 INSERT INTO `test_questions` (`id`, `pool_question_id`, `test_id`, `points`, `penalty`, `shown_order`, `active`, `multiple_select`) VALUES
-(1, 1, 1, 4, 10, 1, 1, 0),
-(2, 1, 1, 4, 10, 2, 1, 0);
+(1, 1, 1, 4, 10, 2, 1, 0),
+(2, 2, 1, 4, 10, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -2096,7 +2118,7 @@ CREATE TABLE `test_submissions` (
 --
 
 INSERT INTO `test_submissions` (`id`, `application_id`, `session_id`, `test_id`, `time_window_starts`, `time_window_ends`, `started_at`, `ended_at`, `deadline_at`, `duration_mins`, `mins_remaining`, `grade`, `completed`, `cheat_counter`) VALUES
-(1, 1, 'snW1jVuSezMQJFsN0BDKLIk3iXj3zWV', 1, '2020-07-04 09:50:46', '2020-07-04 09:50:46', NULL, NULL, NULL, 120, 120, '0.00', 0, 0);
+(1, 1, 'snW1jVuSezMQJFsN0BDKLIk3iXj3zWV', 1, '2019-09-18 00:00:00', '2019-09-28 00:00:00', '2019-09-21 10:00:00', NULL, '2019-09-21 11:30:00', 120, 120, '0.00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2283,6 +2305,13 @@ ALTER TABLE `course_type`
 ALTER TABLE `course_wages`
   ADD PRIMARY KEY (`id`),
   ADD KEY `course_wages_course_id_foreign` (`course_id`);
+
+--
+-- Indexes for table `days`
+--
+ALTER TABLE `days`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `index_days_on_name` (`name`);
 
 --
 -- Indexes for table `diplomas`
@@ -2787,6 +2816,15 @@ ALTER TABLE `seminar_teachers`
   ADD KEY `seminar_teachers_teacher_id_foreign` (`teacher_id`);
 
 --
+-- Indexes for table `shifts`
+--
+ALTER TABLE `shifts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_timetablings_on_days_id` (`days_id`),
+  ADD KEY `index_timetablings_on_starting_hour_id` (`starting_hour_id`),
+  ADD KEY `index_timetablings_on_ending_hour_id` (`ending_hour_id`);
+
+--
 -- Indexes for table `speeds`
 --
 ALTER TABLE `speeds`
@@ -2839,14 +2877,6 @@ ALTER TABLE `student_requests`
 ALTER TABLE `suburbs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `suburbs_town_id_foreign` (`town_id`);
-
---
--- Indexes for table `table_absency`
---
-ALTER TABLE `table_absency`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `table_absency_student_id_foreign` (`student_id`),
-  ADD KEY `table_absency_history_id_foreign` (`history_id`);
 
 --
 -- Indexes for table `teachers`
@@ -3016,6 +3046,12 @@ ALTER TABLE `course_type`
 --
 ALTER TABLE `course_wages`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `days`
+--
+ALTER TABLE `days`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `diplomas`
@@ -3420,6 +3456,12 @@ ALTER TABLE `seminar_teachers`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `shifts`
+--
+ALTER TABLE `shifts`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
 -- AUTO_INCREMENT for table `speeds`
 --
 ALTER TABLE `speeds`
@@ -3460,12 +3502,6 @@ ALTER TABLE `student_requests`
 --
 ALTER TABLE `suburbs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `table_absency`
---
-ALTER TABLE `table_absency`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -3781,6 +3817,7 @@ ALTER TABLE `pool_chapters`
 -- Constraints for table `pool_questions`
 --
 ALTER TABLE `pool_questions`
+  ADD CONSTRAINT `FKlta3hjjc8t44t0dduidcfj0gp` FOREIGN KEY (`chapter_id`) REFERENCES `pool_questions` (`id`),
   ADD CONSTRAINT `pool_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `pool_chapters` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
@@ -3922,6 +3959,14 @@ ALTER TABLE `seminar_teachers`
   ADD CONSTRAINT `seminar_teachers_teacher_id_foreign` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
 
 --
+-- Constraints for table `shifts`
+--
+ALTER TABLE `shifts`
+  ADD CONSTRAINT `shifts_ibfk_1` FOREIGN KEY (`days_id`) REFERENCES `days` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `shifts_ibfk_2` FOREIGN KEY (`starting_hour_id`) REFERENCES `hours` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `shifts_ibfk_3` FOREIGN KEY (`ending_hour_id`) REFERENCES `hours` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `students`
 --
 ALTER TABLE `students`
@@ -3962,13 +4007,6 @@ ALTER TABLE `student_requests`
 --
 ALTER TABLE `suburbs`
   ADD CONSTRAINT `suburbs_town_id_foreign` FOREIGN KEY (`town_id`) REFERENCES `towns` (`id`);
-
---
--- Constraints for table `table_absency`
---
-ALTER TABLE `table_absency`
-  ADD CONSTRAINT `table_absency_history_id_foreign` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`),
-  ADD CONSTRAINT `table_absency_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
 -- Constraints for table `teachers`

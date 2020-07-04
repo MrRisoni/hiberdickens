@@ -53,11 +53,11 @@ public class TestsRepository extends Repository {
         Long windowStarts = submiss.getTime_window_starts().getTime();
         Long windowEnds = submiss.getTime_window_ends().getTime();
 
-        Long testStarted = submiss.getStarted_at().getTime();
+        Long testStarted = submiss.getStarted_at().getTime() / 1000L;;
 
         Long deadline = submiss.getDeadline_at().getTime();
 
-        Long thisMoment = WaterClock.getDate().getTime();
+        Long thisMoment = WaterClock.getDate().getTime() / 1000L;;
 
         HashMap<String,Boolean> mp = new HashMap<String, Boolean>();
 

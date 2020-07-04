@@ -18,7 +18,6 @@ public class PoolChapter {
     @Column
     private String title;
 
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "chapter_id")
     private List<PoolQuestion> questionsList = new ArrayList<PoolQuestion>();

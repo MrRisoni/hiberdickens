@@ -16,6 +16,10 @@ public class PoolQuestion {
     @Column
     private String body;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
+    private List<PoolQuestionAnswer> answersList = new ArrayList<PoolQuestionAnswer>();
+
     public PoolQuestion() {
     }
 
@@ -35,5 +39,11 @@ public class PoolQuestion {
         this.body = body;
     }
 
+    public List<PoolQuestionAnswer> getAnswersList() {
+        return answersList;
+    }
 
+    public void setAnswersList(List<PoolQuestionAnswer> answersList) {
+        this.answersList = answersList;
+    }
 }

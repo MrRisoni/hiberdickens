@@ -15,7 +15,6 @@ public class Pools {
     @Column
     private int id;
 
-
     @Column
     private String title;
 

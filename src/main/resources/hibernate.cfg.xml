@@ -50,10 +50,11 @@
         <mapping class="models.ReviewQuestionnaireChapter"/>
         <mapping class="models.ReviewQuestionnaireQuestion"/>
         <mapping class="models.ReviewQuestion"/>
-        <mapping class="models.TestModel"/>
-        <mapping class="models.TestChapterModel"/>
-        <mapping class="models.TestQuestion"/>
-        <mapping class="models.TestAnswer"/>
+
+        <mapping class="models.Pools"/>
+        <mapping class="models.PoolChapter"/>
+        <mapping class="models.PoolQuestion"/>
+        <mapping class="models.PoolQuestionAnswer"/>
 
 
     </session-factory>

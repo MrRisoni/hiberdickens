@@ -1,12 +1,11 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "test_answers")
-public class TestAnswer {
+@Table(name = "pool_questions")
+public class PoolQuestion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -15,11 +14,7 @@ public class TestAnswer {
     @Column
     private String body;
 
-    @Column
-    @JsonIgnore // we do not want to show this to the browser when the API is invoked
-    private int wrong;
-
-    public TestAnswer() {
+    public PoolQuestion() {
     }
 
     public int getId() {
@@ -36,13 +31,5 @@ public class TestAnswer {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public int getWrong() {
-        return wrong;
-    }
-
-    public void setWrong(int wrong) {
-        this.wrong = wrong;
     }
 }

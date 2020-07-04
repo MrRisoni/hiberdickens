@@ -16,9 +16,6 @@ public class TestModel {
     @Column
     private String title;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="test_id")
-    private List<TestChapterModel> chapters = new ArrayList<TestChapterModel>();
 
     public TestModel() {
     }
@@ -39,11 +36,5 @@ public class TestModel {
         this.title = title;
     }
 
-    public List<TestChapterModel> getChapters() {
-        return chapters;
-    }
 
-    public void setChapters(List<TestChapterModel> chapters) {
-        this.chapters = chapters;
-    }
 }

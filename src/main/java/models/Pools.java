@@ -23,9 +23,10 @@ public class Pools {
     @JoinColumn(name = "course_id")
     private CourseModel courseObj;
 
-  /*
-    @OneToMany(mappedBy = "poolObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<PoolChapter> poolChaptersList = new ArrayList<PoolChapter>();*/
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinColumn(name = "pool_id")
+    private List<PoolChapter> poolChaptersList = new ArrayList<PoolChapter>();
 
     public Pools() {
     }
@@ -54,12 +55,12 @@ public class Pools {
         this.title = title;
     }
 
-    /*
+
     public List<PoolChapter> getPoolChaptersList() {
         return poolChaptersList;
     }
 
     public void setPoolChaptersList(List<PoolChapter> poolChaptersList) {
         this.poolChaptersList = poolChaptersList;
-    } */
+    }
 }

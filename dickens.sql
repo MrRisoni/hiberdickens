@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 03, 2020 at 04:01 PM
+-- Generation Time: Jul 04, 2020 at 12:24 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -603,6 +603,13 @@ CREATE TABLE `job_applications` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `job_applications`
+--
+
+INSERT INTO `job_applications` (`id`, `opening_id`, `full_name`, `phone`, `email`, `dob`, `created_at`) VALUES
+(1, 1, 'foo', 'foo', '', '1985-02-12', '2020-07-01 09:50:01');
+
 -- --------------------------------------------------------
 
 --
@@ -630,6 +637,13 @@ CREATE TABLE `job_openings` (
   `starts_at` datetime NOT NULL,
   `ends_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `job_openings`
+--
+
+INSERT INTO `job_openings` (`id`, `title`, `description`, `active`, `created_at`, `starts_at`, `ends_at`) VALUES
+(1, 'Λατινικά ', '', 1, '2020-07-01 09:49:18', '2020-07-01 09:49:18', '2020-07-23 09:49:18');
 
 -- --------------------------------------------------------
 
@@ -1174,6 +1188,89 @@ CREATE TABLE `periods` (
 
 INSERT INTO `periods` (`id`, `title`, `created_at`) VALUES
 (1, 'June', '2021-05-05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pools`
+--
+
+CREATE TABLE `pools` (
+  `id` bigint UNSIGNED NOT NULL,
+  `course_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(65) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pools`
+--
+
+INSERT INTO `pools` (`id`, `course_id`, `title`) VALUES
+(1, 12, 'Προκαταρτικό τεστ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pool_chapters`
+--
+
+CREATE TABLE `pool_chapters` (
+  `id` bigint UNSIGNED NOT NULL,
+  `pool_id` bigint UNSIGNED NOT NULL,
+  `title` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pool_chapters`
+--
+
+INSERT INTO `pool_chapters` (`id`, `pool_id`, `title`) VALUES
+(1, 1, 'Ουσιαστικά'),
+(2, 1, 'Ρήματα');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pool_questions`
+--
+
+CREATE TABLE `pool_questions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `chapter_id` bigint UNSIGNED NOT NULL,
+  `body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pool_questions`
+--
+
+INSERT INTO `pool_questions` (`id`, `chapter_id`, `body`) VALUES
+(1, 1, '[quote]Ovidius poeta est.[/quote] Τι πτώση είναι το poeta ;'),
+(2, 1, '[quote]Romam desiderat et fortunam\r\nadversam deplorat. [/quote] Τι πτώση είναι το Romam ;');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pool_question_answers`
+--
+
+CREATE TABLE `pool_question_answers` (
+  `id` bigint UNSIGNED NOT NULL,
+  `question_id` bigint UNSIGNED NOT NULL,
+  `body` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `wrong` tinyint NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pool_question_answers`
+--
+
+INSERT INTO `pool_question_answers` (`id`, `question_id`, `body`, `wrong`) VALUES
+(1, 1, 'Nominativ', 0),
+(2, 1, 'Ablativ', 1),
+(3, 1, 'Vocativ', 1),
+(4, 2, 'Ablativ', 1),
+(5, 2, 'Vocativ', 1);
 
 -- --------------------------------------------------------
 
@@ -1949,57 +2046,13 @@ INSERT INTO `tests` (`id`, `course_id`, `title`, `difficulty`, `duration_minutes
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test_answers`
---
-
-CREATE TABLE `test_answers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `question_id` bigint UNSIGNED NOT NULL,
-  `body` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `wrong` tinyint NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `test_answers`
---
-
-INSERT INTO `test_answers` (`id`, `question_id`, `body`, `wrong`) VALUES
-(1, 1, 'Nominativ', 1),
-(2, 1, 'Ablativ', 1),
-(3, 1, 'Vocativ', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `test_chapters`
---
-
-CREATE TABLE `test_chapters` (
-  `id` bigint UNSIGNED NOT NULL,
-  `test_id` bigint UNSIGNED NOT NULL,
-  `title` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `show_order` tinyint UNSIGNED NOT NULL,
-  `chapter_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `test_chapters`
---
-
-INSERT INTO `test_chapters` (`id`, `test_id`, `title`, `show_order`, `chapter_id`) VALUES
-(1, 1, 'Ουσιαστικά', 1, NULL),
-(2, 1, 'Ρήματα', 2, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `test_questions`
 --
 
 CREATE TABLE `test_questions` (
   `id` bigint UNSIGNED NOT NULL,
-  `chapter_id` bigint UNSIGNED NOT NULL,
-  `body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `pool_question_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `test_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `points` tinyint UNSIGNED NOT NULL,
   `penalty` tinyint UNSIGNED NOT NULL,
   `shown_order` tinyint NOT NULL,
@@ -2011,8 +2064,9 @@ CREATE TABLE `test_questions` (
 -- Dumping data for table `test_questions`
 --
 
-INSERT INTO `test_questions` (`id`, `chapter_id`, `body`, `points`, `penalty`, `shown_order`, `active`, `multiple_select`) VALUES
-(1, 1, '[quote]Ovidius poeta est.[/quote] Τι πτώση είναι το poeta ;', 4, 10, 1, 1, 0);
+INSERT INTO `test_questions` (`id`, `pool_question_id`, `test_id`, `points`, `penalty`, `shown_order`, `active`, `multiple_select`) VALUES
+(1, 1, 1, 4, 10, 1, 1, 0),
+(2, 1, 1, 4, 10, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -2023,27 +2077,38 @@ INSERT INTO `test_questions` (`id`, `chapter_id`, `body`, `points`, `penalty`, `
 CREATE TABLE `test_submissions` (
   `id` bigint UNSIGNED NOT NULL,
   `application_id` bigint UNSIGNED NOT NULL,
+  `session_id` varchar(255) DEFAULT NULL,
   `test_id` bigint UNSIGNED NOT NULL,
-  `starts` datetime NOT NULL,
-  `ends` datetime NOT NULL,
+  `time_window_starts` datetime NOT NULL,
+  `time_window_ends` datetime NOT NULL,
+  `started_at` datetime DEFAULT NULL COMMENT 'when test started',
+  `ended_at` datetime DEFAULT NULL COMMENT 'when test finished',
+  `deadline_at` datetime DEFAULT NULL COMMENT 'when  test expires',
   `duration_mins` smallint UNSIGNED NOT NULL,
   `mins_remaining` smallint UNSIGNED NOT NULL,
   `grade` decimal(10,2) NOT NULL,
-  `completed` tinyint UNSIGNED NOT NULL
+  `completed` tinyint UNSIGNED NOT NULL,
+  `cheat_counter` tinyint UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `test_submissions`
+--
+
+INSERT INTO `test_submissions` (`id`, `application_id`, `session_id`, `test_id`, `time_window_starts`, `time_window_ends`, `started_at`, `ended_at`, `deadline_at`, `duration_mins`, `mins_remaining`, `grade`, `completed`, `cheat_counter`) VALUES
+(1, 1, 'snW1jVuSezMQJFsN0BDKLIk3iXj3zWV', 1, '2020-07-04 09:50:46', '2020-07-04 09:50:46', NULL, NULL, NULL, 120, 120, '0.00', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test_submission_answers`
+-- Table structure for table `test_submissions_answers`
 --
 
-CREATE TABLE `test_submission_answers` (
+CREATE TABLE `test_submissions_answers` (
   `id` bigint UNSIGNED NOT NULL,
   `submission_id` bigint UNSIGNED NOT NULL,
+  `question_id` bigint UNSIGNED NOT NULL,
   `answer_id` bigint UNSIGNED NOT NULL,
-  `points` tinyint UNSIGNED NOT NULL,
-  `is_penalty` tinyint UNSIGNED NOT NULL DEFAULT '0',
   `shown_at` datetime NOT NULL,
   `answered_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2491,6 +2556,34 @@ ALTER TABLE `periods`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pools`
+--
+ALTER TABLE `pools`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
+-- Indexes for table `pool_chapters`
+--
+ALTER TABLE `pool_chapters`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pool_id` (`pool_id`);
+
+--
+-- Indexes for table `pool_questions`
+--
+ALTER TABLE `pool_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chapter_id` (`chapter_id`);
+
+--
+-- Indexes for table `pool_question_answers`
+--
+ALTER TABLE `pool_question_answers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
 -- Indexes for table `progress_book`
 --
 ALTER TABLE `progress_book`
@@ -2803,25 +2896,12 @@ ALTER TABLE `tests`
   ADD KEY `course_id` (`course_id`);
 
 --
--- Indexes for table `test_answers`
---
-ALTER TABLE `test_answers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `question_id` (`question_id`);
-
---
--- Indexes for table `test_chapters`
---
-ALTER TABLE `test_chapters`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `test_id` (`test_id`);
-
---
 -- Indexes for table `test_questions`
 --
 ALTER TABLE `test_questions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `chapter_id` (`chapter_id`);
+  ADD KEY `pool_question_id` (`pool_question_id`),
+  ADD KEY `test_id` (`test_id`);
 
 --
 -- Indexes for table `test_submissions`
@@ -2832,12 +2912,13 @@ ALTER TABLE `test_submissions`
   ADD KEY `test_id` (`test_id`);
 
 --
--- Indexes for table `test_submission_answers`
+-- Indexes for table `test_submissions_answers`
 --
-ALTER TABLE `test_submission_answers`
+ALTER TABLE `test_submissions_answers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `submission_id` (`submission_id`),
-  ADD KEY `aswer_id` (`answer_id`);
+  ADD KEY `question_id` (`question_id`),
+  ADD KEY `answer_id` (`answer_id`);
 
 --
 -- Indexes for table `towns`
@@ -3024,7 +3105,7 @@ ALTER TABLE `interview_stages`
 -- AUTO_INCREMENT for table `job_applications`
 --
 ALTER TABLE `job_applications`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `job_application_courses`
@@ -3036,7 +3117,7 @@ ALTER TABLE `job_application_courses`
 -- AUTO_INCREMENT for table `job_openings`
 --
 ALTER TABLE `job_openings`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `job_opening_courses`
@@ -3151,6 +3232,30 @@ ALTER TABLE `perfectures`
 --
 ALTER TABLE `periods`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pools`
+--
+ALTER TABLE `pools`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pool_chapters`
+--
+ALTER TABLE `pool_chapters`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pool_questions`
+--
+ALTER TABLE `pool_questions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pool_question_answers`
+--
+ALTER TABLE `pool_question_answers`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `progress_book`
@@ -3399,33 +3504,21 @@ ALTER TABLE `tests`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `test_answers`
---
-ALTER TABLE `test_answers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `test_chapters`
---
-ALTER TABLE `test_chapters`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `test_questions`
 --
 ALTER TABLE `test_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `test_submissions`
 --
 ALTER TABLE `test_submissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `test_submission_answers`
+-- AUTO_INCREMENT for table `test_submissions_answers`
 --
-ALTER TABLE `test_submission_answers`
+ALTER TABLE `test_submissions_answers`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -3588,6 +3681,12 @@ ALTER TABLE `interview_stages`
   ADD CONSTRAINT `interview_stages_ibfk_1` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Constraints for table `job_applications`
+--
+ALTER TABLE `job_applications`
+  ADD CONSTRAINT `job_applications_ibfk_1` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `job_application_courses`
 --
 ALTER TABLE `job_application_courses`
@@ -3665,6 +3764,30 @@ ALTER TABLE `payroll`
 ALTER TABLE `payroll_analysis`
   ADD CONSTRAINT `payroll_analysis_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
   ADD CONSTRAINT `payroll_analysis_payroll_id_foreign` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`id`);
+
+--
+-- Constraints for table `pools`
+--
+ALTER TABLE `pools`
+  ADD CONSTRAINT `pools_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `pool_chapters`
+--
+ALTER TABLE `pool_chapters`
+  ADD CONSTRAINT `pool_chapters_ibfk_1` FOREIGN KEY (`pool_id`) REFERENCES `pools` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `pool_questions`
+--
+ALTER TABLE `pool_questions`
+  ADD CONSTRAINT `pool_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `pool_chapters` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `pool_question_answers`
+--
+ALTER TABLE `pool_question_answers`
+  ADD CONSTRAINT `pool_question_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `pool_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `progress_book`
@@ -3889,23 +4012,11 @@ ALTER TABLE `tests`
   ADD CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- Constraints for table `test_answers`
---
-ALTER TABLE `test_answers`
-  ADD CONSTRAINT `test_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `test_chapters`
---
-ALTER TABLE `test_chapters`
-  ADD CONSTRAINT `test_chapters_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
 -- Constraints for table `test_questions`
 --
 ALTER TABLE `test_questions`
-  ADD CONSTRAINT `FKl26ahgo11upwnordcgr01ddv3` FOREIGN KEY (`chapter_id`) REFERENCES `test_chapters` (`id`),
-  ADD CONSTRAINT `test_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `test_questions_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `test_questions_ibfk_2` FOREIGN KEY (`pool_question_id`) REFERENCES `pool_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `test_submissions`
@@ -3915,11 +4026,12 @@ ALTER TABLE `test_submissions`
   ADD CONSTRAINT `test_submissions_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- Constraints for table `test_submission_answers`
+-- Constraints for table `test_submissions_answers`
 --
-ALTER TABLE `test_submission_answers`
-  ADD CONSTRAINT `test_submission_answers_ibfk_1` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `test_submission_answers_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `test_answers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `test_submissions_answers`
+  ADD CONSTRAINT `test_submissions_answers_ibfk_1` FOREIGN KEY (`answer_id`) REFERENCES `pool_question_answers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `test_submissions_answers_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `pool_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `test_submissions_answers_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `towns`

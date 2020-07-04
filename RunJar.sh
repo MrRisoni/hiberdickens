@@ -1,1 +1,1 @@
-java -jar target/*.jar
+java -jar target/*.jar -Dhibernate_username=test

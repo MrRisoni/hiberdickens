@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,7 @@ public class TestAnswer {
     private String body;
 
     @Column
+    @JsonIgnore // we do not want to show this to the browser when the API is invoked
     private int wrong;
 
     public TestAnswer() {

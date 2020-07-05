@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2020 at 10:40 AM
+-- Generation Time: Jul 05, 2020 at 04:30 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -625,6 +625,13 @@ CREATE TABLE `interview_schedule` (
   `notes` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `interview_schedule`
+--
+
+INSERT INTO `interview_schedule` (`id`, `application_id`, `starts_at`, `created_at`, `active`, `notes`) VALUES
+(1, 4, '2019-09-22 13:00:00', '2019-09-17 18:30:00', 1, '');
+
 -- --------------------------------------------------------
 
 --
@@ -1225,8 +1232,35 @@ CREATE TABLE `payroll` (
 
 CREATE TABLE `payroll_analysis` (
   `id` bigint UNSIGNED NOT NULL,
+  `payroll_id` bigint UNSIGNED NOT NULL,
+  `payroll_category_id` int UNSIGNED NOT NULL,
+  `amount` decimal(10,2) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payroll_categories`
+--
+
+CREATE TABLE `payroll_categories` (
+  `id` int UNSIGNED NOT NULL,
+  `title` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payroll_groups_analysis`
+--
+
+CREATE TABLE `payroll_groups_analysis` (
+  `id` bigint UNSIGNED NOT NULL,
   `payroll_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `from_day` date NOT NULL,
+  `to_day` date NOT NULL,
+  `hourly_rate` decimal(10,2) NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1353,6 +1387,25 @@ INSERT INTO `pool_question_answers` (`id`, `question_id`, `body`, `wrong`) VALUE
 (5, 2, 'Vocativ', 1),
 (6, 3, 'Υποτακτική γ ενικο', 1),
 (7, 3, 'Οριστική παρατατικού β πληθυντικό', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pool_review_questions`
+--
+
+CREATE TABLE `pool_review_questions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pool_review_questions`
+--
+
+INSERT INTO `pool_review_questions` (`id`, `title`) VALUES
+(1, 'Είναι υπομονετικός με τους μαθητές που κάνουν φασαρία στο μάθημα;'),
+(2, 'Έχει ευπρεπές ντύσιμο;');
 
 -- --------------------------------------------------------
 
@@ -1523,26 +1576,6 @@ CREATE TABLE `review_questionnaire_submission` (
   `created_at` date NOT NULL,
   `avg_grade` decimal(5,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='pseudonym is used instead of student_id for anonymity';
-
--- --------------------------------------------------------
-
---
--- Table structure for table `review_questions`
---
-
-CREATE TABLE `review_questions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `question` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `title` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `review_questions`
---
-
-INSERT INTO `review_questions` (`id`, `question`, `title`) VALUES
-(1, 'Είναι υπομονετικός με τους μαθητές που κάνουν φασαρία στο μάθημα;', NULL),
-(2, 'Έχει ευπρεπές ντύσιμο;', NULL);
 
 -- --------------------------------------------------------
 
@@ -2654,6 +2687,20 @@ ALTER TABLE `payroll`
 --
 ALTER TABLE `payroll_analysis`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `payroll_id` (`payroll_id`),
+  ADD KEY `payroll_category_id` (`payroll_category_id`);
+
+--
+-- Indexes for table `payroll_categories`
+--
+ALTER TABLE `payroll_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payroll_groups_analysis`
+--
+ALTER TABLE `payroll_groups_analysis`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `payroll_analysis_payroll_id_foreign` (`payroll_id`),
   ADD KEY `payroll_analysis_group_id_foreign` (`group_id`);
 
@@ -2696,6 +2743,12 @@ ALTER TABLE `pool_questions`
 ALTER TABLE `pool_question_answers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `pool_review_questions`
+--
+ALTER TABLE `pool_review_questions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `progress_book`
@@ -2774,12 +2827,6 @@ ALTER TABLE `review_questionnaire_questions`
 ALTER TABLE `review_questionnaire_submission`
   ADD PRIMARY KEY (`id`),
   ADD KEY `questionnaire_id` (`questionnaire_id`);
-
---
--- Indexes for table `review_questions`
---
-ALTER TABLE `review_questions`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `review_submission_answers`
@@ -3229,7 +3276,7 @@ ALTER TABLE `interviews_grading`
 -- AUTO_INCREMENT for table `interview_schedule`
 --
 ALTER TABLE `interview_schedule`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `interview_stages`
@@ -3358,6 +3405,18 @@ ALTER TABLE `payroll_analysis`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `payroll_categories`
+--
+ALTER TABLE `payroll_categories`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payroll_groups_analysis`
+--
+ALTER TABLE `payroll_groups_analysis`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `perfectures`
 --
 ALTER TABLE `perfectures`
@@ -3392,6 +3451,12 @@ ALTER TABLE `pool_questions`
 --
 ALTER TABLE `pool_question_answers`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `pool_review_questions`
+--
+ALTER TABLE `pool_review_questions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `progress_book`
@@ -3452,12 +3517,6 @@ ALTER TABLE `review_questionnaire_questions`
 --
 ALTER TABLE `review_questionnaire_submission`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `review_questions`
---
-ALTER TABLE `review_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `review_submission_answers`
@@ -3910,6 +3969,13 @@ ALTER TABLE `payroll`
 -- Constraints for table `payroll_analysis`
 --
 ALTER TABLE `payroll_analysis`
+  ADD CONSTRAINT `payroll_analysis_ibfk_1` FOREIGN KEY (`payroll_category_id`) REFERENCES `payroll_categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `payroll_analysis_ibfk_2` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `payroll_groups_analysis`
+--
+ALTER TABLE `payroll_groups_analysis`
   ADD CONSTRAINT `payroll_analysis_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
   ADD CONSTRAINT `payroll_analysis_payroll_id_foreign` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`id`);
 
@@ -3977,7 +4043,8 @@ ALTER TABLE `review_questionnaire`
 --
 ALTER TABLE `review_questionnaire_questions`
   ADD CONSTRAINT `FKmi49n1wu1bp6i7asrb6w3f71d` FOREIGN KEY (`chapter_id`) REFERENCES `review_questionnaire_chapters` (`id`),
-  ADD CONSTRAINT `FKr8otb15feo3y1iri45eqobodo` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`);
+  ADD CONSTRAINT `FKr8otb15feo3y1iri45eqobodo` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`),
+  ADD CONSTRAINT `review_questionnaire_questions_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `pool_review_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `review_questionnaire_submission`

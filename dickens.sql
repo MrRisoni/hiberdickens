@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 04, 2020 at 05:07 PM
+-- Generation Time: Jul 05, 2020 at 10:40 AM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -592,9 +592,37 @@ CREATE TABLE `interviews_grading` (
   `id` bigint UNSIGNED NOT NULL,
   `stage_id` bigint UNSIGNED NOT NULL,
   `application_id` bigint UNSIGNED NOT NULL,
-  `grade` decimal(5,2) NOT NULL,
-  `passed` tinyint UNSIGNED NOT NULL,
-  `created_at` datetime NOT NULL
+  `grade` decimal(5,2) DEFAULT NULL,
+  `passed` tinyint UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `evaluated_at` datetime DEFAULT NULL COMMENT 'if null stage not over\r\n',
+  `evaluated` tinyint UNSIGNED NOT NULL DEFAULT '0',
+  `notes` text CHARACTER SET utf8 COLLATE utf8_general_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `interviews_grading`
+--
+
+INSERT INTO `interviews_grading` (`id`, `stage_id`, `application_id`, `grade`, `passed`, `created_at`, `evaluated_at`, `evaluated`, `notes`) VALUES
+(1, 1, 1, '0.00', 1, '2020-07-02 12:21:32', NULL, 0, NULL),
+(2, 1, 2, '0.00', 0, '2020-07-02 12:21:32', NULL, 0, NULL),
+(3, 1, 3, '0.00', 0, '2020-07-02 12:21:32', NULL, 0, NULL),
+(4, 1, 4, '0.00', 0, '2020-07-02 12:21:32', NULL, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interview_schedule`
+--
+
+CREATE TABLE `interview_schedule` (
+  `id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `starts_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
+  `active` tinyint NOT NULL DEFAULT '1',
+  `notes` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -610,6 +638,16 @@ CREATE TABLE `interview_stages` (
   `active` tinyint UNSIGNED NOT NULL,
   `shown_order` tinyint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `interview_stages`
+--
+
+INSERT INTO `interview_stages` (`id`, `opening_id`, `title`, `active`, `shown_order`) VALUES
+(1, 1, 'CV Filtering', 1, 1),
+(2, 1, 'On-site interview', 1, 3),
+(3, 1, 'Tiny  Latin on-line test', 1, 2),
+(4, 1, 'Mega latin on-site test', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -632,7 +670,10 @@ CREATE TABLE `job_applications` (
 --
 
 INSERT INTO `job_applications` (`id`, `opening_id`, `full_name`, `phone`, `email`, `dob`, `created_at`) VALUES
-(1, 1, 'foo', 'foo', '', '1985-02-12', '2020-07-01 09:50:01');
+(1, 1, 'Julius Papadopulus', '', '', '1985-02-12', '2020-07-01 09:50:01'),
+(2, 1, 'Augustus Strindberg', '', '', '1982-02-12', '2020-07-01 09:50:01'),
+(3, 1, 'Ovidius Potterus', '', '', '1982-02-12', '2020-07-01 09:50:01'),
+(4, 1, 'Bilbο Hobbitus', '', '', '1992-02-12', '2020-07-01 09:50:01');
 
 -- --------------------------------------------------------
 
@@ -644,6 +685,46 @@ CREATE TABLE `job_application_courses` (
   `id` bigint UNSIGNED NOT NULL,
   `application_id` bigint UNSIGNED NOT NULL,
   `course_id` bigint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `job_application_courses`
+--
+
+INSERT INTO `job_application_courses` (`id`, `application_id`, `course_id`) VALUES
+(1, 1, 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_application_studies`
+--
+
+CREATE TABLE `job_application_studies` (
+  `id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `school_title` varchar(120) NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `grade` float UNSIGNED NOT NULL,
+  `joined` date NOT NULL,
+  `graduated` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_application_work`
+--
+
+CREATE TABLE `job_application_work` (
+  `id` bigint UNSIGNED NOT NULL,
+  `application_id` bigint UNSIGNED NOT NULL,
+  `job_title` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `company_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `joined` date NOT NULL,
+  `left_on` date DEFAULT NULL,
+  `still_work_there` tinyint UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -681,38 +762,12 @@ CREATE TABLE `job_opening_courses` (
   `course_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `job_opening_studies`
+-- Dumping data for table `job_opening_courses`
 --
 
-CREATE TABLE `job_opening_studies` (
-  `id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
-  `school_title` varchar(120) NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `grade` float UNSIGNED NOT NULL,
-  `joined` date NOT NULL,
-  `graduated` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `job_opening_work`
---
-
-CREATE TABLE `job_opening_work` (
-  `id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
-  `job_title` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `company_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `joined` date NOT NULL,
-  `left_on` date DEFAULT NULL,
-  `still_work_there` tinyint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `job_opening_courses` (`id`, `opening_id`, `course_id`) VALUES
+(1, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -1270,7 +1325,8 @@ CREATE TABLE `pool_questions` (
 
 INSERT INTO `pool_questions` (`id`, `chapter_id`, `body`) VALUES
 (1, 1, '[quote]Ovidius poeta est.[/quote] Τι πτώση είναι το poeta ;'),
-(2, 1, '[quote]Romam desiderat et fortunam\r\nadversam deplorat. [/quote] Τι πτώση είναι το Romam ;');
+(2, 1, '[quote]Romam desiderat et fortunam adversam deplorat. [/quote] Τι πτώση είναι το Romam ;'),
+(3, 2, '[quote]essḗmus[/quote]. Τι πρόσωπο, χρόνο, έγκλιση είναι;');
 
 -- --------------------------------------------------------
 
@@ -1294,7 +1350,9 @@ INSERT INTO `pool_question_answers` (`id`, `question_id`, `body`, `wrong`) VALUE
 (2, 1, 'Ablativ', 1),
 (3, 1, 'Vocativ', 1),
 (4, 2, 'Ablativ', 1),
-(5, 2, 'Vocativ', 1);
+(5, 2, 'Vocativ', 1),
+(6, 3, 'Υποτακτική γ ενικο', 1),
+(7, 3, 'Οριστική παρατατικού β πληθυντικό', 1);
 
 -- --------------------------------------------------------
 
@@ -2068,6 +2126,27 @@ INSERT INTO `tests` (`id`, `course_id`, `title`, `difficulty`, `duration_minutes
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `test_progress`
+--
+
+CREATE TABLE `test_progress` (
+  `id` bigint UNSIGNED NOT NULL,
+  `submission_id` bigint UNSIGNED NOT NULL,
+  `question_id` bigint UNSIGNED NOT NULL,
+  `shown_at` datetime NOT NULL,
+  `answered_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `test_progress`
+--
+
+INSERT INTO `test_progress` (`id`, `submission_id`, `question_id`, `shown_at`, `answered_at`) VALUES
+(3, 1, 2, '2020-07-03 10:44:44', '2020-07-31 10:44:58');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `test_questions`
 --
 
@@ -2088,7 +2167,8 @@ CREATE TABLE `test_questions` (
 
 INSERT INTO `test_questions` (`id`, `pool_question_id`, `test_id`, `points`, `penalty`, `shown_order`, `active`, `multiple_select`) VALUES
 (1, 1, 1, 4, 10, 2, 1, 0),
-(2, 2, 1, 4, 10, 1, 1, 0);
+(2, 2, 1, 4, 10, 1, 1, 0),
+(3, 3, 1, 4, 10, 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -2130,9 +2210,7 @@ CREATE TABLE `test_submissions_answers` (
   `id` bigint UNSIGNED NOT NULL,
   `submission_id` bigint UNSIGNED NOT NULL,
   `question_id` bigint UNSIGNED NOT NULL,
-  `answer_id` bigint UNSIGNED NOT NULL,
-  `shown_at` datetime NOT NULL,
-  `answered_at` datetime NOT NULL
+  `answer_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2416,6 +2494,13 @@ ALTER TABLE `interviews_grading`
   ADD KEY `application_id` (`application_id`);
 
 --
+-- Indexes for table `interview_schedule`
+--
+ALTER TABLE `interview_schedule`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
 -- Indexes for table `interview_stages`
 --
 ALTER TABLE `interview_stages`
@@ -2438,6 +2523,20 @@ ALTER TABLE `job_application_courses`
   ADD KEY `course_id` (`course_id`);
 
 --
+-- Indexes for table `job_application_studies`
+--
+ALTER TABLE `job_application_studies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
+-- Indexes for table `job_application_work`
+--
+ALTER TABLE `job_application_work`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
 -- Indexes for table `job_openings`
 --
 ALTER TABLE `job_openings`
@@ -2450,20 +2549,6 @@ ALTER TABLE `job_opening_courses`
   ADD PRIMARY KEY (`id`),
   ADD KEY `opening_id` (`opening_id`),
   ADD KEY `course_id` (`course_id`);
-
---
--- Indexes for table `job_opening_studies`
---
-ALTER TABLE `job_opening_studies`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `application_id` (`application_id`);
-
---
--- Indexes for table `job_opening_work`
---
-ALTER TABLE `job_opening_work`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `application_id` (`application_id`);
 
 --
 -- Indexes for table `languages`
@@ -2926,6 +3011,15 @@ ALTER TABLE `tests`
   ADD KEY `course_id` (`course_id`);
 
 --
+-- Indexes for table `test_progress`
+--
+ALTER TABLE `test_progress`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `submission_id_2` (`submission_id`,`question_id`),
+  ADD KEY `submission_id` (`submission_id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
 -- Indexes for table `test_questions`
 --
 ALTER TABLE `test_questions`
@@ -3129,24 +3223,42 @@ ALTER TABLE `instituts`
 -- AUTO_INCREMENT for table `interviews_grading`
 --
 ALTER TABLE `interviews_grading`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `interview_schedule`
+--
+ALTER TABLE `interview_schedule`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `interview_stages`
 --
 ALTER TABLE `interview_stages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `job_applications`
 --
 ALTER TABLE `job_applications`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `job_application_courses`
 --
 ALTER TABLE `job_application_courses`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `job_application_studies`
+--
+ALTER TABLE `job_application_studies`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_application_work`
+--
+ALTER TABLE `job_application_work`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -3159,19 +3271,7 @@ ALTER TABLE `job_openings`
 -- AUTO_INCREMENT for table `job_opening_courses`
 --
 ALTER TABLE `job_opening_courses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `job_opening_studies`
---
-ALTER TABLE `job_opening_studies`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `job_opening_work`
---
-ALTER TABLE `job_opening_work`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `languages`
@@ -3285,13 +3385,13 @@ ALTER TABLE `pool_chapters`
 -- AUTO_INCREMENT for table `pool_questions`
 --
 ALTER TABLE `pool_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pool_question_answers`
 --
 ALTER TABLE `pool_question_answers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `progress_book`
@@ -3540,10 +3640,16 @@ ALTER TABLE `tests`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `test_progress`
+--
+ALTER TABLE `test_progress`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `test_questions`
 --
 ALTER TABLE `test_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `test_submissions`
@@ -3711,6 +3817,12 @@ ALTER TABLE `interviews_grading`
   ADD CONSTRAINT `interviews_grading_ibfk_2` FOREIGN KEY (`stage_id`) REFERENCES `interview_stages` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Constraints for table `interview_schedule`
+--
+ALTER TABLE `interview_schedule`
+  ADD CONSTRAINT `interview_schedule_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `interview_stages`
 --
 ALTER TABLE `interview_stages`
@@ -3730,17 +3842,17 @@ ALTER TABLE `job_application_courses`
   ADD CONSTRAINT `job_application_courses_ibfk_2` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Constraints for table `job_application_studies`
+--
+ALTER TABLE `job_application_studies`
+  ADD CONSTRAINT `job_application_studies_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `job_opening_courses`
 --
 ALTER TABLE `job_opening_courses`
   ADD CONSTRAINT `job_opening_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `job_opening_courses_ibfk_2` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Constraints for table `job_opening_studies`
---
-ALTER TABLE `job_opening_studies`
-  ADD CONSTRAINT `job_opening_studies_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `logbook`
@@ -4050,6 +4162,13 @@ ALTER TABLE `tests`
   ADD CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Constraints for table `test_progress`
+--
+ALTER TABLE `test_progress`
+  ADD CONSTRAINT `test_progress_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `test_progress_ibfk_2` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `test_questions`
 --
 ALTER TABLE `test_questions`
@@ -4068,7 +4187,7 @@ ALTER TABLE `test_submissions`
 --
 ALTER TABLE `test_submissions_answers`
   ADD CONSTRAINT `test_submissions_answers_ibfk_1` FOREIGN KEY (`answer_id`) REFERENCES `pool_question_answers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `test_submissions_answers_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `pool_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `test_submissions_answers_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `test_submissions_answers_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --

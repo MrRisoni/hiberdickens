@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "interviews_grading")
@@ -21,7 +22,15 @@ public class InterViewGrade {
     @Column
     private String notes;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date evaluated_at;
+
+    @Column(nullable = true)
+    private int evaluated;
+
+
+    @OneToOne(fetch = FetchType.LAZY)// was eager
     @JoinColumn(name = "application_id")
     private JobApplication applicationObj;
 
@@ -66,5 +75,21 @@ public class InterViewGrade {
 
     public void setApplicationObj(JobApplication applicationObj) {
         this.applicationObj = applicationObj;
+    }
+
+    public Date getEvaluated_at() {
+        return evaluated_at;
+    }
+
+    public void setEvaluated_at(Date evaluated_at) {
+        this.evaluated_at = evaluated_at;
+    }
+
+    public int getEvaluated() {
+        return evaluated;
+    }
+
+    public void setEvaluated(int evaluated) {
+        this.evaluated = evaluated;
     }
 }

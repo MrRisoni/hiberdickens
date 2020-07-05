@@ -18,6 +18,10 @@ public class JobApplication {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dob;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "opening_id")
+    private JobOpening jobOpenObj;
+
     public JobApplication() {
     }
 
@@ -43,5 +47,13 @@ public class JobApplication {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public JobOpening getJobOpenObj() {
+        return jobOpenObj;
+    }
+
+    public void setJobOpenObj(JobOpening jobOpenObj) {
+        this.jobOpenObj = jobOpenObj;
     }
 }

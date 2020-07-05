@@ -1,6 +1,7 @@
 package hello;
 
 
+import models.InterViewSchedule;
 import models.InterViewStage;
 import models.JobOpening;
 import models.ReviewQuestionnaire;
@@ -32,4 +33,11 @@ public class InterViewsController {
         InterViewsRepository interRepo = new InterViewsRepository();
         return interRepo.fetchJobOpenings(1L);
     }
+
+    @RequestMapping(value = "/api/interviews/schedule", method = RequestMethod.GET)
+    public List<InterViewSchedule> fetchInterSchedules() {
+        InterViewsRepository interRepo = new InterViewsRepository();
+        return interRepo.fetchInterviews();
+    }
+
 }

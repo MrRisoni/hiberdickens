@@ -21,6 +21,12 @@ public class InterViewSchedule {
     @Column
     private int active;
 
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_id")
+    private JobApplication applicationObj;
+
+
     public InterViewSchedule() {
     }
 
@@ -54,5 +60,13 @@ public class InterViewSchedule {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public JobApplication getApplicationObj() {
+        return applicationObj;
+    }
+
+    public void setApplicationObj(JobApplication applicationObj) {
+        this.applicationObj = applicationObj;
     }
 }

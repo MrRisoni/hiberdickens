@@ -1,9 +1,6 @@
 package repositories;
 
-import models.HibernateUtil;
-import models.InterViewStage;
-import models.JobOpening;
-import models.Speed;
+import models.*;
 
 import java.util.List;
 
@@ -21,5 +18,11 @@ public class InterViewsRepository extends Repository {
     public List<InterViewStage> fetchStagesAndApplicants(Long openingId)
     {
         return this.getEntityManager().createQuery("FROM InterViewStage ORDER BY shown_order ASC", InterViewStage.class).getResultList();
+    }
+
+
+    public List<InterViewSchedule> fetchInterviews()
+    {
+        return this.getEntityManager().createQuery("FROM InterViewSchedule ", InterViewSchedule.class).getResultList();
     }
 }

@@ -59,5 +59,9 @@
         <mapping class="models.TestModel"/>
 
 
+        <mapping class="models.InterViewStage"/>
+        <mapping class="models.InterViewGrade"/>
+        <mapping class="models.JobApplication"/>
+
     </session-factory>
 </hibernate-configuration>

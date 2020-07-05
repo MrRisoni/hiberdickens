@@ -45,18 +45,22 @@ public class TestsRepository extends Repository {
     }
 
 
+
     public Long getNextQuestionId(String session_id)
     {
-        Query qry= this.getEntityManager().createNativeQuery("SELECT t.pool_question_id  FROM test_questions t " +
-        " WHERE t.active =1 " +
-        " AND t.pool_question_id " +
-        " NOT IN ( " +
-        "     SELECT sba.question_id " +
-        " FROM  test_submissions sb " +
-        " JOIN test_submissions_answers sba ON  sba.submission_id = sb.id " +
-        " WHERE sb.session_id = :sessionId "+
-        " ) " +
-        " ORDER BY t.shown_order ASC LIMIT 1 ");
+        Query qry= this.getEntityManager().createNativeQuery("SELECT t.pool_question_id  " +
+                " FROM   test_questions t  " +
+                " JOIN test_submissions sb ON sb.test_id = t.test_id " +
+                " LEFT JOIN " +
+                "( " +
+                " SELECT   tp.question_id  " +
+                " FROM   test_progress tp  " +
+                " JOIN test_submissions sb   ON  tp.submission_id = sb.id  " +
+                " WHERE  tp.answered_at IS NOT NULL  AND sb.session_id = :sessionId  " +
+                ")  answered ON answered.question_id = t.pool_question_id" +
+                " WHERE  t.active =1   AND sb.session_id =:sessionId  " +
+                " AND answered.question_id  IS NULL" +
+                " ORDER  BY t.shown_order ASC LIMIT 1");
 
         Object nextQuestionId = qry.setParameter("sessionId", session_id).getResultList().get(0);
         return  Long.parseLong(String.valueOf(nextQuestionId));

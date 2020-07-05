@@ -7,7 +7,6 @@ import java.time.Year;
 @Entity
 @Table(name = "teacher_payments")
 public class TeacherPayment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

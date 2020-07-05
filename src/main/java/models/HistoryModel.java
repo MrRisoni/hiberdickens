@@ -16,13 +16,10 @@ import java.util.Date;
         )
 })
 public class HistoryModel {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="group_id", nullable=false)

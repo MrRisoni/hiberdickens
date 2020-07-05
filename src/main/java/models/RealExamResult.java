@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "real_exams_results")
 public class RealExamResult {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

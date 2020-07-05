@@ -8,12 +8,10 @@ import java.util.List;
 @Entity
 @Table(name = "students")
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
 
     @OneToOne
     @JoinColumn(name = "member_id")

@@ -4,8 +4,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rooms")
 public class Room {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -16,7 +14,6 @@ public class Room {
 
     public Room() {
     }
-
 
     public int getId() {
         return id;

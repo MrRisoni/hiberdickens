@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "review_questionnaire_questions")
 public class ReviewQuestionnaireQuestion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

@@ -9,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name = "pool_chapters")
 public class PoolChapter {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

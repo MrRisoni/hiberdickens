@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pool_question_answers")
 public class PoolQuestionAnswer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

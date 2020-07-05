@@ -10,12 +10,10 @@ import java.util.List;
 @Entity
 @Table(name = "teachers")
 public class Teacher {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

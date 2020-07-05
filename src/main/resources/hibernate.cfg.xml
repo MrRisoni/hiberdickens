@@ -46,6 +46,7 @@
         <mapping class="models.Perfecture"/>
         <mapping class="models.Discipline"/>
         <mapping class="models.Month"/>
+
         <mapping class="models.ReviewQuestionnaire"/>
         <mapping class="models.ReviewQuestionnaireChapter"/>
         <mapping class="models.ReviewQuestionnaireQuestion"/>
@@ -62,6 +63,9 @@
         <mapping class="models.InterViewStage"/>
         <mapping class="models.InterViewGrade"/>
         <mapping class="models.JobApplication"/>
+        <mapping class="models.JobOpening"/>
+        <mapping class="models.JobOpeningCourse"/>
+        <mapping class="models.InterViewSchedule"/>
 
     </session-factory>
 </hibernate-configuration>

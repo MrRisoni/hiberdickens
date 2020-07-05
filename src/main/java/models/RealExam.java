@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "real_exams")
 public class RealExam {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

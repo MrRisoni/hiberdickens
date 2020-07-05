@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "review_questions")
 public class ReviewQuestion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

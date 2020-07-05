@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 @Table(name = "tests")
 public class TestModel {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -15,7 +14,6 @@ public class TestModel {
 
     @Column
     private String title;
-
 
     public TestModel() {
     }

@@ -5,8 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "months")
 public class Month {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -14,7 +12,6 @@ public class Month {
 
     @Column
     private String title;
-
 
     public Month() {
     }

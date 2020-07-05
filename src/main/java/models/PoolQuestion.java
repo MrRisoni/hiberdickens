@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 @Table(name = "pool_questions")
 public class PoolQuestion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

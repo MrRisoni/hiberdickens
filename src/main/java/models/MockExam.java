@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "mock_exams")
 public class MockExam {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

@@ -5,8 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "hours")
 public class HourModel {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

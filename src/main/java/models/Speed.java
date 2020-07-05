@@ -5,12 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "school_classes")
 public class Speed {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
 
     @Column
     private String title;

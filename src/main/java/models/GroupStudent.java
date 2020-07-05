@@ -6,7 +6,6 @@ import java.util.Date;
 @Entity
 @Table(name = "group_students")
 public class GroupStudent {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -14,7 +13,6 @@ public class GroupStudent {
 
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date joined;
-
 
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dropped;

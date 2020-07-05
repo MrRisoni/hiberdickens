@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "grading_sys")
 public class GradingSystem {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

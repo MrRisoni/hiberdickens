@@ -5,7 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "perfectures")
 public class Perfecture {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

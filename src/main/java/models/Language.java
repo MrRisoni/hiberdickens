@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 @Table(name = "languages")
 public class Language {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

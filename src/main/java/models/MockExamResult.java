@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "mock_exams_results")
 public class MockExamResult {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

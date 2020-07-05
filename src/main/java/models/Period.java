@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "periods")
 public class Period {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -14,7 +13,6 @@ public class Period {
 
     @Column
     private String title;
-
 
     public Period() {
     }

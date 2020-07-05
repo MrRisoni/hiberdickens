@@ -4,13 +4,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "courses")
 public class CourseModel {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
 
     @Column
     private String title;

@@ -24,11 +24,31 @@ public class TestsRepository extends Repository {
         return this.getEntityManager().createQuery(query).getResultList();
     }
 
+    public Long getTotalQuestions(String session_id)
+    {
+        Query qryCount = this.getEntityManager().createNativeQuery(" SELECT  COUNT(tq.id)  FROM test_submissions sb " +
+        " JOIN test_questions tq ON tq.test_id = sb.test_id " +
+        " WHERE tq.active =1 AND sb.session_id = :sessionId  ");
+
+        Object totalQuestionsCount = qryCount.setParameter("sessionId", session_id).getResultList().get(0);
+        return  Long.parseLong(String.valueOf(totalQuestionsCount));
+    }
+
+    public Long getCountAnsweredSoFar(String session_id)
+    {
+        Query qryCount = this.getEntityManager().createNativeQuery(" SELECT  COUNT(tp.id)  FROM test_submissions sb " +
+                " JOIN test_progress tp ON tp.submission_id = sb.id " +
+                " WHERE sb.session_id = :sessionId  ");
+
+        Object totalAnswered = qryCount.setParameter("sessionId", session_id).getResultList().get(0);
+        return  Long.parseLong(String.valueOf(totalAnswered));
+    }
+
 
     public Long getNextQuestionId(String session_id)
     {
         Query qry= this.getEntityManager().createNativeQuery("SELECT t.pool_question_id  FROM test_questions t " +
-        " WHERE t.test_id =1 " +
+        " WHERE t.active =1 " +
         " AND t.pool_question_id " +
         " NOT IN ( " +
         "     SELECT sba.question_id " +
@@ -69,6 +89,8 @@ public class TestsRepository extends Repository {
         mp.put("beforeDeadline", beforeDeadline);
         mp.put("afterStart", afterStart);
         mp.put("deadline",submiss.getDeadline_at());
+        mp.put("totalQuestions", getTotalQuestions(sesionId));
+        mp.put("answered", getCountAnsweredSoFar(sesionId));
 
         if (afterStart && beforeDeadline) {
 

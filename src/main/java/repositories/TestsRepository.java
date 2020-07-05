@@ -4,6 +4,7 @@ import hello.WaterClock;
 import models.*;
 
 import javax.persistence.Query;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,7 +27,7 @@ public class TestsRepository extends Repository {
     }
 
 
-    public HashMap<String,Object> getNextQuestion()
+    public Long getNextQuestionId()
     {
         Query qry= this.getEntityManager().createNativeQuery("SELECT t.pool_question_id  FROM test_questions t " +
         " WHERE t.test_id =1 " +
@@ -40,10 +41,10 @@ public class TestsRepository extends Repository {
         " ORDER BY t.shown_order ASC LIMIT 1 ");
 
         Object nextQuestionId = qry.getResultList().get(0);
-        return null;
+        return  Long.parseLong(String.valueOf(nextQuestionId));
     }
 
-    public HashMap<String,Object> isTestActive(int testId,int submissionId)
+    public HashMap<String,Object> getNextQuestionObj(int testId,int submissionId)
     {
         boolean isActive = true;
 
@@ -63,11 +64,30 @@ public class TestsRepository extends Repository {
 
         System.out.println("thismom " + thisMoment);
         System.out.println("testStarted " + testStarted);
+        boolean afterStart = (thisMoment > testStarted);
+        boolean beforeDeadline = (thisMoment <  deadline);
 
         mp.put("beforeWindow", (thisMoment< windowStarts));
         mp.put("afterWindow", (thisMoment> windowEnds));
-        mp.put("beforeDeadline", (thisMoment <  deadline));
-        mp.put("afterStart", (thisMoment > testStarted));
+        mp.put("beforeDeadline", beforeDeadline);
+        mp.put("afterStart", afterStart);
+
+        if (afterStart && beforeDeadline) {
+         //   PoolQuestion pq = this.getEntityManager().createQuery("FROM PoolQuestion WHERE id =1",PoolQuestion.class).getResultList().get(0);
+        //    mp.put("question",pq);
+
+            CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+            CriteriaQuery<PoolQuestion> query = builder.createQuery(PoolQuestion.class);
+            Root<PoolQuestion> root = query.from(PoolQuestion.class);
+            Join<PoolQuestion, PoolQuestionAnswer> answersJoin = root.join("answersList");
+
+         //   query.multiselect(  root.get("answersList.id"), root.get("answersList.body")); // do not fetch wrong
+            //cq.multiselect(root.get("id"), root.get("body"));  //using metamodel
+            PoolQuestion tupleResult = this.getEntityManager().createQuery(query).getResultList().get(0);
+            mp.put("question",tupleResult);
+
+
+        }
 
         return mp;
     }

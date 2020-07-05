@@ -1,5 +1,6 @@
 package models;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +17,11 @@ public class PoolQuestionAnswer {
 
     @Column
     private int wrong;
+
+    public PoolQuestionAnswer(int id, String body) {
+        this.id = id;
+        this.body = body;
+    }
 
     public PoolQuestionAnswer() {
     }

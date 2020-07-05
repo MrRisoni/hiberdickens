@@ -34,15 +34,9 @@ public class TestsController {
     @RequestMapping(value = "/api/tests/next_question", method = RequestMethod.GET)
     public HashMap<String,Object> getNextQuestion()
     {
-        System.out.println("this.beginning");
-
-        System.out.println(this.beginning);
-
-
-
         TestsRepository rvwRepo = new TestsRepository();
         rvwRepo.setEntityManager(HibernateUtil.getEM());
-        return rvwRepo.isTestActive(1,1);
+        return rvwRepo.getNextQuestionObj(1,1);
 
 
     }

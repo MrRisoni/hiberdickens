@@ -13,6 +13,9 @@ public class TestSubmission {
     @Column
     private int id;
 
+    @Column
+    private String session_id;
+
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date time_window_starts;
 
@@ -90,6 +93,14 @@ public class TestSubmission {
 
     public void setEnded_at(Date ended_at) {
         this.ended_at = ended_at;
+    }
+
+    public String getSession_id() {
+        return session_id;
+    }
+
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
     }
 }
 

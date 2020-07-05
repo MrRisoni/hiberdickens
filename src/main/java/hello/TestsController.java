@@ -5,10 +5,7 @@ import models.Pools;
 import models.TestModel;
 import models.TestSubmission;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import repositories.ReviewRepository;
 import repositories.TestsRepository;
 
@@ -31,12 +28,13 @@ public class TestsController {
     }
 
 
-    @RequestMapping(value = "/api/tests/next_question", method = RequestMethod.GET)
-    public HashMap<String,Object> getNextQuestion()
+    @RequestMapping(value = "/api/tests/next_question/{session_id}", method = RequestMethod.GET)
+    public HashMap<String,Object> getNextQuestion(@PathVariable String session_id)
     {
+        // http://localhost:8080/api/tests/next_question/snW1jVuSezMQJFsN0BDKLIk3iXj3zWV
         TestsRepository rvwRepo = new TestsRepository();
         rvwRepo.setEntityManager(HibernateUtil.getEM());
-        return rvwRepo.getNextQuestionObj(1,1);
+        return rvwRepo.getNextQuestionObj(session_id);
 
 
     }

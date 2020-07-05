@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2020 at 04:30 PM
+-- Generation Time: Jul 05, 2020 at 06:56 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -53,6 +53,30 @@ INSERT INTO `ages` (`id`, `title`) VALUES
 (1, 'Children'),
 (2, 'Adolescent'),
 (3, 'Adults');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banks`
+--
+
+CREATE TABLE `banks` (
+  `id` tinyint UNSIGNED NOT NULL,
+  `title` varchar(55) NOT NULL,
+  `active` tinyint UNSIGNED NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `banks`
+--
+
+INSERT INTO `banks` (`id`, `title`, `active`) VALUES
+(1, 'Eurobank', 1),
+(2, 'AlphaBank', 1),
+(3, 'Πειραιώς', 1),
+(4, 'Μετρητά', 1),
+(5, 'Paypal', 1),
+(6, 'Εθνική', 1);
 
 -- --------------------------------------------------------
 
@@ -177,27 +201,6 @@ CREATE TABLE `course_grades` (
 INSERT INTO `course_grades` (`id`, `grade_title`, `course_id`) VALUES
 (1, 'Sehr Gut', 2),
 (2, 'Gut', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `course_ranks`
---
-
-CREATE TABLE `course_ranks` (
-  `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rank` tinyint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `course_ranks`
---
-
-INSERT INTO `course_ranks` (`id`, `title`, `rank`, `course_id`) VALUES
-(2, 'Α Κατωτέρα', 2, 3),
-(1, 'Προκαταρκτική Α', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -383,6 +386,7 @@ CREATE TABLE `groupakia` (
   `teacher_id` bigint UNSIGNED NOT NULL,
   `speed_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `age_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `rank_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `fee_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `wage_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
@@ -395,12 +399,12 @@ CREATE TABLE `groupakia` (
 -- Dumping data for table `groupakia`
 --
 
-INSERT INTO `groupakia` (`id`, `title`, `active`, `created_at`, `updated_at`, `teacher_id`, `speed_id`, `age_id`, `fee_id`, `wage_id`, `course_id`, `max_seats`, `remaining_seats`, `num_students`) VALUES
-(1, 'Latin', 1, '2019-09-03 13:48:24', '2019-09-03 13:48:24', 1, 1, 2, 1, 1, 12, 10, 2, 8),
-(2, 'Svenska Anfanger', 1, '2019-08-20 07:00:00', '2019-08-20 07:00:00', 2, 2, 3, 2, 2, 13, 10, 2, 8),
-(3, 'Greek Ancient', 1, '2020-05-28 14:48:19', '2020-05-28 14:48:19', 1, 1, 2, 1, 1, 15, 10, 2, 8),
-(4, 'Java Hibernate full time', 1, '2020-06-10 05:07:49', '2020-06-10 05:07:49', 2, 1, 3, 1, 1, 17, 10, 2, 8),
-(5, 'React State Management', 1, '2020-06-04 05:10:26', '2020-06-04 05:10:26', 2, 1, 3, 1, 1, 17, 10, 2, 8);
+INSERT INTO `groupakia` (`id`, `title`, `active`, `created_at`, `updated_at`, `teacher_id`, `speed_id`, `age_id`, `rank_id`, `fee_id`, `wage_id`, `course_id`, `max_seats`, `remaining_seats`, `num_students`) VALUES
+(1, 'Latin', 1, '2019-09-03 13:48:24', '2019-09-03 13:48:24', 1, 1, 2, 1, 1, 1, 12, 10, 2, 8),
+(2, 'Svenska Anfanger', 1, '2019-08-20 07:00:00', '2019-08-20 07:00:00', 2, 2, 3, 1, 2, 2, 13, 10, 2, 8),
+(3, 'Greek Ancient', 1, '2020-05-28 14:48:19', '2020-05-28 14:48:19', 1, 1, 2, 1, 1, 1, 15, 10, 2, 8),
+(4, 'Java Hibernate full time', 1, '2020-06-10 05:07:49', '2020-06-10 05:07:49', 2, 1, 3, 1, 1, 1, 17, 10, 2, 8),
+(5, 'React State Management', 1, '2020-06-04 05:10:26', '2020-06-04 05:10:26', 2, 1, 3, 1, 1, 1, 17, 10, 2, 8);
 
 -- --------------------------------------------------------
 
@@ -413,6 +417,26 @@ CREATE TABLE `groups_extra_teachers` (
   `group_id` bigint UNSIGNED NOT NULL,
   `teacher_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_ranks`
+--
+
+CREATE TABLE `group_ranks` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rank` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `group_ranks`
+--
+
+INSERT INTO `group_ranks` (`id`, `title`, `rank`) VALUES
+(1, 'Προκαταρκτική Α', 1),
+(2, 'Α Κατωτέρα', 2);
 
 -- --------------------------------------------------------
 
@@ -554,9 +578,27 @@ CREATE TABLE `installments` (
   `id` bigint UNSIGNED NOT NULL,
   `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `per_days` tinyint UNSIGNED NOT NULL,
+  `per_days` smallint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `active` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `installments_per_group`
+--
+
+CREATE TABLE `installments_per_group` (
+  `id` bigint UNSIGNED NOT NULL,
+  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `group_id` bigint UNSIGNED NOT NULL,
+  `amount` decimal(10,2) UNSIGNED NOT NULL,
+  `per_days` smallint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `active` tinyint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1204,6 +1246,19 @@ CREATE TABLE `parents_children` (
   `id` bigint UNSIGNED NOT NULL,
   `parent_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `child_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments_in_advance`
+--
+
+CREATE TABLE `payments_in_advance` (
+  `id` bigint UNSIGNED NOT NULL,
+  `student_id` bigint UNSIGNED NOT NULL,
+  `amount` decimal(10,2) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1900,29 +1955,31 @@ CREATE TABLE `students` (
   `id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `member_id` bigint UNSIGNED NOT NULL
+  `member_id` bigint UNSIGNED NOT NULL,
+  `total_debt` decimal(10,2) UNSIGNED NOT NULL DEFAULT '0.00',
+  `total_profit` decimal(10,2) UNSIGNED NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `created_at`, `updated_at`, `member_id`) VALUES
-(1, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 4),
-(2, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 5),
-(3, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 6),
-(4, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 7),
-(5, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 8),
-(6, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 9),
-(7, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 10),
-(8, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 11),
-(9, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 12),
-(10, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 13),
-(11, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 150),
-(12, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 149),
-(13, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 148),
-(14, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 146),
-(15, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 145);
+INSERT INTO `students` (`id`, `created_at`, `updated_at`, `member_id`, `total_debt`, `total_profit`) VALUES
+(1, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 4, '0.00', '0.00'),
+(2, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 5, '0.00', '0.00'),
+(3, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 6, '0.00', '0.00'),
+(4, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 7, '0.00', '0.00'),
+(5, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 8, '0.00', '0.00'),
+(6, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 9, '0.00', '0.00'),
+(7, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 10, '0.00', '0.00'),
+(8, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 11, '0.00', '0.00'),
+(9, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 12, '0.00', '0.00'),
+(10, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 13, '0.00', '0.00'),
+(11, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 150, '0.00', '0.00'),
+(12, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 149, '0.00', '0.00'),
+(13, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 148, '0.00', '0.00'),
+(14, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 146, '0.00', '0.00'),
+(15, '2020-06-07 14:31:58', '2020-06-07 14:31:58', 145, '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -1963,17 +2020,19 @@ CREATE TABLE `student_payed` (
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `lesson_year` year NOT NULL
+  `lesson_year` year NOT NULL,
+  `bank_id` tinyint UNSIGNED NOT NULL DEFAULT '1',
+  `bank_transaction_id` varchar(180) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `student_payed`
 --
 
-INSERT INTO `student_payed` (`id`, `created_at`, `student_id`, `amount`, `group_id`, `month_id`, `lesson_year`) VALUES
-(1, '2020-05-28', 1, '50.00', 1, 10, 2019),
-(2, '2020-07-28', 1, '20.00', 1, 10, 2019),
-(3, '2020-07-28', 2, '20.00', 1, 10, 2019);
+INSERT INTO `student_payed` (`id`, `created_at`, `student_id`, `amount`, `group_id`, `month_id`, `lesson_year`, `bank_id`, `bank_transaction_id`) VALUES
+(1, '2020-05-28', 1, '50.00', 1, 10, 2019, 1, NULL),
+(2, '2020-07-28', 1, '20.00', 1, 10, 2019, 1, NULL),
+(3, '2020-07-28', 2, '20.00', 1, 10, 2019, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -2037,16 +2096,18 @@ CREATE TABLE `teachers` (
   `current_salary` decimal(10,2) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `member_id` bigint UNSIGNED NOT NULL
+  `member_id` bigint UNSIGNED NOT NULL,
+  `total_debt` decimal(10,2) UNSIGNED NOT NULL DEFAULT '0.00',
+  `total_payed` decimal(10,2) UNSIGNED DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`id`, `amka`, `afm`, `current_salary`, `created_at`, `updated_at`, `member_id`) VALUES
-(1, '', '', '0.00', '2020-06-04 13:47:45', '2020-06-04 13:47:45', 1),
-(2, '', '', '0.00', '2020-06-07 15:04:04', '2020-06-07 15:04:04', 2);
+INSERT INTO `teachers` (`id`, `amka`, `afm`, `current_salary`, `created_at`, `updated_at`, `member_id`, `total_debt`, `total_payed`) VALUES
+(1, '', '', '0.00', '2020-06-04 13:47:45', '2020-06-04 13:47:45', 1, '0.00', '0.00'),
+(2, '', '', '0.00', '2020-06-07 15:04:04', '2020-06-07 15:04:04', 2, '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -2355,6 +2416,13 @@ ALTER TABLE `ages`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `banks`
+--
+ALTER TABLE `banks`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`);
+
+--
 -- Indexes for table `buildings`
 --
 ALTER TABLE `buildings`
@@ -2395,14 +2463,6 @@ ALTER TABLE `course_fees`
 ALTER TABLE `course_grades`
   ADD PRIMARY KEY (`id`),
   ADD KEY `diploma_grades_diploma_id_foreign` (`course_id`);
-
---
--- Indexes for table `course_ranks`
---
-ALTER TABLE `course_ranks`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_rank_combo` (`title`,`rank`,`course_id`),
-  ADD KEY `course_ranks_course_id_foreign` (`course_id`);
 
 --
 -- Indexes for table `course_type`
@@ -2470,7 +2530,8 @@ ALTER TABLE `groupakia`
   ADD KEY `groups_fee_id_foreign` (`fee_id`),
   ADD KEY `groups_wage_id_foreign` (`wage_id`),
   ADD KEY `groups_course_id_foreign` (`course_id`),
-  ADD KEY `FKat205al2gpkgh81q73blgn0r5` (`speed_id`);
+  ADD KEY `FKat205al2gpkgh81q73blgn0r5` (`speed_id`),
+  ADD KEY `rank_id` (`rank_id`);
 
 --
 -- Indexes for table `groups_extra_teachers`
@@ -2480,6 +2541,12 @@ ALTER TABLE `groups_extra_teachers`
   ADD UNIQUE KEY `group_id_2` (`group_id`,`teacher_id`),
   ADD KEY `group_id` (`group_id`),
   ADD KEY `teacher_id` (`teacher_id`);
+
+--
+-- Indexes for table `group_ranks`
+--
+ALTER TABLE `group_ranks`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `group_students`
@@ -2511,6 +2578,14 @@ ALTER TABLE `hours`
 ALTER TABLE `installments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `installments_student_id_foreign` (`student_id`);
+
+--
+-- Indexes for table `installments_per_group`
+--
+ALTER TABLE `installments_per_group`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `installments_student_id_foreign` (`student_id`),
+  ADD KEY `group_id` (`group_id`);
 
 --
 -- Indexes for table `instituts`
@@ -2673,6 +2748,13 @@ ALTER TABLE `parents_children`
   ADD PRIMARY KEY (`id`),
   ADD KEY `parents_children_parent_id_foreign` (`parent_id`),
   ADD KEY `parents_children_child_id_foreign` (`child_id`);
+
+--
+-- Indexes for table `payments_in_advance`
+--
+ALTER TABLE `payments_in_advance`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `payroll`
@@ -2985,7 +3067,8 @@ ALTER TABLE `student_payed`
   ADD PRIMARY KEY (`id`),
   ADD KEY `student_payed_student_id_foreign` (`student_id`),
   ADD KEY `student_payed_group_id_foreign` (`group_id`),
-  ADD KEY `student_payed_month_id_foreign` (`month_id`);
+  ADD KEY `student_payed_month_id_foreign` (`month_id`),
+  ADD KEY `bank_id` (`bank_id`);
 
 --
 -- Indexes for table `student_progress_book`
@@ -3135,6 +3218,12 @@ ALTER TABLE `ages`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `banks`
+--
+ALTER TABLE `banks`
+  MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `buildings`
 --
 ALTER TABLE `buildings`
@@ -3168,12 +3257,6 @@ ALTER TABLE `course_fees`
 -- AUTO_INCREMENT for table `course_grades`
 --
 ALTER TABLE `course_grades`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `course_ranks`
---
-ALTER TABLE `course_ranks`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -3237,6 +3320,12 @@ ALTER TABLE `groups_extra_teachers`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `group_ranks`
+--
+ALTER TABLE `group_ranks`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `group_students`
 --
 ALTER TABLE `group_students`
@@ -3258,6 +3347,12 @@ ALTER TABLE `hours`
 -- AUTO_INCREMENT for table `installments`
 --
 ALTER TABLE `installments`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `installments_per_group`
+--
+ALTER TABLE `installments_per_group`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -3390,6 +3485,12 @@ ALTER TABLE `parents`
 -- AUTO_INCREMENT for table `parents_children`
 --
 ALTER TABLE `parents_children`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payments_in_advance`
+--
+ALTER TABLE `payments_in_advance`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -3800,12 +3901,6 @@ ALTER TABLE `course_grades`
   ADD CONSTRAINT `diploma_grades_diploma_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- Constraints for table `course_ranks`
---
-ALTER TABLE `course_ranks`
-  ADD CONSTRAINT `course_ranks_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
-
---
 -- Constraints for table `course_wages`
 --
 ALTER TABLE `course_wages`
@@ -3832,6 +3927,7 @@ ALTER TABLE `discounts`
 --
 ALTER TABLE `groupakia`
   ADD CONSTRAINT `FKat205al2gpkgh81q73blgn0r5` FOREIGN KEY (`speed_id`) REFERENCES `school_classes` (`id`),
+  ADD CONSTRAINT `groupakia_ibfk_1` FOREIGN KEY (`rank_id`) REFERENCES `group_ranks` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `groups_age_id_foreign` FOREIGN KEY (`age_id`) REFERENCES `ages` (`id`),
   ADD CONSTRAINT `groups_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `groups_fee_id_foreign` FOREIGN KEY (`fee_id`) REFERENCES `course_fees` (`id`),
@@ -3867,6 +3963,12 @@ ALTER TABLE `history`
 --
 ALTER TABLE `installments`
   ADD CONSTRAINT `installments_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `installments_per_group`
+--
+ALTER TABLE `installments_per_group`
+  ADD CONSTRAINT `installments_per_group_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `interviews_grading`
@@ -3957,6 +4059,12 @@ ALTER TABLE `musical_instruments`
 ALTER TABLE `parents_children`
   ADD CONSTRAINT `parents_children_child_id_foreign` FOREIGN KEY (`child_id`) REFERENCES `students` (`id`),
   ADD CONSTRAINT `parents_children_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`id`);
+
+--
+-- Constraints for table `payments_in_advance`
+--
+ALTER TABLE `payments_in_advance`
+  ADD CONSTRAINT `payments_in_advance_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `payroll`
@@ -4164,6 +4272,7 @@ ALTER TABLE `student_debts`
 --
 ALTER TABLE `student_payed`
   ADD CONSTRAINT `student_payed_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
+  ADD CONSTRAINT `student_payed_ibfk_1` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `student_payed_month_id_foreign` FOREIGN KEY (`month_id`) REFERENCES `months` (`id`),
   ADD CONSTRAINT `student_payed_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 

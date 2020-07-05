@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,6 +29,13 @@ public class HibernateUtil {
 
     public static SessionFactory buildSessionFactory() {
         // A SessionFactory is set up once for an application!
+
+
+        Configuration cfg = new Configuration();
+        cfg.setProperty("hibernate.connection.password", "MOOOOO");
+
+
+
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml
                 .build();

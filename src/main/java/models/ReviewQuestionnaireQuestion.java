@@ -17,13 +17,9 @@ public class ReviewQuestionnaireQuestion {
     @JoinColumn(name = "chapter_id")
     private ReviewQuestionnaireChapter chapterObj;
 
- /*
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
-    private ReviewQuestion questionObj; */
-
-
+    private PoolReviewQuestion questionObj;
 
     public ReviewQuestionnaireQuestion() {
     }
@@ -36,12 +32,19 @@ public class ReviewQuestionnaireQuestion {
         this.id = id;
     }
 
-
     public ReviewQuestionnaireChapter getChapterObj() {
         return chapterObj;
     }
 
     public void setChapterObj(ReviewQuestionnaireChapter chapterObj) {
         this.chapterObj = chapterObj;
+    }
+
+    public PoolReviewQuestion getQuestionObj() {
+        return questionObj;
+    }
+
+    public void setQuestionObj(PoolReviewQuestion questionObj) {
+        this.questionObj = questionObj;
     }
 }

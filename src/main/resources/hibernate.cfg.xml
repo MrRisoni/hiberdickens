@@ -50,7 +50,7 @@
         <mapping class="models.ReviewQuestionnaire"/>
         <mapping class="models.ReviewQuestionnaireChapter"/>
         <mapping class="models.ReviewQuestionnaireQuestion"/>
-        <mapping class="models.ReviewQuestion"/>
+        <mapping class="models.PoolReviewQuestion"/>
 
         <mapping class="models.Pools"/>
         <mapping class="models.PoolChapter"/>

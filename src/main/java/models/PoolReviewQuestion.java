@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "review_questions")
-public class ReviewQuestion {
+@Table(name = "pool_review_questions")
+public class PoolReviewQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -16,8 +16,7 @@ public class ReviewQuestion {
     @Column
     private String title;
 
-
-    public ReviewQuestion() {
+    public PoolReviewQuestion() {
     }
 
     public int getId() {

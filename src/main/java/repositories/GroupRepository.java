@@ -160,7 +160,7 @@ public class GroupRepository extends Repository {
                 " JOIN gr.speedObj spd " +
                 " JOIN gr.ageObj ag " +
                 " JOIN gr.daskalos dsk JOIN dsk.member mb " +
-                " JOIN gr.courseObj crs WHERE gr.id= id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
+                " JOIN gr.courseObj crs WHERE gr.id= :id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
     }
 
 

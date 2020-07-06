@@ -13,9 +13,7 @@ public class Speed {
     @Column
     private String title;
 
-    public Speed(int id, String title) {
-        this.id = id;
-        this.title = title;
+    public Speed() {
     }
 
     public int getId() {

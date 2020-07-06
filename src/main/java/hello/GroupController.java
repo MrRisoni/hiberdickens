@@ -66,11 +66,12 @@ public class GroupController {
     }
 
 
-    @RequestMapping(value = "/api/group/info", method = RequestMethod.GET)
-    public HashMap<String,Object> getGroupDetails()
+    @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
+    public HashMap<String,Object> getGroupDetails(@PathVariable int groupId)
     {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
+
         HashMap<String,Object> rsp = new HashMap<>();
         double remainDebt = 0;
         double sumTeacherPay = 0;
@@ -80,28 +81,48 @@ public class GroupController {
         double sumStudentPay = 0;
         double sumStudentDebts = 0;
 
-        sumTeacherPay = groupRepo.getSumTeacherPayments(1);
-        sumTeacherDebts = groupRepo.getSumTeacherDebts(1);
+        GroupModel groupData = groupRepo.getGroup(groupId);
+
+        sumTeacherPay = groupRepo.getSumTeacherPayments(groupId);
+        sumTeacherDebts = groupRepo.getSumTeacherDebts(groupId);
         remainDebt = sumTeacherDebts - sumTeacherPay;
 
-
-        sumStudentPay = groupRepo.getSumStudentPayments(1);
-        sumStudentDebts = groupRepo.getSumStudentDebts(1);
+        sumStudentPay = groupRepo.getSumStudentPayments(groupId);
+        sumStudentDebts = groupRepo.getSumStudentDebts(groupId);
         remainStudentDebt = sumStudentDebts - sumStudentPay;
 
-        rsp.put("sumPayments",sumTeacherPay);
-        rsp.put("sumDebts",remainDebt);
+        HashMap<String,Object> debtsMap = new HashMap<>();
+        HashMap<String,Object> paymentsMap = new HashMap<>();
+        HashMap<String,Object> generalInfo = new HashMap<>();
 
-        rsp.put("sumStudentPayments",sumStudentPay);
-        rsp.put("sumStudentDebts",remainStudentDebt);
 
-        rsp.put("studentsList", groupRepo.getGroupStudents(1));
+        generalInfo.put("fee",groupData.getFeeObj().getAmount());
+        generalInfo.put("wage",groupData.getWageObj().getAmount());
+        generalInfo.put("speed",groupData.getSpeedObj().getTitle());
+        generalInfo.put("age",groupData.getAgeObj().getTitle());
+        generalInfo.put("rank",groupData.getRankObj().getTitle());
+        generalInfo.put("createdAt",groupData.getCreated_at());
+        generalInfo.put("updatedAt",groupData.getUpdated_at());
 
-        rsp.put("studentsPayments",groupRepo.getStudentPaymentsList(1));
-        rsp.put("studentsDebts",groupRepo.getStudentDebtsList(1));
+        paymentsMap.put("sumPayments",sumTeacherPay);
+        debtsMap.put("sumDebts",remainDebt);
+        generalInfo.put("sumHours",groupRepo.getSumHours(groupId));
+        generalInfo.put("history",groupRepo.getHistory(groupId));
 
-        rsp.put("teacherPayments",groupRepo.getTeacherPaymentsList(1));
-        rsp.put("teacherDebts",groupRepo.getTeacherDebtsList(1));
+        paymentsMap.put("sumStudentPayments",sumStudentPay);
+        debtsMap.put("sumStudentDebts",remainStudentDebt);
+
+        generalInfo.put("studentsList", groupRepo.getGroupStudents(groupId));
+
+        paymentsMap.put("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
+        debtsMap.put("studentsDebts",groupRepo.getStudentDebtsList(groupId));
+
+        paymentsMap.put("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
+        debtsMap.put("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
+
+        rsp.put("info",generalInfo);
+        rsp.put("debts",debtsMap);
+        rsp.put("payments",paymentsMap);
 
         return rsp;
     }

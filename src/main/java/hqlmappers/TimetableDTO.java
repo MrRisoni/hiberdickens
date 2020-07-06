@@ -1,8 +1,8 @@
-package records;
+package hqlmappers;
 
 import java.util.Date;
 
-public class TimetableRcd {
+public class TimetableDTO {
 
     private int historyId;
     private int groupId;
@@ -17,13 +17,23 @@ public class TimetableRcd {
     private float wage;
     private float fee;
 
-    public TimetableRcd(int historyId, int groupId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
+    public TimetableDTO(int historyId, int groupId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
         this.historyId = historyId;
         this.groupId = groupId;
         this.courseName = courseName;
         this.teacherName = teacherName;
         this.ageName = ageName;
         this.speedName = speedName;
+        this.started = started;
+        this.duration = duration;
+        this.roomName = roomName;
+        this.cancelled = cancelled;
+        this.wage = wage;
+        this.fee = fee;
+    }
+
+    public TimetableDTO(int historyId, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
+        this.historyId = historyId;
         this.started = started;
         this.duration = duration;
         this.roomName = roomName;

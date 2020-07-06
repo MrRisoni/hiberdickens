@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -59,6 +60,25 @@ public class GroupModel {
     @JoinColumn(name = "speed_id")
     private Speed speedObj;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rank_id")
+    private GroupRank rankObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fee_id")
+    private CourseFee feeObj;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "wage_id")
+    private CourseWage wageObj;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date created_at;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date updated_at;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JoinTable(
@@ -141,5 +161,45 @@ public class GroupModel {
 
     public void setStudentsList(List<GroupStudent> studentsList) {
         this.studentsList = studentsList;
+    }
+
+    public GroupRank getRankObj() {
+        return rankObj;
+    }
+
+    public void setRankObj(GroupRank rankObj) {
+        this.rankObj = rankObj;
+    }
+
+    public CourseFee getFeeObj() {
+        return feeObj;
+    }
+
+    public void setFeeObj(CourseFee feeObj) {
+        this.feeObj = feeObj;
+    }
+
+    public CourseWage getWageObj() {
+        return wageObj;
+    }
+
+    public void setWageObj(CourseWage wageObj) {
+        this.wageObj = wageObj;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
 }

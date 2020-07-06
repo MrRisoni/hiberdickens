@@ -59,13 +59,16 @@
         <mapping class="models.TestSubmission"/>
         <mapping class="models.TestModel"/>
 
-
         <mapping class="models.InterViewStage"/>
         <mapping class="models.InterViewGrade"/>
         <mapping class="models.JobApplication"/>
         <mapping class="models.JobOpening"/>
         <mapping class="models.JobOpeningCourse"/>
         <mapping class="models.InterViewSchedule"/>
+
+        <mapping class="models.GroupRank"/>
+        <mapping class="models.CourseFee"/>
+        <mapping class="models.CourseWage"/>
 
     </session-factory>
 </hibernate-configuration>

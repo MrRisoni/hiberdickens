@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import records.TimetableRcd;
+import hqlmappers.TimetableDTO;
 
 import javax.persistence.*;
 
@@ -30,13 +30,13 @@ public class TimetableController {
             EntityManager entityManager= HibernateUtil.getEM();
             System.out.println("###############################################");
 
-            TypedQuery<TimetableRcd> timetable = entityManager.createQuery("SELECT new records.TimetableRcd(hs.id, gr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
+            TypedQuery<TimetableDTO> timetable = entityManager.createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                     " FROM HistoryModel hs  JOIN hs.room rm " +
                     " JOIN hs.groupObj gr " +
                     " JOIN gr.speedObj spd " +
                     " JOIN gr.ageObj ag " +
                     " JOIN gr.daskalos dsk JOIN dsk.member mb " +
-                    " JOIN gr.courseObj crs",TimetableRcd.class);
+                    " JOIN gr.courseObj crs", TimetableDTO.class);
             System.out.println("###############################################");
 
             ObjectMapper omp = new ObjectMapper();

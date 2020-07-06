@@ -3,17 +3,17 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ages")
-public class Age {
+@Table(name = "course_fees")
+public class CourseFee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
     @Column
-    private String title;
+    private float amount;
 
-    public Age() {
+    public CourseFee() {
     }
 
     public int getId() {
@@ -24,11 +24,11 @@ public class Age {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 }

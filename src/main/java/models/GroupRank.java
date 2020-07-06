@@ -3,8 +3,8 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ages")
-public class Age {
+@Table(name = "group_ranks")
+public class GroupRank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -13,7 +13,7 @@ public class Age {
     @Column
     private String title;
 
-    public Age() {
+    public GroupRank() {
     }
 
     public int getId() {

@@ -1,6 +1,7 @@
 package repositories;
 
 
+import hqlmappers.TimetableDTO;
 import models.*;
 
 import javax.persistence.Query;
@@ -11,6 +12,11 @@ import java.util.stream.Collectors;
 public class GroupRepository extends Repository {
 
     public GroupRepository() {
+    }
+
+    public GroupModel getGroup(int groupId)
+    {
+        return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid",GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
     }
 
     public List<GroupMember> getGroupStudents(int groupId) {
@@ -28,18 +34,18 @@ public class GroupRepository extends Repository {
                 " LEFT JOIN  " +
                 "    (  " +
                 "       SELECT SUM(amount) AS sumPayed,student_id FROM student_payed  " +
-                "       WHERE group_id = 1  " +
+                "       WHERE group_id = id  " +
                 "       GROUP BY student_id  " +
                 "    ) AS studentsPayed ON  studentsPayed.student_id = gs.student_id  " +
                 " LEFT JOIN  " +
                 " (  " +
                 "      SELECT SUM(amount) AS sumInDebt,student_id FROM student_debts  " +
-                "       WHERE group_id = 1  " +
+                "       WHERE group_id = id  " +
                 "   GROUP BY student_id  " +
                 " ) AS studentsDebt ON  studentsDebt.student_id = gs.student_id  " +
-                " WHERE gs.group_id = 1 ");
+                " WHERE gs.group_id = :id ");
 
-                List<Object[]> results = qry.getResultList();
+                List<Object[]> results = qry.setParameter( "id", groupId ).getResultList();
 
                 return results.stream().map(el -> {
                    GroupMember gpm = new GroupMember();
@@ -84,6 +90,10 @@ public class GroupRepository extends Repository {
                 .setParameter( "id", groupId ).getSingleResult();
     }
 
+    public double getSumHours(int groupId){
+        return this.getEntityManager().createQuery("SELECT SUM(duration) FROM HistoryModel JOIN groupObj WHERE groupObj.id = :id", Double.class )
+                .setParameter( "id", groupId ).getSingleResult();
+    }
 
     public double getSumTeacherPayments(int groupId)
     {
@@ -103,7 +113,7 @@ public class GroupRepository extends Repository {
          " JOIN sp.studentObj stObj " +
          " JOIN stObj.member m  " +
          " JOIN sp.groupObj " +
-         " WHERE sp.groupObj.id = 1").getResultList();
+         " WHERE sp.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
 
     }
 
@@ -141,12 +151,18 @@ public class GroupRepository extends Repository {
     }
 
 
-/*
-    public List<HistoryModel> getHistory(int  groupId)
-    {
 
+    public List<TimetableDTO> getHistory(int  groupId)
+    {
+        return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
+                " FROM HistoryModel hs  JOIN hs.room rm " +
+                " JOIN hs.groupObj gr " +
+                " JOIN gr.speedObj spd " +
+                " JOIN gr.ageObj ag " +
+                " JOIN gr.daskalos dsk JOIN dsk.member mb " +
+                " JOIN gr.courseObj crs WHERE gr.id= id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
     }
-*/
+
 
 
 

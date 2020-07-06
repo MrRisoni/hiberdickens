@@ -1,18 +1,15 @@
 package models;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class HibernateUtil {
 
@@ -24,10 +21,10 @@ public class HibernateUtil {
     {
         if (em == null) {
             Map<String, Object> configOverrides = new HashMap<String, Object>();
-            configOverrides.put("javax.persistence.jdbc.password", "p@ssw0rdaL");
-
-
-
+                System.out.println("SYSTEM ENV");
+            System.out.println(System.getenv("SPRING_DICKENS_DB_PASSWD"));
+            configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_DICKENS_DB_PASSWD"));
+            configOverrides.put("javax.persistence.jdbc.user", System.getenv("SPRING_DICKENS_DB_USR"));
 
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb",configOverrides);
             em = entityManagerFactory.createEntityManager();
@@ -39,8 +36,8 @@ public class HibernateUtil {
         // A SessionFactory is set up once for an application!
 
         Map<String,String> HerokuSettings = new HashMap<>();
-        HerokuSettings.put("hibernate.connection.password","p@ssw0rdaL");
-
+        HerokuSettings.put("hibernate.connection.password",System.getenv("SPRING_DICKENS_DB_PASSWD"));
+        HerokuSettings.put("hibernate.connection.user",System.getenv("SPRING_DICKENS_DB_USR"));
 
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().
                 configure("hibernate.cfg.xml").

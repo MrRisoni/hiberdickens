@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 05, 2020 at 06:56 PM
+-- Generation Time: Jul 06, 2020 at 02:58 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -383,6 +383,7 @@ CREATE TABLE `groupakia` (
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `ends_at` datetime NOT NULL DEFAULT '2020-09-01 00:00:00',
   `teacher_id` bigint UNSIGNED NOT NULL,
   `speed_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `age_id` bigint UNSIGNED NOT NULL DEFAULT '1',
@@ -399,12 +400,12 @@ CREATE TABLE `groupakia` (
 -- Dumping data for table `groupakia`
 --
 
-INSERT INTO `groupakia` (`id`, `title`, `active`, `created_at`, `updated_at`, `teacher_id`, `speed_id`, `age_id`, `rank_id`, `fee_id`, `wage_id`, `course_id`, `max_seats`, `remaining_seats`, `num_students`) VALUES
-(1, 'Latin', 1, '2019-09-03 13:48:24', '2019-09-03 13:48:24', 1, 1, 2, 1, 1, 1, 12, 10, 2, 8),
-(2, 'Svenska Anfanger', 1, '2019-08-20 07:00:00', '2019-08-20 07:00:00', 2, 2, 3, 1, 2, 2, 13, 10, 2, 8),
-(3, 'Greek Ancient', 1, '2020-05-28 14:48:19', '2020-05-28 14:48:19', 1, 1, 2, 1, 1, 1, 15, 10, 2, 8),
-(4, 'Java Hibernate full time', 1, '2020-06-10 05:07:49', '2020-06-10 05:07:49', 2, 1, 3, 1, 1, 1, 17, 10, 2, 8),
-(5, 'React State Management', 1, '2020-06-04 05:10:26', '2020-06-04 05:10:26', 2, 1, 3, 1, 1, 1, 17, 10, 2, 8);
+INSERT INTO `groupakia` (`id`, `title`, `active`, `created_at`, `updated_at`, `ends_at`, `teacher_id`, `speed_id`, `age_id`, `rank_id`, `fee_id`, `wage_id`, `course_id`, `max_seats`, `remaining_seats`, `num_students`) VALUES
+(1, 'Latin', 1, '2019-09-03 13:48:24', '2019-09-03 13:48:24', '2020-09-01 00:00:00', 1, 1, 2, 1, 1, 1, 12, 10, 2, 8),
+(2, 'Svenska Anfanger', 1, '2019-08-20 07:00:00', '2019-08-20 07:00:00', '2020-09-01 00:00:00', 2, 2, 3, 1, 2, 2, 13, 10, 2, 8),
+(3, 'Greek Ancient', 1, '2020-05-28 14:48:19', '2020-05-28 14:48:19', '2020-09-01 00:00:00', 1, 1, 2, 1, 1, 1, 15, 10, 2, 8),
+(4, 'Java Hibernate full time', 1, '2020-06-10 05:07:49', '2020-06-10 05:07:49', '2020-09-01 00:00:00', 2, 1, 3, 1, 1, 1, 17, 10, 2, 8),
+(5, 'React State Management', 1, '2020-06-04 05:10:26', '2020-06-04 05:10:26', '2020-09-01 00:00:00', 2, 1, 3, 1, 1, 1, 17, 10, 2, 8);
 
 -- --------------------------------------------------------
 
@@ -417,6 +418,17 @@ CREATE TABLE `groups_extra_teachers` (
   `group_id` bigint UNSIGNED NOT NULL,
   `teacher_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `groups_extra_teachers`
+--
+
+INSERT INTO `groups_extra_teachers` (`id`, `group_id`, `teacher_id`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 1),
+(4, 4, 2),
+(5, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -435,8 +447,9 @@ CREATE TABLE `group_ranks` (
 --
 
 INSERT INTO `group_ranks` (`id`, `title`, `rank`) VALUES
-(1, 'Προκαταρκτική Α', 1),
-(2, 'Α Κατωτέρα', 2);
+(1, '-', 1),
+(2, 'Α Κατωτέρα', 2),
+(3, 'Προκαταρκτική Α', 1);
 
 -- --------------------------------------------------------
 
@@ -449,32 +462,31 @@ CREATE TABLE `group_students` (
   `joined` datetime NOT NULL,
   `dropped` datetime NOT NULL,
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `studentsList_id` int NOT NULL
+  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `group_students`
 --
 
-INSERT INTO `group_students` (`id`, `joined`, `dropped`, `group_id`, `student_id`, `studentsList_id`) VALUES
-(1, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 1, 0),
-(2, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 2, 0),
-(3, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 3, 0),
-(4, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 4, 0),
-(5, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 5, 0),
-(6, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 6, 0),
-(7, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 7, 0),
-(8, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 8, 0),
-(9, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 9, 0),
-(10, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 11, 0),
-(11, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 12, 0),
-(12, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 13, 0),
-(13, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 14, 0),
-(14, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 15, 0),
-(15, '2019-09-01 10:00:00', '2020-06-15 10:00:00', 3, 1, 0),
-(16, '2020-06-02 08:08:27', '2020-06-24 08:08:27', 4, 15, 0),
-(17, '2020-06-01 08:11:19', '2020-06-01 08:11:19', 5, 13, 0);
+INSERT INTO `group_students` (`id`, `joined`, `dropped`, `group_id`, `student_id`) VALUES
+(1, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 1),
+(2, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 2),
+(3, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 3),
+(4, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 4),
+(5, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 5),
+(6, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 6),
+(7, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 7),
+(8, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 8),
+(9, '2019-09-01 10:00:00', '2020-07-07 17:41:09', 1, 9),
+(10, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 11),
+(11, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 12),
+(12, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 13),
+(13, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 14),
+(14, '2019-08-28 10:00:00', '2020-06-15 10:00:00', 2, 15),
+(15, '2019-09-01 10:00:00', '2020-06-15 10:00:00', 3, 1),
+(16, '2020-06-02 08:08:27', '2020-06-24 08:08:27', 4, 15),
+(17, '2020-06-01 08:11:19', '2020-06-01 08:11:19', 5, 13);
 
 -- --------------------------------------------------------
 
@@ -2124,15 +2136,16 @@ CREATE TABLE `teacher_debts` (
   `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
   `lesson_year` year NOT NULL,
-  `year` tinyblob
+  `starts_at` datetime DEFAULT NULL,
+  `ends_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `teacher_debts`
 --
 
-INSERT INTO `teacher_debts` (`id`, `created_at`, `updated_at`, `teacher_id`, `amount`, `group_id`, `month_id`, `lesson_year`, `year`) VALUES
-(1, '2020-05-28 14:48:19', '2020-05-28 14:48:19', 1, '120.00', 1, 10, 2019, NULL);
+INSERT INTO `teacher_debts` (`id`, `created_at`, `updated_at`, `teacher_id`, `amount`, `group_id`, `month_id`, `lesson_year`, `starts_at`, `ends_at`) VALUES
+(13, '2020-07-06 14:40:55', '2020-07-06 14:55:39', 1, '108.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59');
 
 -- --------------------------------------------------------
 
@@ -2530,8 +2543,8 @@ ALTER TABLE `groupakia`
   ADD KEY `groups_fee_id_foreign` (`fee_id`),
   ADD KEY `groups_wage_id_foreign` (`wage_id`),
   ADD KEY `groups_course_id_foreign` (`course_id`),
-  ADD KEY `FKat205al2gpkgh81q73blgn0r5` (`speed_id`),
-  ADD KEY `rank_id` (`rank_id`);
+  ADD KEY `rank_id` (`rank_id`),
+  ADD KEY `FKat205al2gpkgh81q73blgn0r5` (`speed_id`);
 
 --
 -- Indexes for table `groups_extra_teachers`
@@ -3105,7 +3118,7 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `teacher_debts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `teacher_debts_teacher_id_foreign` (`teacher_id`),
+  ADD UNIQUE KEY `teacher_id` (`teacher_id`,`group_id`,`month_id`,`lesson_year`),
   ADD KEY `teacher_debts_group_id_foreign` (`group_id`),
   ADD KEY `teacher_debts_month_id_foreign` (`month_id`);
 
@@ -3317,13 +3330,13 @@ ALTER TABLE `groupakia`
 -- AUTO_INCREMENT for table `groups_extra_teachers`
 --
 ALTER TABLE `groups_extra_teachers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `group_ranks`
 --
 ALTER TABLE `group_ranks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `group_students`
@@ -3773,7 +3786,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `teacher_debts`
 --
 ALTER TABLE `teacher_debts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `teacher_leave_days`
@@ -3926,7 +3939,7 @@ ALTER TABLE `discounts`
 -- Constraints for table `groupakia`
 --
 ALTER TABLE `groupakia`
-  ADD CONSTRAINT `FKat205al2gpkgh81q73blgn0r5` FOREIGN KEY (`speed_id`) REFERENCES `school_classes` (`id`),
+  ADD CONSTRAINT `FKat205al2gpkgh81q73blgn0r5` FOREIGN KEY (`speed_id`) REFERENCES `speeds` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `groupakia_ibfk_1` FOREIGN KEY (`rank_id`) REFERENCES `group_ranks` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `groups_age_id_foreign` FOREIGN KEY (`age_id`) REFERENCES `ages` (`id`),
   ADD CONSTRAINT `groups_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),

@@ -39,7 +39,7 @@ public class StudentsDebtsCalculator {
     @Scheduled(fixedRate = 5000)
     public void createRecordsInTableStudentDebts() {
         EntityManager em = HibernateUtil.getEM();
-        //  List<Object> results = em.createNativeQuery("SELECT id,teacher_id FROM groupakia ").getResultList();
+        //  List<Object> results = em.createNativeQuery("SELECT id,teacher_id FROM groupakia ").getResultList(); created at ect
         // do not forget timestamp criteria
         System.out.println("Cron Job");
         int groupId = 1;

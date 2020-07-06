@@ -31,7 +31,7 @@ public class CoursesController {
             return ow.writeValueAsString(coursesList);
         }
         catch (Exception ex) {
-            return "";
+            return ex.getMessage();
         }
     }
 }

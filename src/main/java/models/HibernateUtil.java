@@ -10,6 +10,8 @@ import org.hibernate.cfg.Configuration;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class HibernateUtil {
@@ -30,15 +32,14 @@ public class HibernateUtil {
     public static SessionFactory buildSessionFactory() {
         // A SessionFactory is set up once for an application!
 
-
-        Configuration cfg = new Configuration();
-        cfg.setProperty("hibernate.connection.password", "MOOOOO");
-
+        Map<String,String> HerokuSettings = new HashMap<>();
+        HerokuSettings.put("hibernate.connection.password","p@ssw0rdaL");
 
 
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure() // configures settings from hibernate.cfg.xml
-                .build();
+        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().
+                configure("hibernate.cfg.xml").
+                applySettings(HerokuSettings).
+                build();
         try {
             sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
             return sessionFactory;

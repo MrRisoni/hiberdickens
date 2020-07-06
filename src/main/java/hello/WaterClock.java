@@ -1,22 +1,22 @@
 package hello;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WaterClock {
 
-
-
-
     public static String getStrDate()
+    {
+        return "2019-09-21";
+    }
+
+
+    public static String getStrDateTime()
     {
         return "2019-09-21 10:05:10";
     }
 
-    public static String getStrDateUTC()
+    public static String getStrDateTimeUTC()
     {
         return "2019-09-21 13:05:10";
     }
@@ -25,9 +25,9 @@ public class WaterClock {
     {
 
         try {
-            System.out.println(getStrDate());
+            System.out.println(getStrDateTime());
 
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(getStrDateUTC()).getTime()  /1000L;
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(getStrDateTimeUTC()).getTime()  /1000L;
         }
         catch (Exception ex) {
             return 0L;
@@ -36,9 +36,9 @@ public class WaterClock {
 
     public static Date getDate()  {
         try {
-            System.out.println(getStrDate());
+            System.out.println(getStrDateTime());
 
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(getStrDate());
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(getStrDateTime());
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());

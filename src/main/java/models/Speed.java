@@ -3,7 +3,7 @@ package models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "school_classes")
+@Table(name = "speeds")
 public class Speed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

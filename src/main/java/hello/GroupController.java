@@ -105,7 +105,7 @@ public class GroupController {
         generalInfo.put("updatedAt",groupData.getUpdated_at());
 
         paymentsMap.put("sumPayments",sumTeacherPay);
-        debtsMap.put("sumDebts",remainDebt);
+        debtsMap.put("sumTeacherDebts",remainDebt);
         generalInfo.put("sumHours",groupRepo.getSumHours(groupId));
          generalInfo.put("history",groupRepo.getHistory(groupId));
 

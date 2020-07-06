@@ -107,7 +107,7 @@ public class GroupRepository extends Repository {
 
     public List<Object> getStudentPaymentsList(int groupId)
     {
-         return this.getEntityManager().createQuery("SELECT new hqlmappers.StudentPaymentDebt(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id, m.name) " +
+         return this.getEntityManager().createQuery("SELECT new hqlmappers.StudentPaymentDebt(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id,  concat(m.name,' ',m.surname) ) " +
          " FROM StudentPayment sp " +
          " JOIN sp.monthObj mon " +
          " JOIN sp.studentObj stObj " +
@@ -120,7 +120,7 @@ public class GroupRepository extends Repository {
 
     public List<Object> getStudentDebtsList(int groupId)
     {
-        return this.getEntityManager().createQuery("SELECT new hqlmappers.StudentPaymentDebt(sb.amount,mon.title, sb.lesson_year, sb.groupObj.id, sb.studentObj.id, m.name ) " +
+        return this.getEntityManager().createQuery("SELECT new hqlmappers.StudentPaymentDebt(sb.amount,mon.title, sb.lesson_year, sb.groupObj.id, sb.studentObj.id, concat(m.name,' ',m.surname) ) " +
                 " FROM StudentDebt sb " +
                 " JOIN sb.monthObj mon " +
                 " JOIN sb.studentObj stObj " +
@@ -132,9 +132,10 @@ public class GroupRepository extends Repository {
 
     public List<Object> getTeacherPaymentsList(int groupId)
     {
-        return this.getEntityManager().createQuery("SELECT tp.amount, tp.lesson_year,mon.title" +
+        return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tp.amount,mon.title, tp.lesson_year, tp.groupObj.id, tp.teacherObj.id,  concat(m.name,' ',m.surname) ) " +
                 " FROM TeacherPayment tp " +
-                " JOIN tp.groupObj " +
+                " JOIN tp.teacherObj  " +
+                " JOIN tp.teacherObj.member m  " +
                 " JOIN tp.monthObj mon " +
                 " WHERE tp.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
     }
@@ -156,11 +157,7 @@ public class GroupRepository extends Repository {
     {
         return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
-                " JOIN hs.groupObj gr " +
-                " JOIN gr.speedObj spd " +
-                " JOIN gr.ageObj ag " +
-                " JOIN gr.daskalos dsk JOIN dsk.member mb " +
-                " JOIN gr.courseObj crs WHERE gr.id= :id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
+                " JOIN hs.groupObj gr WHERE gr.id= :id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
     }
 
 

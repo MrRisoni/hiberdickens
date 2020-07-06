@@ -23,7 +23,13 @@ public class HibernateUtil {
     public static  EntityManager getEM()
     {
         if (em == null) {
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb");
+            Map<String, Object> configOverrides = new HashMap<String, Object>();
+            configOverrides.put("javax.persistence.jdbc.password", "p@ssw0rdaL");
+
+
+
+
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb",configOverrides);
             em = entityManagerFactory.createEntityManager();
         }
         return  em;

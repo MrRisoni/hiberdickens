@@ -91,7 +91,7 @@ public class GroupRepository extends Repository {
     }
 
     public double getSumHours(int groupId){
-        return this.getEntityManager().createQuery("SELECT SUM(duration) FROM HistoryModel JOIN groupObj WHERE groupObj.id = :id", Double.class )
+        return this.getEntityManager().createQuery("SELECT SUM(h.duration) FROM HistoryModel h JOIN  h.groupObj WHERE h.groupObj.id = :id", Double.class )
                 .setParameter( "id", groupId ).getSingleResult();
     }
 

@@ -19,6 +19,10 @@ public class WaterClock {
     {
         return "2019-09-21 10:05:10";
     }
+    public static String getStrDateTimeAndWeekAhead()
+    {
+        return "2019-09-30 23:59:59";
+    }
 
     public static String getStrDateTimeUTC()
     {
@@ -48,6 +52,19 @@ public class WaterClock {
             System.out.println(getStrDateTime());
 
             return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(getStrDateTime());
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+
+
+    public static Date getDateAWeekAhead()  {
+        try {
+            System.out.println(getStrDateTime());
+
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(getStrDateTimeAndWeekAhead());
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());

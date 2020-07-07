@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class CalcStudentDebtsScheduler {
 
-   @Scheduled(fixedRate = 28000)
+  // @Scheduled(fixedRate = 28000)
     public void populateStudentDebts() {
         String q=" SELECT stb.id, SUM(h.fee* h.duration) FROM student_debts stb " +
         " JOIN history h ON h.group_id = stb.group_id " +
@@ -35,7 +35,7 @@ public class CalcStudentDebtsScheduler {
     }
 
 
-    @Scheduled(fixedRate = 8000)
+  //  @Scheduled(fixedRate = 8000)
     public void createRecordsInTableStudentDebts() {
         int groupId;
         int studentId;

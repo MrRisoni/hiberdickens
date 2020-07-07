@@ -6,6 +6,8 @@ public class TimetableDTO {
 
     private int historyId;
     private int groupId;
+    private int hourId;
+
     private String courseName;
     private String teacherName;
     private String ageName;
@@ -17,9 +19,10 @@ public class TimetableDTO {
     private float wage;
     private float fee;
 
-    public TimetableDTO(int historyId, int groupId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
+    public TimetableDTO(int historyId, int groupId, int hourId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
         this.historyId = historyId;
         this.groupId = groupId;
+        this.hourId = hourId;
         this.courseName = courseName;
         this.teacherName = teacherName;
         this.ageName = ageName;
@@ -136,5 +139,13 @@ public class TimetableDTO {
 
     public void setFee(float fee) {
         this.fee = fee;
+    }
+
+    public int getHourId() {
+        return hourId;
+    }
+
+    public void setHourId(int hourId) {
+        this.hourId = hourId;
     }
 }

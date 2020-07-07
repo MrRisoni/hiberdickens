@@ -13,7 +13,7 @@ import java.util.List;
 public class CalcTeacherDebtsScheduler {
 
 
-    @Scheduled(fixedRate = 5000)
+   // @Scheduled(fixedRate = 5000)
     public void populateTeacherDebts() {
 
         String q = " SELECT tb.id, SUM(h.wage* h.duration) FROM teacher_debts tb " +

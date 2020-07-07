@@ -10,7 +10,8 @@ import java.util.List;
 
 public class GeneralRepository extends Repository {
 
-    public GeneralRepository() {
+    public GeneralRepository()  {
+        this.setEntityManager(HibernateUtil.getEM());
     }
 
     public List<SchoolClass> getClasses(){

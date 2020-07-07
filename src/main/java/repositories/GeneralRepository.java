@@ -33,6 +33,9 @@ public class GeneralRepository extends Repository {
         return this.getEntityManager().createQuery("FROM Speed", Speed.class).getResultList();
     }
 
+    public List<HourModel> getHours(){
+        return this.getEntityManager().createQuery("FROM HourModel", HourModel.class).getResultList();
+    }
 
     public List<Building> getBuildings()
     {

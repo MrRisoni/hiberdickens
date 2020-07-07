@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class CalcStudentDebtsScheduler {
 
-   //  @Scheduled(fixedRate = 5000)
+   @Scheduled(fixedRate = 28000)
     public void populateStudentDebts() {
         String q=" SELECT stb.id, SUM(h.fee* h.duration) FROM student_debts stb " +
         " JOIN history h ON h.group_id = stb.group_id " +
@@ -35,7 +35,7 @@ public class CalcStudentDebtsScheduler {
     }
 
 
-   // @Scheduled(fixedRate = 50000)
+    @Scheduled(fixedRate = 8000)
     public void createRecordsInTableStudentDebts() {
         int groupId;
         int studentId;
@@ -59,15 +59,18 @@ public class CalcStudentDebtsScheduler {
             System.out.println(groupId + " " + studentId);
 
             // check if there is a record for all months, this query checks from beginning of time...
-            List<Object[]> results = em.createNativeQuery("SELECT IF(stb.id IS NULL,1,0) AS recordNotExists, " +
+            List<Object[]> results = em.createNativeQuery("SELECT IF( stb.group_id IS NULL,1,0) AS recordNotExists, " +
                     " YEAR(started), MONTH(started) FROM `history` h " +
                     " JOIN group_students gs ON h.group_id = gs.group_id " +
                     " LEFT JOIN student_debts stb ON ( gs.student_id = stb.student_id AND stb.group_id = h.group_id AND stb.lesson_year = YEAR(started)  AND stb.month_id =  MONTH(started) ) " +
                     " WHERE h.started <= :cegodnya AND h.group_id =:gid AND h.cancelled = 0 AND h.started < gs.dropped AND gs.student_id = :sid" +
-                    " GROUP BY stb.id,YEAR(h.started), MONTH(h.started)")
+                    " GROUP BY stb.group_id,stb.group_id,YEAR(h.started), MONTH(h.started)")
                     .setParameter("gid", groupId)
                     .setParameter("sid", studentId)
                     .setParameter("cegodnya", WaterClock.getStrDateTime()).getResultList();
+            System.out.println("QUERY SIZE : " + results.size());
+            System.out.println(groupId + " " + studentId);
+            System.out.println("----------------------------");
             for (Object[] studentGroup : results) {
 
                 System.out.println("not exists " + studentGroup[0]);

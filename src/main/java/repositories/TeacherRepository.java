@@ -45,7 +45,7 @@ public class TeacherRepository extends Repository {
                 " JOIN gr.daskalos dsk JOIN dsk.member mb " +
                 " JOIN gr.courseObj crs WHERE dsk.id = :tid" +
                 " AND hs.started >= :starttime " +
-                " AND hs.started <= :endtime", TimetableDTO.class)
+                " AND hs.started <= :endtime ORDER  BY hs.started ASC ", TimetableDTO.class)
                 .setParameter("starttime", WaterClock.getDate())
                 .setParameter("endtime", WaterClock.getDateAWeekAhead())
                 .setParameter("tid",teacherId).getResultList();

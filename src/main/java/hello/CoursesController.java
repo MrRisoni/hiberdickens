@@ -20,18 +20,14 @@ public class CoursesController {
 
 
     @RequestMapping(value=  "/api/courses" , method = RequestMethod.GET)
-    public String getCourses()
+    public List<CourseModel> getCourses()
     {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-
-            List<CourseModel> coursesList = session.createCriteria(CourseModel.class)
-                    .list();
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            return ow.writeValueAsString(coursesList);
+           return session.createCriteria(CourseModel.class).list();
         }
         catch (Exception ex) {
-            return ex.getMessage();
+            return null;
         }
     }
 }

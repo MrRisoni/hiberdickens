@@ -1,6 +1,7 @@
 package hello;
 
 import models.HibernateUtil;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -12,34 +13,30 @@ import java.util.List;
 public class CalcTeacherDebtsScheduler {
 
 
- //   @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 5000)
     public void populateTeacherDebts() {
-/*
-        String q=" SELECT tb.id, SUM(h.wage* h.duration) FROM teacher_debts tb " +
-        " JOIN history h ON (h.group_id = tb.group_id AND h.teacher_id = tb.teacher_id) " +
-        " WHERE :cegodnya >=tb.starts_at " +
-        " AND tb.ends_at >=:cegodnya " +
-        " AND h.started >= tb.starts_at " +
-        " AND tb.ends_at >= h.started " +
-        " GROUP BY tb.id ";
+
+        String q = " SELECT tb.id, SUM(h.wage* h.duration) FROM teacher_debts tb " +
+                " JOIN history h ON (h.group_id = tb.group_id AND h.teacher_id = tb.teacher_id) " +
+                " WHERE :cegodnya >=tb.starts_at " +
+                " AND tb.ends_at >=:cegodnya " +
+                " AND h.started >= tb.starts_at " +
+                " AND tb.ends_at >= h.started " +
+                " GROUP BY tb.id ";
         EntityManager em = HibernateUtil.getEM();
         em.getTransaction().begin();
-        
-        List<Object[]> results = em.createNativeQuery(q).setParameter("cegodnya",WaterClock.getStrDateTime()).getResultList();
-        for (Object[] groupTeacherCombo :results) {
-            String q1="UPDATE `teacher_debts` SET `amount` = '"  + groupTeacherCombo[1].toString() + "', updated_at = NOW() WHERE id = '"+ groupTeacherCombo[0].toString()  +"' ";
+
+        List<Object[]> results = em.createNativeQuery(q).setParameter("cegodnya", WaterClock.getStrDateTime()).getResultList();
+        for (Object[] groupTeacherCombo : results) {
+            String q1 = "UPDATE `teacher_debts` SET `amount` = '" + groupTeacherCombo[1].toString() + "', updated_at = NOW() WHERE id = '" + groupTeacherCombo[0].toString() + "' ";
             System.out.println(q1);
             em.createNativeQuery(q1).executeUpdate();
         }
         em.getTransaction().commit();
-
-/*
     }
 
-    @Scheduled(fixedRate = 500000)
+   //  @Scheduled(fixedRate = 5000)
     public void createRecordsInTableTeacherDebts() {
-    /*
-
         int groupId;
         int teacherId;
         String monthId;
@@ -48,7 +45,6 @@ public class CalcTeacherDebtsScheduler {
         String leftLimit = "";
         String rightLimit = "";
         String addedMonth = "";
-
 
         EntityManager em = HibernateUtil.getEM();
         List<Object[]> groupsTeachers = em.createNativeQuery("SELECT gt.group_id,gt.teacher_id FROM groups_extra_teachers gt " +
@@ -65,9 +61,9 @@ public class CalcTeacherDebtsScheduler {
                     " LEFT JOIN teacher_debts tb ON (tb.group_id = h.group_id AND tb.teacher_id = h.teacher_id AND tb.lesson_year = YEAR(started)  AND tb.month_id =  MONTH(started)) " +
                     " WHERE h.started <= :cegodnya AND h.group_id =:gid AND h.teacher_id = :tid AND h.cancelled = 0 " +
                     " GROUP BY tb.id,YEAR(h.started), MONTH(h.started)")
-                    .setParameter("gid",groupId)
-                    .setParameter("tid",teacherId)
-                    .setParameter("cegodnya",WaterClock.getStrDateTime()).getResultList();
+                    .setParameter("gid", groupId)
+                    .setParameter("tid", teacherId)
+                    .setParameter("cegodnya", WaterClock.getStrDateTime()).getResultList();
             for (Object[] teacherGroup : results) {
                 System.out.println("not exists " + teacherGroup[0]);
                 lesson_year = teacherGroup[1].toString();
@@ -94,10 +90,8 @@ public class CalcTeacherDebtsScheduler {
                 }
             } // end loop month
         } // end loop teacher group combo
-         */
 
     }
-
 
 }
 

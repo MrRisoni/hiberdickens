@@ -20,7 +20,7 @@ public class TeacherController {
         rsp.put("debts",tchRepo.getTeacherDebts(teacherId));
         rsp.put("timetable",tchRepo.getTeacherTimeTable(teacherId));
 
-        
+
         return  rsp;
     }
 }

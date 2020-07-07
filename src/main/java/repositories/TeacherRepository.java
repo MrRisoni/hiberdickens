@@ -1,5 +1,6 @@
 package repositories;
 
+import hello.WaterClock;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
 import models.TeacherPayment;
@@ -42,6 +43,9 @@ public class TeacherRepository extends Repository {
                 " JOIN gr.speedObj spd " +
                 " JOIN gr.ageObj ag " +
                 " JOIN gr.daskalos dsk JOIN dsk.member mb " +
-                " JOIN gr.courseObj crs WHERE dsk.id = :tid", TimetableDTO.class).setParameter("tid",teacherId).getResultList();
+                " JOIN gr.courseObj crs WHERE dsk.id = :tid" +
+                " AND hs.started >= :starttime", TimetableDTO.class)
+                .setParameter("starttime", WaterClock.getDate())
+                .setParameter("tid",teacherId).getResultList();
     }
 }

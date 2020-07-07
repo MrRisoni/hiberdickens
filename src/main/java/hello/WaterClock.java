@@ -10,6 +10,10 @@ public class WaterClock {
         return "2019-09-21";
     }
 
+    public static String getStrDateAndWeekAhead()
+    {
+        return "2019-09-30";
+    }
 
     public static String getStrDateTime()
     {
@@ -19,6 +23,11 @@ public class WaterClock {
     public static String getStrDateTimeUTC()
     {
         return "2019-09-21 13:05:10";
+    }
+
+    public static String getStrDateTimeUTCAndWeekAhead()
+    {
+        return "2019-09-30 13:05:10";
     }
 
     public static Long getUnix()

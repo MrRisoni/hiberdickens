@@ -7,14 +7,16 @@ public class PaymentDebtDTO {
     private int year;
     private int groupId;
     private int entityId;
+    private String courseName;
 
-   public PaymentDebtDTO(float amount, String monthTitle, int year, int groupId, int entityId, String fullName) {
+   public PaymentDebtDTO(float amount, String monthTitle, int year, int groupId, int entityId, String fullName, String courseName) {
         this.fullName = fullName;
         this.amount = amount;
         this.monthTitle = monthTitle;
         this.year = year;
         this.groupId = groupId;
         this.entityId = entityId;
+        this.courseName = courseName;
     }
 
     public String getFullName() {
@@ -63,5 +65,13 @@ public class PaymentDebtDTO {
 
     public void setEntityId(int entityId) {
         this.entityId = entityId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 }

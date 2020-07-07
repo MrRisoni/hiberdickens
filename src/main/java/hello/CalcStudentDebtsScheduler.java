@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public class CalcStudentDebtsScheduler {
 
-    @Scheduled(fixedRate = 5000)
+   //  @Scheduled(fixedRate = 5000)
     public void populateStudentDebts() {
         String q=" SELECT stb.id, SUM(h.fee* h.duration) FROM student_debts stb " +
         " JOIN history h ON h.group_id = stb.group_id " +
@@ -24,6 +24,7 @@ public class CalcStudentDebtsScheduler {
         EntityManager em = HibernateUtil.getEM();
         em.getTransaction().begin();
 
+        // discounts
         List<Object[]> results = em.createNativeQuery(q).setParameter("cegodnya",WaterClock.getStrDateTime()).getResultList();
         for (Object[] groupStudentCombo :results) {
             String q1="UPDATE `student_debts` SET `amount` = '"  + groupStudentCombo[1].toString() + "', updated_at = NOW() WHERE id = '"+ groupStudentCombo[0].toString()  +"' ";

@@ -107,7 +107,7 @@ public class GroupRepository extends Repository {
 
     public List<Object> getStudentPaymentsList(int groupId)
     {
-         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id,  concat(m.name,' ',m.surname) ) " +
+         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id,  concat(m.name,' ',m.surname),'') " +
          " FROM StudentPayment sp " +
          " JOIN sp.monthObj mon " +
          " JOIN sp.studentObj stObj " +
@@ -120,7 +120,7 @@ public class GroupRepository extends Repository {
 
     public List<Object> getStudentDebtsList(int groupId)
     {
-        return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sb.amount,mon.title, sb.lesson_year, sb.groupObj.id, sb.studentObj.id, concat(m.name,' ',m.surname) ) " +
+        return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sb.amount,mon.title, sb.lesson_year, sb.groupObj.id, sb.studentObj.id, concat(m.name,' ',m.surname) ,'') " +
                 " FROM StudentDebt sb " +
                 " JOIN sb.monthObj mon " +
                 " JOIN sb.studentObj stObj " +
@@ -132,7 +132,7 @@ public class GroupRepository extends Repository {
 
     public List<Object> getTeacherPaymentsList(int groupId)
     {
-        return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tp.amount,mon.title, tp.lesson_year, tp.groupObj.id, tp.teacherObj.id,  concat(m.name,' ',m.surname) ) " +
+        return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tp.amount,mon.title, tp.lesson_year, tp.groupObj.id, tp.teacherObj.id,  concat(m.name,' ',m.surname),'' ) " +
                 " FROM TeacherPayment tp " +
                 " JOIN tp.teacherObj  " +
                 " JOIN tp.teacherObj.member m  " +
@@ -144,7 +144,7 @@ public class GroupRepository extends Repository {
 
     public List<TeacherDebt> getTeacherDebtsList(int groupId)
     {
-        return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tb.amount,mon.title, tb.lesson_year, tb.groupObj.id, tb.teacherObj.id,  concat(m.name,' ',m.surname) ) " +
+        return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tb.amount,mon.title, tb.lesson_year, tb.groupObj.id, tb.teacherObj.id,  concat(m.name,' ',m.surname) ,'') " +
                 " FROM TeacherDebt tb " +
                 " JOIN tb.teacherObj  " +
                 " JOIN tb.teacherObj.member m  " +

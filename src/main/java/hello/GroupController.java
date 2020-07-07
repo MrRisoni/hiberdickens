@@ -18,37 +18,6 @@ import java.util.List;
 @RestController
 public class GroupController {
 
-    @RequestMapping(value = "/api/groupaki", method = RequestMethod.GET)
-    public String testtmp() {
-        try {
-            ObjectMapper omp = new ObjectMapper();
-            omp.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
-            EntityManager entityManager =  HibernateUtil.getEM();
-
-            System.out.println("###############################################");
-
-            List<Foo> lg = entityManager.createQuery("select new hello.Foo(g.title, gdsk.member.name) from GroupModel g  inner join  g.daskalos  gdsk" +
-                    " inner join gdsk.member where g.id = 1",Foo.class).getResultList();
-            System.out.println("----------------");
-
-            System.out.println(lg.get(0).getTeacherName());
-
-           // System.out.println(lg.get(0).getDaskalos().getId());
-           // System.out.println(lg.get(0).getDaskalos().getMember().getName());
-
-            return "hey";
-
-           // return omp.writeValueAsString(lg);
-
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            return ex.getMessage();
-        }
-    }
-
-
     @RequestMapping(value = "/api/group/students", method = RequestMethod.GET)
     public GroupStudentsResponse getGroupMembers() {
         GroupStudentsResponse rsp = new GroupStudentsResponse();

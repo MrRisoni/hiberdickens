@@ -51,7 +51,7 @@ public class CalcStudentDebtsScheduler {
                 monthId = studentGroup[2].toString();
                 System.out.println(lesson_year + " " + monthId);
                 recordNotExists = Integer.parseInt(studentGroup[0].toString());
-                /*
+
                 if (recordNotExists == 1) {
 
                     addedMonth = monthId;
@@ -63,13 +63,13 @@ public class CalcStudentDebtsScheduler {
 
                     em.getTransaction().begin();
 
-                    String q = "INSERT IGNORE INTO `teacher_debts` (`created_at`, `updated_at`, `teacher_id`, `amount`, `group_id`, `month_id`, `lesson_year`,`starts_at`,`ends_at`) VALUES (NOW(),NOW(),'" + String.valueOf(teacherId) + "',0,'" + String.valueOf(groupId) + "','" + String.valueOf(monthId) + "', '" + String.valueOf(lesson_year) + "','" + leftLimit + "','" + rightLimit + "') ";
+                    String q = "INSERT IGNORE INTO `student_debts` (`created_at`, `updated_at`, `student_id`, `amount`, `group_id`, `month_id`, `lesson_year`,`starts_at`,`ends_at`) VALUES (NOW(),NOW(),'" + String.valueOf(studentId) + "',0,'" + String.valueOf(groupId) + "','" + String.valueOf(monthId) + "', '" + String.valueOf(lesson_year) + "','" + leftLimit + "','" + rightLimit + "') ";
                     System.out.println(q);
                     Query persistableQuery = em.createNativeQuery(q);
                     persistableQuery.executeUpdate();
                     em.getTransaction().commit();
 
-                }*/
+                }
             } // end loop month
         } // end loop student group combo
 

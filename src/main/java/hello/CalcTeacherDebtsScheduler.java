@@ -1,7 +1,6 @@
 package hello;
 
 import models.HibernateUtil;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -13,9 +12,9 @@ import java.util.List;
 public class CalcTeacherDebtsScheduler {
 
 
-    @Scheduled(fixedRate = 5000)
-    public void populateStudentDebts() {
-
+ //   @Scheduled(fixedRate = 5000)
+    public void populateTeacherDebts() {
+/*
         String q=" SELECT tb.id, SUM(h.wage* h.duration) FROM teacher_debts tb " +
         " JOIN history h ON (h.group_id = tb.group_id AND h.teacher_id = tb.teacher_id) " +
         " WHERE :cegodnya >=tb.starts_at " +
@@ -34,11 +33,13 @@ public class CalcTeacherDebtsScheduler {
         }
         em.getTransaction().commit();
 
-
+/*
     }
 
     @Scheduled(fixedRate = 500000)
     public void createRecordsInTableTeacherDebts() {
+    /*
+
         int groupId;
         int teacherId;
         String monthId;
@@ -93,6 +94,10 @@ public class CalcTeacherDebtsScheduler {
                 }
             } // end loop month
         } // end loop teacher group combo
+         */
+
     }
+
+
 }
 

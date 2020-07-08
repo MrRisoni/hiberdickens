@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class TeacherController {
 
     @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
-    public HashMap<String, Object> getPayments(@PathVariable int teacherId) {
+    public HashMap<String, Object> getData(@PathVariable int teacherId) {
 
         HashMap<String, Object> rsp = new HashMap<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -107,38 +107,3 @@ public class TeacherController {
 }
 
 
-class MiniHour {
-    private int startin;
-    private int ending;
-    private String title;
-
-    public MiniHour(int startin, int ending, String title) {
-        this.startin = startin;
-        this.ending = ending;
-        this.title = title;
-    }
-
-    public int getStartin() {
-        return startin;
-    }
-
-    public void setStartin(int startin) {
-        this.startin = startin;
-    }
-
-    public int getEnding() {
-        return ending;
-    }
-
-    public void setEnding(int ending) {
-        this.ending = ending;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-}

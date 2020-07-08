@@ -35,7 +35,7 @@ public class GeneralRepository extends Repository {
     }
 
     public List<HourModel> getHours(){
-        return this.getEntityManager().createQuery("FROM HourModel", HourModel.class).getResultList();
+        return this.getEntityManager().createQuery("FROM HourModel ORDER BY id ASC", HourModel.class).getResultList();
     }
 
     public List<Building> getBuildings()

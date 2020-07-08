@@ -35,7 +35,6 @@ public class TeacherController {
 
         days = timetabl.stream().map(el -> {
             try {
-                //  return formatter.parse(formatter.format(el.getStarted())).toString();
                 return formatter.format(el.getStarted()).toString();
 
             } catch (Exception ex) {
@@ -53,28 +52,20 @@ public class TeacherController {
 
         ArrayList<MiniHour> hourRanges = new ArrayList<>();
 
-
         for (int i = 0; i < hoursList.size() - 1; i++) {
             int startin = Integer.parseInt(hoursList.get(i).getTitle().substring(0, 2)) * 60 + Integer.parseInt(hoursList.get(i).getTitle().substring(2));
             int endin = Integer.parseInt(hoursList.get(i + 1).getTitle().substring(0, 2)) * 60 + Integer.parseInt(hoursList.get(i + 1).getTitle().substring(2));
 
             String aus_von = hoursList.get(i).getTitle() + "-" + hoursList.get(i + 1).getTitle();
 
-           /* System.out.println(aus_von);
-            System.out.println(hoursList.get(i).getTitle().substring(0,2));
-            System.out.println(hoursList.get(i).getTitle().substring(2));
-            System.out.println(startin + " " + endin);
-*/
             hourRanges.add(new MiniHour(startin, endin, aus_von));
         }
 
-        HashMap<String, Object> finalTimeTabling = new HashMap<>();
-
+        ArrayList<Object> finalTimeTabling = new ArrayList<>(); // preservers order of insertion
 
         for (int h = 0; h < hourRanges.size(); h++) {
             System.out.println(hourRanges.get(h).getTitle());
             ArrayList<String> thisHour = new ArrayList<>();
-
 
             thisHour.add(hourRanges.get(h).getTitle());
 
@@ -90,40 +81,22 @@ public class TeacherController {
                     int localStarting = uhr * 60 + minutes;
                     int localEnding = localStarting + 90;
 
-
                     if (niceDayFormat.equals(days.get(d))) {
                         if (localStarting <= hourRanges.get(h).getStartin()) {
                             if (localEnding >= hourRanges.get(h).getEnding()) {
-                                System.out.println(actObj.getCourseName() + " have smothing on " + niceDayFormat + " nd " + niceHourFormat + " ls " + localStarting + " le " + localEnding);
-                                System.out.println("get start " + hourRanges.get(h).getStartin() + " " + hourRanges.get(h).getEnding());
                                 matchedActivities.add(actObj.getCourseName());
                             }
-                            
                         }
                     }
 
-                    //  System.out.println("have smothing on " + niceDayFormat + " nd " + niceHourFormat + " ls " + localStarting + " le " + localEnding ) ;
-                    //   System.out.println("day is  " + "  " + days.get(d)  +  "  "  + hourRanges.get(h).getStartin() + " " +hourRanges.get(h).getEnding() );
-
-                    //   System.out.println("lstart " + localStarting + " rstart " + localEnding);
-
                 } // end for timetable
-
-                if (matchedActivities.size() > 0) {
-                    System.out.println("Match activiles len " + matchedActivities.size());
-                    System.out.println(String.join(",", matchedActivities));
-                }
                 thisHour.add(String.join(",", matchedActivities));
-
 
             } // end for days
 
             thisHour.add(hourRanges.get(h).getTitle());
-            // finalTimeTabling.add(thisHour);
-            finalTimeTabling.put(hourRanges.get(h).getTitle(), thisHour);
-
+            finalTimeTabling.add(thisHour);
         } // end for hours
-
 
         rsp.put("timetable", timetabl); // delete this later
         rsp.put("timetabling", finalTimeTabling);

@@ -52,13 +52,11 @@ public class TeacherController {
         List<HourModel> hoursList = gRepo.getHours();
 
         ArrayList<MiniHour> hourRanges = new ArrayList<>();
-        ArrayList<String> matchedActivities = new ArrayList<>();
-        ArrayList<String> thisHour = new ArrayList<>();
 
 
         for (int i = 0; i < hoursList.size() - 1; i++) {
-            int startin = Integer.parseInt(hoursList.get(i).getTitle().substring(0,2)) * 60 + Integer.parseInt(hoursList.get(i).getTitle().substring(2));
-            int endin =Integer.parseInt(hoursList.get(i+1).getTitle().substring(0,2)) * 60 + Integer.parseInt(hoursList.get(i+1).getTitle().substring(2));
+            int startin = Integer.parseInt(hoursList.get(i).getTitle().substring(0, 2)) * 60 + Integer.parseInt(hoursList.get(i).getTitle().substring(2));
+            int endin = Integer.parseInt(hoursList.get(i + 1).getTitle().substring(0, 2)) * 60 + Integer.parseInt(hoursList.get(i + 1).getTitle().substring(2));
 
             String aus_von = hoursList.get(i).getTitle() + "-" + hoursList.get(i + 1).getTitle();
 
@@ -70,19 +68,23 @@ public class TeacherController {
             hourRanges.add(new MiniHour(startin, endin, aus_von));
         }
 
-        ArrayList<Object> finalTimeTabling = new ArrayList<>();
+        HashMap<String, Object> finalTimeTabling = new HashMap<>();
+
 
         for (int h = 0; h < hourRanges.size(); h++) {
-            thisHour.clear();
+            System.out.println(hourRanges.get(h).getTitle());
+            ArrayList<String> thisHour = new ArrayList<>();
+
 
             thisHour.add(hourRanges.get(h).getTitle());
 
             for (int d = 1; d < days.size() - 1; d++) { // skip #
-                matchedActivities.clear();
+                ArrayList<String> matchedActivities = new ArrayList<>();
+
                 for (TimetableDTO actObj : timetabl) {
                     String niceDayFormat = formatter.format(actObj.getStarted()).toString();
                     String niceHourFormat = hourFormatter.format(actObj.getStarted()).toString();
-                    int uhr = Integer.parseInt(niceHourFormat.substring(0,2));
+                    int uhr = Integer.parseInt(niceHourFormat.substring(0, 2));
                     int minutes = Integer.parseInt(niceHourFormat.substring(3));
 
                     int localStarting = uhr * 60 + minutes;
@@ -90,21 +92,35 @@ public class TeacherController {
 
 
                     if (niceDayFormat.equals(days.get(d))) {
-                        System.out.println("have smothing on " + niceDayFormat + " nd " + niceHourFormat + " ls " + localStarting + " le " + localEnding ) ;
-                        System.out.println("get start " + hourRanges.get(h).getStartin() + " " + hourRanges.get(h).getEnding());
+                        if (localStarting <= hourRanges.get(h).getStartin()) {
+                            if (localEnding >= hourRanges.get(h).getEnding()) {
+                                System.out.println(actObj.getCourseName() + " have smothing on " + niceDayFormat + " nd " + niceHourFormat + " ls " + localStarting + " le " + localEnding);
+                                System.out.println("get start " + hourRanges.get(h).getStartin() + " " + hourRanges.get(h).getEnding());
+                                matchedActivities.add(actObj.getCourseName());
+                            }
+                            
+                        }
                     }
 
-                 //  System.out.println("have smothing on " + niceDayFormat + " nd " + niceHourFormat + " ls " + localStarting + " le " + localEnding ) ;
-                 //   System.out.println("day is  " + "  " + days.get(d)  +  "  "  + hourRanges.get(h).getStartin() + " " +hourRanges.get(h).getEnding() );
+                    //  System.out.println("have smothing on " + niceDayFormat + " nd " + niceHourFormat + " ls " + localStarting + " le " + localEnding ) ;
+                    //   System.out.println("day is  " + "  " + days.get(d)  +  "  "  + hourRanges.get(h).getStartin() + " " +hourRanges.get(h).getEnding() );
 
-                 //   System.out.println("lstart " + localStarting + " rstart " + localEnding);
+                    //   System.out.println("lstart " + localStarting + " rstart " + localEnding);
 
                 } // end for timetable
-                thisHour.add(String.join(",",matchedActivities));
+
+                if (matchedActivities.size() > 0) {
+                    System.out.println("Match activiles len " + matchedActivities.size());
+                    System.out.println(String.join(",", matchedActivities));
+                }
+                thisHour.add(String.join(",", matchedActivities));
+
+
             } // end for days
 
             thisHour.add(hourRanges.get(h).getTitle());
-            finalTimeTabling.add(thisHour);
+            // finalTimeTabling.add(thisHour);
+            finalTimeTabling.put(hourRanges.get(h).getTitle(), thisHour);
 
         } // end for hours
 

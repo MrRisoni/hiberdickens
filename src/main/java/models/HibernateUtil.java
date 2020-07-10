@@ -22,9 +22,15 @@ public class HibernateUtil {
         if (em == null) {
             Map<String, Object> configOverrides = new HashMap<String, Object>();
                 System.out.println("SYSTEM ENV");
-            System.out.println(System.getenv("SPRING_DICKENS_DB_PASSWD"));
-            configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_DICKENS_DB_PASSWD"));
-            configOverrides.put("javax.persistence.jdbc.user", System.getenv("SPRING_DICKENS_DB_USR"));
+            configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_DB_PASSWD"));
+            configOverrides.put("javax.persistence.jdbc.user", System.getenv("SPRING_APP_DB_USR"));
+            if (System.getenv("SPRING_APP_DB_HOST") != null) {
+                String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_DB_NAME") + "?serverTimezone=UTC";
+                configOverrides.put("javax.persistence.jdbc.url",dbUrl);
+                System.out.println("URL CON");
+                System.out.println(dbUrl);
+
+            }
 
             EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb",configOverrides);
             em = entityManagerFactory.createEntityManager();
@@ -36,8 +42,13 @@ public class HibernateUtil {
         // A SessionFactory is set up once for an application!
 
         Map<String,String> HerokuSettings = new HashMap<>();
-        HerokuSettings.put("hibernate.connection.password",System.getenv("SPRING_DICKENS_DB_PASSWD"));
-        HerokuSettings.put("hibernate.connection.user",System.getenv("SPRING_DICKENS_DB_USR"));
+        HerokuSettings.put("hibernate.connection.password",System.getenv("SPRING_APP_DB_PASSWD"));
+        HerokuSettings.put("hibernate.connection.user",System.getenv("SPRING_APP_DB_USR"));
+        if (System.getenv("SPRING_APP_DB_HOST") != null) {
+            String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_DB_NAME") + "?serverTimezone=UTC";
+            HerokuSettings.put("hibernate.connection.url",dbUrl);
+            System.out.println(dbUrl);
+        }
 
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().
                 configure("hibernate.cfg.xml").

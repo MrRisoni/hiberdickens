@@ -18,25 +18,9 @@ import java.util.List;
 @RestController
 public class GroupController {
 
-    @RequestMapping(value = "/api/group/students", method = RequestMethod.GET)
-    public GroupStudentsResponse getGroupMembers() {
-        GroupStudentsResponse rsp = new GroupStudentsResponse();
-        try {
-            GroupRepository groupRepo = new GroupRepository();
-            groupRepo.setEntityManager(HibernateUtil.getEM());
-            rsp.setDatei(groupRepo.getGroupStudents(1));
-            return rsp;
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-            rsp.setErrorMessage(ex.getMessage());
-            return rsp;
-        }
-    }
-
 
     @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
-    public HashMap<String,Object> getGroupDetails(@PathVariable int groupId)
+    public HashMap<String,Object> getGroupDetails(@PathVariable Long groupId)
     {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());

@@ -14,12 +14,12 @@ public class GroupRepository extends Repository {
     public GroupRepository() {
     }
 
-    public GroupModel getGroup(int groupId)
+    public GroupModel getGroup(Long groupId)
     {
         return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid",GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
     }
 
-    public List<GroupMember> getGroupStudents(int groupId) {
+    public List<GroupMember> getGroupStudents(Long groupId) {
 
                 Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, CONCAT(m.name,' ',m.surname), " +
                 " IF (CURRENT_DATE > gs.dropped, 1,0) AS hasDropped,  " +
@@ -61,7 +61,7 @@ public class GroupRepository extends Repository {
 
     }
 
-    public double getSumStudentDebts(int groupId)
+    public double getSumStudentDebts(Long groupId)
     {
         return this.getEntityManager().createQuery(
                 "select sum(stdb.amount)  " +
@@ -71,7 +71,7 @@ public class GroupRepository extends Repository {
     }
 
 
-    public double getSumStudentPayments(int groupId)
+    public double getSumStudentPayments(Long groupId)
     {
         return this.getEntityManager().createQuery(
                 "select sum(stp.amount)  " +
@@ -81,7 +81,7 @@ public class GroupRepository extends Repository {
 
     }
 
-    public double getSumTeacherDebts(int groupId)
+    public double getSumTeacherDebts(Long groupId)
     {
         return this.getEntityManager().createQuery(
                 "select sum(tb.amount)  " +
@@ -90,12 +90,12 @@ public class GroupRepository extends Repository {
                 .setParameter( "id", groupId ).getSingleResult();
     }
 
-    public double getSumHours(int groupId){
+    public double getSumHours(Long groupId){
         return this.getEntityManager().createQuery("SELECT SUM(h.duration) FROM HistoryModel h JOIN  h.groupObj WHERE h.groupObj.id = :id", Double.class )
                 .setParameter( "id", groupId ).getSingleResult();
     }
 
-    public double getSumTeacherPayments(int groupId)
+    public double getSumTeacherPayments(Long groupId)
     {
         return this.getEntityManager().createQuery(
                 "select sum(tp.amount)  " +
@@ -105,7 +105,7 @@ public class GroupRepository extends Repository {
 
     }
 
-    public List<Object> getStudentPaymentsList(int groupId)
+    public List<Object> getStudentPaymentsList(Long groupId)
     {
          return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id,  concat(m.name,' ',m.surname),'') " +
          " FROM StudentPayment sp " +
@@ -117,8 +117,7 @@ public class GroupRepository extends Repository {
 
     }
 
-
-    public List<Object> getStudentDebtsList(int groupId)
+    public List<Object> getStudentDebtsList(Long groupId)
     {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sb.amount,mon.title, sb.lesson_year, sb.groupObj.id, sb.studentObj.id, concat(m.name,' ',m.surname) ,'') " +
                 " FROM StudentDebt sb " +
@@ -129,8 +128,7 @@ public class GroupRepository extends Repository {
                 " WHERE sb.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
     }
 
-
-    public List<Object> getTeacherPaymentsList(int groupId)
+    public List<Object> getTeacherPaymentsList(Long groupId)
     {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tp.amount,mon.title, tp.lesson_year, tp.groupObj.id, tp.teacherObj.id,  concat(m.name,' ',m.surname),'' ) " +
                 " FROM TeacherPayment tp " +
@@ -141,8 +139,7 @@ public class GroupRepository extends Repository {
     }
 
 
-
-    public List<TeacherDebt> getTeacherDebtsList(int groupId)
+    public List<TeacherDebt> getTeacherDebtsList(Long groupId)
     {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tb.amount,mon.title, tb.lesson_year, tb.groupObj.id, tb.teacherObj.id,  concat(m.name,' ',m.surname) ,'') " +
                 " FROM TeacherDebt tb " +
@@ -153,15 +150,12 @@ public class GroupRepository extends Repository {
     }
 
 
-
-    public List<TimetableDTO> getHistory(int  groupId)
+    public List<TimetableDTO> getHistory(Long  groupId)
     {
         return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
                 " JOIN hs.groupObj gr WHERE gr.id= :id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
     }
-
-
 
 
 }

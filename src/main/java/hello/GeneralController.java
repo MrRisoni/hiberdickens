@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import repositories.GeneralRepository;
-import spring_repos.AgeRepository;
-import spring_repos.LanguageRepository;
+import spring_repos.*;
 
 import java.util.List;
 
@@ -22,6 +21,15 @@ public class GeneralController {
     @Autowired
     private AgeRepository agrp;
 
+    @Autowired
+    private SpeedRepository spdRp;
+
+    @Autowired
+    private CourseTypeRepository typeRsp;
+
+    @Autowired
+    private DisciplineRepository dscplRepo;
+
     @RequestMapping(value = "/api/classes", method = RequestMethod.GET)
     public List<SchoolClass> getClasses() {
 
@@ -31,17 +39,13 @@ public class GeneralController {
     }
 
     @RequestMapping(value = "/api/course_types", method = RequestMethod.GET)
-    public List<CourseType> getCourseTypes() {
-        GeneralRepository genRepo = new GeneralRepository();
-        genRepo.setEntityManager(HibernateUtil.getEM());
-        return  genRepo.getCourseTypes();
+    public Iterable<CourseType> getCourseTypes() {
+        return typeRsp.findAll();
     }
 
     @RequestMapping(value = "/api/disciplines", method = RequestMethod.GET)
-    public List<Discipline> getDisciplines() {
-        GeneralRepository genRepo = new GeneralRepository();
-        genRepo.setEntityManager(HibernateUtil.getEM());
-        return  genRepo.getDisciplines();
+    public Iterable<Discipline> getDisciplines() {
+        return dscplRepo.findAll();
     }
 
     @RequestMapping(value = "/api/ages", method = RequestMethod.GET)
@@ -53,10 +57,8 @@ public class GeneralController {
     }
 
     @RequestMapping(value = "/api/speeds", method = RequestMethod.GET)
-    public List<Speed> getSpeeds() {
-        GeneralRepository genRepo = new GeneralRepository();
-        genRepo.setEntityManager(HibernateUtil.getEM());
-        return  genRepo.getSpeeds();
+    public Iterable<Speed> getSpeeds() {
+      return spdRp.findAll();
     }
 
     @RequestMapping(value = "/api/buildings", method = RequestMethod.GET)

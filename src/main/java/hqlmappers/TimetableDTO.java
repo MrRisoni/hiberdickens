@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class TimetableDTO {
 
-    private int historyId;
-    private int groupId;
-    private int hourId;
+    private Long historyId;
+    private Long groupId;
+    private Long hourId;
 
     private String courseName;
     private String teacherName;
@@ -19,7 +19,7 @@ public class TimetableDTO {
     private float wage;
     private float fee;
 
-    public TimetableDTO(int historyId, int groupId, int hourId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
+    public TimetableDTO(Long historyId, Long groupId, Long hourId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
         this.historyId = historyId;
         this.groupId = groupId;
         this.hourId = hourId;
@@ -35,7 +35,7 @@ public class TimetableDTO {
         this.fee = fee;
     }
 
-    public TimetableDTO(int historyId, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
+    public TimetableDTO(Long historyId, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
         this.historyId = historyId;
         this.started = started;
         this.duration = duration;
@@ -45,19 +45,19 @@ public class TimetableDTO {
         this.fee = fee;
     }
 
-    public int getHistoryId() {
+    public Long getHistoryId() {
         return historyId;
     }
 
-    public void setHistoryId(int historyId) {
+    public void setHistoryId(Long historyId) {
         this.historyId = historyId;
     }
 
-    public int getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
@@ -141,11 +141,11 @@ public class TimetableDTO {
         this.fee = fee;
     }
 
-    public int getHourId() {
+    public Long getHourId() {
         return hourId;
     }
 
-    public void setHourId(int hourId) {
+    public void setHourId(Long hourId) {
         this.hourId = hourId;
     }
 }

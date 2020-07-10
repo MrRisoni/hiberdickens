@@ -10,7 +10,7 @@ public class StudentPayment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private int id;
+    private Long id;
 
     @Column
     private float amount;
@@ -34,11 +34,11 @@ public class StudentPayment {
     public StudentPayment() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

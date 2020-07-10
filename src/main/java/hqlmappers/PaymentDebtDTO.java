@@ -5,11 +5,11 @@ public class PaymentDebtDTO {
     private float amount;
     private String monthTitle;
     private int year;
-    private int groupId;
-    private int entityId;
+    private Long groupId;
+    private Long entityId;
     private String courseName;
 
-   public PaymentDebtDTO(float amount, String monthTitle, int year, int groupId, int entityId, String fullName, String courseName) {
+   public PaymentDebtDTO(float amount, String monthTitle, int year, Long groupId, Long entityId, String fullName, String courseName) {
         this.fullName = fullName;
         this.amount = amount;
         this.monthTitle = monthTitle;
@@ -51,19 +51,19 @@ public class PaymentDebtDTO {
         this.year = year;
     }
 
-    public int getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
-    public int getEntityId() {
+    public Long getEntityId() {
         return entityId;
     }
 
-    public void setEntityId(int entityId) {
+    public void setEntityId(Long entityId) {
         this.entityId = entityId;
     }
 

@@ -1,11 +1,13 @@
 package hello;
 
 import models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import repositories.GeneralRepository;
+import spring_repos.LanguageRepository;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
 @RestController
 public class GeneralController {
 
+    @Autowired
+    private LanguageRepository lgrepo;
 
 
     @RequestMapping(value = "/api/classes", method = RequestMethod.GET)
@@ -59,10 +63,11 @@ public class GeneralController {
     }
 
     @RequestMapping(value = "/api/languages", method = RequestMethod.GET)
-    public List<Language> getLanguages() {
-        GeneralRepository genRepo = new GeneralRepository();
-        genRepo.setEntityManager(HibernateUtil.getEM());
-        return genRepo.getLanguages();
+    public Iterable<Language> getLanguages() {
+        //GeneralRepository genRepo = new GeneralRepository();
+      //  genRepo.setEntityManager(HibernateUtil.getEM());
+      //  return genRepo.getLanguages();
+        return lgrepo.findAll();
     }
 }
 

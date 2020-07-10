@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import repositories.GeneralRepository;
+import spring_repos.AgeRepository;
 import spring_repos.LanguageRepository;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class GeneralController {
     @Autowired
     private LanguageRepository lgrepo;
 
+    @Autowired
+    private AgeRepository agrp;
 
     @RequestMapping(value = "/api/classes", method = RequestMethod.GET)
     public List<SchoolClass> getClasses() {
@@ -42,10 +45,11 @@ public class GeneralController {
     }
 
     @RequestMapping(value = "/api/ages", method = RequestMethod.GET)
-    public List<Age> getAges() {
-        GeneralRepository genRepo = new GeneralRepository();
+    public Iterable<Age> getAges() {
+       /* GeneralRepository genRepo = new GeneralRepository();
         genRepo.setEntityManager(HibernateUtil.getEM());
-        return  genRepo.getAges();
+        return  genRepo.getAges(); */
+        return agrp.findAll();
     }
 
     @RequestMapping(value = "/api/speeds", method = RequestMethod.GET)

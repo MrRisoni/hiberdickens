@@ -1,9 +1,10 @@
 package spring_repos;
 
-import models.Language;
+import models.CourseType;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LanguageRepository extends CrudRepository<Language,Long> {
+public interface CourseTypeRepository  extends CrudRepository<CourseType,Long> {
 }
+

@@ -18,22 +18,6 @@ public class GeneralRepository extends Repository {
         return this.getEntityManager().createQuery("FROM SchoolClass ORDER BY shownOrder ASC",SchoolClass.class).getResultList();
     }
 
-    public List<CourseType> getCourseTypes(){
-        return this.getEntityManager().createQuery("FROM CourseType",CourseType.class).getResultList();
-    }
-
-    public List<Discipline> getDisciplines(){
-        return this.getEntityManager().createQuery("FROM Discipline",Discipline.class).getResultList();
-    }
-
-    public List<Age> getAges(){
-        return this.getEntityManager().createQuery("FROM Age",Age.class).getResultList();
-    }
-
-    public List<Speed> getSpeeds(){
-        return this.getEntityManager().createQuery("FROM Speed", Speed.class).getResultList();
-    }
-
     public List<HourModel> getHours(){
         return this.getEntityManager().createQuery("FROM HourModel ORDER BY id ASC", HourModel.class).getResultList();
     }

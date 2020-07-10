@@ -1,9 +1,9 @@
 package spring_repos;
 
-import models.Language;
+import models.Age;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LanguageRepository extends CrudRepository<Language,Long> {
+public interface AgeRepository  extends CrudRepository<Age,Long> {
 }

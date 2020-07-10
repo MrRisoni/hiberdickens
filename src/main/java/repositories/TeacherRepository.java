@@ -14,7 +14,7 @@ public class TeacherRepository extends Repository {
         this.setEntityManager(HibernateUtil.getEM());
     }
 
-    public List<TeacherPayment> getTeacherPayments(int teacherId) {
+    public List<TeacherPayment> getTeacherPayments(Long teacherId) {
 
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tp.amount,mon.title, tp.lesson_year, tp.groupObj.id, tp.teacherObj.id, '',courseObj.title ) " +
                 " FROM TeacherPayment tp " +
@@ -25,7 +25,7 @@ public class TeacherRepository extends Repository {
 
     }
 
-    public List<TeacherPayment> getTeacherDebts(int teacherId) {
+    public List<TeacherPayment> getTeacherDebts(Long teacherId) {
 
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tb.amount,mon.title, tb.lesson_year, tb.groupObj.id, tb.teacherObj.id, '',courseObj.title ) " +
                 " FROM TeacherDebt tb " +
@@ -36,7 +36,7 @@ public class TeacherRepository extends Repository {
     }
 
 
-    public List<TimetableDTO> getTeacherTimeTable(int teacherId) {
+    public List<TimetableDTO> getTeacherTimeTable(Long teacherId) {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id,uhr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
                 " JOIN hs.groupObj gr " +

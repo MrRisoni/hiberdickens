@@ -13,7 +13,7 @@ public class StudentRepository extends Repository {
         this.setEntityManager(HibernateUtil.getEM());
     }
 
-    public List<StudentPayment> getStudentPayments(int studentId) {
+    public List<StudentPayment> getStudentPayments(Long studentId) {
 
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id, '',courseObj.title ) " +
                 " FROM StudentPayment sp " +
@@ -24,7 +24,7 @@ public class StudentRepository extends Repository {
 
     }
 
-    public List<StudentDebt> getStudentDebts(int studentId) {
+    public List<StudentDebt> getStudentDebts(Long studentId) {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(stb.amount,mon.title, stb.lesson_year, stb.groupObj.id, stb.studentObj.id, '',courseObj.title ) " +
                 " FROM StudentDebt stb " +
                 " JOIN stb.monthObj mon " +

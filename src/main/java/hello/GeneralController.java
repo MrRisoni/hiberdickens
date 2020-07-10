@@ -50,9 +50,6 @@ public class GeneralController {
 
     @RequestMapping(value = "/api/ages", method = RequestMethod.GET)
     public Iterable<Age> getAges() {
-       /* GeneralRepository genRepo = new GeneralRepository();
-        genRepo.setEntityManager(HibernateUtil.getEM());
-        return  genRepo.getAges(); */
         return agrp.findAll();
     }
 
@@ -69,11 +66,11 @@ public class GeneralController {
     }
 
     @RequestMapping(value = "/api/languages", method = RequestMethod.GET)
-    public Iterable<Language> getLanguages() {
-        //GeneralRepository genRepo = new GeneralRepository();
-      //  genRepo.setEntityManager(HibernateUtil.getEM());
-      //  return genRepo.getLanguages();
-        return lgrepo.findAll();
+    public List<Language> getLanguages() {
+       GeneralRepository genRepo = new GeneralRepository();
+       genRepo.setEntityManager(HibernateUtil.getEM());
+       return genRepo.getLanguages();
+
     }
 }
 

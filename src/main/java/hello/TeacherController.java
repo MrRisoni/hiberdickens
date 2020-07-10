@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class TeacherController {
 
     @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
-    public HashMap<String, Object> getData(@PathVariable int teacherId) {
+    public HashMap<String, Object> getData(@PathVariable Long teacherId) {
 
         HashMap<String, Object> rsp = new HashMap<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

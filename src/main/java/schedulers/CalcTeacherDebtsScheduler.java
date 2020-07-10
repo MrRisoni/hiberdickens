@@ -1,5 +1,6 @@
-package hello;
+package schedulers;
 
+import hello.WaterClock;
 import models.HibernateUtil;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

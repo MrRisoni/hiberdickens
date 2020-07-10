@@ -1,5 +1,6 @@
-package hello;
+package schedulers;
 
+import hello.WaterClock;
 import models.HibernateUtil;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class CalcStudentDebtsScheduler {
         em.getTransaction().begin();
 
         // discounts
-        List<Object[]> results = em.createNativeQuery(q).setParameter("cegodnya",WaterClock.getStrDateTime()).getResultList();
+        List<Object[]> results = em.createNativeQuery(q).setParameter("cegodnya", WaterClock.getStrDateTime()).getResultList();
         for (Object[] groupStudentCombo :results) {
             String q1="UPDATE `student_debts` SET `amount` = '"  + groupStudentCombo[1].toString() + "', updated_at = NOW() WHERE id = '"+ groupStudentCombo[0].toString()  +"' ";
             System.out.println(q1);

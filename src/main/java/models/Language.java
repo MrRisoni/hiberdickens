@@ -14,6 +14,9 @@ public class Language {
     @Column
     private String title;
 
+    @Column
+    private int active;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="language_id")
     private List<Diploma> diplomas = new ArrayList<Diploma>();
@@ -44,5 +47,13 @@ public class Language {
 
     public void setDiplomas(List<Diploma> diplomas) {
         this.diplomas = diplomas;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

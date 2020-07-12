@@ -28,7 +28,7 @@ public class StudentController {
         StudentRepository stdRepo = new StudentRepository();
         rsp.put("payments", stdRepo.getStudentPayments(studentId));
         rsp.put("debts", stdRepo.getStudentDebts(studentId));
-
+        rsp.put("groups",stdRepo.getStudentGroups(studentId));
 
         return rsp;
 

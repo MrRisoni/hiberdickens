@@ -1,6 +1,7 @@
 package hello;
 
 
+import models.CourseModel;
 import models.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +24,10 @@ public class LanguageController {
         l.setTitle("Arabic");
         l.setActive(1);
         lgRepo.save(l);
+
+        CourseModel c = new CourseModel();
+        c.setTitle("Al ko war rihm");
+        
     }
 
 }

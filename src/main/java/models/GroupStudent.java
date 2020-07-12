@@ -21,8 +21,9 @@ public class GroupStudent {
     @JoinColumn(name = "student_id")
     private Student studentObj;
 
-    @Column(name = "group_id")
-    private int groupId;
+   @OneToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "group_id")
+   private GroupModel groupObj;
 
 
     public GroupStudent() {
@@ -61,11 +62,13 @@ public class GroupStudent {
         this.studentObj = studentObj;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public GroupModel getGroupObj() {
+        return groupObj;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setGroupObj(GroupModel groupObj) {
+        this.groupObj = groupObj;
     }
+
+
 }

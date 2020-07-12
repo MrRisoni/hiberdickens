@@ -1,5 +1,6 @@
 package repositories;
 
+import hqlmappers.StudentGroupDTO;
 import models.HibernateUtil;
 import models.StudentDebt;
 import models.StudentPayment;
@@ -31,5 +32,15 @@ public class StudentRepository extends Repository {
                 " JOIN stb.groupObj  " +
                 " JOIN stb.groupObj.courseObj courseObj " +
                 " WHERE stb.studentObj.id = :sid ORDER BY  mon.id ASC,stb.lesson_year ASC ").setParameter("sid", studentId).getResultList();
+    }
+
+    public List<StudentGroupDTO> getStudentGroups(Long studentId){
+        return  this.getEntityManager().createQuery("SELECT new hqlmappers.StudentGroupDTO(grst.groupObj.id,courseObj.title,ageObj.title,speedObj.title ,grst.joined,grst.dropped ) " +
+                " FROM GroupStudent grst" +
+                " JOIN grst.groupObj  " +
+                " JOIN grst.groupObj.courseObj courseObj " +
+                " JOIN grst.groupObj.ageObj ageObj " +
+                " JOIN grst.groupObj.speedObj speedObj " +
+                " WHERE grst.studentObj.id = :sid ").setParameter("sid",studentId).getResultList();
     }
 }

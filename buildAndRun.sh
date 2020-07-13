@@ -1,2 +1,2 @@
-mvn package  -DskipTests
+mvn package  -DskipTests &&
 java -jar target/*.jar

@@ -29,7 +29,7 @@ public class StudentController {
         rsp.put("payments", stdRepo.getStudentPayments(studentId));
         rsp.put("debts", stdRepo.getStudentDebts(studentId));
         rsp.put("groups",stdRepo.getStudentGroups(studentId));
-
+        rsp.put("mockResulsText",stdRepo.getMockTextResults(studentId));
         return rsp;
 
     }

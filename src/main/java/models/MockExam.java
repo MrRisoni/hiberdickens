@@ -3,7 +3,6 @@ package models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,21 +20,23 @@ public class MockExam {
     @JsonIgnoreProperties("mockExams")
     private GroupModel groupObj;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="exam_id")
-    private List<MockExamResult> exam_results = new ArrayList<MockExamResult>();
+    @OneToMany( mappedBy = "mockExamObj",  fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<MockExamResultText> exam_results = new ArrayList<MockExamResultText>();
 
     @OneToOne
     @JoinColumn(name = "period_id")
     private Period period;
 
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date created_at;
 
     @OneToOne
     @JoinColumn(name = "grad_sys_id")
     private GradingSystem gradSys;
 
     @Column
-    private java.sql.Date exam_year;
+    private java.util.Date exam_year;
 
     public MockExam() {
     }
@@ -50,11 +51,11 @@ public class MockExam {
     }
 
 
-    public List<MockExamResult> getExam_results() {
+    public List<MockExamResultText> getExam_results() {
         return exam_results;
     }
 
-    public void setExam_results(List<MockExamResult> exam_results) {
+    public void setExam_results(List<MockExamResultText> exam_results) {
         this.exam_results = exam_results;
     }
 
@@ -74,11 +75,19 @@ public class MockExam {
         this.gradSys = gradSys;
     }
 
-    public Date getExam_year() {
+    public java.util.Date getExam_year() {
         return exam_year;
     }
 
-    public void setExam_year(Date exam_year) {
+    public void setExam_year(java.util.Date exam_year) {
         this.exam_year = exam_year;
+    }
+
+    public java.util.Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(java.util.Date created_at) {
+        this.created_at = created_at;
     }
 }

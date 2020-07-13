@@ -22,7 +22,7 @@ public class RealExam {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="exam_id")
-    private List<MockExamResult> exam_results = new ArrayList<MockExamResult>();
+    private List<MockExamResultText> exam_results = new ArrayList<MockExamResultText>();
 
     @Column
     private java.sql.Date exam_year;
@@ -39,11 +39,11 @@ public class RealExam {
         this.id = id;
     }
 
-    public List<MockExamResult> getExam_results() {
+    public List<MockExamResultText> getExam_results() {
         return exam_results;
     }
 
-    public void setExam_results(List<MockExamResult> exam_results) {
+    public void setExam_results(List<MockExamResultText> exam_results) {
         this.exam_results = exam_results;
     }
 

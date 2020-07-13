@@ -1,10 +1,10 @@
 package repositories;
 
+import hqlmappers.ExamResultTextDTO;
 import hqlmappers.StudentGroupDTO;
 import models.HibernateUtil;
 import models.StudentDebt;
 import models.StudentPayment;
-import models.TeacherPayment;
 
 import java.util.List;
 
@@ -42,5 +42,16 @@ public class StudentRepository extends Repository {
                 " JOIN grst.groupObj.ageObj ageObj " +
                 " JOIN grst.groupObj.speedObj speedObj " +
                 " WHERE grst.studentObj.id = :sid ").setParameter("sid",studentId).getResultList();
+    }
+
+    public List<ExamResultTextDTO> getMockTextResults(Long studentId)
+    {
+        return  this.getEntityManager().createQuery("SELECT new hqlmappers.ExamResultTextDTO(mockResText.id,courseObj.title , exObj.created_at,mockResText.gradeObj.title) " +
+                " FROM MockExamResultText mockResText" +
+                " JOIN mockResText.gradeObj  " +
+                " JOIN mockResText.mockExamObj exObj  " +
+                " JOIN mockResText.mockExamObj.groupObj  " +
+                " JOIN mockResText.mockExamObj.groupObj.courseObj courseObj " +
+                " WHERE mockResText.student.id = :sid ").setParameter("sid",studentId).getResultList();
     }
 }

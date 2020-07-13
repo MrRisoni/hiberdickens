@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 07, 2020 at 03:16 PM
+-- Generation Time: Jul 13, 2020 at 05:22 AM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.7
 
@@ -649,7 +649,8 @@ INSERT INTO `instituts` (`id`, `title`, `active`) VALUES
 (2, 'Cambridge', 1),
 (3, 'Michigan', 1),
 (4, 'Sorbonne', 1),
-(5, 'Institut Française', 1);
+(5, 'Institut Française', 1),
+(6, 'Middle East', 1);
 
 -- --------------------------------------------------------
 
@@ -869,7 +870,6 @@ INSERT INTO `languages` (`id`, `title`, `active`) VALUES
 (5, 'Ισπανικά', 1),
 (6, 'Ιταλικά', 1),
 (7, 'Σουηδικά', 1),
-(8, 'Αραβικά', 1),
 (9, 'Κινεζικά', 1),
 (10, 'Ιαπωνικά', 1);
 
@@ -1121,19 +1121,6 @@ CREATE TABLE `mock_exams` (
 
 INSERT INTO `mock_exams` (`id`, `created_at`, `updated_at`, `period_id`, `group_id`, `grad_sys_id`, `title`, `exam_year`) VALUES
 (1, '2020-06-01 11:21:41', '2020-06-01 11:21:41', 1, 1, 1, NULL, '1987-01-01');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mock_exams_results`
---
-
-CREATE TABLE `mock_exams_results` (
-  `id` int NOT NULL,
-  `grade` float DEFAULT NULL,
-  `student_id` int DEFAULT NULL,
-  `exam_id` int DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1525,18 +1512,6 @@ CREATE TABLE `real_exams` (
 
 INSERT INTO `real_exams` (`id`, `created_at`, `updated_at`, `period_id`, `group_id`, `grad_sys_id`, `exam_year`) VALUES
 (1, '2020-06-05 16:51:24', '2020-06-05 16:51:24', 1, 1, 1, '1907-01-01');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `real_exams_results`
---
-
-CREATE TABLE `real_exams_results` (
-  `id` int NOT NULL,
-  `grade` float DEFAULT NULL,
-  `student_id` int DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2032,31 +2007,31 @@ CREATE TABLE `student_debts` (
 --
 
 INSERT INTO `student_debts` (`id`, `created_at`, `updated_at`, `student_id`, `amount`, `group_id`, `month_id`, `lesson_year`, `starts_at`, `ends_at`) VALUES
-(1, '2020-07-07 08:24:21', '2020-07-07 15:16:20', 1, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(1, '2020-07-07 08:24:21', '2020-07-07 15:29:16', 1, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
 (2, '2020-07-07 08:24:21', '2020-07-07 08:24:21', 11, '0.00', 2, 8, 2019, '2019-08-01 00:00:00', '2019-08-30 23:59:59'),
-(3, '2020-07-07 08:24:21', '2020-07-07 15:16:20', 11, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(4, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 2, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(5, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 3, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(6, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 4, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(7, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 5, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(8, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 6, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(9, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 7, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(10, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 8, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(11, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 9, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(3, '2020-07-07 08:24:21', '2020-07-07 15:29:16', 11, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(4, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 2, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(5, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 3, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(6, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 4, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(7, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 5, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(8, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 6, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(9, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 7, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(10, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 8, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(11, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 9, '135.00', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
 (12, '2020-07-07 08:31:53', '2020-07-07 08:31:53', 12, '0.00', 2, 8, 2019, '2019-08-01 00:00:00', '2019-08-30 23:59:59'),
-(13, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 12, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(14, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 13, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(13, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 12, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(14, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 13, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
 (15, '2020-07-07 08:31:53', '2020-07-07 08:31:53', 13, '0.00', 2, 8, 2019, '2019-08-01 00:00:00', '2019-08-30 23:59:59'),
 (16, '2020-07-07 08:31:53', '2020-07-07 08:31:53', 14, '0.00', 2, 8, 2019, '2019-08-01 00:00:00', '2019-08-30 23:59:59'),
-(17, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 14, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(18, '2020-07-07 08:31:53', '2020-07-07 15:16:20', 15, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(17, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 14, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(18, '2020-07-07 08:31:53', '2020-07-07 15:29:16', 15, '37.50', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
 (19, '2020-07-07 08:31:53', '2020-07-07 08:31:53', 15, '0.00', 2, 8, 2019, '2019-08-01 00:00:00', '2019-08-30 23:59:59'),
-(20, '2020-07-07 15:08:35', '2020-07-07 15:16:20', 1, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(21, '2020-07-07 15:08:35', '2020-07-07 15:16:20', 2, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(22, '2020-07-07 15:08:35', '2020-07-07 15:16:20', 3, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(23, '2020-07-07 15:08:35', '2020-07-07 15:16:20', 4, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(24, '2020-07-07 15:08:35', '2020-07-07 15:16:20', 5, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(25, '2020-07-07 15:08:35', '2020-07-07 15:16:20', 6, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59');
+(20, '2020-07-07 15:08:35', '2020-07-07 15:29:16', 1, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(21, '2020-07-07 15:08:35', '2020-07-07 15:29:16', 2, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(22, '2020-07-07 15:08:35', '2020-07-07 15:29:16', 3, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(23, '2020-07-07 15:08:35', '2020-07-07 15:29:16', 4, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(24, '2020-07-07 15:08:35', '2020-07-07 15:29:16', 5, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(25, '2020-07-07 15:08:35', '2020-07-07 15:29:16', 6, '162.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59');
 
 -- --------------------------------------------------------
 
@@ -2184,10 +2159,10 @@ CREATE TABLE `teacher_debts` (
 --
 
 INSERT INTO `teacher_debts` (`id`, `created_at`, `updated_at`, `teacher_id`, `amount`, `group_id`, `month_id`, `lesson_year`, `starts_at`, `ends_at`) VALUES
-(13, '2020-07-06 14:40:55', '2020-07-07 15:16:45', 1, '64.80', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(13, '2020-07-06 14:40:55', '2020-07-07 15:29:15', 1, '64.80', 1, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
 (14, '2020-07-07 05:11:58', '2020-07-07 05:11:58', 2, '0.00', 2, 8, 2019, '2019-08-01 00:00:00', '2019-08-30 23:59:59'),
-(15, '2020-07-07 05:11:58', '2020-07-07 15:16:45', 2, '150.00', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
-(16, '2020-07-06 14:40:55', '2020-07-07 15:16:45', 1, '90.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59');
+(15, '2020-07-07 05:11:58', '2020-07-07 15:29:15', 2, '150.00', 2, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59'),
+(16, '2020-07-06 14:40:55', '2020-07-07 15:29:15', 1, '90.00', 3, 9, 2019, '2019-09-01 00:00:00', '2019-09-30 23:59:59');
 
 -- --------------------------------------------------------
 
@@ -2448,7 +2423,9 @@ INSERT INTO `university_type` (`id`, `title`) VALUES
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `passwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2716,7 +2693,8 @@ ALTER TABLE `job_opening_courses`
 -- Indexes for table `languages`
 --
 ALTER TABLE `languages`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`);
 
 --
 -- Indexes for table `logbook`
@@ -2743,14 +2721,6 @@ ALTER TABLE `mock_exams`
   ADD KEY `mock_exams_period_id_foreign` (`period_id`),
   ADD KEY `mock_exams_group_id_foreign` (`group_id`),
   ADD KEY `mock_exams_grad_sys_id_foreign` (`grad_sys_id`);
-
---
--- Indexes for table `mock_exams_results`
---
-ALTER TABLE `mock_exams_results`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKggw5a2f6wrdcm6r7726oqu6wh` (`student_id`),
-  ADD KEY `FK5tdvp8dhxiqcvg9pua2j3rb03` (`exam_id`);
 
 --
 -- Indexes for table `mock_exams_results_numeric`
@@ -2901,13 +2871,6 @@ ALTER TABLE `real_exams`
   ADD KEY `real_exams_period_id_foreign` (`period_id`),
   ADD KEY `real_exams_group_id_foreign` (`group_id`),
   ADD KEY `real_exams_grad_sys_id_foreign` (`grad_sys_id`);
-
---
--- Indexes for table `real_exams_results`
---
-ALTER TABLE `real_exams_results`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FKkva8qnvb58d5gg1nmpyq94vg1` (`student_id`);
 
 --
 -- Indexes for table `real_exams_results_numeric`
@@ -3259,7 +3222,8 @@ ALTER TABLE `university_type`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -3413,7 +3377,7 @@ ALTER TABLE `installments_per_group`
 -- AUTO_INCREMENT for table `instituts`
 --
 ALTER TABLE `instituts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `interviews_grading`
@@ -3473,7 +3437,7 @@ ALTER TABLE `job_opening_courses`
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `logbook`
@@ -3492,12 +3456,6 @@ ALTER TABLE `members`
 --
 ALTER TABLE `mock_exams`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `mock_exams_results`
---
-ALTER TABLE `mock_exams_results`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mock_exams_results_numeric`
@@ -3624,12 +3582,6 @@ ALTER TABLE `progress_book`
 --
 ALTER TABLE `real_exams`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `real_exams_results`
---
-ALTER TABLE `real_exams_results`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `real_exams_results_numeric`
@@ -4101,6 +4053,14 @@ ALTER TABLE `mock_exams_results_numeric`
   ADD CONSTRAINT `mock_exams_results_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
+-- Constraints for table `mock_exams_results_text`
+--
+ALTER TABLE `mock_exams_results_text`
+  ADD CONSTRAINT `mock_exams_results_text_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `mock_exams` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `mock_exams_results_text_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `mock_exams_results_text_ibfk_3` FOREIGN KEY (`text_grade_id`) REFERENCES `course_grades` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `musical_instruments`
 --
 ALTER TABLE `musical_instruments`
@@ -4186,6 +4146,14 @@ ALTER TABLE `real_exams`
 ALTER TABLE `real_exams_results_numeric`
   ADD CONSTRAINT `real_exams_results_exam_id_foreign` FOREIGN KEY (`exam_id`) REFERENCES `real_exams` (`id`),
   ADD CONSTRAINT `real_exams_results_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
+
+--
+-- Constraints for table `real_exams_results_text`
+--
+ALTER TABLE `real_exams_results_text`
+  ADD CONSTRAINT `real_exams_results_text_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `real_exams` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `real_exams_results_text_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `real_exams_results_text_ibfk_3` FOREIGN KEY (`text_grade_id`) REFERENCES `course_grades` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `registration_fees`

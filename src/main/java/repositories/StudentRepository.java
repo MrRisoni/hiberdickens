@@ -54,4 +54,14 @@ public class StudentRepository extends Repository {
                 " JOIN mockResText.mockExamObj.groupObj.courseObj courseObj " +
                 " WHERE mockResText.student.id = :sid ").setParameter("sid",studentId).getResultList();
     }
+
+    public List<ExamResultTextDTO> getMockNumericResults(Long studentId)
+    {
+        return  this.getEntityManager().createQuery("SELECT new hqlmappers.ExamResultNumberDTO(mockResNumber.id,courseObj.title , exObj.created_at,mockResNumber.grade) " +
+                " FROM MockExamResultNumeric mockResNumber" +
+                " JOIN mockResNumber.mockExamObj exObj  " +
+                " JOIN mockResNumber.mockExamObj.groupObj  " +
+                " JOIN mockResNumber.mockExamObj.groupObj.courseObj courseObj " +
+                " WHERE mockResNumber.student.id = :sid ").setParameter("sid",studentId).getResultList();
+    }
 }

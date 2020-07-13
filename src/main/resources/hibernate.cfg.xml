@@ -27,6 +27,7 @@
         <mapping class="models.HourModel"/>
         <mapping class="models.MockExam"/>
         <mapping class="models.MockExamResultText"/>
+        <mapping class="models.MockExamResultNumeric"/>
         <mapping class="models.Student"/>
         <mapping class="models.RealExam"/>
         <mapping class="models.RealExamResult"/>
@@ -68,6 +69,7 @@
         <mapping class="models.CourseFee"/>
         <mapping class="models.CourseWage"/>
         <mapping class="models.CourseGrade"/>
+
 
     </session-factory>
 </hibernate-configuration>

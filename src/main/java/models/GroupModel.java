@@ -26,6 +26,11 @@ public class GroupModel {
     private java.util.Date created_at;
 
     @Column
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date updated_at;
+
+    @Column
     private int max_seats;
 
     @Column
@@ -33,11 +38,6 @@ public class GroupModel {
 
     @Column
     private int num_students;
-
-    @Column
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date updated_at;
 
     @Column
     @UpdateTimestamp

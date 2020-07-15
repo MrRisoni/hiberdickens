@@ -19,9 +19,6 @@ public class Teacher {
     @Column
     private String afm;
 
-    @Column
-    private float current_salary;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -65,15 +62,7 @@ public class Teacher {
         this.afm = afm;
     }
 
-    public float getCurrent_salary() {
-        return current_salary;
-    }
-
-    public void setCurrent_salary(float current_salary) {
-        this.current_salary = current_salary;
-    }
-
-    /*
+       /*
     public List<GroupModel> getGrouppen() {
         return grouppen;
     }

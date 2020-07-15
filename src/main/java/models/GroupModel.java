@@ -10,20 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "groupakia")
-@NamedEntityGraphs({
-        @NamedEntityGraph(
-                name = "groupsWithTeachers",
-                attributeNodes = {
-                        @NamedAttributeNode("daskalos")
-                }
-        ),
-        @NamedEntityGraph(
-                name = "groupsWithHistories",
-                attributeNodes = {
-                        @NamedAttributeNode("historyList")
-                }
-        )
-})
 public class GroupModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

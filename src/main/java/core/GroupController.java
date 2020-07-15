@@ -14,6 +14,12 @@ import java.util.HashMap;
 public class GroupController {
 
 
+    @RequestMapping(value = "/api/group/new")
+    public void newGroup()
+    {
+
+    }
+
     @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
     public HashMap<String,Object> getGroupDetails(@PathVariable Long groupId)
     {

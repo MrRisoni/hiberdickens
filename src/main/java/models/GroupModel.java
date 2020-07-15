@@ -79,11 +79,12 @@ public class GroupModel {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+   /* @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JoinTable(
             name = "group_students",
-            joinColumns = @JoinColumn(name = "group_id"))
-    private List<GroupStudent> studentsList;
+            joinColumns = @JoinColumn(name = "group_id")) */
+   @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+   private List<GroupStudent> studentsList;
 
 
     public GroupModel() {

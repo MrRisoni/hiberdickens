@@ -1,22 +1,65 @@
 package core;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
 
 import org.springframework.web.bind.annotation.*;
 import repositories.GroupRepository;
+import spring_repos.SprGroupRepository;
 
+import java.util.Date;
 import java.util.HashMap;
 
 @CrossOrigin
 @RestController
 public class GroupController {
 
+    @Autowired
+    SprGroupRepository grRepo;
 
     @RequestMapping(value = "/api/group/new")
     public void newGroup()
     {
+        Teacher tch = new Teacher();
+        tch.setId(1L);
+
+        Speed sp = new Speed();
+        sp.setId(1L);
+
+        Age ag = new Age();
+        ag.setId(1L);
+
+        GroupRank rnk = new GroupRank();
+        rnk.setId(1L);
+
+        CourseFee fee = new CourseFee();
+        fee.setId(1L);
+
+        CourseWage wg = new CourseWage();
+        wg.setId(1L);
+
+        CourseModel crsm = new CourseModel();
+        crsm.setId(1L);
+
+        GroupModel grm = new GroupModel();
+        grm.setActive(1);
+        grm.setTitle("Test");
+        grm.setEnds_at(new Date());
+
+        grm.setSpeedObj(sp);
+        grm.setDaskalos(tch);
+
+        grm.setSpeedObj(sp);
+        grm.setAgeObj(ag);
+        grm.setRankObj(rnk);
+        grm.setFeeObj(fee);
+        grm.setWageObj(wg);
+        grm.setCourseObj(crsm);
+
+        grRepo.save(grm);
+
 
     }
 

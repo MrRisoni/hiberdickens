@@ -1,7 +1,9 @@
 package repositories;
 
+import hello.WaterClock;
 import hqlmappers.ExamResultTextDTO;
 import hqlmappers.StudentGroupDTO;
+import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
 import models.StudentDebt;
 import models.StudentPayment;
@@ -63,5 +65,22 @@ public class StudentRepository extends Repository {
                 " JOIN mockResNumber.mockExamObj.groupObj  " +
                 " JOIN mockResNumber.mockExamObj.groupObj.courseObj courseObj " +
                 " WHERE mockResNumber.student.id = :sid ").setParameter("sid",studentId).getResultList();
+    }
+
+    public List<TimetableDTO> getStudentTimeTable(Long studentId) {
+        return this.getEntityManager().createQuery("SELECT hs.id, gr.id,uhr.id, crs.title,'', ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee " +
+                " FROM HistoryModel hs  JOIN hs.room rm " +
+                " JOIN hs.groupObj gr " +
+                " JOIN hs.hour uhr " +
+                " JOIN gr.speedObj spd " +
+                " JOIN gr.ageObj ag " +
+                " JOIN gr.studentsList stdList  " +
+                " JOIN  gr.studentsList.studentObj studObj  " +
+                " JOIN gr.courseObj crs WHERE studObj.id = :sid" +
+                " AND hs.started >= :starttime " +
+                " AND hs.started <= :endtime ORDER  BY hs.started ASC ", TimetableDTO.class)
+                .setParameter("starttime", WaterClock.getDate())
+                .setParameter("endtime", WaterClock.getDateAWeekAhead())
+                .setParameter("sid",studentId).getResultList();
     }
 }

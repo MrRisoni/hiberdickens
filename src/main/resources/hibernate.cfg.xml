@@ -73,8 +73,6 @@
         <mapping class="models.CourseGrade"/>
 
         <mapping class="models.ParentsModel"/>
-        <mapping class="models.ParentsChildren"/>
-
 
     </session-factory>
 </hibernate-configuration>

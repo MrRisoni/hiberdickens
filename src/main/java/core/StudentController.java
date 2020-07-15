@@ -69,7 +69,9 @@ public class StudentController {
         rsp.put("groups",stdRepo.getStudentGroups(studentId));
         rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
         rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
-        rsp.put("timetable",stdRepo.getStudentTimeTable(studentId));
+      //  rsp.put("timetable",stdRepo.getStudentTimeTable(studentId));
+          rsp.put("timetable",stdRepo.getTimetableHQL(studentId));
+
         return rsp;
 
     }

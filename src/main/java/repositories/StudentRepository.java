@@ -110,7 +110,7 @@ public class StudentRepository extends Repository {
 
 
     public List<TimetableDTO> getTimetableHQL(Long studentId) {
-        return this.getEntityManager().createQuery("SELECT hs.id, gr.id,uhr.id, crs.title,'', ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee " +
+        return this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id,uhr.id, crs.title,'', ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
                 " JOIN hs.groupObj gr " +
                 " JOIN hs.hour uhr " +

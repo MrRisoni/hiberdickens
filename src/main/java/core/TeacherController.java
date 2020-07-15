@@ -2,9 +2,14 @@ package core;
 
 import hqlmappers.TimetableDTO;
 import models.HourModel;
+import models.Member;
+import models.Teacher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import repositories.GeneralRepository;
 import repositories.TeacherRepository;
+import spring_repos.MemberRepository;
+import spring_repos.SprTeacherRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +19,33 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @RestController
 public class TeacherController {
+
+    @Autowired
+    SprTeacherRepository tchRepoSpr;
+
+    @Autowired
+    MemberRepository membRepo;
+
+    @RequestMapping(value = "/api/teacher/new")
+    public void newTeacher()
+    {
+        Member m = new Member();
+        m.setName("Henrik");
+        m.setSurname("Vokakios");
+        m.setPhone("210123456789");
+        m.setEmail("foo@goo.gr");
+
+        membRepo.save(m);
+
+        Teacher t = new Teacher();
+        t.setAfm("333232323");
+        t.setAmka("2323232");
+        t.setCurrent_salary(10f);
+
+        t.setMember(m);
+
+        tchRepoSpr.save(t);
+    }
 
     @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
     public HashMap<String, Object> getData(@PathVariable Long teacherId) {

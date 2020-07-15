@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .httpBasic();
     }
-
+// https://reflectoring.io/spring-security-password-handling/
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception

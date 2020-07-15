@@ -1,4 +1,4 @@
-package hello;
+package core;
 
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;

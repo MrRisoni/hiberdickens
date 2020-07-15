@@ -1,12 +1,9 @@
-package hello;
+package core;
 
 import hqlmappers.TimetableDTO;
-import models.HibernateUtil;
 import models.HourModel;
-import models.TeacherPayment;
 import org.springframework.web.bind.annotation.*;
 import repositories.GeneralRepository;
-import repositories.GroupRepository;
 import repositories.TeacherRepository;
 
 import java.text.DateFormat;

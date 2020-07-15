@@ -1,18 +1,11 @@
-package hello;
+package core;
 
-import hqlmappers.TimetableDTO;
-import models.HourModel;
 import org.springframework.web.bind.annotation.*;
-import repositories.GeneralRepository;
 import repositories.StudentRepository;
-import repositories.TeacherRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController

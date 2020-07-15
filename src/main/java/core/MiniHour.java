@@ -1,4 +1,4 @@
-package hello;
+package core;
 
 class MiniHour {
     private int startin;

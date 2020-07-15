@@ -1,12 +1,9 @@
-package hello;
+package core;
 
 import models.HibernateUtil;
 import models.Pools;
-import models.TestModel;
-import models.TestSubmission;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import repositories.ReviewRepository;
 import repositories.TestsRepository;
 
 import java.util.HashMap;

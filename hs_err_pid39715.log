@@ -121,7 +121,7 @@ j  org.hibernate.jpa.HibernatePersistenceProvider.getEntityManagerFactoryBuilder
 j  org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(Ljava/lang/String;Ljava/util/Map;)Ljavax/persistence/EntityManagerFactory;+12
 j  javax.persistence.Persistence.createEntityManagerFactory(Ljava/lang/String;Ljava/util/Map;)Ljavax/persistence/EntityManagerFactory;+49
 j  javax.persistence.Persistence.createEntityManagerFactory(Ljava/lang/String;)Ljavax/persistence/EntityManagerFactory;+2
-j  hello.GroupController.getGroupDetails()Ljava/lang/String;+10
+j  core.GroupController.getGroupDetails()Ljava/lang/String;+10
 v  ~StubRoutines::call_stub
 V  [libjvm.so+0x699f55]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0xc85
 V  [libjvm.so+0x9987ff]  Reflection::invoke(instanceKlassHandle, methodHandle, Handle, bool, objArrayHandle, BasicType, objArrayHandle, bool, Thread*)+0xa3f
@@ -214,7 +214,7 @@ j  org.hibernate.jpa.HibernatePersistenceProvider.getEntityManagerFactoryBuilder
 j  org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(Ljava/lang/String;Ljava/util/Map;)Ljavax/persistence/EntityManagerFactory;+12
 j  javax.persistence.Persistence.createEntityManagerFactory(Ljava/lang/String;Ljava/util/Map;)Ljavax/persistence/EntityManagerFactory;+49
 j  javax.persistence.Persistence.createEntityManagerFactory(Ljava/lang/String;)Ljavax/persistence/EntityManagerFactory;+2
-j  hello.GroupController.getGroupDetails()Ljava/lang/String;+10
+j  core.GroupController.getGroupDetails()Ljava/lang/String;+10
 v  ~StubRoutines::call_stub
 J 1986  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; (0 bytes) @ 0x00007efc596788b7 [0x00007efc59678840+0x77]
 J 1985 C1 sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; (104 bytes) @ 0x00007efc5967a60c [0x00007efc59679480+0x118c]

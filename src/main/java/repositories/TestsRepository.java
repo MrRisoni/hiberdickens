@@ -1,11 +1,9 @@
 package repositories;
 
-import hello.WaterClock;
+import core.WaterClock;
 import models.*;
 
 import javax.persistence.Query;
-import javax.persistence.Tuple;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.HashMap;

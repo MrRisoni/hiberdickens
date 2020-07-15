@@ -1,13 +1,11 @@
 package schedulers;
 
-import hello.WaterClock;
+import core.WaterClock;
 import models.HibernateUtil;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.Calendar;
 import java.util.List;
 
 @Component

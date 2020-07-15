@@ -1,18 +1,13 @@
-package hello;
+package core;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
 
 import org.springframework.web.bind.annotation.*;
 import repositories.GroupRepository;
-import responses.GroupStudentsResponse;
 
-import javax.persistence.*;
 import java.util.HashMap;
-import java.util.List;
 
 @CrossOrigin
 @RestController

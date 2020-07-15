@@ -1,6 +1,6 @@
 package repositories;
 
-import hello.WaterClock;
+import core.WaterClock;
 import hqlmappers.ExamResultTextDTO;
 import hqlmappers.StudentGroupDTO;
 import hqlmappers.TimetableDTO;
@@ -75,7 +75,7 @@ public class StudentRepository extends Repository {
                 " JOIN gr.speedObj spd " +
                 " JOIN gr.ageObj ag " +
                 " JOIN gr.studentsList stdList  " +
-                " JOIN  gr.studentsList.studentObj studObj  " +
+                " JOIN  stdList.studentObj studObj  " +
                 " JOIN gr.courseObj crs WHERE studObj.id = :sid" +
                 " AND hs.started >= :starttime " +
                 " AND hs.started <= :endtime ORDER  BY hs.started ASC ", TimetableDTO.class)

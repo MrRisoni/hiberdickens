@@ -1,11 +1,10 @@
 package repositories;
 
-import hello.WaterClock;
+import core.WaterClock;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
 import models.TeacherPayment;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class TeacherRepository extends Repository {

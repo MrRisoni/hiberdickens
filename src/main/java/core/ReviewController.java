@@ -1,4 +1,4 @@
-package hello;
+package core;
 
 
 import models.HibernateUtil;
@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import repositories.ReviewRepository;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController

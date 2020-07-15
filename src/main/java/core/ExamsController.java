@@ -1,4 +1,4 @@
-package hello;
+package core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.HibernateUtil;

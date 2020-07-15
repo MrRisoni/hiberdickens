@@ -1,5 +1,8 @@
 package models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,10 +70,12 @@ public class GroupModel {
     private CourseWage wageObj;
 
     @Column
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date created_at;
 
     @Column
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 

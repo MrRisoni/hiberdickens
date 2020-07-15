@@ -1,8 +1,6 @@
 package core;
 
-import models.Member;
-import models.ParentsModel;
-import models.Student;
+import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import repositories.StudentRepository;
@@ -31,12 +29,15 @@ public class StudentController {
     @RequestMapping(value = "/api/student/new")
     public void newStudent()
     {
+        Suburb sb = new Suburb();
+        sb.setId(2L);
+
         Member m = new Member();
         m.setName("Henrik");
         m.setSurname("Vokakios");
         m.setPhone("210123456789");
         m.setEmail("foo@goo.gr");
-
+        m.setSuburbObj(sb);
         membRepo.save(m);
 
         Student st = new Student();

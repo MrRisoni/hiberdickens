@@ -23,9 +23,8 @@ public class Teacher {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "daskalos", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("daskalos")
-    private List<GroupModel> grouppen = new ArrayList<>();
+    //@OneToMany(mappedBy = "daskalos", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+  //  private List<GroupModel> grouppen = new ArrayList<>();
 
     public Teacher() {
     }

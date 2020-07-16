@@ -74,7 +74,6 @@
 
         <mapping class="models.ParentsModel"/>
         <mapping class="models.GroupTeachers"/>
-        <mapping class="models.HistoryWages"/>
 
     </session-factory>
 </hibernate-configuration>

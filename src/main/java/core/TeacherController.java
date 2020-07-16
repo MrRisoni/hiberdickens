@@ -40,7 +40,6 @@ public class TeacherController {
         Teacher t = new Teacher();
         t.setAfm("333232323");
         t.setAmka("2323232");
-        t.setCurrent_salary(10f);
 
         t.setMember(m);
 

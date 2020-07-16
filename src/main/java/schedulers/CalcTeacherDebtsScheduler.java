@@ -12,11 +12,11 @@ import java.util.List;
 public class CalcTeacherDebtsScheduler {
 
 
-   // @Scheduled(fixedRate = 5000)
+  //  @Scheduled(fixedRate = 5000)
     public void populateTeacherDebts() {
 
         String q = " SELECT tb.id, SUM(h.wage* h.duration) FROM teacher_debts tb " +
-                " JOIN history h ON (h.group_id = tb.group_id AND h.teacher_id = tb.teacher_id) " +
+                " JOIN history h ON h.group_id = tb.group_id AND h.teacher_id = tb.teacher_id) " +
                 " WHERE :cegodnya >=tb.starts_at " +
                 " AND tb.ends_at >=:cegodnya " +
                 " AND h.started >= tb.starts_at " +

@@ -11,6 +11,7 @@ import spring_repos.SprGroupRepository;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 
 @CrossOrigin
 @RestController
@@ -49,7 +50,10 @@ public class GroupController {
         grm.setEnds_at(new Date());
 
         grm.setSpeedObj(sp);
-        grm.setDaskalos(tch);
+        HashSet<Teacher> daskaloi = new HashSet<>();
+        daskaloi.add(tch);
+        grm.setTeacherSet(daskaloi);
+    //    grm.setDaskalos(tch);
 
         grm.setSpeedObj(sp);
         grm.setAgeObj(ag);
@@ -113,6 +117,7 @@ public class GroupController {
         debtsMap.put("sumStudentDebts",remainStudentDebt);
 
         generalInfo.put("studentsList", groupRepo.getGroupStudents(groupId));
+        generalInfo.put("teachersList", groupRepo.getGroupTeachers(groupId));
 
         paymentsMap.put("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
         debtsMap.put("studentsDebts",groupRepo.getStudentDebtsList(groupId));

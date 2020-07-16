@@ -52,6 +52,9 @@ public class HistoryModel {
     private float duration;
 
     @Column
+    private float wage;
+
+    @Column
     private float fee;
 
     @Column
@@ -63,6 +66,10 @@ public class HistoryModel {
     @OneToOne
     @JoinColumn(name = "hour_id")
     private HourModel hour;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher_id")
+    private Teacher daskalos;
 
     public HistoryModel() {
     }
@@ -164,5 +171,21 @@ public class HistoryModel {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Teacher getDaskalos() {
+        return daskalos;
+    }
+
+    public void setDaskalos(Teacher daskalos) {
+        this.daskalos = daskalos;
+    }
+
+    public float getWage() {
+        return wage;
+    }
+
+    public void setWage(float wage) {
+        this.wage = wage;
     }
 }

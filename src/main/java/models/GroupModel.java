@@ -52,10 +52,6 @@ public class GroupModel {
     private List<MockExam> mockExams = new ArrayList<MockExam>();
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
-    private Teacher daskalos;
-
-    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private CourseModel courseObj;
 
@@ -120,14 +116,6 @@ public class GroupModel {
 
     public void setHistoryList(List<HistoryModel> historyList) {
         this.historyList = historyList;
-    }
-
-    public Teacher getDaskalos() {
-        return daskalos;
-    }
-
-    public void setDaskalos(Teacher daskalos) {
-        this.daskalos = daskalos;
     }
 
     public List<MockExam> getMockExams() {

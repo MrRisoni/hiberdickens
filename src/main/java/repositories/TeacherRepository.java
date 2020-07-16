@@ -50,4 +50,6 @@ public class TeacherRepository extends Repository {
                 .setParameter("endtime", WaterClock.getDateAWeekAhead())
                 .setParameter("tid",teacherId).getResultList();
     }
+
+
 }

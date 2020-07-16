@@ -125,4 +125,18 @@ public class StudentRepository extends Repository {
                 .setParameter("endtime", WaterClock.getDateAWeekAhead())
                 .setParameter("sid",studentId).getResultList();
     }
+
+
+    public List<Object[]> getAbsenciesList(Long studentId)
+    {
+        return this.getEntityManager().createQuery("SELECT new hqlmappers.AbsencyDTO(hs.id, hs.started, crs.title, abs.justified) " +
+                " FROM Absency abs " +
+                " JOIN abs.histObj hs " +
+                " JOIN abs.histObj.groupObj  " +
+                " JOIN abs.histObj.groupObj.courseObj crs  " +
+                " JOIN abs.studentObj stObj WHERE stObj.id = :sid").setParameter("sid",studentId).getResultList();
+
+    }
+
+
 }

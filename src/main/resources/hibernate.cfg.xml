@@ -71,6 +71,7 @@
         <mapping class="models.CourseFee"/>
         <mapping class="models.CourseWage"/>
         <mapping class="models.CourseGrade"/>
+        <mapping class="models.Absency"/>
 
         <mapping class="models.ParentsModel"/>
         <mapping class="models.GroupTeachers"/>

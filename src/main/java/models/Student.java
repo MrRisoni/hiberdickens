@@ -20,6 +20,10 @@ public class Student {
     @OneToMany(mappedBy = "studentObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<StudentDebt> debtsList = new ArrayList<StudentDebt>();
 
+    @OneToMany(mappedBy = "studentObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<Absency> absenciesList = new ArrayList<Absency>();
+
+
     public Student() {
     }
 
@@ -39,12 +43,19 @@ public class Student {
         this.member = member;
     }
 
-
     public List<StudentDebt> getDebtsList() {
         return debtsList;
     }
 
     public void setDebtsList(List<StudentDebt> debtsList) {
         this.debtsList = debtsList;
+    }
+
+    public List<Absency> getAbsenciesList() {
+        return absenciesList;
+    }
+
+    public void setAbsenciesList(List<Absency> absenciesList) {
+        this.absenciesList = absenciesList;
     }
 }

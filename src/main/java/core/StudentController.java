@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @CrossOrigin
@@ -63,13 +64,15 @@ public class StudentController {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
+        Optional<Student> result = studRepo.findById(studentId);
+        Student student  =result.orElse(null);
         StudentRepository stdRepo = new StudentRepository();
+        rsp.put("absencies",stdRepo.getAbsenciesList(studentId));
         rsp.put("payments", stdRepo.getStudentPayments(studentId));
         rsp.put("debts", stdRepo.getStudentDebts(studentId));
         rsp.put("groups",stdRepo.getStudentGroups(studentId));
         rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
         rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
-      //  rsp.put("timetable",stdRepo.getStudentTimeTable(studentId));
           rsp.put("timetable",stdRepo.getTimetableHQL(studentId));
 
         return rsp;

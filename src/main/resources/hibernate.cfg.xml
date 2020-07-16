@@ -75,6 +75,7 @@
 
         <mapping class="models.ParentsModel"/>
         <mapping class="models.GroupTeachers"/>
+        <mapping class="models.Institut"/>
 
     </session-factory>
 </hibernate-configuration>

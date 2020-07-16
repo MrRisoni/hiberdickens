@@ -12,13 +12,15 @@ public class CourseModel {
     @Column
     private String title;
 
+    @Column
+    private int active;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_type_id")
     private CourseType courseTypeObj;
 
     public CourseModel() {
     }
-
 
     public Long getId() {
         return id;
@@ -42,5 +44,13 @@ public class CourseModel {
 
     public void setCourseTypeObj(CourseType courseTypeObj) {
         this.courseTypeObj = courseTypeObj;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

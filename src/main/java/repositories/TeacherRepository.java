@@ -42,7 +42,7 @@ public class TeacherRepository extends Repository {
                 " JOIN hs.hour uhr " +
                 " JOIN gr.speedObj spd " +
                 " JOIN gr.ageObj ag " +
-                " JOIN gr.daskalos dsk JOIN dsk.member mb " +
+                " JOIN hs.daskalos dsk JOIN dsk.member mb " +
                 " JOIN gr.courseObj crs WHERE dsk.id = :tid" +
                 " AND hs.started >= :starttime " +
                 " AND hs.started <= :endtime ORDER  BY hs.started ASC ", TimetableDTO.class)

@@ -53,6 +53,10 @@ public class TeacherController {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
+        Optional<Teacher> searchResult = tchRepoSpr.findById(teacherId);
+        Teacher daskalos =searchResult.orElse(null);
+        rsp.put("courses",daskalos.getCourses());
+
         TeacherRepository tchRepo = new TeacherRepository();
         rsp.put("payments", tchRepo.getTeacherPayments(teacherId));
         rsp.put("debts", tchRepo.getTeacherDebts(teacherId));

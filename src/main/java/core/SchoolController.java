@@ -1,6 +1,9 @@
 package core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring_repos.SprDisciplineRepository;
 import spring_repos.SprSchoolClassRepository;
@@ -17,12 +20,22 @@ public class SchoolController {
     @Autowired
     SprSchoolClassRepository klass_repo;
 
-    @RequestMapping(value = "/api/school/classes", method = RequestMethod.GET)
-    public HashMap<String, Object> getClassesDisciplines() {
-        HashMap<String,Object> result = new HashMap<>();
-        result.put("disciplines",disc_repo.findAll());
-        result.put("classes",klass_repo.findAll());
+    @Value("${ifconfig.enable_school}")
+    private int enable_school; // feature flags
 
-        return result;
+    @RequestMapping(value = "/api/school/classes", method = RequestMethod.GET)
+    public ResponseEntity<HashMap<String, Object>> getClassesDisciplines() {
+        HashMap<String,Object> result = new HashMap<>();
+        if (enable_school ==1) {
+            result.put("disciplines", disc_repo.findAll());
+            result.put("classes", klass_repo.findAll());
+            System.out.println("enable skoll");
+            System.out.println(enable_school);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        else {
+            result.put("error", "Not Supported");
+            return new ResponseEntity<>(result, HttpStatus.FORBIDDEN);
+        }
     }
 }

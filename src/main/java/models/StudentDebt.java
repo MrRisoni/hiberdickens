@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "student_debts")
@@ -12,9 +13,11 @@ public class StudentDebt {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private float amount;
 
+    @NotNull
     @Column
     private int lesson_year;
 

@@ -2,6 +2,7 @@ package models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pool_question_answers")
@@ -11,6 +12,7 @@ public class PoolQuestionAnswer {
     @Column
     private int id;
 
+    @NotNull
     @Column
     private String body;
 

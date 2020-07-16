@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "school_classes")
@@ -10,6 +11,7 @@ public class SchoolClass {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private String title;
 

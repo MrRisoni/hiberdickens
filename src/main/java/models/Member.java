@@ -3,6 +3,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -13,15 +14,19 @@ public class Member {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private String name;
 
+    @NotNull
     @Column
     private String surname;
 
+    @NotNull
     @Column
     private String phone;
 
+    @NotNull
     @Column
     private String email;
 

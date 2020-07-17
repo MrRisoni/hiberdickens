@@ -66,6 +66,12 @@ public class GroupModel {
             "    WHERE dbt.group_id = id)")
     private float remainingTeacherDebt;
 
+    @Formula("(SELECT SUM(h.duration) FROM history h JOIN groupakia g ON g.id = h.group_id WHERE h.group_id= id)")
+    public double getSumHours;
+
+
+    private float sumHours;
+
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -318,5 +324,13 @@ public class GroupModel {
 
     public void setRemainingTeacherDebt(float remainingTeacherDebt) {
         this.remainingTeacherDebt = remainingTeacherDebt;
+    }
+
+    public float getSumHours() {
+        return sumHours;
+    }
+
+    public void setSumHours(float sumHours) {
+        this.sumHours = sumHours;
     }
 }

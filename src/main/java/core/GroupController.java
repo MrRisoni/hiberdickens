@@ -100,7 +100,7 @@ public class GroupController {
 
         paymentsMap.put("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
         debtsMap.put("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
-        generalInfo.put("sumHours",groupRepo.getSumHours(groupId));
+        generalInfo.put("sumHours",geFundenGroup.getSumHours());
          generalInfo.put("history",groupRepo.getHistory(groupId));
 
         paymentsMap.put("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());

@@ -68,11 +68,6 @@ public class GroupRepository extends Repository {
     }
 
 
-    public double getSumHours(Long groupId){
-        return this.getEntityManager().createQuery("SELECT SUM(h.duration) FROM HistoryModel h JOIN  h.groupObj WHERE h.groupObj.id = :id", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-    }
-
 
     public List<Object> getStudentPaymentsList(Long groupId)
     {
@@ -126,7 +121,5 @@ public class GroupRepository extends Repository {
                 " JOIN hs.groupObj gr WHERE gr.id= :id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
 
     }
-
-
 
 }

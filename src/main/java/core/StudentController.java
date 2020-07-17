@@ -67,6 +67,7 @@ public class StudentController {
         Optional<Student> result = studRepo.findById(studentId);
         Student student  =result.orElse(null);
         StudentRepository stdRepo = new StudentRepository();
+        rsp.put("lastPayed",student.getLastPaymentDate());
         rsp.put("absencies",stdRepo.getAbsenciesList(studentId));
         rsp.put("payments", stdRepo.getStudentPayments(studentId));
         rsp.put("debts", stdRepo.getStudentDebts(studentId));

@@ -41,6 +41,18 @@ public class GroupModel {
     @Column
     private int num_students;
 
+    /*
+      public double getSumStudentDebts(Long groupId)
+    {
+        return this.getEntityManager().createQuery(
+                "select sum(stdb.amount)  " +
+                        "from StudentDebt stdb JOIN stdb.groupObj " +
+                        "where stdb.groupObj.id = :id ", Double.class )
+                .setParameter( "id", groupId ).getSingleResult();
+    }
+
+     */
+
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

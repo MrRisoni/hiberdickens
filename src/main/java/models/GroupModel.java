@@ -54,6 +54,18 @@ public class GroupModel {
     @Formula("(SELECT SUM(tb.amount) FROM  teacher_debts tb WHERE tb.group_id = id)")
     private float debtsSumTeachers;
 
+    @Formula("( SELECT  SUM(dbt.amount) - SUM(stp.amount)  " +
+            "    FROM student_payed stp " +
+            "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
+            "    WHERE dbt.group_id = id)")
+    private float remainingStudentDebt;
+
+    @Formula("( SELECT  SUM(dbt.amount) - SUM(stp.amount)  " +
+            "    FROM student_payed stp " +
+            "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
+            "    WHERE dbt.group_id = id)")
+    private float remainingTeacherDebt;
+
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -290,5 +302,21 @@ public class GroupModel {
 
     public void setDebtsSumTeachers(float debtsSumTeachers) {
         this.debtsSumTeachers = debtsSumTeachers;
+    }
+
+    public float getRemainingStudentDebt() {
+        return remainingStudentDebt;
+    }
+
+    public void setRemainingStudentDebt(float remainingStudentDebt) {
+        this.remainingStudentDebt = remainingStudentDebt;
+    }
+
+    public float getRemainingTeacherDebt() {
+        return remainingTeacherDebt;
+    }
+
+    public void setRemainingTeacherDebt(float remainingTeacherDebt) {
+        this.remainingTeacherDebt = remainingTeacherDebt;
     }
 }

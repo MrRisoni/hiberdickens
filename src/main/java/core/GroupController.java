@@ -79,23 +79,8 @@ public class GroupController {
 
 
         HashMap<String,Object> rsp = new HashMap<>();
-        double remainDebt = 0;
-        double sumTeacherPay = 0;
-        double sumTeacherDebts = 0;
-
-        double remainStudentDebt = 0;
-        double sumStudentPay = 0;
-        double sumStudentDebts = 0;
 
         GroupModel groupData = groupRepo.getGroup(groupId);
-
-        sumTeacherPay = geFundenGroup.getPaymentsSumTeachers();
-        sumTeacherDebts =geFundenGroup.getDebtsSumTeachers();
-        remainDebt = sumTeacherDebts - sumTeacherPay;
-
-        sumStudentPay =geFundenGroup.getPaymentsSumStudents();
-        sumStudentDebts = geFundenGroup.getDebtsSumStudents();
-        remainStudentDebt = sumStudentDebts - sumStudentPay;
 
         HashMap<String,Object> debtsMap = new HashMap<>();
         HashMap<String,Object> paymentsMap = new HashMap<>();
@@ -113,13 +98,13 @@ public class GroupController {
         generalInfo.put("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
 
 
-        paymentsMap.put("sumPayments",sumTeacherPay);
-        debtsMap.put("sumTeacherDebts",remainDebt);
+        paymentsMap.put("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
+        debtsMap.put("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
         generalInfo.put("sumHours",groupRepo.getSumHours(groupId));
          generalInfo.put("history",groupRepo.getHistory(groupId));
 
-        paymentsMap.put("sumStudentPayments",sumStudentPay);
-        debtsMap.put("sumStudentDebts",remainStudentDebt);
+        paymentsMap.put("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());
+        debtsMap.put("sumStudentDebts",geFundenGroup.getRemainingStudentDebt());
 
         generalInfo.put("studentsList", groupRepo.getGroupStudents(groupId));
         generalInfo.put("teachersList", groupRepo.getGroupTeachers(groupId));

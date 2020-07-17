@@ -12,6 +12,7 @@ import spring_repos.SprGroupRepository;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -73,6 +74,10 @@ public class GroupController {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
+        Optional<GroupModel> crudGroup = grRepo.findById(groupId);
+        GroupModel geFundenGroup  =crudGroup.orElse(null);
+
+
         HashMap<String,Object> rsp = new HashMap<>();
         double remainDebt = 0;
         double sumTeacherPay = 0;
@@ -84,12 +89,12 @@ public class GroupController {
 
         GroupModel groupData = groupRepo.getGroup(groupId);
 
-        sumTeacherPay = groupRepo.getSumTeacherPayments(groupId);
-        sumTeacherDebts = groupRepo.getSumTeacherDebts(groupId);
+        sumTeacherPay = geFundenGroup.getPaymentsSumTeachers();
+        sumTeacherDebts =geFundenGroup.getDebtsSumTeachers();
         remainDebt = sumTeacherDebts - sumTeacherPay;
 
-        sumStudentPay = groupRepo.getSumStudentPayments(groupId);
-        sumStudentDebts = groupRepo.getSumStudentDebts(groupId);
+        sumStudentPay =geFundenGroup.getPaymentsSumStudents();
+        sumStudentDebts = geFundenGroup.getDebtsSumStudents();
         remainStudentDebt = sumStudentDebts - sumStudentPay;
 
         HashMap<String,Object> debtsMap = new HashMap<>();

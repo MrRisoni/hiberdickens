@@ -65,56 +65,14 @@ public class GroupRepository extends Repository {
                    gpm.setSumPayed(Float.parseFloat(el[5].toString()));
                    return gpm;
                 }).collect(Collectors.toList());
-
     }
 
-    public double getSumStudentDebts(Long groupId)
-    {
-        return this.getEntityManager().createQuery(
-                "select sum(stdb.amount)  " +
-                        "from StudentDebt stdb JOIN stdb.groupObj " +
-                        "where stdb.groupObj.id = :id ", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-    }
-
-
-    public double getSumStudentPayments(Long groupId)
-    {
-        return this.getEntityManager().createQuery(
-                "select sum(stp.amount)  " +
-                        "from StudentPayment stp JOIN stp.groupObj " +
-                        "where stp.groupObj.id = :id ", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-
-    }
-
-    public double getSumTeacherDebts(Long groupId)
-    {
-        Object sum= this.getEntityManager().createNativeQuery(
-                "SELECT SUM(tb.amount)  " +
-                        "FROM teacher_debts tb " +
-                        " JOIN groups_teachers grt ON (grt.group_id = tb.group_id AND grt.teacher_id = tb.teacher_id ) " +
-                        " WHERE tb.group_id = :id " )
-                .setParameter( "id", groupId ).getSingleResult();
-        return Double.parseDouble(sum.toString());
-    }
 
     public double getSumHours(Long groupId){
         return this.getEntityManager().createQuery("SELECT SUM(h.duration) FROM HistoryModel h JOIN  h.groupObj WHERE h.groupObj.id = :id", Double.class )
                 .setParameter( "id", groupId ).getSingleResult();
     }
 
-    public double getSumTeacherPayments(Long groupId)
-    {
-        Object sum= this.getEntityManager().createNativeQuery(
-                "SELECT SUM(tp.amount)  " +
-                        "FROM teacher_payments tp " +
-                        " JOIN groups_teachers grt ON (grt.group_id = tp.group_id AND grt.teacher_id = tp.teacher_id ) " +
-                        " WHERE tp.group_id = :id " )
-                .setParameter( "id", groupId ).getSingleResult();
-        return Double.parseDouble(sum.toString());
-
-    }
 
     public List<Object> getStudentPaymentsList(Long groupId)
     {

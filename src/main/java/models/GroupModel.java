@@ -1,6 +1,7 @@
 package models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -41,23 +42,22 @@ public class GroupModel {
     @Column
     private int num_students;
 
-    /*
-      public double getSumStudentDebts(Long groupId)
-    {
-        return this.getEntityManager().createQuery(
-                "select sum(stdb.amount)  " +
-                        "from StudentDebt stdb JOIN stdb.groupObj " +
-                        "where stdb.groupObj.id = :id ", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-    }
+    @Formula("(SELECT SUM(stp.amount) FROM student_payed stp WHERE stp.group_id = id)")
+    private float paymentsSumStudents;
 
-     */
+    @Formula("(SELECT SUM(tp.amount) FROM teacher_payments tp WHERE tp.group_id = id)")
+    private float paymentsSumTeachers;
+
+    @Formula("(SELECT SUM(stb.amount) FROM student_debts stb WHERE stb.group_id = id)")
+    private float debtsSumStudents;
+
+    @Formula("(SELECT SUM(tb.amount) FROM  teacher_debts tb WHERE tb.group_id = id)")
+    private float debtsSumTeachers;
 
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date ends_at;
-
 
     @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<HistoryModel> historyList = new ArrayList<HistoryModel>();
@@ -258,5 +258,37 @@ public class GroupModel {
 
     public void setEnds_at(Date ends_at) {
         this.ends_at = ends_at;
+    }
+
+    public float getPaymentsSumStudents() {
+        return paymentsSumStudents;
+    }
+
+    public void setPaymentsSumStudents(float paymentsSumStudents) {
+        this.paymentsSumStudents = paymentsSumStudents;
+    }
+
+    public float getPaymentsSumTeachers() {
+        return paymentsSumTeachers;
+    }
+
+    public void setPaymentsSumTeachers(float paymentsSumTeachers) {
+        this.paymentsSumTeachers = paymentsSumTeachers;
+    }
+
+    public float getDebtsSumStudents() {
+        return debtsSumStudents;
+    }
+
+    public void setDebtsSumStudents(float debtsSumStudents) {
+        this.debtsSumStudents = debtsSumStudents;
+    }
+
+    public float getDebtsSumTeachers() {
+        return debtsSumTeachers;
+    }
+
+    public void setDebtsSumTeachers(float debtsSumTeachers) {
+        this.debtsSumTeachers = debtsSumTeachers;
     }
 }

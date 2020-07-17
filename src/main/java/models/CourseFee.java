@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "course_fees")
@@ -10,6 +11,7 @@ public class CourseFee {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private float amount;
 

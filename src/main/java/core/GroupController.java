@@ -1,18 +1,72 @@
 package core;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
 
 import org.springframework.web.bind.annotation.*;
 import repositories.GroupRepository;
+import spring_repos.SprGroupRepository;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
 public class GroupController {
 
+    @Autowired
+    SprGroupRepository grRepo;
+
+    @RequestMapping(value = "/api/group/new")
+    public void newGroup()
+    {
+        Teacher tch = new Teacher();
+        tch.setId(1L);
+
+        Speed sp = new Speed();
+        sp.setId(1L);
+
+        Age ag = new Age();
+        ag.setId(1L);
+
+        GroupRank rnk = new GroupRank();
+        rnk.setId(1L);
+
+        CourseFee fee = new CourseFee();
+        fee.setId(1L);
+
+        CourseWage wg = new CourseWage();
+        wg.setId(1L);
+
+        CourseModel crsm = new CourseModel();
+        crsm.setId(1L);
+
+        GroupModel grm = new GroupModel();
+        grm.setActive(1);
+        grm.setTitle("Test");
+        grm.setEnds_at(new Date());
+
+        grm.setSpeedObj(sp);
+        HashSet<Teacher> daskaloi = new HashSet<>();
+        daskaloi.add(tch);
+        grm.setTeacherSet(daskaloi);
+    //    grm.setDaskalos(tch);
+
+        grm.setSpeedObj(sp);
+        grm.setAgeObj(ag);
+        grm.setRankObj(rnk);
+        grm.setFeeObj(fee);
+        grm.setWageObj(wg);
+        grm.setCourseObj(crsm);
+
+        grRepo.save(grm);
+
+
+    }
 
     @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
     public HashMap<String,Object> getGroupDetails(@PathVariable Long groupId)
@@ -20,24 +74,13 @@ public class GroupController {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
-        HashMap<String,Object> rsp = new HashMap<>();
-        double remainDebt = 0;
-        double sumTeacherPay = 0;
-        double sumTeacherDebts = 0;
+        Optional<GroupModel> crudGroup = grRepo.findById(groupId);
+        GroupModel geFundenGroup  =crudGroup.orElse(null);
 
-        double remainStudentDebt = 0;
-        double sumStudentPay = 0;
-        double sumStudentDebts = 0;
+
+        HashMap<String,Object> rsp = new HashMap<>();
 
         GroupModel groupData = groupRepo.getGroup(groupId);
-
-        sumTeacherPay = groupRepo.getSumTeacherPayments(groupId);
-        sumTeacherDebts = groupRepo.getSumTeacherDebts(groupId);
-        remainDebt = sumTeacherDebts - sumTeacherPay;
-
-        sumStudentPay = groupRepo.getSumStudentPayments(groupId);
-        sumStudentDebts = groupRepo.getSumStudentDebts(groupId);
-        remainStudentDebt = sumStudentDebts - sumStudentPay;
 
         HashMap<String,Object> debtsMap = new HashMap<>();
         HashMap<String,Object> paymentsMap = new HashMap<>();
@@ -55,15 +98,16 @@ public class GroupController {
         generalInfo.put("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
 
 
-        paymentsMap.put("sumPayments",sumTeacherPay);
-        debtsMap.put("sumTeacherDebts",remainDebt);
-        generalInfo.put("sumHours",groupRepo.getSumHours(groupId));
+        paymentsMap.put("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
+        debtsMap.put("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
+        generalInfo.put("sumHours",geFundenGroup.getSumHours());
          generalInfo.put("history",groupRepo.getHistory(groupId));
 
-        paymentsMap.put("sumStudentPayments",sumStudentPay);
-        debtsMap.put("sumStudentDebts",remainStudentDebt);
+        paymentsMap.put("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());
+        debtsMap.put("sumStudentDebts",geFundenGroup.getRemainingStudentDebt());
 
         generalInfo.put("studentsList", groupRepo.getGroupStudents(groupId));
+        generalInfo.put("teachersList", groupRepo.getGroupTeachers(groupId));
 
         paymentsMap.put("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
         debtsMap.put("studentsDebts",groupRepo.getStudentDebtsList(groupId));

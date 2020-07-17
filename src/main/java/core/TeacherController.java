@@ -2,9 +2,14 @@ package core;
 
 import hqlmappers.TimetableDTO;
 import models.HourModel;
+import models.Member;
+import models.Teacher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import repositories.GeneralRepository;
 import repositories.TeacherRepository;
+import spring_repos.MemberRepository;
+import spring_repos.SprTeacherRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,12 +20,42 @@ import java.util.stream.Collectors;
 @RestController
 public class TeacherController {
 
+    @Autowired
+    SprTeacherRepository tchRepoSpr;
+
+    @Autowired
+    MemberRepository membRepo;
+
+    @RequestMapping(value = "/api/teacher/new")
+    public void newTeacher()
+    {
+        Member m = new Member();
+        m.setName("Henrik");
+        m.setSurname("Vokakios");
+        m.setPhone("210123456789");
+        m.setEmail("foo@goo.gr");
+
+        membRepo.save(m);
+
+        Teacher t = new Teacher();
+        t.setAfm("333232323");
+        t.setAmka("2323232");
+
+        t.setMember(m);
+
+        tchRepoSpr.save(t);
+    }
+
     @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
     public HashMap<String, Object> getData(@PathVariable Long teacherId) {
 
         HashMap<String, Object> rsp = new HashMap<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
+
+        Optional<Teacher> searchResult = tchRepoSpr.findById(teacherId);
+        Teacher daskalos =searchResult.orElse(null);
+        rsp.put("courses",daskalos.getCourses());
 
         TeacherRepository tchRepo = new TeacherRepository();
         rsp.put("payments", tchRepo.getTeacherPayments(teacherId));

@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "ages")
-public class Age {
+@Table(name = "instituts")
+public class Institut {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -15,7 +15,7 @@ public class Age {
     @Column
     private String title;
 
-    public Age() {
+    public Institut() {
     }
 
     public Long getId() {

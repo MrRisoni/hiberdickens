@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -11,6 +12,7 @@ public class JobApplication {
     @Column
     private int id;
 
+    @NotNull
     @Column
     private String full_name;
 

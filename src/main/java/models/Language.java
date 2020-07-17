@@ -1,5 +1,6 @@
 package models;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,11 @@ public class Language {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private String title;
 
+    @NotNull
     @Column
     private int active;
 

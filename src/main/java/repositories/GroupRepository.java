@@ -18,6 +18,13 @@ public class GroupRepository extends Repository {
     {
         return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid",GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
     }
+    public List<Member> getGroupTeachers(Long groupId) {
+        return this.getEntityManager().createQuery("SELECT mb FROM GroupTeachers gt " +
+                " JOIN gt.groupObj " +
+                " JOIN gt.teacherObj " +
+                " JOIN gt.teacherObj.member mb " +
+                " WHERE gt.groupObj.id=:gid ",Member.class).setParameter("gid",groupId).getResultList();
+    }
 
     public List<GroupMember> getGroupStudents(Long groupId) {
 
@@ -58,52 +65,9 @@ public class GroupRepository extends Repository {
                    gpm.setSumPayed(Float.parseFloat(el[5].toString()));
                    return gpm;
                 }).collect(Collectors.toList());
-
-    }
-
-    public double getSumStudentDebts(Long groupId)
-    {
-        return this.getEntityManager().createQuery(
-                "select sum(stdb.amount)  " +
-                        "from StudentDebt stdb JOIN stdb.groupObj " +
-                        "where stdb.groupObj.id = :id ", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
     }
 
 
-    public double getSumStudentPayments(Long groupId)
-    {
-        return this.getEntityManager().createQuery(
-                "select sum(stp.amount)  " +
-                        "from StudentPayment stp JOIN stp.groupObj " +
-                        "where stp.groupObj.id = :id ", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-
-    }
-
-    public double getSumTeacherDebts(Long groupId)
-    {
-        return this.getEntityManager().createQuery(
-                "select sum(tb.amount)  " +
-                        "from TeacherDebt tb JOIN tb.groupObj " +
-                        "where tb.groupObj.id = :id ", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-    }
-
-    public double getSumHours(Long groupId){
-        return this.getEntityManager().createQuery("SELECT SUM(h.duration) FROM HistoryModel h JOIN  h.groupObj WHERE h.groupObj.id = :id", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-    }
-
-    public double getSumTeacherPayments(Long groupId)
-    {
-        return this.getEntityManager().createQuery(
-                "select sum(tp.amount)  " +
-                        "from TeacherPayment tp JOIN tp.groupObj " +
-                        "where tp.groupObj.id = :id ", Double.class )
-                .setParameter( "id", groupId ).getSingleResult();
-
-    }
 
     public List<Object> getStudentPaymentsList(Long groupId)
     {
@@ -152,10 +116,10 @@ public class GroupRepository extends Repository {
 
     public List<TimetableDTO> getHistory(Long  groupId)
     {
-        return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
+      return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
                 " JOIN hs.groupObj gr WHERE gr.id= :id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
-    }
 
+    }
 
 }

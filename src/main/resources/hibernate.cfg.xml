@@ -27,6 +27,7 @@
         <mapping class="models.Diploma"/>
         <mapping class="models.HourModel"/>
         <mapping class="models.MockExam"/>
+
         <mapping class="models.MockExamResultText"/>
         <mapping class="models.MockExamResultNumeric"/>
         <mapping class="models.Student"/>
@@ -70,7 +71,11 @@
         <mapping class="models.CourseFee"/>
         <mapping class="models.CourseWage"/>
         <mapping class="models.CourseGrade"/>
+        <mapping class="models.Absency"/>
 
+        <mapping class="models.ParentsModel"/>
+        <mapping class="models.GroupTeachers"/>
+        <mapping class="models.Institut"/>
 
     </session-factory>
 </hibernate-configuration>

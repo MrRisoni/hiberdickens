@@ -1,5 +1,7 @@
 package models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,6 +30,20 @@ public class HistoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date started;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date ended;
+
+    @Column
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date created_at;
+
+    @Column
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date updated_at;
+
+
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
@@ -50,6 +66,10 @@ public class HistoryModel {
     @OneToOne
     @JoinColumn(name = "hour_id")
     private HourModel hour;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher_id")
+    private Teacher daskalos;
 
     public HistoryModel() {
     }
@@ -105,14 +125,6 @@ public class HistoryModel {
         this.hour = hour;
     }
 
-    public float getWage() {
-        return wage;
-    }
-
-    public void setWage(float wage) {
-        this.wage = wage;
-    }
-
     public float getFee() {
         return fee;
     }
@@ -135,5 +147,45 @@ public class HistoryModel {
 
     public void setCancelled(int cancelled) {
         this.cancelled = cancelled;
+    }
+
+    public Date getEnded() {
+        return ended;
+    }
+
+    public void setEnded(Date ended) {
+        this.ended = ended;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Teacher getDaskalos() {
+        return daskalos;
+    }
+
+    public void setDaskalos(Teacher daskalos) {
+        this.daskalos = daskalos;
+    }
+
+    public float getWage() {
+        return wage;
+    }
+
+    public void setWage(float wage) {
+        this.wage = wage;
     }
 }

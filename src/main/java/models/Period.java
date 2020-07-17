@@ -2,6 +2,7 @@ package models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "periods")
@@ -11,6 +12,7 @@ public class Period {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private String title;
 

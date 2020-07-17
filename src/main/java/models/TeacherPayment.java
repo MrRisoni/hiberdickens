@@ -2,6 +2,7 @@ package models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "teacher_payments")
@@ -11,9 +12,11 @@ public class TeacherPayment {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private float amount;
 
+    @NotNull
     @Column
     private int lesson_year;
 

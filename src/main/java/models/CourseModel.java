@@ -1,5 +1,6 @@
 package models;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "courses")
@@ -9,8 +10,12 @@ public class CourseModel {
     @Column
     private Long id;
 
+    @NotNull
     @Column
     private String title;
+
+    @Column
+    private int active;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_type_id")
@@ -18,7 +23,6 @@ public class CourseModel {
 
     public CourseModel() {
     }
-
 
     public Long getId() {
         return id;
@@ -42,5 +46,13 @@ public class CourseModel {
 
     public void setCourseTypeObj(CourseType courseTypeObj) {
         this.courseTypeObj = courseTypeObj;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
     }
 }

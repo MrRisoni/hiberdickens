@@ -1,1 +1,1 @@
-web: java -jar target/hiberdickens-0.9.jar
+web: java -jar  -Dserver.port=$PORT target/hiberdickens-0.9.jar

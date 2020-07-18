@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 16, 2020 at 05:27 AM
+-- Generation Time: Jul 18, 2020 at 03:58 PM
 -- Server version: 8.0.21
 -- PHP Version: 7.4.7
 
@@ -31,8 +31,16 @@ CREATE TABLE `absencies` (
   `id` bigint UNSIGNED NOT NULL,
   `history_id` bigint UNSIGNED NOT NULL,
   `student_id` bigint UNSIGNED NOT NULL,
-  `justified` tinyint UNSIGNED NOT NULL
+  `justified` tinyint UNSIGNED DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `absencies`
+--
+
+INSERT INTO `absencies` (`id`, `history_id`, `student_id`, `justified`) VALUES
+(1, 3, 1, 0),
+(2, 8, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -53,6 +61,18 @@ INSERT INTO `ages` (`id`, `title`) VALUES
 (1, 'Children'),
 (2, 'Adolescent'),
 (3, 'Adults');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authorities`
+--
+
+CREATE TABLE `authorities` (
+  `id` tinyint UNSIGNED NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `authority` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -132,7 +152,8 @@ INSERT INTO `courses` (`id`, `title`, `active`, `course_type_id`) VALUES
 (14, 'Πάλσο', 1, 2),
 (15, 'Αρχαια Ελληνικά', 1, 1),
 (16, 'Τρομπόνι', 1, 4),
-(17, 'Σεμινάρια', 1, 5);
+(17, 'Σεμινάρια', 1, 5),
+(22, 'Sorbonne I', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +329,8 @@ INSERT INTO `diplomas` (`id`, `active`, `created_at`, `level`, `language_id`, `c
 (5, 1, '2020-05-28 14:48:19', 'B1', 7, 13, 1),
 (6, 0, '2020-06-01 09:44:09', 'Α2', 1, 14, 2),
 (7, 1, '2020-06-01 14:22:22', '', 2, 1, 1),
-(8, 1, '2020-06-01 09:56:29', 'C2', 1, 4, 2);
+(8, 1, '2020-06-01 09:56:29', 'C2', 1, 4, 2),
+(9, 1, '2020-07-16 06:16:26', 'C1', 1, 22, 4);
 
 -- --------------------------------------------------------
 
@@ -1713,9 +1735,17 @@ CREATE TABLE `review_submission_answers` (
 --
 
 CREATE TABLE `roles` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` tinyint UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `title`) VALUES
+(1, 'admin'),
+(2, 'secretary');
 
 -- --------------------------------------------------------
 
@@ -2481,19 +2511,19 @@ INSERT INTO `university_type` (`id`, `title`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `passwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `salt_passwd` varchar(355) NOT NULL
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `enabled` tinyint UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `created_at`, `updated_at`, `email`, `passwd`, `salt_passwd`) VALUES
-(1, '2020-07-15 05:47:52', '2020-07-15 05:47:52', 'foo@dickens.org', '12334', '');
+INSERT INTO `users` (`id`, `created_at`, `updated_at`, `username`, `password`, `enabled`) VALUES
+(2, '2020-07-17 15:23:43', '2020-07-17 15:23:43', 'strindberg', '{noop}pass', 1);
 
 --
 -- Indexes for dumped tables
@@ -2514,6 +2544,14 @@ ALTER TABLE `ages`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `authorities`
+--
+ALTER TABLE `authorities`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username_2` (`username`,`authority`),
+  ADD KEY `username` (`username`);
+
+--
 -- Indexes for table `banks`
 --
 ALTER TABLE `banks`
@@ -2532,6 +2570,7 @@ ALTER TABLE `buildings`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`,`course_type_id`),
   ADD KEY `courses_course_type_id_foreign` (`course_type_id`);
 
 --
@@ -3298,17 +3337,29 @@ ALTER TABLE `university_type`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `absencies`
+--
+ALTER TABLE `absencies`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `ages`
 --
 ALTER TABLE `ages`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `authorities`
+--
+ALTER TABLE `authorities`
+  MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `banks`
@@ -3326,7 +3377,7 @@ ALTER TABLE `buildings`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `courses_fees_history`
@@ -3374,7 +3425,7 @@ ALTER TABLE `days`
 -- AUTO_INCREMENT for table `diplomas`
 --
 ALTER TABLE `diplomas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `disciplines`
@@ -3716,7 +3767,7 @@ ALTER TABLE `review_submission_answers`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -3938,7 +3989,7 @@ ALTER TABLE `university_type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -3950,6 +4001,12 @@ ALTER TABLE `users`
 ALTER TABLE `absencies`
   ADD CONSTRAINT `absencies_ibfk_1` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `absencies_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `authorities`
+--
+ALTER TABLE `authorities`
+  ADD CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `buildings`

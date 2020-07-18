@@ -1,0 +1,1 @@
+web: java -jar target/hiberdickens-0.9.jar

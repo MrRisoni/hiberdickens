@@ -1,5 +1,7 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -46,6 +48,7 @@ public class PayRoll {
     private Month monthObj;
 
     @OneToMany(mappedBy = "payrollObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("payrollObj")
     private List<PayRollAnalysis> analysis = new ArrayList<PayRollAnalysis>();
 
     public PayRoll() {

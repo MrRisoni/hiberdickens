@@ -1,5 +1,8 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,8 +16,9 @@ public class PayRollAnalysis {
     @Column
     private float amount;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "payroll_id")
+    @JsonIgnoreProperties("analysis")
     private PayRoll payrollObj;
 
     @OneToOne

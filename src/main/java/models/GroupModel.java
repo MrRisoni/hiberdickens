@@ -67,9 +67,6 @@ public class GroupModel {
     private float remainingTeacherDebt;
 
     @Formula("(SELECT SUM(h.duration) FROM history h JOIN groupakia g ON g.id = h.group_id WHERE h.group_id= id)")
-    public double getSumHours;
-
-
     private float sumHours;
 
     @Column

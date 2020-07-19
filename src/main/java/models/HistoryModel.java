@@ -43,7 +43,6 @@ public class HistoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
-
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
@@ -73,7 +72,6 @@ public class HistoryModel {
 
     public HistoryModel() {
     }
-
 
     public Long getId() {
         return id;

@@ -65,7 +65,6 @@ public class GroupController {
 
         grRepo.save(grm);
 
-
     }
 
     @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)

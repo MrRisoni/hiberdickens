@@ -77,5 +77,10 @@
         <mapping class="models.GroupTeachers"/>
         <mapping class="models.Institut"/>
 
+        <mapping class="models.PayRoll"/>
+        <mapping class="models.PayRollAnalysis"/>
+        <mapping class="models.PayRollCategory"/>
+        <mapping class="models.PayRollGroupAnalysis"/>
+
     </session-factory>
 </hibernate-configuration>

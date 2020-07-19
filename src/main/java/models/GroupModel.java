@@ -104,11 +104,6 @@ public class GroupModel {
     @JoinColumn(name = "wage_id")
     private CourseWage wageObj;
 
-
-   /* @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "group_students",
-            joinColumns = @JoinColumn(name = "group_id")) */
    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
    private List<GroupStudent> studentsList;
 

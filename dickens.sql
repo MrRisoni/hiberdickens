@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 18, 2020 at 03:58 PM
+-- Generation Time: Jul 20, 2020 at 05:30 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.4.7
 
@@ -1374,6 +1374,13 @@ CREATE TABLE `payroll` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `payroll`
+--
+
+INSERT INTO `payroll` (`id`, `teacher_id`, `gross`, `insurances`, `total_hours`, `net`, `month_id`, `fiscal_year`, `created_at`) VALUES
+(1, 1, '420.00', '120.00', '32.00', '300.00', 8, 2019, '2019-08-31 12:45:00');
+
 -- --------------------------------------------------------
 
 --
@@ -1387,6 +1394,14 @@ CREATE TABLE `payroll_analysis` (
   `amount` decimal(10,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `payroll_analysis`
+--
+
+INSERT INTO `payroll_analysis` (`id`, `payroll_id`, `payroll_category_id`, `amount`) VALUES
+(1, 1, 2, '120.00'),
+(2, 1, 4, '15.00');
+
 -- --------------------------------------------------------
 
 --
@@ -1397,6 +1412,16 @@ CREATE TABLE `payroll_categories` (
   `id` int UNSIGNED NOT NULL,
   `title` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `payroll_categories`
+--
+
+INSERT INTO `payroll_categories` (`id`, `title`) VALUES
+(1, 'ΕΦΚΑ'),
+(2, 'ΙΚΑ'),
+(3, 'ΕΦΚΑ'),
+(4, 'bonus');
 
 -- --------------------------------------------------------
 
@@ -1413,6 +1438,13 @@ CREATE TABLE `payroll_groups_analysis` (
   `hourly_rate` decimal(10,2) NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `payroll_groups_analysis`
+--
+
+INSERT INTO `payroll_groups_analysis` (`id`, `payroll_id`, `group_id`, `from_day`, `to_day`, `hourly_rate`, `amount`) VALUES
+(1, 1, 1, '2019-08-01', '2019-08-31', '4.78', '280.00');
 
 -- --------------------------------------------------------
 
@@ -3641,25 +3673,25 @@ ALTER TABLE `payments_in_advance`
 -- AUTO_INCREMENT for table `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payroll_analysis`
 --
 ALTER TABLE `payroll_analysis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payroll_categories`
 --
 ALTER TABLE `payroll_categories`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `payroll_groups_analysis`
 --
 ALTER TABLE `payroll_groups_analysis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `perfectures`

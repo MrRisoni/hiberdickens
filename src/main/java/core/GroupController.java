@@ -1,6 +1,8 @@
 package core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
@@ -14,8 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 
-@CrossOrigin
-@RestController
+@Controller
 public class GroupController {
 
     @Autowired
@@ -68,8 +69,10 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
-    public HashMap<String,Object> getGroupDetails(@PathVariable Long groupId)
+    public String getGroupDetails(@PathVariable Long groupId, Model mod)
     {
+        groupId = 1L;
+
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
@@ -85,6 +88,7 @@ public class GroupController {
         HashMap<String,Object> paymentsMap = new HashMap<>();
         HashMap<String,Object> generalInfo = new HashMap<>();
 
+        mod.addAttribute("fee",groupData.getFeeObj().getAmount());
 
         generalInfo.put("fee",groupData.getFeeObj().getAmount());
         generalInfo.put("wage",groupData.getWageObj().getAmount());
@@ -118,6 +122,8 @@ public class GroupController {
         rsp.put("debts",debtsMap);
         rsp.put("payments",paymentsMap);
 
-        return rsp;
+     //   return rsp;
+
+        return "groupDetails";
     }
 }

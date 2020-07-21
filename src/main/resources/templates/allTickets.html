@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{css/styling.css}" href="css/styling.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<tr id="root">
+
+    
+        <h1  style="color:blue; text-align:center;">Receipt Details</h1>
+        <span style="position: absolute; right: 250px;padding-top:20px"; th:text="${issueDateTime}">Issued on</span>
+    
+
+    
+        <div class="card grayish">
+                Contact Details
+        </div>
+
+        <table style="border-collapse: collapse;">
+            <tr>
+                <td>Full Name <span th:text="${fullName}"></span></td>
+                <td>Mobile <span th:text="${mobile}"></span></td>
+                <td>Email <span th:text="${email}"></span></td>
+            </tr>
+        </table>
+    
+
+    <div class="ticketsCard grayish">
+        Ticket Details
+    </div>
+
+    
+        <tr th:each="tktObj : ${tktArray}">
+            <div class="ticketInfo">
+                <div class="col">
+                    <div class="TicketRow">
+                        <div class="pplType">
+                             <h3>Type:</h3> ADT 22.00
+                        </div>
+
+                        <div class="tktNo">
+                            <h3>Number</h3> 235454566
+                        </div>
+
+                        <div class="seatId">
+                            <h3>SeatID</h3>
+                            <span th:text="${tktObj.seat}"></span>
+                            Zone: Boxes, Row 1 Col 2
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <img class="tktBarCode" src="barcode.png">
+                </div>
+
+            </div>
+        </tr>
+    
+
+    
+        <div class="card grayish">
+            Payment Details
+        </div>
+
+        <div class="card-body">
+        </div>
+
+
+</tr>
+
+</body>
+</html>

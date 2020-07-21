@@ -95,7 +95,7 @@ public class GroupController {
         generalInfo.put("speed",groupData.getSpeedObj().getTitle());
         generalInfo.put("age",groupData.getAgeObj().getTitle());
         generalInfo.put("rank",groupData.getRankObj().getTitle());
-        generalInfo.put("createdAt",groupData.getCreated_at());
+        mod.addAttribute("createdAt",groupData.getCreated_at());
         generalInfo.put("updatedAt",groupData.getUpdated_at());
         generalInfo.put("course",groupData.getCourseObj().getTitle());
         generalInfo.put("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());

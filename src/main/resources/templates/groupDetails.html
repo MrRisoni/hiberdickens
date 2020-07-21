@@ -50,6 +50,173 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-5">
+
+
+            <div class="alert alert-danger  alert-height" role="alert">
+                <h5>Teacher Debts</h5>
+            </div>
+
+            <table class="table table-sm  table-striped table-bordered">
+                <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Month</th>
+                <th>Amount</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let tch of teacherDebtsArr">
+                    <td>{{tch.id}}</td>
+                    <td>{{tch.fullname}}</td>
+                    <td>{{tch.monthyear}}</td>
+                    <td>{{tch.amount}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-5">
+
+            <div class="alert alert-danger  alert-height" role="alert">
+                <h5>Student Debts</h5>
+            </div>
+            <table class="table table-sm  table-striped table-bordered">
+                <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Month</th>
+                <th>Amount</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let std of studentDebtsArr">
+                    <td>{{std.id}}</td>
+                    <td>{{std.fullname}}</td>
+                    <td>{{std.monthyear}}</td>
+                    <td>{{std.amount}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <!---------------------------------------->
+
+
+    <div class="row">
+        <div class="col-5">
+
+            <div class="alert alert-success  alert-height" role="alert">
+                <h5>Teacher Payments</h5>
+            </div>
+
+            <table class="table table-sm  table-striped table-bordered">
+                <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Month</th>
+                <th>Amount</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let tchp of teacherPaymentsArr">
+                    <td>{{tchp.id}}</td>
+                    <td>{{tchp.fullname}}</td>
+                    <td>{{tchp.monthyear}}</td>
+                    <td>{{tchp.amount}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-5">
+            <div class="alert alert-primary alert-height" role="alert">
+                <h5>Student Payments</h5>
+            </div>
+
+            <table class="table table-sm  table-striped table-bordered">
+                <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Month</th>
+                <th>Amount</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let stdp of studentPaymentsArr">
+                    <td>{{stdp.id}}</td>
+                    <td>{{stdp.fullname}}</td>
+                    <td>{{stdp.monthyear}}</td>
+                    <td>{{stdp.amount}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <!---------------------------------------->
+    <h5>Students list</h5>
+
+    <div class="row">
+        <div class="col-10">
+            <table class="table table-sm table-striped table-bordered">
+                <thead>
+                <th>id</th>
+                <th>Name</th>
+                <th>Joined</th>
+                <th>Dropped</th>
+                <th>Payed</th>
+                <th>Debt</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let std of students">
+                    <td>{{std.id}}</td>
+                    <td>{{std.name}}</td>
+                    <td>{{std.joined}}</td>
+                    <td>{{std.dropped}}</td>
+                    <td>{{std.sumPayed}}</td>
+                    <td>{{std.inDebt}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <h5>Courses History</h5>
+    <div class="row">
+        <div class="col-10">
+            <table class="table table-sm table-striped table-bordered">
+                <thead>
+                <th>Started</th>
+                <th>Duration</th>
+                <th>Room</th>
+                <th>Fee</th>
+                <th>Wage</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let hr of timetable">
+                    <td>{{hr.started}}</td>
+                    <td>{{hr.duration}}</td>
+                    <td>{{hr.roomName}}</td>
+                    <td>{{hr.fee}}</td>
+                    <td>{{hr.wage}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </section>
 </body>
 </html>

@@ -89,28 +89,26 @@ public class GroupController {
         HashMap<String,Object> generalInfo = new HashMap<>();
 
         mod.addAttribute("fee",groupData.getFeeObj().getAmount());
-
-        generalInfo.put("fee",groupData.getFeeObj().getAmount());
-        generalInfo.put("wage",groupData.getWageObj().getAmount());
-        generalInfo.put("speed",groupData.getSpeedObj().getTitle());
-        generalInfo.put("age",groupData.getAgeObj().getTitle());
-        generalInfo.put("rank",groupData.getRankObj().getTitle());
+        mod.addAttribute("wage",groupData.getWageObj().getAmount());
+        mod.addAttribute("speed",groupData.getSpeedObj().getTitle());
+        mod.addAttribute("age",groupData.getAgeObj().getTitle());
+        mod.addAttribute("rank",groupData.getRankObj().getTitle());
         mod.addAttribute("createdAt",groupData.getCreated_at());
-        generalInfo.put("updatedAt",groupData.getUpdated_at());
-        generalInfo.put("course",groupData.getCourseObj().getTitle());
-        generalInfo.put("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
+        mod.addAttribute("updatedAt",groupData.getUpdated_at());
+        mod.addAttribute("course",groupData.getCourseObj().getTitle());
+        mod.addAttribute("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
 
 
         paymentsMap.put("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
         debtsMap.put("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
-        generalInfo.put("sumHours",geFundenGroup.getSumHours());
-         generalInfo.put("history",groupRepo.getHistory(groupId));
+        mod.addAttribute("sumHours",geFundenGroup.getSumHours());
+         mod.addAttribute("history",groupRepo.getHistory(groupId));
 
         paymentsMap.put("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());
         debtsMap.put("sumStudentDebts",geFundenGroup.getRemainingStudentDebt());
 
-        generalInfo.put("studentsList", groupRepo.getGroupStudents(groupId));
-        generalInfo.put("teachersList", groupRepo.getGroupTeachers(groupId));
+        mod.addAttribute("studentsList", groupRepo.getGroupStudents(groupId));
+        mod.addAttribute("teachersList", groupRepo.getGroupTeachers(groupId));
 
         paymentsMap.put("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
         debtsMap.put("studentsDebts",groupRepo.getStudentDebtsList(groupId));

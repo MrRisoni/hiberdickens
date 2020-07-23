@@ -15,33 +15,33 @@
                 <tbody>
                 <tr>
                     <td>Started</td>
-                    <td>${createdAt}</td>
+                    <td><p th:text="${createdAt}"></p> </td>
                     <td>Student Debt</td>
-                    <td>{{sumStudentDebts}}</td>
+                    <td>${sumStudentDebts}</td>
                 </tr>
                 <tr>
                     <td>Members</td>
-                    <td>{{totalMembers}}</td>
+                    <td>${totalMembers}</td>
                     <td>Student Payments</td>
-                    <td>{{sumStudentPayments}}</td>
+                    <td>${sumStudentPayments}</td>
                 </tr>
                 <tr>
                     <td>Speed</td>
-                    <td>{{speed}}</td>
+                    <td>${speed}</td>
                     <td>Teacher Debt</td>
-                    <td>{{sumTeacherDebts}}</td>
+                    <td>${sumTeacherDebts}</td>
                 </tr>
                 <tr>
                     <td>Hours</td>
-                    <td>{{sumHours}}</td>
+                    <td>${sumHours}</td>
                     <td>Teacher Payements</td>
-                    <td>{{sumTeacherPayments}}</td>
+                    <td>${sumTeacherPayments}</td>
                 </tr>
                 <tr>
                     <td>Wage</td>
-                    <td>{{wage}}</td>
+                    <td>${wage}</td>
                     <td>Fee</td>
-                    <td>{{fee}}</td>
+                    <td>${fee}</td>
                 </tr>
 
 
@@ -67,10 +67,10 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let tch of teacherDebtsArr">
-                    <td>{{tch.id}}</td>
-                    <td>{{tch.fullname}}</td>
-                    <td>{{tch.monthyear}}</td>
-                    <td>{{tch.amount}}</td>
+                    <td>${tch.id}</td>
+                    <td>${tch.fullname}</td>
+                    <td>${tch.monthyear}</td>
+                    <td>${tch.amount}</td>
                 </tr>
 
 
@@ -92,10 +92,10 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let std of studentDebtsArr">
-                    <td>{{std.id}}</td>
-                    <td>{{std.fullname}}</td>
-                    <td>{{std.monthyear}}</td>
-                    <td>{{std.amount}}</td>
+                    <td>${std.id}</td>
+                    <td>${std.fullname}</td>
+                    <td>${std.monthyear}</td>
+                    <td>${std.amount}</td>
                 </tr>
 
 
@@ -125,10 +125,10 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let tchp of teacherPaymentsArr">
-                    <td>{{tchp.id}}</td>
-                    <td>{{tchp.fullname}}</td>
-                    <td>{{tchp.monthyear}}</td>
-                    <td>{{tchp.amount}}</td>
+                    <td>${tchp.id}</td>
+                    <td>${tchp.fullname}</td>
+                    <td>${tchp.monthyear}</td>
+                    <td>${tchp.amount}</td>
                 </tr>
 
 
@@ -150,10 +150,10 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let stdp of studentPaymentsArr">
-                    <td>{{stdp.id}}</td>
-                    <td>{{stdp.fullname}}</td>
-                    <td>{{stdp.monthyear}}</td>
-                    <td>{{stdp.amount}}</td>
+                    <td>${stdp.id}</td>
+                    <td>${stdp.fullname}</td>
+                    <td>${stdp.monthyear}</td>
+                    <td>${stdp.amount}</td>
                 </tr>
 
 
@@ -180,12 +180,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let std of students">
-                    <td>{{std.id}}</td>
-                    <td>{{std.name}}</td>
-                    <td>{{std.joined}}</td>
-                    <td>{{std.dropped}}</td>
-                    <td>{{std.sumPayed}}</td>
-                    <td>{{std.inDebt}}</td>
+                    <td>${std.id}</td>
+                    <td>${std.name}</td>
+                    <td>${std.joined}</td>
+                    <td>${std.dropped}</td>
+                    <td>${std.sumPayed}</td>
+                    <td>${std.inDebt}</td>
                 </tr>
                 </tbody>
             </table>
@@ -206,11 +206,11 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let hr of timetable">
-                    <td>{{hr.started}}</td>
-                    <td>{{hr.duration}}</td>
-                    <td>{{hr.roomName}}</td>
-                    <td>{{hr.fee}}</td>
-                    <td>{{hr.wage}}</td>
+                    <td>${hr.started}</td>
+                    <td>${hr.duration}</td>
+                    <td>${hr.roomName}</td>
+                    <td>${hr.fee}</td>
+                    <td>${hr.wage}</td>
                 </tr>
                 </tbody>
             </table>

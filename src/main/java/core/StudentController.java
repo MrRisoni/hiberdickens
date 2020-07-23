@@ -2,6 +2,8 @@ package core;
 
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import repositories.StudentRepository;
 import spring_repos.MemberRepository;
@@ -15,7 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @CrossOrigin
-@RestController
+@Controller
 public class StudentController {
 
     @Autowired
@@ -57,26 +59,25 @@ public class StudentController {
         parRepo.save(par);
     }
 
-    @RequestMapping(value = "/api/student/info/{studentId}", method = RequestMethod.GET)
-    public HashMap<String, Object> getData(@PathVariable Long studentId) {
+    @RequestMapping(value = "/student/info/{studentId}", method = RequestMethod.GET)
+    public String getData(@PathVariable Long studentId, Model mod) {
 
-        HashMap<String, Object> rsp = new HashMap<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
         Optional<Student> result = studRepo.findById(studentId);
         Student student  =result.orElse(null);
         StudentRepository stdRepo = new StudentRepository();
-        rsp.put("lastPayed",student.getLastPaymentDate());
-        rsp.put("absencies",stdRepo.getAbsenciesList(studentId));
-        rsp.put("payments", stdRepo.getStudentPayments(studentId));
-        rsp.put("debts", stdRepo.getStudentDebts(studentId));
-        rsp.put("groups",stdRepo.getStudentGroups(studentId));
-        rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
-        rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
-          rsp.put("timetable",stdRepo.getTimetableHQL(studentId));
+        mod.addAttribute("lastPayed",student.getLastPaymentDate());
+        mod.addAttribute("absencies",stdRepo.getAbsenciesList(studentId));
+        mod.addAttribute("payments", stdRepo.getStudentPayments(studentId));
+        mod.addAttribute("debts", stdRepo.getStudentDebts(studentId));
+        mod.addAttribute("groups",stdRepo.getStudentGroups(studentId));
+        mod.addAttribute("mockResultsText",stdRepo.getMockTextResults(studentId));
+        mod.addAttribute("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
+        mod.addAttribute("timetable",stdRepo.getTimetableHQL(studentId));
 
-        return rsp;
+        return "studentDetails";
 
     }
 }

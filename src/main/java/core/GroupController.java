@@ -68,7 +68,7 @@ public class GroupController {
 
     }
 
-    @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/group/info/{groupId}", method = RequestMethod.GET)
     public String getGroupDetails(@PathVariable Long groupId, Model mod)
     {
         //groupId = 1L;
@@ -115,12 +115,6 @@ public class GroupController {
 
         mod.addAttribute("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
         mod.addAttribute("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
-
-       // rsp.put("info",generalInfo);
-       // rsp.put("debts",mod.addAttribute);
-       // rsp.put("payments",paymentsMap);
-
-     //   return rsp;
 
         return "groupDetails";
     }

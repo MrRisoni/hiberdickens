@@ -205,12 +205,12 @@
                 <th>Wage</th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let hr of timetable">
-                    <td>${hr.started}</td>
-                    <td>${hr.duration}</td>
-                    <td>${hr.roomName}</td>
-                    <td>${hr.fee}</td>
-                    <td>${hr.wage}</td>
+                <tr th:each="hr: ${history}">
+                    <td th:text="${hr.started}" />
+                    <td th:text="${hr.duration}" />
+                    <td th:text="${hr.roomName}" />
+                    <td th:text="${hr.fee}" />
+                    <td th:text="${hr.wage}" />
                 </tr>
                 </tbody>
             </table>

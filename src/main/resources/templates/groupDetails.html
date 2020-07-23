@@ -179,13 +179,13 @@
                 <th>Debt</th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let std of students">
-                    <td>${std.id}</td>
-                    <td>${std.name}</td>
-                    <td>${std.joined}</td>
-                    <td>${std.dropped}</td>
-                    <td>${std.sumPayed}</td>
-                    <td>${std.inDebt}</td>
+                <tr th:each="std: ${studentsList}">
+                    <td th:text="${std.studentId}" />
+                    <td th:text="${std.fullName}" />
+                    <td th:text="${std.joined}" />
+                    <td th:text="${std.dropped}" />
+                    <td th:text="${std.sumPayed}" />
+                    <td th:text="${std.sumOwns}" />
                 </tr>
                 </tbody>
             </table>

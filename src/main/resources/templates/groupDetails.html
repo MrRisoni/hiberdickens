@@ -66,13 +66,12 @@
                 <th>Amount</th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let tch of teacherDebtsArr">
-                    <td>${tch.id}</td>
-                    <td>${tch.fullname}</td>
-                    <td>${tch.monthyear}</td>
-                    <td>${tch.amount}</td>
+                <tr th:each="tch: ${teacherDebts}">
+                    <td th:text="${tch.entityId}" />
+                    <td th:text="${tch.fullName}" />
+                    <td th:text="${tch.monthTitle}" />
+                    <td th:text="${tch.amount}" />
                 </tr>
-
 
                 </tbody>
             </table>
@@ -91,14 +90,12 @@
                 <th>Amount</th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let std of studentDebtsArr">
-                    <td>${std.id}</td>
-                    <td>${std.fullname}</td>
-                    <td>${std.monthyear}</td>
-                    <td>${std.amount}</td>
-                </tr>
-
-
+                    <tr th:each="std: ${studentsDebts}">
+                        <td th:text="${std.entityId}" />
+                        <td th:text="${std.fullName}" />
+                        <td th:text="${std.monthTitle}" />
+                        <td th:text="${std.amount}" />
+                    </tr>
                 </tbody>
             </table>
 
@@ -124,14 +121,12 @@
                 <th>Amount</th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let tchp of teacherPaymentsArr">
-                    <td>${tchp.id}</td>
-                    <td>${tchp.fullname}</td>
-                    <td>${tchp.monthyear}</td>
-                    <td>${tchp.amount}</td>
-                </tr>
-
-
+                    <tr th:each="tchp: ${teacherPayments}">
+                        <td th:text="${tchp.entityId}" />
+                        <td th:text="${tchp.fullName}" />
+                        <td th:text="${tchp.monthTitle}" />
+                        <td th:text="${tchp.amount}" />
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -149,11 +144,11 @@
                 <th>Amount</th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let stdp of studentPaymentsArr">
-                    <td>${stdp.id}</td>
-                    <td>${stdp.fullname}</td>
-                    <td>${stdp.monthyear}</td>
-                    <td>${stdp.amount}</td>
+                <tr th:each="stdp: ${studentsPayments}">
+                    <td th:text="${stdp.entityId}" />
+                    <td th:text="${stdp.fullName}" />
+                    <td th:text="${stdp.monthTitle}" />
+                    <td th:text="${stdp.amount}" />
                 </tr>
 
 

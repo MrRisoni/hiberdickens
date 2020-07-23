@@ -1,6 +1,7 @@
 package models;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,14 +17,17 @@ public class Member {
 
     @NotNull
     @Column
+    @Audited
     private String name;
 
     @NotNull
     @Column
+    @Audited
     private String surname;
 
     @NotNull
     @Column
+    @Audited
     private String phone;
 
     @NotNull

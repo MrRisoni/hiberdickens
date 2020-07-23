@@ -5,6 +5,8 @@ import models.HourModel;
 import models.Member;
 import models.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import repositories.GeneralRepository;
 import repositories.TeacherRepository;
@@ -17,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RestController
+@Controller
 public class TeacherController {
 
     @Autowired
@@ -46,8 +48,8 @@ public class TeacherController {
         tchRepoSpr.save(t);
     }
 
-    @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
-    public HashMap<String, Object> getData(@PathVariable Long teacherId) {
+    @RequestMapping(value = "/teacher/info/{teacherId}", method = RequestMethod.GET)
+    public String getData(@PathVariable Long teacherId, Model mod) {
 
         HashMap<String, Object> rsp = new HashMap<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -133,7 +135,7 @@ public class TeacherController {
         rsp.put("timetable", timetabl); // delete this later
         rsp.put("timetabling", finalTimeTabling);
 
-        return rsp;
+        return "teacherDetails";
 
     }
 }

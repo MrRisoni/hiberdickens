@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import models.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +15,7 @@ import hqlmappers.TimetableDTO;
 import javax.persistence.*;
 
 @CrossOrigin
-@RestController
+@Controller
 public class TimetableController {
 
 
@@ -22,9 +24,8 @@ public class TimetableController {
     private String startingDate;
 
 
-
-    @RequestMapping(value = "/api/flex", method = RequestMethod.GET)
-    public String istoria()
+    @RequestMapping(value = "/timetable", method = RequestMethod.GET)
+    public String istoria(Model modelo)
     {
         try {
             EntityManager entityManager= HibernateUtil.getEM();
@@ -40,10 +41,10 @@ public class TimetableController {
                     " JOIN gr.courseObj crs", TimetableDTO.class);
             System.out.println("###############################################");
 
-            ObjectMapper omp = new ObjectMapper();
-            System.out.println(this.startingDate);
-            return omp.writeValueAsString(timetable.getResultList());
+            modelo.addAttribute("timetable",timetable.getResultList());
 
+
+            return "timetable";
         }
         catch (Exception ex) {
             ex.printStackTrace();

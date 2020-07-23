@@ -51,17 +51,16 @@ public class TeacherController {
     @RequestMapping(value = "/teacher/info/{teacherId}", method = RequestMethod.GET)
     public String getData(@PathVariable Long teacherId, Model mod) {
 
-        HashMap<String, Object> rsp = new HashMap<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
         Optional<Teacher> searchResult = tchRepoSpr.findById(teacherId);
         Teacher daskalos =searchResult.orElse(null);
-        rsp.put("courses",daskalos.getCourses());
+        mod.addAttribute("courses",daskalos.getCourses());
 
         TeacherRepository tchRepo = new TeacherRepository();
-        rsp.put("payments", tchRepo.getTeacherPayments(teacherId));
-        rsp.put("debts", tchRepo.getTeacherDebts(teacherId));
+        mod.addAttribute("payments", tchRepo.getTeacherPayments(teacherId));
+        mod.addAttribute("debts", tchRepo.getTeacherDebts(teacherId));
 
         List<TimetableDTO> timetabl = tchRepo.getTeacherTimeTable(teacherId);
 
@@ -79,7 +78,7 @@ public class TeacherController {
         days = days.stream().distinct().collect(Collectors.toList());
         days.add("#");
         days.add(0, "#");
-        rsp.put("days", days);
+        mod.addAttribute("days", days);
 
         GeneralRepository gRepo = new GeneralRepository();
         List<HourModel> hoursList = gRepo.getHours();
@@ -132,8 +131,8 @@ public class TeacherController {
             finalTimeTabling.add(thisHour);
         } // end for hours
 
-        rsp.put("timetable", timetabl); // delete this later
-        rsp.put("timetabling", finalTimeTabling);
+        mod.addAttribute("timetable", timetabl); // delete this later
+        mod.addAttribute("timetabling", finalTimeTabling);
 
         return "teacherDetails";
 

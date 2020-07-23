@@ -29,6 +29,15 @@ public class StudentController {
     @Autowired
     spring_repos.StudentRepository studRepo;
 
+    @RequestMapping(value = "/api/student/update")
+    public void updateStudent() {
+        Optional<Member> fetched = membRepo.findById(198L);
+        Member mb  =fetched.orElse(null);
+        mb.setName("August");
+        membRepo.save(mb);
+
+    }
+
     @RequestMapping(value = "/api/student/new")
     public void newStudent()
     {

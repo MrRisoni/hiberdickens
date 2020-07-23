@@ -11,7 +11,7 @@ public class MockExamResultNumeric {
     @Column
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "student_id")
     private Student student;
 

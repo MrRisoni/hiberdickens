@@ -23,7 +23,7 @@ public class MockExam {
     @OneToMany( mappedBy = "mockExamObj",  fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MockExamResultText> exam_results = new ArrayList<MockExamResultText>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "period_id")
     private Period period;
 

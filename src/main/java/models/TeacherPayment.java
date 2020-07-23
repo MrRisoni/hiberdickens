@@ -20,16 +20,16 @@ public class TeacherPayment {
     @Column
     private int lesson_year;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "teacher_id")
     private Teacher teacherObj;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "group_id")
     private GroupModel groupObj;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "month_id")
     private Month monthObj;
 

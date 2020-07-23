@@ -24,7 +24,7 @@ public class InterViewSchedule {
     private int active;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "application_id")
     private JobApplication applicationObj;
 

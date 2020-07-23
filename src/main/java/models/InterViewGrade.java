@@ -32,7 +32,7 @@ public class InterViewGrade {
     private int evaluated;
 
 
-    @OneToOne(fetch = FetchType.LAZY)// was eager
+    @OneToOne(fetch = FetchType.LAZY,optional = false)// was eager
     @JoinColumn(name = "application_id")
     private JobApplication applicationObj;
 

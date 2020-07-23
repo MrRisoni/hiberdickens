@@ -24,7 +24,7 @@ public class Teacher {
     @Column
     private String afm;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "member_id")
     private Member member;
 

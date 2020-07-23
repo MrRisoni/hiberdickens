@@ -21,7 +21,7 @@ public class PayRollAnalysis {
     @JsonIgnoreProperties("analysis")
     private PayRoll payrollObj;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "payroll_category_id")
     private PayRollCategory payRollCatObj;
 

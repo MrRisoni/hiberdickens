@@ -28,7 +28,7 @@ public class PayRollGroupAnalysis {
     @Column
     private float amount;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "group_id")
     private GroupModel groupObj;
 

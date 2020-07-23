@@ -44,7 +44,7 @@ public class Member {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "suburb_id")
     private Suburb suburbObj;
 

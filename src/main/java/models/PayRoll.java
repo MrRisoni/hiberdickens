@@ -23,7 +23,6 @@ public class PayRoll {
     @Column
     private  float insurances;
 
-
     @Column
     private  float total_hours;
 
@@ -39,7 +38,7 @@ public class PayRoll {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created_at;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "teacher_id")
     private Teacher teacherObj;
 

@@ -17,11 +17,11 @@ public class GroupStudent {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dropped;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "student_id")
     private Student studentObj;
 
-   @OneToOne(fetch = FetchType.LAZY)
+   @OneToOne(fetch = FetchType.LAZY,optional = false)
    @JoinColumn(name = "group_id")
    private GroupModel groupObj;
 

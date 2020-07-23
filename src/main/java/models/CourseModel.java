@@ -17,7 +17,7 @@ public class CourseModel {
     @Column
     private int active;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "course_type_id")
     private CourseType courseTypeObj;
 

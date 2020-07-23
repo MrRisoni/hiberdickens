@@ -15,7 +15,7 @@ public class Town {
     @Column
     private String title;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "perfecture_id")
     private Perfecture perfectObj;
 

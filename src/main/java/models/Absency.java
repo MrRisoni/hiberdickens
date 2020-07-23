@@ -15,11 +15,11 @@ public class Absency {
     @Column
     private int justified;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "history_id")
     private HistoryModel histObj;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "student_id")
     private Student studentObj;
 

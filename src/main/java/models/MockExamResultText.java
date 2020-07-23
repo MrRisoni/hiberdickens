@@ -11,7 +11,7 @@ public class MockExamResultText {
     @Column
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "student_id")
     private Student student;
 
@@ -20,7 +20,7 @@ public class MockExamResultText {
     @JoinColumn(name = "exam_id")
     private MockExam mockExamObj;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "text_grade_id")
     private CourseGrade gradeObj;
 

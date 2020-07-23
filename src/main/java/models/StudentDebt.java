@@ -26,11 +26,11 @@ public class StudentDebt {
     @JsonIgnoreProperties("debtsList")
     private Student studentObj;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "group_id")
     private GroupModel groupObj;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "month_id")
     private Month monthObj;
 

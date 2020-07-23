@@ -10,11 +10,11 @@ public class GroupTeachers {
     @Column
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "teacher_id")
     private Teacher teacherObj;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "group_id")
     private GroupModel groupObj;
 

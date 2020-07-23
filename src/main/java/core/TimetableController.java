@@ -30,12 +30,13 @@ public class TimetableController {
             EntityManager entityManager= HibernateUtil.getEM();
             System.out.println("###############################################");
 
-            TypedQuery<TimetableDTO> timetable = entityManager.createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
+            TypedQuery<TimetableDTO> timetable = entityManager.createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id,hr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                     " FROM HistoryModel hs  JOIN hs.room rm " +
                     " JOIN hs.groupObj gr " +
+                    " JOIN hs.hour hr " +
                     " JOIN gr.speedObj spd " +
                     " JOIN gr.ageObj ag " +
-                    " JOIN gr.daskalos dsk JOIN dsk.member mb " +
+                    " JOIN hs.daskalos dsk JOIN dsk.member mb " +
                     " JOIN gr.courseObj crs", TimetableDTO.class);
             System.out.println("###############################################");
 

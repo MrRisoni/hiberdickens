@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class StudentGroupDTO {
 
-    private  Long groupId;
+    private Long groupId;
     private String courseName;
     private String ageName;
     private String speedName;

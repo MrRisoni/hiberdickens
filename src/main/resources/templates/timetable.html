@@ -17,7 +17,7 @@ Spring timetable
 
         <div class="row flex-nowrap" th:each="record: ${timetabling}">
             <div class="col-3 card-course" th:each="course: ${record}">
-                <div class="card card-block"><p th:text="${course}"/></div>
+                <div class="card card-block courseBlock"><p th:text="${course}"/></div>
             </div>
         </div>
 

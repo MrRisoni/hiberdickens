@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2020 at 05:30 AM
--- Server version: 8.0.21
--- PHP Version: 7.4.7
+-- Generation Time: Jul 26, 2020 at 07:45 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -28,10 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `absencies` (
-  `id` bigint UNSIGNED NOT NULL,
-  `history_id` bigint UNSIGNED NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL,
-  `justified` tinyint UNSIGNED DEFAULT '0'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `history_id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` bigint(20) UNSIGNED NOT NULL,
+  `justified` tinyint(3) UNSIGNED DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -49,7 +50,7 @@ INSERT INTO `absencies` (`id`, `history_id`, `student_id`, `justified`) VALUES
 --
 
 CREATE TABLE `ages` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -69,9 +70,9 @@ INSERT INTO `ages` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `authorities` (
-  `id` tinyint UNSIGNED NOT NULL,
-  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `authority` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `authority` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -81,9 +82,9 @@ CREATE TABLE `authorities` (
 --
 
 CREATE TABLE `banks` (
-  `id` tinyint UNSIGNED NOT NULL,
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `title` varchar(55) NOT NULL,
-  `active` tinyint UNSIGNED NOT NULL DEFAULT '1'
+  `active` tinyint(3) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -105,9 +106,9 @@ INSERT INTO `banks` (`id`, `title`, `active`) VALUES
 --
 
 CREATE TABLE `buildings` (
-  `id` bigint UNSIGNED NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `suburb_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `suburb_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -125,10 +126,10 @@ INSERT INTO `buildings` (`id`, `address`, `suburb_id`) VALUES
 --
 
 CREATE TABLE `courses` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `course_type_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `course_type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -162,9 +163,9 @@ INSERT INTO `courses` (`id`, `title`, `active`, `course_type_id`) VALUES
 --
 
 CREATE TABLE `courses_fees_history` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -175,9 +176,9 @@ CREATE TABLE `courses_fees_history` (
 --
 
 CREATE TABLE `courses_wages_history` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -195,11 +196,11 @@ INSERT INTO `courses_wages_history` (`id`, `amount`, `course_id`, `created_at`) 
 --
 
 CREATE TABLE `course_fees` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -219,9 +220,9 @@ INSERT INTO `course_fees` (`id`, `amount`, `created_at`, `updated_at`, `course_i
 --
 
 CREATE TABLE `course_grades` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `grade_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -239,7 +240,7 @@ INSERT INTO `course_grades` (`id`, `grade_title`, `course_id`) VALUES
 --
 
 CREATE TABLE `course_type` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -261,11 +262,11 @@ INSERT INTO `course_type` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `course_wages` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -285,7 +286,7 @@ INSERT INTO `course_wages` (`id`, `amount`, `created_at`, `updated_at`, `course_
 --
 
 CREATE TABLE `days` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -309,13 +310,13 @@ INSERT INTO `days` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `diplomas` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `level` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `language_id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `institut_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `language_id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `institut_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -339,7 +340,7 @@ INSERT INTO `diplomas` (`id`, `active`, `created_at`, `level`, `language_id`, `c
 --
 
 CREATE TABLE `disciplines` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -360,10 +361,10 @@ INSERT INTO `disciplines` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `discounts` (
-  `id` bigint UNSIGNED NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `discount_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `discount_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -376,7 +377,7 @@ CREATE TABLE `discounts` (
 --
 
 CREATE TABLE `discount_model` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `percentage` double(8,2) NOT NULL,
   `active` tinyint(1) NOT NULL,
@@ -392,7 +393,7 @@ CREATE TABLE `discount_model` (
 --
 
 CREATE TABLE `grading_sys` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -411,22 +412,22 @@ INSERT INTO `grading_sys` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `groupakia` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `ends_at` datetime NOT NULL DEFAULT '2020-09-01 00:00:00',
-  `teacher_id` bigint UNSIGNED NOT NULL,
-  `speed_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `age_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `rank_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `fee_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `wage_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `max_seats` tinyint UNSIGNED NOT NULL DEFAULT '10',
-  `remaining_seats` tinyint UNSIGNED NOT NULL DEFAULT '2',
-  `num_students` tinyint UNSIGNED NOT NULL DEFAULT '8'
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
+  `speed_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `age_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `rank_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `fee_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `wage_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `max_seats` tinyint(3) UNSIGNED NOT NULL DEFAULT 10,
+  `remaining_seats` tinyint(3) UNSIGNED NOT NULL DEFAULT 2,
+  `num_students` tinyint(3) UNSIGNED NOT NULL DEFAULT 8
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -448,10 +449,10 @@ INSERT INTO `groupakia` (`id`, `title`, `active`, `created_at`, `updated_at`, `e
 --
 
 CREATE TABLE `groups_teachers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL,
-  `wage` decimal(10,2) UNSIGNED NOT NULL DEFAULT '5.67'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
+  `wage` decimal(10,2) UNSIGNED NOT NULL DEFAULT 5.67
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -472,11 +473,11 @@ INSERT INTO `groups_teachers` (`id`, `group_id`, `teacher_id`, `wage`) VALUES
 --
 
 CREATE TABLE `groups_teachers_wages_history` (
-  `id` bigint UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL,
-  `wage` decimal(10,2) UNSIGNED NOT NULL DEFAULT '5.67',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
+  `wage` decimal(10,2) UNSIGNED NOT NULL DEFAULT 5.67,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -497,9 +498,9 @@ INSERT INTO `groups_teachers_wages_history` (`id`, `group_id`, `teacher_id`, `wa
 --
 
 CREATE TABLE `group_ranks` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rank` tinyint UNSIGNED NOT NULL
+  `rank` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -518,11 +519,11 @@ INSERT INTO `group_ranks` (`id`, `title`, `rank`) VALUES
 --
 
 CREATE TABLE `group_students` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `joined` datetime NOT NULL,
   `dropped` datetime NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -560,20 +561,20 @@ INSERT INTO `group_students` (`id`, `joined`, `dropped`, `group_id`, `student_id
 --
 
 CREATE TABLE `history` (
-  `id` bigint UNSIGNED NOT NULL,
-  `wage` decimal(10,2) UNSIGNED NOT NULL DEFAULT '6.78',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `wage` decimal(10,2) UNSIGNED NOT NULL DEFAULT 6.78,
   `fee` decimal(8,2) NOT NULL,
   `vat` decimal(8,2) NOT NULL,
   `started` datetime NOT NULL,
   `ended` datetime NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `group_id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `room_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `hour_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `group_id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `room_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `hour_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `duration` double NOT NULL COMMENT 'in hours',
-  `cancelled` tinyint(1) NOT NULL DEFAULT '0'
+  `cancelled` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -614,7 +615,7 @@ INSERT INTO `history` (`id`, `wage`, `fee`, `vat`, `started`, `ended`, `created_
 --
 
 CREATE TABLE `hours` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -660,13 +661,13 @@ INSERT INTO `hours` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `installments` (
-  `id` bigint UNSIGNED NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `per_days` smallint UNSIGNED NOT NULL,
+  `per_days` smallint(5) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `active` tinyint UNSIGNED NOT NULL
+  `active` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -676,14 +677,14 @@ CREATE TABLE `installments` (
 --
 
 CREATE TABLE `installments_per_group` (
-  `id` bigint UNSIGNED NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `group_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `group_id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `per_days` smallint UNSIGNED NOT NULL,
+  `per_days` smallint(5) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `active` tinyint UNSIGNED NOT NULL
+  `active` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -693,7 +694,7 @@ CREATE TABLE `installments_per_group` (
 --
 
 CREATE TABLE `instituts` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -717,15 +718,15 @@ INSERT INTO `instituts` (`id`, `title`, `active`) VALUES
 --
 
 CREATE TABLE `interviews_grading` (
-  `id` bigint UNSIGNED NOT NULL,
-  `stage_id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `stage_id` bigint(20) UNSIGNED NOT NULL,
+  `application_id` bigint(20) UNSIGNED NOT NULL,
   `grade` decimal(5,2) DEFAULT NULL,
-  `passed` tinyint UNSIGNED DEFAULT NULL,
+  `passed` tinyint(3) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `evaluated_at` datetime DEFAULT NULL COMMENT 'if null stage not over\r\n',
-  `evaluated` tinyint UNSIGNED NOT NULL DEFAULT '0',
-  `notes` text CHARACTER SET utf8 COLLATE utf8_general_ci
+  `evaluated` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -745,12 +746,12 @@ INSERT INTO `interviews_grading` (`id`, `stage_id`, `application_id`, `grade`, `
 --
 
 CREATE TABLE `interview_schedule` (
-  `id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `application_id` bigint(20) UNSIGNED NOT NULL,
   `starts_at` datetime NOT NULL,
   `created_at` datetime NOT NULL,
-  `active` tinyint NOT NULL DEFAULT '1',
-  `notes` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `notes` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -767,11 +768,11 @@ INSERT INTO `interview_schedule` (`id`, `application_id`, `starts_at`, `created_
 --
 
 CREATE TABLE `interview_stages` (
-  `id` bigint UNSIGNED NOT NULL,
-  `opening_id` bigint UNSIGNED NOT NULL,
-  `title` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `active` tinyint UNSIGNED NOT NULL,
-  `shown_order` tinyint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `opening_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `active` tinyint(3) UNSIGNED NOT NULL,
+  `shown_order` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -791,11 +792,11 @@ INSERT INTO `interview_stages` (`id`, `opening_id`, `title`, `active`, `shown_or
 --
 
 CREATE TABLE `job_applications` (
-  `id` bigint UNSIGNED NOT NULL,
-  `opening_id` bigint UNSIGNED NOT NULL,
-  `full_name` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `opening_id` bigint(20) UNSIGNED NOT NULL,
+  `full_name` varchar(55) NOT NULL,
   `phone` varchar(22) NOT NULL,
-  `email` varchar(65) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(65) NOT NULL,
   `dob` date NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -817,9 +818,9 @@ INSERT INTO `job_applications` (`id`, `opening_id`, `full_name`, `phone`, `email
 --
 
 CREATE TABLE `job_application_courses` (
-  `id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `application_id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -836,10 +837,10 @@ INSERT INTO `job_application_courses` (`id`, `application_id`, `course_id`) VALU
 --
 
 CREATE TABLE `job_application_studies` (
-  `id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `application_id` bigint(20) UNSIGNED NOT NULL,
   `school_title` varchar(120) NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` text NOT NULL,
   `grade` float UNSIGNED NOT NULL,
   `joined` date NOT NULL,
   `graduated` date NOT NULL
@@ -852,14 +853,14 @@ CREATE TABLE `job_application_studies` (
 --
 
 CREATE TABLE `job_application_work` (
-  `id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
-  `job_title` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `company_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `application_id` bigint(20) UNSIGNED NOT NULL,
+  `job_title` varchar(120) NOT NULL,
+  `company_name` varchar(120) NOT NULL,
+  `description` text NOT NULL,
   `joined` date NOT NULL,
   `left_on` date DEFAULT NULL,
-  `still_work_there` tinyint UNSIGNED NOT NULL DEFAULT '1'
+  `still_work_there` tinyint(3) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -869,10 +870,10 @@ CREATE TABLE `job_application_work` (
 --
 
 CREATE TABLE `job_openings` (
-  `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `active` tinyint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(55) NOT NULL,
+  `description` text NOT NULL,
+  `active` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
   `created_at` datetime NOT NULL,
   `starts_at` datetime NOT NULL,
   `ends_at` datetime NOT NULL
@@ -892,9 +893,9 @@ INSERT INTO `job_openings` (`id`, `title`, `description`, `active`, `created_at`
 --
 
 CREATE TABLE `job_opening_courses` (
-  `id` bigint UNSIGNED NOT NULL,
-  `opening_id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `opening_id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -911,7 +912,7 @@ INSERT INTO `job_opening_courses` (`id`, `opening_id`, `course_id`) VALUES
 --
 
 CREATE TABLE `languages` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -938,10 +939,10 @@ INSERT INTO `languages` (`id`, `title`, `active`) VALUES
 --
 
 CREATE TABLE `logbook` (
-  `id` bigint UNSIGNED NOT NULL,
-  `history_id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL,
-  `notes` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `history_id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
+  `notes` longtext NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='βιβλίο ύλης';
 
@@ -952,7 +953,7 @@ CREATE TABLE `logbook` (
 --
 
 CREATE TABLE `members` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -961,7 +962,7 @@ CREATE TABLE `members` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `address` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `post_code` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `suburb_id` bigint UNSIGNED DEFAULT '1'
+  `suburb_id` bigint(20) UNSIGNED DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1159,7 +1160,33 @@ INSERT INTO `members` (`id`, `email`, `phone`, `name`, `surname`, `created_at`, 
 (190, 'foo@goo.gr', '210123456789', 'Henrik', 'Vokakios', NULL, NULL, NULL, NULL, 1),
 (191, 'foo@goo.gr', '210123456789', 'Henrik', 'Vokakios', NULL, NULL, NULL, NULL, NULL),
 (192, 'foo@goo.gr', '210123456789', 'Henrik', 'Vokakios', NULL, NULL, NULL, NULL, 2),
-(193, 'foo@goo.gr', '210123456789', 'Henrik', 'Vokakios', '2020-07-15 04:58:42', '2020-07-15 04:58:42', NULL, NULL, 2);
+(193, 'foo@goo.gr', '210123456789', 'Henrik', 'Vokakios', '2020-07-15 04:58:42', '2020-07-15 04:58:42', NULL, NULL, 2),
+(197, 'foo@goo.gr', '210123456789', 'Henrik', 'Vokakios', '2020-07-23 06:09:11', '2020-07-23 06:09:11', NULL, NULL, 2),
+(198, 'foo@goo.gr', '210123456789', 'August', 'Vokakios', '2020-07-23 06:09:37', '2020-07-23 06:32:55', NULL, NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `members_aud`
+--
+
+CREATE TABLE `members_aud` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `rev` bigint(20) UNSIGNED NOT NULL,
+  `revtype` tinyint(3) UNSIGNED NOT NULL,
+  `name` varchar(55) NOT NULL,
+  `surname` varchar(55) NOT NULL,
+  `phone` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `members_aud`
+--
+
+INSERT INTO `members_aud` (`id`, `rev`, `revtype`, `name`, `surname`, `phone`) VALUES
+(197, 3, 0, 'Henrik', 'Vokakios', '210123456789'),
+(198, 4, 0, 'Henrik', 'Vokakios', '210123456789'),
+(198, 5, 1, 'August', 'Vokakios', '210123456789');
 
 -- --------------------------------------------------------
 
@@ -1168,12 +1195,12 @@ INSERT INTO `members` (`id`, `email`, `phone`, `name`, `surname`, `created_at`, 
 --
 
 CREATE TABLE `mock_exams` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `period_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `grad_sys_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `period_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `grad_sys_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `exam_year` date NOT NULL DEFAULT '1907-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1192,11 +1219,11 @@ INSERT INTO `mock_exams` (`id`, `created_at`, `updated_at`, `period_id`, `group_
 --
 
 CREATE TABLE `mock_exams_results_numeric` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `exam_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `exam_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `grade` decimal(8,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1215,10 +1242,10 @@ INSERT INTO `mock_exams_results_numeric` (`id`, `created_at`, `updated_at`, `exa
 --
 
 CREATE TABLE `mock_exams_results_text` (
-  `id` bigint UNSIGNED NOT NULL,
-  `exam_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `text_grade_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `exam_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `text_grade_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1236,7 +1263,7 @@ INSERT INTO `mock_exams_results_text` (`id`, `exam_id`, `student_id`, `text_grad
 --
 
 CREATE TABLE `months` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1265,11 +1292,11 @@ INSERT INTO `months` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `musical_instruments` (
-  `id` bigint UNSIGNED NOT NULL,
-  `type_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1286,7 +1313,7 @@ INSERT INTO `musical_instruments` (`id`, `type_id`, `created_at`, `updated_at`, 
 --
 
 CREATE TABLE `musical_instrument_type` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1305,7 +1332,7 @@ INSERT INTO `musical_instrument_type` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `parents` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `surname` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
@@ -1319,7 +1346,9 @@ INSERT INTO `parents` (`id`, `name`, `surname`, `phone`) VALUES
 (2, 'Achilles', 'Ovidius', '210123456789'),
 (3, 'Achilles', 'Ovidius', '210123456789'),
 (4, 'Achilles', 'Ovidius', '210123456789'),
-(5, 'Achilles', 'Ovidius', '210123456789');
+(5, 'Achilles', 'Ovidius', '210123456789'),
+(6, 'Achilles', 'Ovidius', '210123456789'),
+(7, 'Achilles', 'Ovidius', '210123456789');
 
 -- --------------------------------------------------------
 
@@ -1328,9 +1357,9 @@ INSERT INTO `parents` (`id`, `name`, `surname`, `phone`) VALUES
 --
 
 CREATE TABLE `parents_children` (
-  `id` bigint UNSIGNED NOT NULL,
-  `parent_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `child_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `child_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1341,7 +1370,9 @@ INSERT INTO `parents_children` (`id`, `parent_id`, `child_id`) VALUES
 (1, 2, 19),
 (2, 3, 20),
 (3, 4, 21),
-(4, 5, 22);
+(4, 5, 22),
+(5, 6, 23),
+(6, 7, 24);
 
 -- --------------------------------------------------------
 
@@ -1350,8 +1381,8 @@ INSERT INTO `parents_children` (`id`, `parent_id`, `child_id`) VALUES
 --
 
 CREATE TABLE `payments_in_advance` (
-  `id` bigint UNSIGNED NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1363,14 +1394,14 @@ CREATE TABLE `payments_in_advance` (
 --
 
 CREATE TABLE `payroll` (
-  `id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `gross` decimal(10,2) UNSIGNED NOT NULL,
   `insurances` decimal(10,2) UNSIGNED NOT NULL,
   `total_hours` decimal(10,2) UNSIGNED NOT NULL,
   `net` decimal(10,2) UNSIGNED NOT NULL,
-  `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `fiscal_year` year NOT NULL,
+  `month_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `fiscal_year` year(4) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1388,9 +1419,9 @@ INSERT INTO `payroll` (`id`, `teacher_id`, `gross`, `insurances`, `total_hours`,
 --
 
 CREATE TABLE `payroll_analysis` (
-  `id` bigint UNSIGNED NOT NULL,
-  `payroll_id` bigint UNSIGNED NOT NULL,
-  `payroll_category_id` int UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `payroll_id` bigint(20) UNSIGNED NOT NULL,
+  `payroll_category_id` int(10) UNSIGNED NOT NULL,
   `amount` decimal(10,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1409,8 +1440,8 @@ INSERT INTO `payroll_analysis` (`id`, `payroll_id`, `payroll_category_id`, `amou
 --
 
 CREATE TABLE `payroll_categories` (
-  `id` int UNSIGNED NOT NULL,
-  `title` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1430,9 +1461,9 @@ INSERT INTO `payroll_categories` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `payroll_groups_analysis` (
-  `id` bigint UNSIGNED NOT NULL,
-  `payroll_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `payroll_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `from_day` date NOT NULL,
   `to_day` date NOT NULL,
   `hourly_rate` decimal(10,2) NOT NULL,
@@ -1453,7 +1484,7 @@ INSERT INTO `payroll_groups_analysis` (`id`, `payroll_id`, `group_id`, `from_day
 --
 
 CREATE TABLE `perfectures` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1472,7 +1503,7 @@ INSERT INTO `perfectures` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `periods` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1491,9 +1522,9 @@ INSERT INTO `periods` (`id`, `title`, `created_at`) VALUES
 --
 
 CREATE TABLE `pools` (
-  `id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL,
-  `title` varchar(65) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(65) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1510,9 +1541,9 @@ INSERT INTO `pools` (`id`, `course_id`, `title`) VALUES
 --
 
 CREATE TABLE `pool_chapters` (
-  `id` bigint UNSIGNED NOT NULL,
-  `pool_id` bigint UNSIGNED NOT NULL,
-  `title` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `pool_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(55) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1530,9 +1561,9 @@ INSERT INTO `pool_chapters` (`id`, `pool_id`, `title`) VALUES
 --
 
 CREATE TABLE `pool_questions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `chapter_id` bigint UNSIGNED NOT NULL,
-  `body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `chapter_id` bigint(20) UNSIGNED NOT NULL,
+  `body` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1551,10 +1582,10 @@ INSERT INTO `pool_questions` (`id`, `chapter_id`, `body`) VALUES
 --
 
 CREATE TABLE `pool_question_answers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `question_id` bigint UNSIGNED NOT NULL,
-  `body` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `wrong` tinyint NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` bigint(20) UNSIGNED NOT NULL,
+  `body` text NOT NULL,
+  `wrong` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1577,7 +1608,7 @@ INSERT INTO `pool_question_answers` (`id`, `question_id`, `body`, `wrong`) VALUE
 --
 
 CREATE TABLE `pool_review_questions` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1596,8 +1627,8 @@ INSERT INTO `pool_review_questions` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `progress_book` (
-  `id` bigint UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `comments` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1610,12 +1641,12 @@ CREATE TABLE `progress_book` (
 --
 
 CREATE TABLE `real_exams` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `period_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `grad_sys_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `period_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `grad_sys_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `exam_year` date NOT NULL DEFAULT '1907-01-01'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1633,11 +1664,11 @@ INSERT INTO `real_exams` (`id`, `created_at`, `updated_at`, `period_id`, `group_
 --
 
 CREATE TABLE `real_exams_results_numeric` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `exam_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `exam_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `grade` decimal(8,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1648,12 +1679,12 @@ CREATE TABLE `real_exams_results_numeric` (
 --
 
 CREATE TABLE `real_exams_results_text` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `exam_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `text_grade_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `exam_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `text_grade_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1663,9 +1694,9 @@ CREATE TABLE `real_exams_results_text` (
 --
 
 CREATE TABLE `registration_fees` (
-  `id` bigint UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1677,9 +1708,9 @@ CREATE TABLE `registration_fees` (
 --
 
 CREATE TABLE `review_questionnaire` (
-  `id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL,
-  `title` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(55) NOT NULL,
   `created_at` date NOT NULL,
   `avg_grade` float UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1698,9 +1729,9 @@ INSERT INTO `review_questionnaire` (`id`, `teacher_id`, `title`, `created_at`, `
 --
 
 CREATE TABLE `review_questionnaire_chapters` (
-  `id` bigint UNSIGNED NOT NULL,
-  `title` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `show_order` tinyint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `show_order` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1719,10 +1750,10 @@ INSERT INTO `review_questionnaire_chapters` (`id`, `title`, `show_order`) VALUES
 --
 
 CREATE TABLE `review_questionnaire_questions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `questionnaire_id` bigint UNSIGNED NOT NULL,
-  `chapter_id` bigint UNSIGNED NOT NULL,
-  `question_id` bigint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `questionnaire_id` bigint(20) UNSIGNED NOT NULL,
+  `chapter_id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='discrete answers 1 to 10';
 
 --
@@ -1740,9 +1771,9 @@ INSERT INTO `review_questionnaire_questions` (`id`, `questionnaire_id`, `chapter
 --
 
 CREATE TABLE `review_questionnaire_submission` (
-  `id` bigint UNSIGNED NOT NULL,
-  `questionnaire_id` bigint UNSIGNED NOT NULL,
-  `pseudonym` varchar(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `questionnaire_id` bigint(20) UNSIGNED NOT NULL,
+  `pseudonym` varchar(55) NOT NULL,
   `created_at` date NOT NULL,
   `avg_grade` decimal(5,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='pseudonym is used instead of student_id for anonymity';
@@ -1754,11 +1785,31 @@ CREATE TABLE `review_questionnaire_submission` (
 --
 
 CREATE TABLE `review_submission_answers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `submission_id` bigint UNSIGNED NOT NULL,
-  `question_id` bigint UNSIGNED NOT NULL,
-  `grade` tinyint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `submission_id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` bigint(20) UNSIGNED NOT NULL,
+  `grade` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `revinfo`
+--
+
+CREATE TABLE `revinfo` (
+  `rev` bigint(20) UNSIGNED NOT NULL,
+  `revtstmp` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `revinfo`
+--
+
+INSERT INTO `revinfo` (`rev`, `revtstmp`) VALUES
+(3, 1595495351324),
+(4, 1595495377752),
+(5, 1595496775044);
 
 -- --------------------------------------------------------
 
@@ -1767,7 +1818,7 @@ CREATE TABLE `review_submission_answers` (
 --
 
 CREATE TABLE `roles` (
-  `id` tinyint UNSIGNED NOT NULL,
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1786,11 +1837,11 @@ INSERT INTO `roles` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `rooms` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `building_id` bigint UNSIGNED NOT NULL
+  `building_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1813,8 +1864,8 @@ INSERT INTO `rooms` (`id`, `title`, `created_at`, `updated_at`, `building_id`) V
 --
 
 CREATE TABLE `salary_history` (
-  `sal_id` int UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL,
+  `sal_id` int(10) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1826,9 +1877,9 @@ CREATE TABLE `salary_history` (
 --
 
 CREATE TABLE `school_classes` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `show_order` tinyint UNSIGNED NOT NULL DEFAULT '0'
+  `show_order` tinyint(3) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1850,10 +1901,10 @@ INSERT INTO `school_classes` (`id`, `title`, `show_order`) VALUES
 --
 
 CREATE TABLE `school_courses` (
-  `id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `school_class_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `discipline_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `school_class_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `discipline_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1871,9 +1922,9 @@ INSERT INTO `school_courses` (`id`, `course_id`, `school_class_id`, `discipline_
 --
 
 CREATE TABLE `seminars` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `seninar_category_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `seninar_category_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1891,9 +1942,9 @@ INSERT INTO `seminars` (`id`, `title`, `seninar_category_id`) VALUES
 --
 
 CREATE TABLE `seminar_categories` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1'
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1911,10 +1962,10 @@ INSERT INTO `seminar_categories` (`id`, `title`, `active`) VALUES
 --
 
 CREATE TABLE `seminar_certificates` (
-  `id` bigint UNSIGNED NOT NULL,
-  `successful` tinyint(1) NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `successful` tinyint(1) NOT NULL DEFAULT 1,
   `valid_untlil` datetime NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `grade` decimal(5,2) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -1927,9 +1978,9 @@ CREATE TABLE `seminar_certificates` (
 --
 
 CREATE TABLE `seminar_certificate_modules` (
-  `id` bigint UNSIGNED NOT NULL,
-  `certificate_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `module_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `certificate_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `module_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `grade` decimal(5,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1940,9 +1991,9 @@ CREATE TABLE `seminar_certificate_modules` (
 --
 
 CREATE TABLE `seminar_certificate_teachers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `certificate_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `singed_teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `certificate_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `singed_teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1952,11 +2003,11 @@ CREATE TABLE `seminar_certificate_teachers` (
 --
 
 CREATE TABLE `seminar_chapters` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `show_order` tinyint UNSIGNED NOT NULL,
-  `module_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `show_order` tinyint(3) UNSIGNED NOT NULL,
+  `module_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1966,9 +2017,9 @@ CREATE TABLE `seminar_chapters` (
 --
 
 CREATE TABLE `seminar_groups` (
-  `id` bigint UNSIGNED NOT NULL,
-  `module_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `module_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1987,17 +2038,17 @@ INSERT INTO `seminar_groups` (`id`, `module_id`, `group_id`) VALUES
 --
 
 CREATE TABLE `seminar_modules` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `part_time` tinyint(1) NOT NULL DEFAULT '1',
-  `on_site` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `part_time` tinyint(1) NOT NULL DEFAULT 1,
+  `on_site` tinyint(1) NOT NULL DEFAULT 1,
   `cost` decimal(10,2) UNSIGNED NOT NULL,
   `starts` datetime NOT NULL,
   `ends` datetime NOT NULL,
-  `seninar_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `max_seats` tinyint UNSIGNED NOT NULL DEFAULT '15',
-  `total_hours` smallint UNSIGNED NOT NULL DEFAULT '50',
+  `seninar_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `max_seats` tinyint(3) UNSIGNED NOT NULL DEFAULT 15,
+  `total_hours` smallint(5) UNSIGNED NOT NULL DEFAULT 50,
   `cost_per_hour` decimal(5,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2017,11 +2068,11 @@ INSERT INTO `seminar_modules` (`id`, `title`, `active`, `part_time`, `on_site`, 
 --
 
 CREATE TABLE `seminar_modules_curriculum` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  `show_order` tinyint UNSIGNED NOT NULL,
-  `chapter_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `show_order` tinyint(3) UNSIGNED NOT NULL,
+  `chapter_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2031,9 +2082,9 @@ CREATE TABLE `seminar_modules_curriculum` (
 --
 
 CREATE TABLE `seminar_teachers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `module_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `module_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2043,10 +2094,10 @@ CREATE TABLE `seminar_teachers` (
 --
 
 CREATE TABLE `shifts` (
-  `id` bigint UNSIGNED NOT NULL,
-  `days_id` bigint DEFAULT NULL,
-  `starting_hour_id` bigint UNSIGNED DEFAULT NULL,
-  `ending_hour_id` bigint UNSIGNED DEFAULT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `days_id` bigint(20) DEFAULT NULL,
+  `starting_hour_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ending_hour_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='secretary shifts';
 
 -- --------------------------------------------------------
@@ -2056,7 +2107,7 @@ CREATE TABLE `shifts` (
 --
 
 CREATE TABLE `speeds` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2075,10 +2126,10 @@ INSERT INTO `speeds` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `students` (
-  `id` bigint UNSIGNED NOT NULL,
-  `member_id` bigint UNSIGNED NOT NULL,
-  `total_debt` decimal(10,2) UNSIGNED NOT NULL DEFAULT '0.00',
-  `total_profit` decimal(10,2) UNSIGNED NOT NULL DEFAULT '0.00'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `member_id` bigint(20) UNSIGNED NOT NULL,
+  `total_debt` decimal(10,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `total_profit` decimal(10,2) UNSIGNED NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2105,7 +2156,9 @@ INSERT INTO `students` (`id`, `member_id`, `total_debt`, `total_profit`) VALUES
 (19, 188, '0.00', '0.00'),
 (20, 189, '0.00', '0.00'),
 (21, 192, '0.00', '0.00'),
-(22, 193, '0.00', '0.00');
+(22, 193, '0.00', '0.00'),
+(23, 197, '0.00', '0.00'),
+(24, 198, '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -2114,14 +2167,14 @@ INSERT INTO `students` (`id`, `member_id`, `total_debt`, `total_profit`) VALUES
 --
 
 CREATE TABLE `student_debts` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `lesson_year` year NOT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `month_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `lesson_year` year(4) NOT NULL,
   `starts_at` datetime DEFAULT NULL,
   `ends_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2164,15 +2217,15 @@ INSERT INTO `student_debts` (`id`, `created_at`, `updated_at`, `student_id`, `am
 --
 
 CREATE TABLE `student_payed` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` date NOT NULL,
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `lesson_year` year NOT NULL,
-  `bank_id` tinyint UNSIGNED NOT NULL DEFAULT '1',
-  `bank_transaction_id` varchar(180) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `month_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `lesson_year` year(4) NOT NULL,
+  `bank_id` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
+  `bank_transaction_id` varchar(180) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2191,9 +2244,9 @@ INSERT INTO `student_payed` (`id`, `created_at`, `student_id`, `amount`, `group_
 --
 
 CREATE TABLE `student_progress_book` (
-  `id` bigint UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `comments` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -2206,10 +2259,10 @@ CREATE TABLE `student_progress_book` (
 --
 
 CREATE TABLE `student_requests` (
-  `id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `student_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `fulfilled` tinyint(1) NOT NULL DEFAULT '0',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `student_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `fulfilled` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2220,9 +2273,9 @@ CREATE TABLE `student_requests` (
 --
 
 CREATE TABLE `suburbs` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `town_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `town_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2240,12 +2293,12 @@ INSERT INTO `suburbs` (`id`, `title`, `town_id`) VALUES
 --
 
 CREATE TABLE `teachers` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `amka` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `afm` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `member_id` bigint UNSIGNED NOT NULL,
-  `total_debt` decimal(10,2) UNSIGNED NOT NULL DEFAULT '0.00',
-  `total_payed` decimal(10,2) UNSIGNED DEFAULT '0.00'
+  `member_id` bigint(20) UNSIGNED NOT NULL,
+  `total_debt` decimal(10,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `total_payed` decimal(10,2) UNSIGNED DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2265,14 +2318,14 @@ INSERT INTO `teachers` (`id`, `amka`, `afm`, `member_id`, `total_debt`, `total_p
 --
 
 CREATE TABLE `teacher_debts` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `lesson_year` year NOT NULL,
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `month_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `lesson_year` year(4) NOT NULL,
   `starts_at` datetime DEFAULT NULL,
   `ends_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2294,8 +2347,8 @@ INSERT INTO `teacher_debts` (`id`, `created_at`, `updated_at`, `teacher_id`, `am
 --
 
 CREATE TABLE `teacher_leave_days` (
-  `id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `starting` datetime NOT NULL,
   `ending` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2307,13 +2360,13 @@ CREATE TABLE `teacher_leave_days` (
 --
 
 CREATE TABLE `teacher_payments` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `amount` decimal(10,2) UNSIGNED NOT NULL,
-  `group_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `month_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `lesson_year` year NOT NULL
+  `group_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `month_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `lesson_year` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2330,9 +2383,9 @@ INSERT INTO `teacher_payments` (`id`, `created_at`, `teacher_id`, `amount`, `gro
 --
 
 CREATE TABLE `teaches` (
-  `id` bigint UNSIGNED NOT NULL,
-  `teacher_id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `teacher_id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2350,13 +2403,13 @@ INSERT INTO `teaches` (`id`, `teacher_id`, `course_id`) VALUES
 --
 
 CREATE TABLE `tests` (
-  `id` bigint UNSIGNED NOT NULL,
-  `course_id` bigint UNSIGNED NOT NULL,
-  `title` varchar(65) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `difficulty` tinyint UNSIGNED NOT NULL,
-  `duration_minutes` smallint UNSIGNED NOT NULL DEFAULT '60',
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `active` tinyint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(65) NOT NULL,
+  `difficulty` tinyint(3) UNSIGNED NOT NULL,
+  `duration_minutes` smallint(5) UNSIGNED NOT NULL DEFAULT 60,
+  `description` text NOT NULL,
+  `active` tinyint(3) UNSIGNED NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2374,9 +2427,9 @@ INSERT INTO `tests` (`id`, `course_id`, `title`, `difficulty`, `duration_minutes
 --
 
 CREATE TABLE `test_progress` (
-  `id` bigint UNSIGNED NOT NULL,
-  `submission_id` bigint UNSIGNED NOT NULL,
-  `question_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `submission_id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` bigint(20) UNSIGNED NOT NULL,
   `shown_at` datetime NOT NULL,
   `answered_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -2395,14 +2448,14 @@ INSERT INTO `test_progress` (`id`, `submission_id`, `question_id`, `shown_at`, `
 --
 
 CREATE TABLE `test_questions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `pool_question_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `test_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `points` tinyint UNSIGNED NOT NULL,
-  `penalty` tinyint UNSIGNED NOT NULL,
-  `shown_order` tinyint NOT NULL,
-  `active` tinyint NOT NULL,
-  `multiple_select` tinyint UNSIGNED NOT NULL DEFAULT '0'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `pool_question_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `test_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `points` tinyint(3) UNSIGNED NOT NULL,
+  `penalty` tinyint(3) UNSIGNED NOT NULL,
+  `shown_order` tinyint(4) NOT NULL,
+  `active` tinyint(4) NOT NULL,
+  `multiple_select` tinyint(3) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2421,20 +2474,20 @@ INSERT INTO `test_questions` (`id`, `pool_question_id`, `test_id`, `points`, `pe
 --
 
 CREATE TABLE `test_submissions` (
-  `id` bigint UNSIGNED NOT NULL,
-  `application_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `application_id` bigint(20) UNSIGNED NOT NULL,
   `session_id` varchar(255) DEFAULT NULL,
-  `test_id` bigint UNSIGNED NOT NULL,
+  `test_id` bigint(20) UNSIGNED NOT NULL,
   `time_window_starts` datetime NOT NULL,
   `time_window_ends` datetime NOT NULL,
   `started_at` datetime DEFAULT NULL COMMENT 'when test started',
   `ended_at` datetime DEFAULT NULL COMMENT 'when test finished',
   `deadline_at` datetime DEFAULT NULL COMMENT 'when  test expires',
-  `duration_mins` smallint UNSIGNED NOT NULL,
-  `mins_remaining` smallint UNSIGNED NOT NULL,
+  `duration_mins` smallint(5) UNSIGNED NOT NULL,
+  `mins_remaining` smallint(5) UNSIGNED NOT NULL,
   `grade` decimal(10,2) NOT NULL,
-  `completed` tinyint UNSIGNED NOT NULL,
-  `cheat_counter` tinyint UNSIGNED NOT NULL DEFAULT '0'
+  `completed` tinyint(3) UNSIGNED NOT NULL,
+  `cheat_counter` tinyint(3) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2451,10 +2504,10 @@ INSERT INTO `test_submissions` (`id`, `application_id`, `session_id`, `test_id`,
 --
 
 CREATE TABLE `test_submissions_answers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `submission_id` bigint UNSIGNED NOT NULL,
-  `question_id` bigint UNSIGNED NOT NULL,
-  `answer_id` bigint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `submission_id` bigint(20) UNSIGNED NOT NULL,
+  `question_id` bigint(20) UNSIGNED NOT NULL,
+  `answer_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2464,9 +2517,9 @@ CREATE TABLE `test_submissions_answers` (
 --
 
 CREATE TABLE `towns` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `perfecture_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `perfecture_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2483,9 +2536,9 @@ INSERT INTO `towns` (`id`, `title`, `perfecture_id`) VALUES
 --
 
 CREATE TABLE `university` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type_id` bigint UNSIGNED NOT NULL DEFAULT '1'
+  `type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2503,10 +2556,10 @@ INSERT INTO `university` (`id`, `title`, `type_id`) VALUES
 --
 
 CREATE TABLE `university_department` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `univ_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `active` tinyint(1) NOT NULL DEFAULT '1'
+  `univ_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2523,7 +2576,7 @@ INSERT INTO `university_department` (`id`, `title`, `univ_id`, `active`) VALUES
 --
 
 CREATE TABLE `university_type` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -2542,12 +2595,12 @@ INSERT INTO `university_type` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `enabled` tinyint UNSIGNED NOT NULL DEFAULT '1'
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `enabled` tinyint(3) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -3084,6 +3137,12 @@ ALTER TABLE `review_submission_answers`
   ADD KEY `question_id_2` (`question_id`);
 
 --
+-- Indexes for table `revinfo`
+--
+ALTER TABLE `revinfo`
+  ADD PRIMARY KEY (`rev`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -3379,649 +3438,655 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absencies`
 --
 ALTER TABLE `absencies`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ages`
 --
 ALTER TABLE `ages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `authorities`
 --
 ALTER TABLE `authorities`
-  MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `banks`
 --
 ALTER TABLE `banks`
-  MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `buildings`
 --
 ALTER TABLE `buildings`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `courses_fees_history`
 --
 ALTER TABLE `courses_fees_history`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `courses_wages_history`
 --
 ALTER TABLE `courses_wages_history`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `course_fees`
 --
 ALTER TABLE `course_fees`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `course_grades`
 --
 ALTER TABLE `course_grades`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `course_type`
 --
 ALTER TABLE `course_type`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `course_wages`
 --
 ALTER TABLE `course_wages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `days`
 --
 ALTER TABLE `days`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `diplomas`
 --
 ALTER TABLE `diplomas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `disciplines`
 --
 ALTER TABLE `disciplines`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `discount_model`
 --
 ALTER TABLE `discount_model`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `grading_sys`
 --
 ALTER TABLE `grading_sys`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `groupakia`
 --
 ALTER TABLE `groupakia`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `groups_teachers`
 --
 ALTER TABLE `groups_teachers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `groups_teachers_wages_history`
 --
 ALTER TABLE `groups_teachers_wages_history`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `group_ranks`
 --
 ALTER TABLE `group_ranks`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `group_students`
 --
 ALTER TABLE `group_students`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `hours`
 --
 ALTER TABLE `hours`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `installments`
 --
 ALTER TABLE `installments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `installments_per_group`
 --
 ALTER TABLE `installments_per_group`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `instituts`
 --
 ALTER TABLE `instituts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `interviews_grading`
 --
 ALTER TABLE `interviews_grading`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `interview_schedule`
 --
 ALTER TABLE `interview_schedule`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `interview_stages`
 --
 ALTER TABLE `interview_stages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `job_applications`
 --
 ALTER TABLE `job_applications`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `job_application_courses`
 --
 ALTER TABLE `job_application_courses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `job_application_studies`
 --
 ALTER TABLE `job_application_studies`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `job_application_work`
 --
 ALTER TABLE `job_application_work`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `job_openings`
 --
 ALTER TABLE `job_openings`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `job_opening_courses`
 --
 ALTER TABLE `job_opening_courses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `logbook`
 --
 ALTER TABLE `logbook`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
 
 --
 -- AUTO_INCREMENT for table `mock_exams`
 --
 ALTER TABLE `mock_exams`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mock_exams_results_numeric`
 --
 ALTER TABLE `mock_exams_results_numeric`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mock_exams_results_text`
 --
 ALTER TABLE `mock_exams_results_text`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `months`
 --
 ALTER TABLE `months`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `musical_instruments`
 --
 ALTER TABLE `musical_instruments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `musical_instrument_type`
 --
 ALTER TABLE `musical_instrument_type`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `parents`
 --
 ALTER TABLE `parents`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `parents_children`
 --
 ALTER TABLE `parents_children`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `payments_in_advance`
 --
 ALTER TABLE `payments_in_advance`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payroll_analysis`
 --
 ALTER TABLE `payroll_analysis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payroll_categories`
 --
 ALTER TABLE `payroll_categories`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `payroll_groups_analysis`
 --
 ALTER TABLE `payroll_groups_analysis`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `perfectures`
 --
 ALTER TABLE `perfectures`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `periods`
 --
 ALTER TABLE `periods`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pools`
 --
 ALTER TABLE `pools`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pool_chapters`
 --
 ALTER TABLE `pool_chapters`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pool_questions`
 --
 ALTER TABLE `pool_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pool_question_answers`
 --
 ALTER TABLE `pool_question_answers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pool_review_questions`
 --
 ALTER TABLE `pool_review_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `progress_book`
 --
 ALTER TABLE `progress_book`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `real_exams`
 --
 ALTER TABLE `real_exams`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `real_exams_results_numeric`
 --
 ALTER TABLE `real_exams_results_numeric`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `real_exams_results_text`
 --
 ALTER TABLE `real_exams_results_text`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `registration_fees`
 --
 ALTER TABLE `registration_fees`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `review_questionnaire`
 --
 ALTER TABLE `review_questionnaire`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `review_questionnaire_chapters`
 --
 ALTER TABLE `review_questionnaire_chapters`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `review_questionnaire_questions`
 --
 ALTER TABLE `review_questionnaire_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `review_questionnaire_submission`
 --
 ALTER TABLE `review_questionnaire_submission`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `review_submission_answers`
 --
 ALTER TABLE `review_submission_answers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `revinfo`
+--
+ALTER TABLE `revinfo`
+  MODIFY `rev` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `salary_history`
 --
 ALTER TABLE `salary_history`
-  MODIFY `sal_id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `sal_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `school_classes`
 --
 ALTER TABLE `school_classes`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `school_courses`
 --
 ALTER TABLE `school_courses`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seminars`
 --
 ALTER TABLE `seminars`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seminar_categories`
 --
 ALTER TABLE `seminar_categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seminar_certificates`
 --
 ALTER TABLE `seminar_certificates`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `seminar_certificate_modules`
 --
 ALTER TABLE `seminar_certificate_modules`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `seminar_certificate_teachers`
 --
 ALTER TABLE `seminar_certificate_teachers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `seminar_chapters`
 --
 ALTER TABLE `seminar_chapters`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `seminar_groups`
 --
 ALTER TABLE `seminar_groups`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `seminar_modules`
 --
 ALTER TABLE `seminar_modules`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `seminar_modules_curriculum`
 --
 ALTER TABLE `seminar_modules_curriculum`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `seminar_teachers`
 --
 ALTER TABLE `seminar_teachers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shifts`
 --
 ALTER TABLE `shifts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `speeds`
 --
 ALTER TABLE `speeds`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `student_debts`
 --
 ALTER TABLE `student_debts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `student_payed`
 --
 ALTER TABLE `student_payed`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `student_progress_book`
 --
 ALTER TABLE `student_progress_book`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `student_requests`
 --
 ALTER TABLE `student_requests`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `suburbs`
 --
 ALTER TABLE `suburbs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `teacher_debts`
 --
 ALTER TABLE `teacher_debts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `teacher_leave_days`
 --
 ALTER TABLE `teacher_leave_days`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `teacher_payments`
 --
 ALTER TABLE `teacher_payments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `teaches`
 --
 ALTER TABLE `teaches`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tests`
 --
 ALTER TABLE `tests`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `test_progress`
 --
 ALTER TABLE `test_progress`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `test_questions`
 --
 ALTER TABLE `test_questions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `test_submissions`
 --
 ALTER TABLE `test_submissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `test_submissions_answers`
 --
 ALTER TABLE `test_submissions_answers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `towns`
 --
 ALTER TABLE `towns`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `university`
 --
 ALTER TABLE `university`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `university_department`
 --
 ALTER TABLE `university_department`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `university_type`
 --
 ALTER TABLE `university_type`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -4031,14 +4096,14 @@ ALTER TABLE `users`
 -- Constraints for table `absencies`
 --
 ALTER TABLE `absencies`
-  ADD CONSTRAINT `absencies_ibfk_1` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `absencies_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `absencies_ibfk_1` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`),
+  ADD CONSTRAINT `absencies_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
 -- Constraints for table `authorities`
 --
 ALTER TABLE `authorities`
-  ADD CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `authorities_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
 
 --
 -- Constraints for table `buildings`
@@ -4074,7 +4139,7 @@ ALTER TABLE `course_fees`
 -- Constraints for table `course_grades`
 --
 ALTER TABLE `course_grades`
-  ADD CONSTRAINT `diploma_grades_diploma_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `diploma_grades_diploma_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 --
 -- Constraints for table `course_wages`
@@ -4102,8 +4167,8 @@ ALTER TABLE `discounts`
 -- Constraints for table `groupakia`
 --
 ALTER TABLE `groupakia`
-  ADD CONSTRAINT `FKat205al2gpkgh81q73blgn0r5` FOREIGN KEY (`speed_id`) REFERENCES `speeds` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `groupakia_ibfk_1` FOREIGN KEY (`rank_id`) REFERENCES `group_ranks` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `FKat205al2gpkgh81q73blgn0r5` FOREIGN KEY (`speed_id`) REFERENCES `speeds` (`id`),
+  ADD CONSTRAINT `groupakia_ibfk_1` FOREIGN KEY (`rank_id`) REFERENCES `group_ranks` (`id`),
   ADD CONSTRAINT `groups_age_id_foreign` FOREIGN KEY (`age_id`) REFERENCES `ages` (`id`),
   ADD CONSTRAINT `groups_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
   ADD CONSTRAINT `groups_fee_id_foreign` FOREIGN KEY (`fee_id`) REFERENCES `course_fees` (`id`),
@@ -4113,15 +4178,15 @@ ALTER TABLE `groupakia`
 -- Constraints for table `groups_teachers`
 --
 ALTER TABLE `groups_teachers`
-  ADD CONSTRAINT `groups_teachers_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `groups_teachers_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `groups_teachers_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
+  ADD CONSTRAINT `groups_teachers_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
 
 --
 -- Constraints for table `groups_teachers_wages_history`
 --
 ALTER TABLE `groups_teachers_wages_history`
-  ADD CONSTRAINT `groups_teachers_wages_history_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `groups_teachers_wages_history_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `groups_teachers_wages_history_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
+  ADD CONSTRAINT `groups_teachers_wages_history_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
 
 --
 -- Constraints for table `group_students`
@@ -4136,7 +4201,7 @@ ALTER TABLE `group_students`
 ALTER TABLE `history`
   ADD CONSTRAINT `history_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
   ADD CONSTRAINT `history_hour_id_foreign` FOREIGN KEY (`hour_id`) REFERENCES `hours` (`id`),
-  ADD CONSTRAINT `history_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `history_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`),
   ADD CONSTRAINT `history_room_id_foreign` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
@@ -4149,59 +4214,59 @@ ALTER TABLE `installments`
 -- Constraints for table `installments_per_group`
 --
 ALTER TABLE `installments_per_group`
-  ADD CONSTRAINT `installments_per_group_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `installments_per_group_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`);
 
 --
 -- Constraints for table `interviews_grading`
 --
 ALTER TABLE `interviews_grading`
-  ADD CONSTRAINT `interviews_grading_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `interviews_grading_ibfk_2` FOREIGN KEY (`stage_id`) REFERENCES `interview_stages` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `interviews_grading_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`),
+  ADD CONSTRAINT `interviews_grading_ibfk_2` FOREIGN KEY (`stage_id`) REFERENCES `interview_stages` (`id`);
 
 --
 -- Constraints for table `interview_schedule`
 --
 ALTER TABLE `interview_schedule`
-  ADD CONSTRAINT `interview_schedule_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `interview_schedule_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`);
 
 --
 -- Constraints for table `interview_stages`
 --
 ALTER TABLE `interview_stages`
-  ADD CONSTRAINT `interview_stages_ibfk_1` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `interview_stages_ibfk_1` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`);
 
 --
 -- Constraints for table `job_applications`
 --
 ALTER TABLE `job_applications`
-  ADD CONSTRAINT `job_applications_ibfk_1` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `job_applications_ibfk_1` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`);
 
 --
 -- Constraints for table `job_application_courses`
 --
 ALTER TABLE `job_application_courses`
-  ADD CONSTRAINT `job_application_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `job_application_courses_ibfk_2` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `job_application_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `job_application_courses_ibfk_2` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`);
 
 --
 -- Constraints for table `job_application_studies`
 --
 ALTER TABLE `job_application_studies`
-  ADD CONSTRAINT `job_application_studies_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `job_application_studies_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`);
 
 --
 -- Constraints for table `job_opening_courses`
 --
 ALTER TABLE `job_opening_courses`
-  ADD CONSTRAINT `job_opening_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `job_opening_courses_ibfk_2` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `job_opening_courses_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `job_opening_courses_ibfk_2` FOREIGN KEY (`opening_id`) REFERENCES `job_openings` (`id`);
 
 --
 -- Constraints for table `logbook`
 --
 ALTER TABLE `logbook`
-  ADD CONSTRAINT `logbook_ibfk_1` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `logbook_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `logbook_ibfk_1` FOREIGN KEY (`history_id`) REFERENCES `history` (`id`),
+  ADD CONSTRAINT `logbook_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
 
 --
 -- Constraints for table `members`
@@ -4229,9 +4294,9 @@ ALTER TABLE `mock_exams_results_numeric`
 -- Constraints for table `mock_exams_results_text`
 --
 ALTER TABLE `mock_exams_results_text`
-  ADD CONSTRAINT `mock_exams_results_text_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `mock_exams` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `mock_exams_results_text_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `mock_exams_results_text_ibfk_3` FOREIGN KEY (`text_grade_id`) REFERENCES `course_grades` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `mock_exams_results_text_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `mock_exams` (`id`),
+  ADD CONSTRAINT `mock_exams_results_text_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `mock_exams_results_text_ibfk_3` FOREIGN KEY (`text_grade_id`) REFERENCES `course_grades` (`id`);
 
 --
 -- Constraints for table `musical_instruments`
@@ -4251,7 +4316,7 @@ ALTER TABLE `parents_children`
 -- Constraints for table `payments_in_advance`
 --
 ALTER TABLE `payments_in_advance`
-  ADD CONSTRAINT `payments_in_advance_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `payments_in_advance_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
 --
 -- Constraints for table `payroll`
@@ -4264,8 +4329,8 @@ ALTER TABLE `payroll`
 -- Constraints for table `payroll_analysis`
 --
 ALTER TABLE `payroll_analysis`
-  ADD CONSTRAINT `payroll_analysis_ibfk_1` FOREIGN KEY (`payroll_category_id`) REFERENCES `payroll_categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `payroll_analysis_ibfk_2` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `payroll_analysis_ibfk_1` FOREIGN KEY (`payroll_category_id`) REFERENCES `payroll_categories` (`id`),
+  ADD CONSTRAINT `payroll_analysis_ibfk_2` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`id`);
 
 --
 -- Constraints for table `payroll_groups_analysis`
@@ -4278,26 +4343,26 @@ ALTER TABLE `payroll_groups_analysis`
 -- Constraints for table `pools`
 --
 ALTER TABLE `pools`
-  ADD CONSTRAINT `pools_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `pools_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 --
 -- Constraints for table `pool_chapters`
 --
 ALTER TABLE `pool_chapters`
-  ADD CONSTRAINT `pool_chapters_ibfk_1` FOREIGN KEY (`pool_id`) REFERENCES `pools` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `pool_chapters_ibfk_1` FOREIGN KEY (`pool_id`) REFERENCES `pools` (`id`);
 
 --
 -- Constraints for table `pool_questions`
 --
 ALTER TABLE `pool_questions`
   ADD CONSTRAINT `FKlta3hjjc8t44t0dduidcfj0gp` FOREIGN KEY (`chapter_id`) REFERENCES `pool_questions` (`id`),
-  ADD CONSTRAINT `pool_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `pool_chapters` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `pool_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `pool_chapters` (`id`);
 
 --
 -- Constraints for table `pool_question_answers`
 --
 ALTER TABLE `pool_question_answers`
-  ADD CONSTRAINT `pool_question_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `pool_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `pool_question_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `pool_questions` (`id`);
 
 --
 -- Constraints for table `progress_book`
@@ -4324,9 +4389,9 @@ ALTER TABLE `real_exams_results_numeric`
 -- Constraints for table `real_exams_results_text`
 --
 ALTER TABLE `real_exams_results_text`
-  ADD CONSTRAINT `real_exams_results_text_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `real_exams` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `real_exams_results_text_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `real_exams_results_text_ibfk_3` FOREIGN KEY (`text_grade_id`) REFERENCES `course_grades` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `real_exams_results_text_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `real_exams` (`id`),
+  ADD CONSTRAINT `real_exams_results_text_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `real_exams_results_text_ibfk_3` FOREIGN KEY (`text_grade_id`) REFERENCES `course_grades` (`id`);
 
 --
 -- Constraints for table `registration_fees`
@@ -4339,7 +4404,7 @@ ALTER TABLE `registration_fees`
 -- Constraints for table `review_questionnaire`
 --
 ALTER TABLE `review_questionnaire`
-  ADD CONSTRAINT `review_questionnaire_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `review_questionnaire_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`);
 
 --
 -- Constraints for table `review_questionnaire_questions`
@@ -4347,20 +4412,20 @@ ALTER TABLE `review_questionnaire`
 ALTER TABLE `review_questionnaire_questions`
   ADD CONSTRAINT `FKmi49n1wu1bp6i7asrb6w3f71d` FOREIGN KEY (`chapter_id`) REFERENCES `review_questionnaire_chapters` (`id`),
   ADD CONSTRAINT `FKr8otb15feo3y1iri45eqobodo` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`),
-  ADD CONSTRAINT `review_questionnaire_questions_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `pool_review_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `review_questionnaire_questions_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `pool_review_questions` (`id`);
 
 --
 -- Constraints for table `review_questionnaire_submission`
 --
 ALTER TABLE `review_questionnaire_submission`
-  ADD CONSTRAINT `review_questionnaire_submission_ibfk_1` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `review_questionnaire_submission_ibfk_1` FOREIGN KEY (`questionnaire_id`) REFERENCES `review_questionnaire` (`id`);
 
 --
 -- Constraints for table `review_submission_answers`
 --
 ALTER TABLE `review_submission_answers`
-  ADD CONSTRAINT `review_submission_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `review_questionnaire_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `review_submission_answers_ibfk_2` FOREIGN KEY (`submission_id`) REFERENCES `review_questionnaire_submission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `review_submission_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `review_questionnaire_questions` (`id`),
+  ADD CONSTRAINT `review_submission_answers_ibfk_2` FOREIGN KEY (`submission_id`) REFERENCES `review_questionnaire_submission` (`id`);
 
 --
 -- Constraints for table `rooms`
@@ -4372,7 +4437,7 @@ ALTER TABLE `rooms`
 -- Constraints for table `salary_history`
 --
 ALTER TABLE `salary_history`
-  ADD CONSTRAINT `salary_history_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teaches` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `salary_history_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teaches` (`id`);
 
 --
 -- Constraints for table `school_courses`
@@ -4444,9 +4509,9 @@ ALTER TABLE `seminar_teachers`
 -- Constraints for table `shifts`
 --
 ALTER TABLE `shifts`
-  ADD CONSTRAINT `shifts_ibfk_1` FOREIGN KEY (`days_id`) REFERENCES `days` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `shifts_ibfk_2` FOREIGN KEY (`starting_hour_id`) REFERENCES `hours` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `shifts_ibfk_3` FOREIGN KEY (`ending_hour_id`) REFERENCES `hours` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `shifts_ibfk_1` FOREIGN KEY (`days_id`) REFERENCES `days` (`id`),
+  ADD CONSTRAINT `shifts_ibfk_2` FOREIGN KEY (`starting_hour_id`) REFERENCES `hours` (`id`),
+  ADD CONSTRAINT `shifts_ibfk_3` FOREIGN KEY (`ending_hour_id`) REFERENCES `hours` (`id`);
 
 --
 -- Constraints for table `students`
@@ -4467,7 +4532,7 @@ ALTER TABLE `student_debts`
 --
 ALTER TABLE `student_payed`
   ADD CONSTRAINT `student_payed_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groupakia` (`id`),
-  ADD CONSTRAINT `student_payed_ibfk_1` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `student_payed_ibfk_1` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`),
   ADD CONSTRAINT `student_payed_month_id_foreign` FOREIGN KEY (`month_id`) REFERENCES `months` (`id`),
   ADD CONSTRAINT `student_payed_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
@@ -4530,36 +4595,36 @@ ALTER TABLE `teaches`
 -- Constraints for table `tests`
 --
 ALTER TABLE `tests`
-  ADD CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 --
 -- Constraints for table `test_progress`
 --
 ALTER TABLE `test_progress`
-  ADD CONSTRAINT `test_progress_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `test_progress_ibfk_2` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `test_progress_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`),
+  ADD CONSTRAINT `test_progress_ibfk_2` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`);
 
 --
 -- Constraints for table `test_questions`
 --
 ALTER TABLE `test_questions`
-  ADD CONSTRAINT `test_questions_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `test_questions_ibfk_2` FOREIGN KEY (`pool_question_id`) REFERENCES `pool_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `test_questions_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`),
+  ADD CONSTRAINT `test_questions_ibfk_2` FOREIGN KEY (`pool_question_id`) REFERENCES `pool_questions` (`id`);
 
 --
 -- Constraints for table `test_submissions`
 --
 ALTER TABLE `test_submissions`
-  ADD CONSTRAINT `test_submissions_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `test_submissions_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `test_submissions_ibfk_1` FOREIGN KEY (`application_id`) REFERENCES `job_applications` (`id`),
+  ADD CONSTRAINT `test_submissions_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `tests` (`id`);
 
 --
 -- Constraints for table `test_submissions_answers`
 --
 ALTER TABLE `test_submissions_answers`
-  ADD CONSTRAINT `test_submissions_answers_ibfk_1` FOREIGN KEY (`answer_id`) REFERENCES `pool_question_answers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `test_submissions_answers_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `test_submissions_answers_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `test_submissions_answers_ibfk_1` FOREIGN KEY (`answer_id`) REFERENCES `pool_question_answers` (`id`),
+  ADD CONSTRAINT `test_submissions_answers_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `test_questions` (`id`),
+  ADD CONSTRAINT `test_submissions_answers_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `test_submissions` (`id`);
 
 --
 -- Constraints for table `towns`

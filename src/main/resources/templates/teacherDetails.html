@@ -60,6 +60,17 @@
     </div>
 
 
+    <!-- timetable render -->
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-3" th:each="dh: ${days}">
+                <div class="course-div header"><p th:text="${dh}"/></div>
+            </div>
+        </div>
+
+
+
+    </div>
 
 
 

@@ -3,11 +3,26 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="default">
+
 <body>
 <section class="groupSection" layout:fragment="content">
 
 Spring timetable
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-3" th:each="dh: ${days}">
+                <div class="course-div header"><p th:text="${dh}"/></div>
+            </div>
+        </div>
 
+        <div class="row flex-nowrap" th:each="record: ${timetabling}">
+            <div class="col-3 card-course" th:each="course: ${record}">
+                <div class="card card-block"><p th:text="${course}"/></div>
+            </div>
+        </div>
+
+
+    </div>
 
 </section>
 </body>

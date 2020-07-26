@@ -25,15 +25,15 @@ public class Diploma {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date created_at;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "course_id")
     private CourseModel cours;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "language_id")
     private Language langObj;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "institut_id")
     private Institut instObj;
 

@@ -43,7 +43,7 @@ public class HistoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "room_id")
     private Room room;
 
@@ -62,11 +62,11 @@ public class HistoryModel {
     @Column
     private int cancelled;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "hour_id")
     private HourModel hour;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "teacher_id")
     private Teacher daskalos;
 

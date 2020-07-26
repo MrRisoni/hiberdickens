@@ -1,6 +1,8 @@
 package core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
@@ -14,8 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 
-@CrossOrigin
-@RestController
+@Controller
 public class GroupController {
 
     @Autowired
@@ -67,9 +68,11 @@ public class GroupController {
 
     }
 
-    @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
-    public HashMap<String,Object> getGroupDetails(@PathVariable Long groupId)
+    @RequestMapping(value = "/group/info/{groupId}", method = RequestMethod.GET)
+    public String getGroupDetails(@PathVariable Long groupId, Model mod)
     {
+        //groupId = 1L;
+
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
@@ -81,43 +84,38 @@ public class GroupController {
 
         GroupModel groupData = groupRepo.getGroup(groupId);
 
-        HashMap<String,Object> debtsMap = new HashMap<>();
-        HashMap<String,Object> paymentsMap = new HashMap<>();
-        HashMap<String,Object> generalInfo = new HashMap<>();
+      //  HashMap<String,Object> mod.addAttribute = new HashMap<>();
+       // HashMap<String,Object> paymentsMap = new HashMap<>();
+       // HashMap<String,Object> generalInfo = new HashMap<>();
+
+        mod.addAttribute("fee",groupData.getFeeObj().getAmount());
+        mod.addAttribute("wage",groupData.getWageObj().getAmount());
+        mod.addAttribute("speed",groupData.getSpeedObj().getTitle());
+        mod.addAttribute("age",groupData.getAgeObj().getTitle());
+        mod.addAttribute("rank",groupData.getRankObj().getTitle());
+        mod.addAttribute("createdAt",groupData.getCreated_at());
+        mod.addAttribute("updatedAt",groupData.getUpdated_at());
+        mod.addAttribute("course",groupData.getCourseObj().getTitle());
+        mod.addAttribute("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
 
 
-        generalInfo.put("fee",groupData.getFeeObj().getAmount());
-        generalInfo.put("wage",groupData.getWageObj().getAmount());
-        generalInfo.put("speed",groupData.getSpeedObj().getTitle());
-        generalInfo.put("age",groupData.getAgeObj().getTitle());
-        generalInfo.put("rank",groupData.getRankObj().getTitle());
-        generalInfo.put("createdAt",groupData.getCreated_at());
-        generalInfo.put("updatedAt",groupData.getUpdated_at());
-        generalInfo.put("course",groupData.getCourseObj().getTitle());
-        generalInfo.put("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
+        mod.addAttribute("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
+        mod.addAttribute("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
+        mod.addAttribute("sumHours",geFundenGroup.getSumHours());
+        mod.addAttribute("history",groupRepo.getHistory(groupId));
 
+        mod.addAttribute("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());
+        mod.addAttribute("sumStudentDebts",geFundenGroup.getRemainingStudentDebt());
 
-        paymentsMap.put("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
-        debtsMap.put("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
-        generalInfo.put("sumHours",geFundenGroup.getSumHours());
-         generalInfo.put("history",groupRepo.getHistory(groupId));
+        mod.addAttribute("studentsList", groupRepo.getGroupStudents(groupId));
+        mod.addAttribute("teachersList", groupRepo.getGroupTeachers(groupId));
 
-        paymentsMap.put("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());
-        debtsMap.put("sumStudentDebts",geFundenGroup.getRemainingStudentDebt());
+        mod.addAttribute("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
+        mod.addAttribute("studentsDebts",groupRepo.getStudentDebtsList(groupId));
 
-        generalInfo.put("studentsList", groupRepo.getGroupStudents(groupId));
-        generalInfo.put("teachersList", groupRepo.getGroupTeachers(groupId));
+        mod.addAttribute("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
+        mod.addAttribute("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
 
-        paymentsMap.put("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
-        debtsMap.put("studentsDebts",groupRepo.getStudentDebtsList(groupId));
-
-        paymentsMap.put("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
-        debtsMap.put("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
-
-        rsp.put("info",generalInfo);
-        rsp.put("debts",debtsMap);
-        rsp.put("payments",paymentsMap);
-
-        return rsp;
+        return "groupDetails";
     }
 }

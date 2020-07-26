@@ -14,7 +14,7 @@ public class Building {
     @Column
     private String address;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "suburb_id")
     private Suburb suburbObj;
 

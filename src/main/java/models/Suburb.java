@@ -15,7 +15,7 @@ public class Suburb {
     @Column
     private String title;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "town_id")
     private Town townObj;
 

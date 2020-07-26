@@ -19,7 +19,7 @@ public class Pools {
     @Column
     private String title;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "course_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // myster
     private CourseModel courseObj;

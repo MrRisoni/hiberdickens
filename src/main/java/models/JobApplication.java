@@ -20,7 +20,7 @@ public class JobApplication {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dob;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "opening_id")
     private JobOpening jobOpenObj;
 

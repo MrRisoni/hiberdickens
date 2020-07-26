@@ -1,6 +1,7 @@
 package models;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,14 +17,17 @@ public class Member {
 
     @NotNull
     @Column
+    @Audited
     private String name;
 
     @NotNull
     @Column
+    @Audited
     private String surname;
 
     @NotNull
     @Column
+    @Audited
     private String phone;
 
     @NotNull
@@ -40,7 +44,7 @@ public class Member {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "suburb_id")
     private Suburb suburbObj;
 

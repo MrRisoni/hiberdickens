@@ -5,6 +5,8 @@ import models.HourModel;
 import models.Member;
 import models.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import repositories.GeneralRepository;
 import repositories.TeacherRepository;
@@ -17,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RestController
+@Controller
 public class TeacherController {
 
     @Autowired
@@ -46,20 +48,19 @@ public class TeacherController {
         tchRepoSpr.save(t);
     }
 
-    @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
-    public HashMap<String, Object> getData(@PathVariable Long teacherId) {
+    @RequestMapping(value = "/teacher/info/{teacherId}", method = RequestMethod.GET)
+    public String getData(@PathVariable Long teacherId, Model mod) {
 
-        HashMap<String, Object> rsp = new HashMap<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
         Optional<Teacher> searchResult = tchRepoSpr.findById(teacherId);
         Teacher daskalos =searchResult.orElse(null);
-        rsp.put("courses",daskalos.getCourses());
+        mod.addAttribute("courses",daskalos.getCourses());
 
         TeacherRepository tchRepo = new TeacherRepository();
-        rsp.put("payments", tchRepo.getTeacherPayments(teacherId));
-        rsp.put("debts", tchRepo.getTeacherDebts(teacherId));
+        mod.addAttribute("payments", tchRepo.getTeacherPayments(teacherId));
+        mod.addAttribute("debts", tchRepo.getTeacherDebts(teacherId));
 
         List<TimetableDTO> timetabl = tchRepo.getTeacherTimeTable(teacherId);
 
@@ -77,7 +78,7 @@ public class TeacherController {
         days = days.stream().distinct().collect(Collectors.toList());
         days.add("#");
         days.add(0, "#");
-        rsp.put("days", days);
+        mod.addAttribute("days", days);
 
         GeneralRepository gRepo = new GeneralRepository();
         List<HourModel> hoursList = gRepo.getHours();
@@ -130,10 +131,10 @@ public class TeacherController {
             finalTimeTabling.add(thisHour);
         } // end for hours
 
-        rsp.put("timetable", timetabl); // delete this later
-        rsp.put("timetabling", finalTimeTabling);
+        mod.addAttribute("timetable", timetabl); // delete this later
+        mod.addAttribute("timetabling", finalTimeTabling);
 
-        return rsp;
+        return "teacherDetails";
 
     }
 }

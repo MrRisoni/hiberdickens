@@ -12,7 +12,7 @@ public class JobOpeningCourse {
     @Column
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "course_id")
     private CourseModel courseObj;
 

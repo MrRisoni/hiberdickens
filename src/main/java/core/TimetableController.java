@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import hqlmappers.TimetableDTO;
+import repositories.GeneralRepository;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -66,6 +67,61 @@ public class TimetableController {
             days.add("#");
             days.add(0, "#");
             modelo.addAttribute("days", days);
+
+
+            GeneralRepository gRepo = new GeneralRepository();
+            List<HourModel> hoursList = gRepo.getHours();
+    
+            ArrayList<MiniHour> hourRanges = new ArrayList<>();
+    
+            for (int i = 0; i < hoursList.size() - 1; i++) {
+                int startin = Integer.parseInt(hoursList.get(i).getTitle().substring(0, 2)) * 60 + Integer.parseInt(hoursList.get(i).getTitle().substring(2));
+                int endin = Integer.parseInt(hoursList.get(i + 1).getTitle().substring(0, 2)) * 60 + Integer.parseInt(hoursList.get(i + 1).getTitle().substring(2));
+    
+                String aus_von = hoursList.get(i).getTitle() + "-" + hoursList.get(i + 1).getTitle();
+    
+                hourRanges.add(new MiniHour(startin, endin, aus_von));
+            }
+    
+            ArrayList<Object> finalTimeTabling = new ArrayList<>(); // preservers order of insertion
+    
+            for (int h = 0; h < hourRanges.size(); h++) {
+                System.out.println(hourRanges.get(h).getTitle());
+                ArrayList<String> thisHour = new ArrayList<>();
+    
+                thisHour.add(hourRanges.get(h).getTitle());
+    
+                for (int d = 1; d < days.size() - 1; d++) { // skip #
+                    ArrayList<String> matchedActivities = new ArrayList<>();
+    
+                    for (TimetableDTO actObj : timetable) {
+                        String niceDayFormat = formatter.format(actObj.getStarted()).toString();
+                        String niceHourFormat = hourFormatter.format(actObj.getStarted()).toString();
+                        int uhr = Integer.parseInt(niceHourFormat.substring(0, 2));
+                        int minutes = Integer.parseInt(niceHourFormat.substring(3));
+    
+                        int localStarting = uhr * 60 + minutes;
+                        int localEnding = localStarting + 90;
+    
+                        if (niceDayFormat.equals(days.get(d))) {
+                            if (localStarting <= hourRanges.get(h).getStartin()) {
+                                if (localEnding >= hourRanges.get(h).getEnding()) {
+                                    matchedActivities.add(actObj.getCourseName());
+                                }
+                            }
+                        }
+    
+                    } // end for timetable
+                    thisHour.add(String.join(",", matchedActivities));
+    
+                } // end for days
+    
+                thisHour.add(hourRanges.get(h).getTitle());
+                finalTimeTabling.add(thisHour);
+            } // end for hours
+
+            modelo.addAttribute("timetabling", finalTimeTabling);
+
 
             return "timetable";
         }

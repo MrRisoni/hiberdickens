@@ -34,7 +34,7 @@ public class StudentController {
         Optional<Member> fetched = membRepo.findById(198L);
         Member mb  =fetched.orElse(null);
         mb.setName("August");
-        membRepo.save(mb);
+      //  membRepo.save(mb);
 
     }
 

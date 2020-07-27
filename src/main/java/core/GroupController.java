@@ -64,7 +64,7 @@ public class GroupController {
         grm.setWageObj(wg);
         grm.setCourseObj(crsm);
 
-        grRepo.save(grm);
+        //grRepo.save(grm);
 
     }
 

@@ -45,9 +45,9 @@ public class CoursesController {
             dpl.setInstObj(inst);
             dpl.setLangObj(lang);
             dpl.setLevel("C1");
-            spr_course_repo.save(mod);
+        //    spr_course_repo.save(mod);
 
-            spr_diploma_repo.save(dpl);
+         //   spr_diploma_repo.save(dpl);
 
     }
 

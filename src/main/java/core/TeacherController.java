@@ -45,7 +45,7 @@ public class TeacherController {
 
         t.setMember(m);
 
-        tchRepoSpr.save(t);
+       // tchRepoSpr.save(t);
     }
 
     @RequestMapping(value = "/teacher/info/{teacherId}", method = RequestMethod.GET)

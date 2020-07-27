@@ -68,8 +68,12 @@
                 <tbody>
                 <tr th:each="tch: ${teacherDebts}">
                     <td th:text="${tch.entityId}" />
-                    <td th:text="${tch.fullName}" />
+                    <td>
+                        <a th:href="@{'/teacher/info/' + ${tch.entityId}}"><p th:text="${tch.fullName}"/></a>
+                    </td>
                     <td th:text="${tch.monthTitle}" />
+                    <td> <p th:text="${tch.monthTitle}"/> <p th:text="${tch.year}"/> <td/>
+
                     <td th:text="${tch.amount}" />
                 </tr>
 

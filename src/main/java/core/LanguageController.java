@@ -23,7 +23,7 @@ public class LanguageController {
         Language l = new Language();
         l.setTitle("Arabic");
         l.setActive(1);
-        lgRepo.save(l);
+       // lgRepo.save(l);
 
         CourseModel c = new CourseModel();
         c.setTitle("Al ko war rihm");

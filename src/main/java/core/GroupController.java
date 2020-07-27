@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import models.*;
 
 import org.springframework.web.bind.annotation.*;
+import repositories.GroupMember;
 import repositories.GroupRepository;
 import spring_repos.SprGroupRepository;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class GroupController {
@@ -94,7 +92,7 @@ public class GroupController {
         mod.addAttribute("updatedAt",groupData.getUpdated_at());
         mod.addAttribute("course",groupData.getCourseObj().getTitle());
         mod.addAttribute("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
-
+        mod.addAttribute("courseTitle",geFundenGroup.getCourseObj().getTitle());
 
         mod.addAttribute("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
         mod.addAttribute("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
@@ -103,10 +101,10 @@ public class GroupController {
 
         mod.addAttribute("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());
         mod.addAttribute("sumStudentDebts",geFundenGroup.getRemainingStudentDebt());
-
+        List<GroupMember> students_list = groupRepo.getGroupStudents(groupId);
         mod.addAttribute("studentsList", groupRepo.getGroupStudents(groupId));
         mod.addAttribute("teachersList", groupRepo.getGroupTeachers(groupId));
-
+        mod.addAttribute("totalMembers",students_list.size());
         mod.addAttribute("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
         mod.addAttribute("studentsDebts",groupRepo.getStudentDebtsList(groupId));
 

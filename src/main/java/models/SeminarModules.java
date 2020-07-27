@@ -1,5 +1,7 @@
 package models;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -44,6 +46,13 @@ public class SeminarModules {
 
     @Column
     private float cost_per_hour;
+
+    @Formula("(SELECT COUNT(semt.teacher_id) FROM seminar_teachers semt WHERE semt.module_id = id)")
+    private int numTeachers;
+
+    @Formula("(SELECT COUNT(semg.group_id) FROM seminar_groups semg WHERE semg.module_id = id)")
+    private int numGroups;
+
 
     public SeminarModules() {
     }
@@ -134,5 +143,13 @@ public class SeminarModules {
 
     public void setCost_per_hour(float cost_per_hour) {
         this.cost_per_hour = cost_per_hour;
+    }
+
+    public int getNumTeachers() {
+        return numTeachers;
+    }
+
+    public int getNumGroups() {
+        return numGroups;
     }
 }

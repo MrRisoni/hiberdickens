@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 26, 2020 at 07:45 AM
+-- Generation Time: Jul 27, 2020 at 04:46 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -552,7 +552,10 @@ INSERT INTO `group_students` (`id`, `joined`, `dropped`, `group_id`, `student_id
 (19, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 3, 3),
 (20, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 3, 4),
 (21, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 3, 5),
-(22, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 3, 6);
+(22, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 3, 6),
+(23, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 4, 24),
+(24, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 4, 23),
+(25, '2019-08-28 10:00:00', '2020-07-07 17:41:09', 4, 20);
 
 -- --------------------------------------------------------
 
@@ -606,7 +609,8 @@ INSERT INTO `history` (`id`, `wage`, `fee`, `vat`, `started`, `ended`, `created_
 (22, '6.78', '18.00', '3.00', '2019-09-29 18:30:00', '2019-09-29 20:00:00', '2020-07-15 12:12:13', '2020-07-15 12:12:13', 3, 1, 2, 21, 1.5, 0),
 (23, '6.78', '18.00', '3.00', '2019-09-02 10:00:00', '2019-09-02 11:30:00', '2020-07-15 12:12:13', '2020-07-15 12:12:13', 3, 1, 1, 4, 1.5, 0),
 (24, '6.78', '18.00', '3.00', '2019-09-07 10:00:00', '2019-09-07 11:30:00', '2020-07-15 12:12:13', '2020-07-15 12:12:13', 3, 1, 1, 4, 1.5, 0),
-(25, '6.78', '18.00', '3.00', '2019-09-15 17:00:00', '2019-09-15 18:30:00', '2020-07-15 12:12:13', '2020-07-15 12:12:13', 3, 1, 2, 18, 1.5, 0);
+(25, '6.78', '18.00', '3.00', '2019-09-15 17:00:00', '2019-09-15 18:30:00', '2020-07-15 12:12:13', '2020-07-15 12:12:13', 3, 1, 2, 18, 1.5, 0),
+(26, '6.78', '15.00', '3.00', '2019-09-01 10:00:00', '2019-09-01 11:30:00', '2020-07-15 12:12:13', '2020-07-15 12:12:13', 4, 1, 6, 4, 1.5, 0);
 
 -- --------------------------------------------------------
 
@@ -1952,7 +1956,7 @@ CREATE TABLE `seminar_categories` (
 --
 
 INSERT INTO `seminar_categories` (`id`, `title`, `active`) VALUES
-(1, 'Databases', 1),
+(1, 'Back-end', 1),
 (2, 'Front-end', 1);
 
 -- --------------------------------------------------------
@@ -2057,9 +2061,12 @@ CREATE TABLE `seminar_modules` (
 --
 
 INSERT INTO `seminar_modules` (`id`, `title`, `active`, `part_time`, `on_site`, `cost`, `starts`, `ends`, `seninar_id`, `max_seats`, `total_hours`, `cost_per_hour`) VALUES
-(1, 'Hibernate', 1, 0, 1, '1500.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 1, 15, 50, '0.00'),
+(1, 'JPA/Hibernate', 1, 0, 1, '1500.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 1, 15, 50, '0.00'),
 (2, 'Redux', 1, 0, 1, '1100.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 2, 15, 50, '0.00'),
-(3, 'Flux', 1, 0, 1, '500.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 2, 15, 50, '0.00');
+(3, 'Flux', 1, 0, 1, '500.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 2, 15, 50, '0.00'),
+(4, 'Java Fundamentals', 1, 0, 1, '1500.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 1, 15, 50, '0.00'),
+(5, 'Spring Boot MVC', 1, 0, 1, '1500.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 1, 15, 50, '0.00'),
+(6, 'Unit Testing with Java', 1, 0, 1, '1500.00', '2020-06-19 08:00:19', '2020-06-19 08:00:19', 1, 15, 50, '0.00');
 
 -- --------------------------------------------------------
 
@@ -2086,6 +2093,15 @@ CREATE TABLE `seminar_teachers` (
   `module_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `teacher_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `seminar_teachers`
+--
+
+INSERT INTO `seminar_teachers` (`id`, `module_id`, `teacher_id`) VALUES
+(1, 1, 4),
+(2, 5, 4),
+(3, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -2785,6 +2801,7 @@ ALTER TABLE `group_ranks`
 --
 ALTER TABLE `group_students`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `group_id` (`group_id`,`student_id`),
   ADD KEY `group_members_group_id_foreign` (`group_id`),
   ADD KEY `group_members_student_id_foreign` (`student_id`);
 
@@ -3570,13 +3587,13 @@ ALTER TABLE `group_ranks`
 -- AUTO_INCREMENT for table `group_students`
 --
 ALTER TABLE `group_students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `hours`
@@ -3936,7 +3953,7 @@ ALTER TABLE `seminar_groups`
 -- AUTO_INCREMENT for table `seminar_modules`
 --
 ALTER TABLE `seminar_modules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `seminar_modules_curriculum`
@@ -3948,7 +3965,7 @@ ALTER TABLE `seminar_modules_curriculum`
 -- AUTO_INCREMENT for table `seminar_teachers`
 --
 ALTER TABLE `seminar_teachers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shifts`

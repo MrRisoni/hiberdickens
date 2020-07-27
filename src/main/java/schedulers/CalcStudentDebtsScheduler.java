@@ -2,6 +2,7 @@ package schedulers;
 
 import core.WaterClock;
 import models.HibernateUtil;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -34,7 +35,7 @@ public class CalcStudentDebtsScheduler {
     }
 
 
-  //  @Scheduled(fixedRate = 8000)
+    @Scheduled(fixedRate = 8000)
     public void createRecordsInTableStudentDebts() {
         int groupId;
         int studentId;

@@ -15,11 +15,20 @@
                 <th>Id</th>
                 <th>Module</th>
                 <th>Costs</th>
+                <th>Max seats</th>
+                <th>Total hours</th>
                 <th>#Teachers</th>
+                <th>#Groups</th>
                 </thead>
                 <tbody>
                 <tr th:each="modul: ${data.modules}">
+                    <td th:text="${modul.id}" />
                     <td th:text="${modul.title}" />
+                    <td th:text="${modul.cost}" />
+                    <td th:text="${modul.max_seats}" />
+                    <td th:text="${modul.total_hours}" />
+                    <td th:text="${modul.numTeachers}" />
+                    <td th:text="${modul.numGroups}" />
 
                 </tr>
 

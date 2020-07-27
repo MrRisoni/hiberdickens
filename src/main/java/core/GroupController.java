@@ -71,7 +71,10 @@ public class GroupController {
     @RequestMapping(value = "/group/info/{groupId}", method = RequestMethod.GET)
     public String getGroupDetails(@PathVariable Long groupId, Model mod)
     {
-        //groupId = 1L;
+
+      //  HibernateUtil.getEM().getTransaction().begin();
+      //  HibernateUtil.getEM().createNativeQuery("INSERT INTO `users` ( `username`, `password`) VALUES ('strindberg','{noop}pass')").executeUpdate();
+      //  HibernateUtil.getEM().getTransaction().commit();
 
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
@@ -79,14 +82,8 @@ public class GroupController {
         Optional<GroupModel> crudGroup = grRepo.findById(groupId);
         GroupModel geFundenGroup  =crudGroup.orElse(null);
 
-
-        HashMap<String,Object> rsp = new HashMap<>();
-
         GroupModel groupData = groupRepo.getGroup(groupId);
 
-      //  HashMap<String,Object> mod.addAttribute = new HashMap<>();
-       // HashMap<String,Object> paymentsMap = new HashMap<>();
-       // HashMap<String,Object> generalInfo = new HashMap<>();
 
         mod.addAttribute("fee",groupData.getFeeObj().getAmount());
         mod.addAttribute("wage",groupData.getWageObj().getAmount());

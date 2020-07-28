@@ -110,6 +110,8 @@ public class GroupController {
 
         mod.addAttribute("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
         mod.addAttribute("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
+        mod.addAttribute("seminarModules",geFundenGroup.getModulesSet());
+
 
         return "groupDetails";
     }

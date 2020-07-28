@@ -114,6 +114,14 @@ public class GroupModel {
            inverseJoinColumns=@JoinColumn(name="teacher_id"))
    private Set<Teacher> teacherSet = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "seminar_groups",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns=@JoinColumn(name="module_id"))
+    private Set<SeminarModules> modulesSet = new HashSet<>();
+
+
     public GroupModel() {
     }
 
@@ -324,5 +332,13 @@ public class GroupModel {
 
     public void setSumHours(float sumHours) {
         this.sumHours = sumHours;
+    }
+
+    public Set<SeminarModules> getModulesSet() {
+        return modulesSet;
+    }
+
+    public void setModulesSet(Set<SeminarModules> modulesSet) {
+        this.modulesSet = modulesSet;
     }
 }

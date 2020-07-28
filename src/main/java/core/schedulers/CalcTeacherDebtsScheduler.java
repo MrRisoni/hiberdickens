@@ -1,7 +1,8 @@
-package schedulers;
+package core.schedulers;
 
 import core.WaterClock;
 import models.HibernateUtil;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -12,7 +13,7 @@ import java.util.List;
 public class CalcTeacherDebtsScheduler {
 
 
-  //  @Scheduled(fixedRate = 5000)
+   // @Scheduled(fixedRate = 5000)
     public void populateTeacherDebts() {
 
         String q = " SELECT tb.id, SUM(h.wage* h.duration) FROM teacher_debts tb " +
@@ -34,7 +35,7 @@ public class CalcTeacherDebtsScheduler {
         em.getTransaction().commit();
     }
 
-   //  @Scheduled(fixedRate = 5000)
+    // @Scheduled(fixedRate = 5000)
     public void createRecordsInTableTeacherDebts() {
         int groupId;
         int teacherId;

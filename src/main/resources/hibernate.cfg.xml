@@ -82,5 +82,9 @@
         <mapping class="models.PayRollCategory"/>
         <mapping class="models.PayRollGroupAnalysis"/>
 
+        <mapping class="models.Seminars"/>
+        <mapping class="models.SeminarsCategory"/>
+        <mapping class="models.SeminarModules"/>
+
     </session-factory>
 </hibernate-configuration>

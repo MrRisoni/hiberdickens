@@ -88,7 +88,7 @@ public class StudentController {
         mod.addAttribute("fullName",student.getMember().getName()+ " " + student.getMember().getSurname());
         mod.addAttribute("totalPayed",student.getTotalPayed());
         mod.addAttribute("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
-
+        mod.addAttribute("parents",student.getParents());
         return "studentDetails";
 
     }

@@ -5,9 +5,7 @@ import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "students")
@@ -35,6 +33,13 @@ public class Student {
 
     @OneToMany(mappedBy = "studentObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Absency> absenciesList = new ArrayList<Absency>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "parents_children",
+            joinColumns = @JoinColumn(name = "child_id"),
+            inverseJoinColumns=@JoinColumn(name="parent_id"))
+    private Set<ParentsModel> parents = new HashSet<>();
 
 
     public Student() {
@@ -88,4 +93,7 @@ public class Student {
         return totalDebt;
     }
 
+    public Set<ParentsModel> getParents() {
+        return parents;
+    }
 }

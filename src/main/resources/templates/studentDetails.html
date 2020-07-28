@@ -42,6 +42,24 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-9">
+            <table class="table table-bordered table-stripped">
+                <thead>
+                <th>Name</th>
+                <th>Phone</th>
+                </thead>
+                <tbody>
+                <tr th:each="prn: ${parents}">
+                    <td th:text="${prn.name}" />
+                    <td th:text="${prn.phone}" />
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     Groups
     <div class="row">

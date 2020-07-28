@@ -35,7 +35,7 @@ public class CalcStudentDebtsScheduler {
     }
 
 
-  //  @Scheduled(fixedRate = 8000)
+   // @Scheduled(fixedRate = 8000)
     public void createRecordsInTableStudentDebts() {
         System.out.println("createRecordsInTableStudentDebts");
         int groupId;

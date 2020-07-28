@@ -85,6 +85,9 @@ public class StudentController {
         mod.addAttribute("mockResultsText",stdRepo.getMockTextResults(studentId));
         mod.addAttribute("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
         mod.addAttribute("timetable",stdRepo.getTimetableHQL(studentId));
+        mod.addAttribute("fullName",student.getMember().getName()+ " " + student.getMember().getSurname());
+        mod.addAttribute("totalPayed",student.getTotalPayed());
+        mod.addAttribute("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
 
         return "studentDetails";
 

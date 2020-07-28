@@ -15,23 +15,21 @@
                 <tbody>
                 <tr>
                     <td>Name</td>
-                    <td>createdAt</td>
+                    <td><p th:text="${fullName}" /></td>
                     <td>Address</td>
-                    <td>sumStudentDebts</td>
-                    <td>lastPayed</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>Phone</td>
-                    <td>totalMembers</td>
+                    <td></td>
                     <td>Email</td>
-                    <td>sumStudentPayments</td>
-                    <td><p th:text="${lastPayed}"></p></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>#Groups</td>
-                    <td>speed</td>
-                    <td>#Joined</td>
-                    <td>sumTeacherDebts</td>
+                    <td><p th:text="${groups.size()}" /></td>
+                    <td>Last payed</td>
+                    <td><p th:text="${lastPayed}"></p></td>
                 </tr>
                 <tr>
                     <td>Total Payed</td>
@@ -39,9 +37,6 @@
                     <td>Remaining Debt</td>
                     <td><p th:text="${remainDebt}"></p></td>
                 </tr>
-
-
-
                 </tbody>
             </table>
         </div>

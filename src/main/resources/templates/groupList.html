@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+<body>
+<section class="groupSection" layout:fragment="content">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th>id</th>
+            <th>Title</th>
+        </thead>
+        <tbody>
+            <tr th:each="tch: ${teacherDebts}">
+                <td th:text="${tch.entityId}" />
+                <td>
+                    <a th:href="@{'/teacher/info/' + ${tch.entityId}}"><p th:text="${tch.fullName}"/></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

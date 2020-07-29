@@ -66,6 +66,22 @@ public class GroupController {
 
     }
 
+    @RequestMapping(value="/groups",method = RequestMethod.GET)
+    public String getGroupList(Model mdl)
+    {
+        // groupId
+        // course title
+        // speed
+        // age
+        // starts
+        // ends
+        // num hours
+        // sum payment
+        // sum students debt
+        mdl.addAttribute("groupList",grRepo.findAll());
+        return "groupList";
+    }
+
     @RequestMapping(value = "/group/info/{groupId}", method = RequestMethod.GET)
     public String getGroupDetails(@PathVariable Long groupId, Model mod)
     {

@@ -1,10 +1,11 @@
 package models;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
@@ -42,16 +43,16 @@ public class GroupModel {
     @Column
     private int num_students;
 
-    @Formula("(SELECT SUM(stp.amount) FROM student_payed stp WHERE stp.group_id = id)")
+    @Formula("(SELECT IF(SUM(stp.amount) IS NULL,0,SUM(stp.amount))  FROM student_payed stp WHERE stp.group_id = id)")
     private float paymentsSumStudents;
 
-    @Formula("(SELECT SUM(tp.amount) FROM teacher_payments tp WHERE tp.group_id = id)")
+    @Formula("(SELECT IF ( SUM(tp.amount) IS NULL,0, SUM(tp.amount)) FROM teacher_payments tp WHERE tp.group_id = id)")
     private float paymentsSumTeachers;
 
-    @Formula("(SELECT SUM(stb.amount) FROM student_debts stb WHERE stb.group_id = id)")
+    @Formula("(SELECT IF ( SUM(stb.amount) IS NULL,0,SUM(stb.amount))  FROM student_debts stb WHERE stb.group_id = id)")
     private float debtsSumStudents;
 
-    @Formula("(SELECT SUM(tb.amount) FROM  teacher_debts tb WHERE tb.group_id = id)")
+    @Formula("(SELECT IF ( SUM(tb.amount) IS NULL,0, SUM(tb.amount))  FROM  teacher_debts tb WHERE tb.group_id = id)")
     private float debtsSumTeachers;
 
     @Formula("( SELECT  SUM(dbt.amount) - SUM(stp.amount)  " +

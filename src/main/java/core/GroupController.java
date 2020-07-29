@@ -85,11 +85,6 @@ public class GroupController {
     @RequestMapping(value = "/group/info/{groupId}", method = RequestMethod.GET)
     public String getGroupDetails(@PathVariable Long groupId, Model mod)
     {
-
-      //  HibernateUtil.getEM().getTransaction().begin();
-      //  HibernateUtil.getEM().createNativeQuery("INSERT INTO `users` ( `username`, `password`) VALUES ('strindberg','{noop}pass')").executeUpdate();
-      //  HibernateUtil.getEM().getTransaction().commit();
-
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 

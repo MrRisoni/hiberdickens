@@ -12,10 +12,10 @@
             <th>Title</th>
         </thead>
         <tbody>
-            <tr th:each="tch: ${teacherDebts}">
-                <td th:text="${tch.entityId}" />
+            <tr th:each="grp: ${groupList}">
+                <td th:text="${grp.id}" />
                 <td>
-                    <a th:href="@{'/teacher/info/' + ${tch.entityId}}"><p th:text="${tch.fullName}"/></a>
+                    <a th:href="@{'/teacher/info/' + ${grp.id}}"><p th:text="${grp.title}"/></a>
                 </td>
             </tr>
         </tbody>

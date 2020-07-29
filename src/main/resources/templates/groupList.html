@@ -15,7 +15,7 @@
             <tr th:each="grp: ${groupList}">
                 <td th:text="${grp.id}" />
                 <td>
-                    <a th:href="@{'/teacher/info/' + ${grp.id}}"><p th:text="${grp.title}"/></a>
+                    <a th:href="@{'/group/info/' + ${grp.id}}"><p th:text="${grp.title}"/></a>
                 </td>
             </tr>
         </tbody>

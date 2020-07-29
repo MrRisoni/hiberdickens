@@ -55,13 +55,13 @@ public class GroupModel {
     @Formula("(SELECT IF(SUM(tb.amount) IS NULL,0, SUM(tb.amount))  FROM  teacher_debts tb WHERE tb.group_id = id)")
     private float debtsSumTeachers;
 
-    @Formula("( SELECT  SUM(dbt.amount) - SUM(stp.amount)  " +
+    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
             "    FROM student_payed stp " +
             "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
             "    WHERE dbt.group_id = id)")
     private float remainingStudentDebt;
 
-    @Formula("( SELECT  SUM(dbt.amount) - SUM(stp.amount)  " +
+    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
             "    FROM student_payed stp " +
             "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
             "    WHERE dbt.group_id = id)")

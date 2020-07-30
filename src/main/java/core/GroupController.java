@@ -69,12 +69,8 @@ public class GroupController {
     @RequestMapping(value="/groups",method = RequestMethod.GET)
     public String getGroupList(Model mdl)
     {
-        // groupId
-        // course title
-        // speed
-        // age
-        // starts
-        // ends
+
+
         // num hours
         // sum payment
         // sum students debt

@@ -40,8 +40,9 @@ public class GroupModel {
     @Column
     private int remaining_seats;
 
-    @Column
-    private int num_students;
+    @Formula("(SELECT IF(COUNT(gs.id) IS NULL,0,COUNT(gs.id)) FROM group_students gs WHERE gs.group_id = id)")
+    private int studentsNum;
+
 
     @Formula("(SELECT IF(SUM(stp.amount) IS NULL,0,SUM(stp.amount))  FROM student_payed stp WHERE stp.group_id = id)")
     private float paymentsSumStudents;
@@ -75,10 +76,10 @@ public class GroupModel {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date ends_at;
 
-    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HistoryModel> historyList = new ArrayList<HistoryModel>();
 
-    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MockExam> mockExams = new ArrayList<MockExam>();
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -105,21 +106,21 @@ public class GroupModel {
     @JoinColumn(name = "wage_id")
     private CourseWage wageObj;
 
-   @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-   private List<GroupStudent> studentsList;
+    @OneToMany(mappedBy = "groupObj", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<GroupStudent> studentsList;
 
-   @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
-   @JoinTable(
-           name = "groups_extra_teachers",
-           joinColumns = @JoinColumn(name = "group_id"),
-           inverseJoinColumns=@JoinColumn(name="teacher_id"))
-   private Set<Teacher> teacherSet = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "groups_extra_teachers",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
+    private Set<Teacher> teacherSet = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinTable(
             name = "seminar_groups",
             joinColumns = @JoinColumn(name = "group_id"),
-            inverseJoinColumns=@JoinColumn(name="module_id"))
+            inverseJoinColumns = @JoinColumn(name = "module_id"))
     private Set<SeminarModules> modulesSet = new HashSet<>();
 
 
@@ -255,13 +256,6 @@ public class GroupModel {
         this.remaining_seats = remaining_seats;
     }
 
-    public int getNum_students() {
-        return num_students;
-    }
-
-    public void setNum_students(int num_students) {
-        this.num_students = num_students;
-    }
 
     public int getActive() {
         return active;
@@ -341,5 +335,13 @@ public class GroupModel {
 
     public void setModulesSet(Set<SeminarModules> modulesSet) {
         this.modulesSet = modulesSet;
+    }
+
+    public int getStudentsNum() {
+        return studentsNum;
+    }
+
+    public void setStudentsNum(int studentsNum) {
+        this.studentsNum = studentsNum;
     }
 }

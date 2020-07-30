@@ -10,6 +10,15 @@
         <thead>
             <th>id</th>
             <th>Title</th>
+            <th>Speed</th>
+            <th>Age</th>
+            <th>Starts</th>
+            <th>Ends</th>
+            <th>#Students</th>
+            <th>Hours</th>
+            <th>Sum Payments</th>
+            <th>Sum Debts</th>
+
         </thead>
         <tbody>
             <tr th:each="grp: ${groupList}">
@@ -17,6 +26,17 @@
                 <td>
                     <a th:href="@{'/group/info/' + ${grp.id}}"><p th:text="${grp.title}"/></a>
                 </td>
+                <td th:text="${grp.speedObj.title}" />
+                <td th:text="${grp.ageObj.title}" />
+                <td th:text="${grp.created_at}" />
+                <td th:text="${grp.ends_at}" />
+                <td th:text="${grp.studentsNum}" />
+                <td th:text="${grp.sumHours}" />
+                <td th:text="${grp.paymentsSumStudents}" />
+                <td th:text="${grp.remainingStudentDebt}" />
+
+
+
             </tr>
         </tbody>
     </table>

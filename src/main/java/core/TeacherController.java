@@ -48,6 +48,12 @@ public class TeacherController {
        // tchRepoSpr.save(t);
     }
 
+    @RequestMapping(value = "/teachers", method = RequestMethod.GET)
+    public String getData( Model mod) {
+        mod.addAttribute("teachers",tchRepoSpr.findAll());
+        return "teachersList";
+    }
+
     @RequestMapping(value = "/teacher/info/{teacherId}", method = RequestMethod.GET)
     public String getData(@PathVariable Long teacherId, Model mod) {
 

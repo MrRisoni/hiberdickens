@@ -1,8 +1,10 @@
 package models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +36,22 @@ public class Teacher {
                 inverseJoinColumns = @JoinColumn(name="course_id"))
     private Set<CourseModel> courses = new HashSet<>();
 
+    @Formula("(SELECT COUNT(gs.id) FROM groups_teachers gs WHERE gs.teacher_id = id)")
+    private int numGroups;
+
+
+    @Formula("(SELECT COUNT(ts.id) FROM teaches ts WHERE ts.teacher_id = id)")
+    private int numCourses;
+
+    @Formula("(SELECT SUM(tp.amount) FROM teacher_payments tp WHERE tp.teacher_id = id)")
+    private BigDecimal totalPayed;
+
+
+    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
+            "    FROM teacher_payments stp " +
+            "    JOIN teacher_debts  dbt ON stp.teacher_id=dbt.teacher_id " +
+            "    WHERE dbt.teacher_id = id)")
+    private float remainingDebt;
 
     public Teacher() {
     }
@@ -86,4 +104,20 @@ public class Teacher {
     public void setGrouppen(List<GroupModel> grouppen) {
         this.grouppen = grouppen;
     } */
+
+    public int getNumGroups() {
+        return numGroups;
+    }
+
+    public int getNumCourses() {
+        return numCourses;
+    }
+
+    public BigDecimal getTotalPayed() {
+        return totalPayed;
+    }
+
+    public float getRemainingDebt() {
+        return remainingDebt;
+    }
 }

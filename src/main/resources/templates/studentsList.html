@@ -23,10 +23,10 @@
                 <a th:href="@{'/student/info/' + ${std.id}}"> <p th:text="${std.member.name}" /> <p th:text="${std.member.surname}" />  </a>
             </td>
             <td th:text="${std.member.created_at}" />
-            <td th:text="${std.member.numGroups}" />
-            <td th:text="${std.member.totalPayed}" />
-            <td th:text="${std.member.remainingDebt}" />
-            <td th:text="${std.member.lastPaymentDate}" />
+            <td th:text="${std.numGroups}" />
+            <td th:text="${std.totalPayed}" />
+            <td th:text="${std.remainingDebt}" />
+            <td th:text="${std.lastPaymentDate}" />
 
         </tr>
         </tbody>

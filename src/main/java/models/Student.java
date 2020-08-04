@@ -28,6 +28,16 @@ public class Student {
     @Formula("(SELECT SUM(tdb.amount) FROM student_debts tdb WHERE tdb.student_id = id)")
     private BigDecimal totalDebt;
 
+    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
+            "    FROM student_payed stp " +
+            "    JOIN student_debts dbt ON stp.student_id=dbt.student_id " +
+            "    WHERE dbt.student_id = id)")
+    private float remainingDebt;
+
+    @Formula("(SELECT COUNT(gs.id) FROM group_students gs WHERE gs.student_id = id)")
+    private int numGroups;
+
+
     @OneToMany(mappedBy = "studentObj", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<StudentDebt> debtsList = new ArrayList<StudentDebt>();
 
@@ -95,5 +105,29 @@ public class Student {
 
     public Set<ParentsModel> getParents() {
         return parents;
+    }
+
+    public void setTotalPayed(BigDecimal totalPayed) {
+        this.totalPayed = totalPayed;
+    }
+
+    public void setTotalDebt(BigDecimal totalDebt) {
+        this.totalDebt = totalDebt;
+    }
+
+    public int getNumGroups() {
+        return numGroups;
+    }
+
+    public void setNumGroups(int numGroups) {
+        this.numGroups = numGroups;
+    }
+
+    public float getRemainingDebt() {
+        return remainingDebt;
+    }
+
+    public void setRemainingDebt(float remainingDebt) {
+        this.remainingDebt = remainingDebt;
     }
 }

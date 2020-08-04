@@ -1,5 +1,6 @@
 package models;
 
+import core.WaterClock;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+<body>
+<section class="groupSection" layout:fragment="content">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th>id</th>
+            <th>Name</th>
+            <th>Registration Date</th>
+            <th>#Groups</th>
+            <th>Sum Payments</th>
+            <th>Sum Debts</th>
+            <th>Last Payed</th>
+        </thead>
+        <tbody>
+        <tr th:each="std: ${students}">
+            <td th:text="${std.id}" />
+            <td>
+                <a th:href="@{'/student/info/' + ${std.id}}"> <p th:text="${std.member.name}" /> <p th:text="${std.member.surname}" />  </a>
+            </td>
+            <td th:text="${std.member.created_at}" />
+            <td th:text="${std.member.numGroups}" />
+            <td th:text="${std.member.totalPayed}" />
+            <td th:text="${std.member.remainingDebt}" />
+            <td th:text="${std.member.lastPaymentDate}" />
+
+        </tr>
+        </tbody>
+        </table>
+</section>
+</body>
+</html>

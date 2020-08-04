@@ -68,6 +68,12 @@ public class StudentController {
         parRepo.save(par);
     }
 
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    public String getData( Model mod) {
+        mod.addAttribute("students",studRepo.findAll());
+        return "studentsList";
+    }
+
     @RequestMapping(value = "/student/info/{studentId}", method = RequestMethod.GET)
     public String getData(@PathVariable Long studentId, Model mod) {
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+<body>
+<section class="groupSection" layout:fragment="content">
+
+    <div class="row">
+        <div class="col-5">
+            <div class="tabChoice">
+                <a href="/courses">Courses</a>
+            </div>            
+        </div>
+        <div class="col-5">
+            <div class="tabChoice">
+                <a href="/groups">Groups</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <div class="tabChoice">
+                <a href="/students">Students</a>
+            </div>            
+        </div>
+        <div class="col-5">
+            <div class="tabChoice">
+                <a href="/teachers">Teachers</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <div class="tabChoice">
+                <a href="/timetable">Timetable</a>
+            </div>
+        </div>        
+    </div>
+</section>
+</body>
+</html>

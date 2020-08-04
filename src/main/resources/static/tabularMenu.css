@@ -1,0 +1,9 @@
+.tabChoice {
+    background-color: #ffffe6;
+    padding:55px;
+    margin : 10px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    
+}

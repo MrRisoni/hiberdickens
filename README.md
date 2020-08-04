@@ -4,15 +4,18 @@
 
 Φροντιστήριο ξένων γλωσσών,μέσης,τριτοβάθμιας εκπαίδευσης,ωδεία,σεμινάρια
 
+a little more than 100 tables!!!
+
+
+Retrieve functions only
+
+
+
 TODO
 
 mutliple choice test platform
 teacher review multiple choice platform
-group view
-student view
-teacher view
-timetable view
+
 interviews planning...
 
 
-a little more than 100 tables!!!

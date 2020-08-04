@@ -3,7 +3,6 @@ package models;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,22 +27,22 @@ public class CourseModel {
     @JoinColumn(name = "course_type_id")
     private CourseType courseTypeObj;
 
-    @Formula("(SELECT COUNT(g.id) FROM groupakia g WHERE g.course_id = id)")
+    @Formula("(SELECT COUNT(gs.id) FROM groupakia g JOIN group_students gs ON gs.group_id = g.id WHERE g.course_id = id)")
     private int numStudents;
 
-    @Formula("(SELECT COUNT(g.id) FROM groupakia g WHERE g.course_id = id)")
+    @Formula("(SELECT COUNT(t.id) FROM teaches t WHERE t.course_id = id)")
     private int numTeachers;
 
-    @Formula("(SELECT COUNT(t.id) FROM teaches t WHERE t.course_id = id)")
+    @Formula("(SELECT COUNT(g.id) FROM groupakia g WHERE g.course_id = id)")
     private int numGroups;
 
-    @Formula("(SELECT COUNT(g.id) FROM groupakia g WHERE g.course_id = id)")
-    private int sumPayments;
+    @Formula("(SELECT IF(SUM(stp.amount) IS NULL,0,SUM(stp.amount)) FROM student_payed stp JOIN groupakia g ON g.id = stp.group_id WHERE g.course_id = id)")
+    private BigDecimal sumPayments;
 
     @Formula("(SELECT COUNT(g.id) FROM groupakia g WHERE g.course_id = id)")
     private int sumHours;
 
-    @Formula("(SELECT COUNT(g.id) FROM groupakia g WHERE g.course_id = id)")
+    @Formula("(SELECT IF(f.amount IS NULL,0,f.amount) FROM course_fees f WHERE f.course_id = id ORDER BY f.updated_at LIMIT 1)")
     private BigDecimal latestFee;
 
     @Formula("(SELECT IF(w.amount IS NULL,0,w.amount) FROM course_wages w WHERE w.course_id = id ORDER BY w.updated_at LIMIT 1)")
@@ -93,30 +92,24 @@ public class CourseModel {
         return numTeachers;
     }
 
-
-
     public int getNumGroups() {
         return numGroups;
     }
 
-    public int getSumPayments() {
+    public BigDecimal getSumPayments() {
         return sumPayments;
     }
-
 
     public int getSumHours() {
         return sumHours;
     }
-
 
     public BigDecimal getLatestFee() {
         return latestFee;
     }
 
 
-    public BigDecimal getLateastWage() {
+    public BigDecimal getLatestWage() {
         return latestWage;
     }
-
-
 }

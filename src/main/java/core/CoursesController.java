@@ -1,6 +1,8 @@
 package core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
@@ -12,7 +14,7 @@ import spring_repos.SprDiplomaRepository;
 import java.util.List;
 
 @CrossOrigin
-@RestController
+@Controller
 public class CoursesController {
 
     @Autowired
@@ -51,15 +53,10 @@ public class CoursesController {
 
     }
 
-    @RequestMapping(value=  "/api/courses" , method = RequestMethod.GET)
-    public List<CourseModel> getCourses()
+    @RequestMapping(value= "/courses" , method = RequestMethod.GET)
+    public String getCourses(Model mod)
     {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-           return session.createCriteria(CourseModel.class).list();
-        }
-        catch (Exception ex) {
-            return null;
-        }
+        mod.addAttribute("courses",spr_course_repo.findAll());
+        return "coursesList";
     }
 }

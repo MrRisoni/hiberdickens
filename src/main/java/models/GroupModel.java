@@ -1,6 +1,5 @@
 package models;
 
-import core.WaterClock;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -43,7 +42,6 @@ public class GroupModel {
 
     @Formula("(SELECT IF(COUNT(gs.id) IS NULL,0,COUNT(gs.id)) FROM group_students gs WHERE gs.group_id = id)")
     private int studentsNum;
-
 
     @Formula("(SELECT IF(SUM(stp.amount) IS NULL,0,SUM(stp.amount))  FROM student_payed stp WHERE stp.group_id = id)")
     private float paymentsSumStudents;

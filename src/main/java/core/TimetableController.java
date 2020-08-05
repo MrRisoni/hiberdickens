@@ -143,6 +143,12 @@ public class TimetableController {
             genRepo.setEntityManager(HibernateUtil.getEM());
             modelo.addAttribute("classes",genRepo.getClasses());
             modelo.addAttribute("courseTypes",typeRsp.findAll());
+            modelo.addAttribute("disciplines",dscplRepo.findAll());
+            modelo.addAttribute("ages",agrp.findAll());
+            modelo.addAttribute("speeds", spdRp.findAll());
+            modelo.addAttribute("buildings",genRepo.getBuildings());
+            modelo.addAttribute("languages",genRepo.getLanguages());
+
             return "timetable";
         }
         catch (Exception ex) {

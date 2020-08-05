@@ -15,10 +15,37 @@
             </select>
         </div>
         <div class="col-4">
-
+            <select id="classesSel">
+                <option value="0">All</option>
+                <option th:each="kls : ${classes}" th:value="${kls.id}" th:text="${kls.title}"></option>
+            </select>
         </div>
         <div class="col-4">
+            <select id="disciplinesSel">
+                <option value="0">All</option>
+                <option th:each="dsc : ${disciplines}" th:value="${dsc.id}" th:text="${dsc.name}"></option>
+            </select>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-4">
+            <select id="agesSel">
+                <option value="0">All</option>
+                <option th:each="ag : ${ages}" th:value="${ag.id}" th:text="${ag.title}"></option>
+            </select>
+        </div>
+        <div class="col-4">
+            <select id="speedsSel">
+                <option value="0">All</option>
+                <option th:each="spd : ${speeds}" th:value="${spd.id}" th:text="${spd.title}"></option>
+            </select>
+        </div>
+        <div class="col-4">
+            <select id="disciplinesSel">
+                <option value="0">All</option>
+                <option th:each="bld : ${buildings}" th:value="${bld.id}" th:text="${bld.name}"></option>
+            </select>
         </div>
     </div>
 

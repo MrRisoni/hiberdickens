@@ -3,6 +3,7 @@ package core;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import hqlmappers.TimetableDTO;
 import repositories.GeneralRepository;
+import spring_repos.*;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -24,6 +26,21 @@ import java.util.stream.Collectors;
 @Controller
 public class TimetableController {
 
+
+    @Autowired
+    private LanguageRepository lgrepo;
+
+    @Autowired
+    private AgeRepository agrp;
+
+    @Autowired
+    private SpeedRepository spdRp;
+
+    @Autowired
+    private CourseTypeRepository typeRsp;
+
+    @Autowired
+    private DisciplineRepository dscplRepo;
 
 
     @Value("${app.beginning}")
@@ -86,7 +103,7 @@ public class TimetableController {
             ArrayList<Object> finalTimeTabling = new ArrayList<>(); // preservers order of insertion
     
             for (int h = 0; h < hourRanges.size(); h++) {
-                System.out.println(hourRanges.get(h).getTitle());
+                //System.out.println(hourRanges.get(h).getTitle());
                 ArrayList<String> thisHour = new ArrayList<>();
     
                 thisHour.add(hourRanges.get(h).getTitle());
@@ -122,7 +139,10 @@ public class TimetableController {
 
             modelo.addAttribute("timetabling", finalTimeTabling);
 
-
+            GeneralRepository genRepo = new GeneralRepository();
+            genRepo.setEntityManager(HibernateUtil.getEM());
+            modelo.addAttribute("classes",genRepo.getClasses());
+            modelo.addAttribute("courseTypes",typeRsp.findAll());
             return "timetable";
         }
         catch (Exception ex) {

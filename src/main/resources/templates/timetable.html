@@ -7,7 +7,22 @@
 <body>
 <section class="groupSection" layout:fragment="content">
 
-Spring timetable
+    <div class="row">
+        <div class="col-4">
+            <select id="courseTypesSel">
+                <option value="0">All</option>
+                 <option th:each="crsTyp : ${courseTypes}" th:value="${crsTyp.id}" th:text="${crsTyp.title}"></option>
+            </select>
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+
+        </div>
+    </div>
+
+
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div class="col-3" th:each="dh: ${days}">

@@ -5,21 +5,23 @@
       layout:decorator="default">
 <body>
 <section class="groupSection" layout:fragment="content">
-    <form action="#" th:action="@{/students}" th:object="${postObj}" method="get">
         <div class="row">
             <div class="col-4 form-group">
-                <select class="form-control" id="pagesSel" th:field="*{perPage}">
+                <select class="form-control" id="pagesSel">
                     <option value="5">Per Page</option>
                     <option value="15">15</option>
                     <option value="25">25</option>
                     <option value="100">100</option>
                 </select>
             </div>
+            <a th:href="@{'/page/' + ${currentPage} + '/perPage/5}">5</a>
+
             <div class="col-4 offset-2">
                 <button type="submit">Update</button>
             </div>
         </div>
-    </form>
+
+
     <table class="table table-bordered table-striped">
         <thead>
             <th>id</th>

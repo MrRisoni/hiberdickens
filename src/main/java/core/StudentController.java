@@ -77,10 +77,11 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String getData(@ModelAttribute StudentListPostObj postObj, BindingResult errors, Model mod) {
+    public String getData(Model mod) {
         // pagination
         Pageable foo = PageRequest.of(0,5);
         mod.addAttribute("students",studPageRepo.findAll(foo));
+        mod.addAttribute("currentPage",4);
         return "studentsList";
     }
 

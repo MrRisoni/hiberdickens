@@ -2,12 +2,15 @@ package core;
 
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import repositories.StudentRepository;
 import spring_repos.MemberRepository;
 import spring_repos.ParentRepository;
+
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,6 +31,9 @@ public class StudentController {
 
     @Autowired
     spring_repos.StudentRepository studRepo;
+
+    @Autowired
+    spring_repos.StudentPagingRepository studPageRepo;
 
     @RequestMapping(value = "/api/student/update")
     public void updateStudent() {
@@ -70,7 +76,9 @@ public class StudentController {
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
     public String getData( Model mod) {
-        mod.addAttribute("students",studRepo.findAll());
+        // pagination
+        Pageable foo = PageRequest.of(0,5);
+        mod.addAttribute("students",studPageRepo.findAll(foo));
         return "studentsList";
     }
 

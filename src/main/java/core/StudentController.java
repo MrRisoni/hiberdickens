@@ -1,11 +1,13 @@
 package core;
 
+import form_posts.StudentListPostObj;
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import repositories.StudentRepository;
 import spring_repos.MemberRepository;
@@ -75,12 +77,13 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String getData( Model mod) {
+    public String getData(@ModelAttribute StudentListPostObj postObj, BindingResult errors, Model mod) {
         // pagination
         Pageable foo = PageRequest.of(0,5);
         mod.addAttribute("students",studPageRepo.findAll(foo));
         return "studentsList";
     }
+
 
     @RequestMapping(value = "/student/info/{studentId}", method = RequestMethod.GET)
     public String getData(@PathVariable Long studentId, Model mod) {

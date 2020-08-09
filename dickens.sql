@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 09, 2020 at 09:56 AM
+-- Generation Time: Aug 09, 2020 at 10:02 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -3171,6 +3171,12 @@ ALTER TABLE `members`
   ADD KEY `members_suburb_id_foreign` (`suburb_id`);
 
 --
+-- Indexes for table `members_aud`
+--
+ALTER TABLE `members_aud`
+  ADD PRIMARY KEY (`id`,`rev`);
+
+--
 -- Indexes for table `mock_exams`
 --
 ALTER TABLE `mock_exams`
@@ -4426,7 +4432,6 @@ ALTER TABLE `discounts`
 -- Constraints for table `groupakia`
 --
 ALTER TABLE `groupakia`
-  ADD CONSTRAINT `FKat205al2gpkgh81q73blgn0r5` FOREIGN KEY (`speed_id`) REFERENCES `speeds` (`id`),
   ADD CONSTRAINT `groupakia_ibfk_1` FOREIGN KEY (`rank_id`) REFERENCES `group_ranks` (`id`),
   ADD CONSTRAINT `groupakia_ibfk_2` FOREIGN KEY (`wage_id`) REFERENCES `course_wages` (`id`),
   ADD CONSTRAINT `groups_age_id_foreign` FOREIGN KEY (`age_id`) REFERENCES `ages` (`id`),
@@ -4546,7 +4551,6 @@ ALTER TABLE `mock_exams`
 -- Constraints for table `mock_exams_results_numeric`
 --
 ALTER TABLE `mock_exams_results_numeric`
-  ADD CONSTRAINT `FK5tdvp8dhxiqcvg9pua2j3rb03` FOREIGN KEY (`exam_id`) REFERENCES `real_exams` (`id`),
   ADD CONSTRAINT `mock_exams_results_exam_id_foreign` FOREIGN KEY (`exam_id`) REFERENCES `mock_exams` (`id`),
   ADD CONSTRAINT `mock_exams_results_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 
@@ -4615,7 +4619,6 @@ ALTER TABLE `pool_chapters`
 -- Constraints for table `pool_questions`
 --
 ALTER TABLE `pool_questions`
-  ADD CONSTRAINT `FKlta3hjjc8t44t0dduidcfj0gp` FOREIGN KEY (`chapter_id`) REFERENCES `pool_questions` (`id`),
   ADD CONSTRAINT `pool_questions_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `pool_chapters` (`id`);
 
 --

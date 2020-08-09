@@ -95,7 +95,7 @@ public class StudentController {
         // pagination
         System.out.println("POSTTT");
         System.out.println(formObj.getPerPage());
-        Pageable foo = PageRequest.of(0,5);
+        Pageable foo = PageRequest.of(0,formObj.getPerPage());
         mod.addAttribute("students",studPageRepo.findAll(foo));
         mod.addAttribute("currentPage",4);
         mod.addAttribute("formObj", formObj);

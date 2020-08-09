@@ -14,6 +14,7 @@ import spring_repos.MemberRepository;
 import spring_repos.ParentRepository;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -85,6 +86,14 @@ public class StudentController {
         return "studentsList";
     }
 
+    @RequestMapping(value = "/students", method = RequestMethod.POST)
+    public String paginateSubmit(@ModelAttribute StudentListPostObj greeting,Model mod) {
+        // pagination
+        Pageable foo = PageRequest.of(0,5);
+        mod.addAttribute("students",studPageRepo.findAll(foo));
+        mod.addAttribute("currentPage",4);
+        return "studentsList";
+    }
 
     @RequestMapping(value = "/student/info/{studentId}", method = RequestMethod.GET)
     public String getData(@PathVariable Long studentId, Model mod) {

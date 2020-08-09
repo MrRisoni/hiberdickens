@@ -51,9 +51,9 @@ public class Student {
             inverseJoinColumns=@JoinColumn(name="parent_id"))
     private Set<ParentsModel> parents = new HashSet<>();
 
-    @OneToOne(mappedBy = "studentObj", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
-    private Discount discountMdl;
+    @OneToMany(mappedBy = "studentObj", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private List<Discount> discountList = new ArrayList<>();
 
     public Student() {
     }
@@ -134,11 +134,12 @@ public class Student {
         this.remainingDebt = remainingDebt;
     }
 
-    public Discount getDiscountMdl() {
-        return discountMdl;
+
+    public List<Discount> getDiscountList() {
+        return discountList;
     }
 
-    public void setDiscountMdl(Discount discountMdl) {
-        this.discountMdl = discountMdl;
+    public void setDiscountList(List<Discount> discountList) {
+        this.discountList = discountList;
     }
 }

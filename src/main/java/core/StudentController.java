@@ -134,6 +134,9 @@ public class StudentController {
         mod.addAttribute("totalPayed",student.getTotalPayed());
         mod.addAttribute("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
         mod.addAttribute("parents",student.getParents());
+        mod.addAttribute("discounts",student.getDiscountList());
+        System.out.println("Discounts!!");
+        System.out.println(student.getDiscountList().size());
         return "studentDetails";
 
     }

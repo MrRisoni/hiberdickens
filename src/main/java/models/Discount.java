@@ -12,7 +12,7 @@ public class Discount {
 
     @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "discount_id")
-    private Discount discModel;
+    private DiscountModel discModel;
 
     @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "student_id")
@@ -35,11 +35,11 @@ public class Discount {
         this.id = id;
     }
 
-    public Discount getDiscModel() {
+    public DiscountModel getDiscModel() {
         return discModel;
     }
 
-    public void setDiscModel(Discount discModel) {
+    public void setDiscModel(DiscountModel discModel) {
         this.discModel = discModel;
     }
 

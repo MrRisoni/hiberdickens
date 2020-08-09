@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -96,7 +97,10 @@ public class StudentController {
         // pagination
         System.out.println("POSTTT");
         System.out.println(formObj.getPerPage());
-        Pageable foo = PageRequest.of(0,formObj.getPerPage());
+
+        //Sort srt = new Sort(new Sort.Order(Sort.Direction.DESC, "remainingDebt"));
+
+        Pageable foo = PageRequest.of(0,formObj.getPerPage(),Sort.by(Sort.Direction.DESC, "remainingDebt"));
         Page<Student> paginationResult = studPageRepo.findAll(foo);
 
         mod.addAttribute("students",paginationResult);

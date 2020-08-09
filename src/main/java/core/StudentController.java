@@ -85,19 +85,21 @@ public class StudentController {
         mod.addAttribute("currentPage",4);
 
         StudentListPostObj form = new StudentListPostObj();
-        mod.addAttribute("StudentListPostObj", form);
+        mod.addAttribute("formObj", form);
 
         return "studentsList";
     }
 
     @RequestMapping(value = "/students", method = RequestMethod.POST)
-    public String paginateSubmit(@ModelAttribute StudentListPostObj postObj,Model mod,BindingResult bindingResult) {
+    public String paginateSubmit(@ModelAttribute StudentListPostObj formObj,Model mod,BindingResult bindingResult) {
         // pagination
         System.out.println("POSTTT");
-        System.out.println(postObj.getPerPage());
+        System.out.println(formObj.getPerPage());
         Pageable foo = PageRequest.of(0,5);
         mod.addAttribute("students",studPageRepo.findAll(foo));
         mod.addAttribute("currentPage",4);
+        mod.addAttribute("formObj", formObj);
+
         return "studentsList";
     }
 

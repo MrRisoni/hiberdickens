@@ -5,7 +5,7 @@
       layout:decorator="default">
 <body>
 <section class="groupSection" layout:fragment="content">
-    <form action="#" th:action="@{/students}" th:object="${StudentListPostObj}" method="post">
+    <form action="#" th:action="@{/students}" th:object="${formObj}" method="post">
         <div class="row">
             <div class="col-4 form-group">
                 <select class="form-control" id="pagesSel" th:field="*{perPage}">

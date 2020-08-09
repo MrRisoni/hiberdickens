@@ -41,13 +41,13 @@ public class GroupRepository extends Repository {
                 " LEFT JOIN  " +
                 "    (  " +
                 "       SELECT SUM(amount) AS sumPayed,student_id FROM student_payed  " +
-                "       WHERE group_id = id  " +
+                "       WHERE group_id = :id  " +
                 "       GROUP BY student_id  " +
                 "    ) AS studentsPayed ON  studentsPayed.student_id = gs.student_id  " +
                 " LEFT JOIN  " +
                 " (  " +
                 "      SELECT SUM(amount) AS sumInDebt,student_id FROM student_debts  " +
-                "       WHERE group_id = id  " +
+                "       WHERE group_id = :id  " +
                 "   GROUP BY student_id  " +
                 " ) AS studentsDebt ON  studentsDebt.student_id = gs.student_id  " +
                 " WHERE gs.group_id = :id ");
@@ -118,7 +118,7 @@ public class GroupRepository extends Repository {
     {
       return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
-                " JOIN hs.groupObj gr WHERE gr.id= :id", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
+                " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
 
     }
 

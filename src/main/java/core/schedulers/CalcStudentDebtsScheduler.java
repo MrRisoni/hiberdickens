@@ -12,14 +12,15 @@ import java.util.List;
 @Component
 public class CalcStudentDebtsScheduler {
 
-   // @Scheduled(fixedRate = 28000)
+   // @Scheduled(fixedRate = 8000)
     public void populateStudentDebts() {
+        // per month!!!
         String q=" SELECT stb.id, SUM(h.fee* h.duration) FROM student_debts stb " +
         " JOIN history h ON h.group_id = stb.group_id " +
         " WHERE :cegodnya >=stb.starts_at " +
         " AND stb.ends_at >=:cegodnya " +
         " AND h.started >= stb.starts_at " +
-        " AND stb.ends_at >= h.started " +
+        " AND stb.ends_at >= h.started AND MONTH(h.started) =8 " +
         " GROUP BY stb.id ";
         EntityManager em = HibernateUtil.getEM();
         em.getTransaction().begin();
@@ -37,7 +38,7 @@ public class CalcStudentDebtsScheduler {
 
    // @Scheduled(fixedRate = 8000)
     public void createRecordsInTableStudentDebts() {
-        System.out.println("createRecordsInTableStudentDebts");
+       // System.out.println("createRecordsInTableStudentDebts");
         int groupId;
         int studentId;
         String monthId;
@@ -57,7 +58,7 @@ public class CalcStudentDebtsScheduler {
         for (Object[] groupStudentCombo : groupsStudents) {
             groupId = Integer.parseInt(groupStudentCombo[0].toString());
             studentId = Integer.parseInt(groupStudentCombo[1].toString());
-            System.out.println(groupId + " " + studentId);
+           // System.out.println(groupId + " " + studentId);
 
             // check if there is a record for all months, this query checks from beginning of time...
             List<Object[]> results = em.createNativeQuery("SELECT IF( stb.group_id IS NULL,1,0) AS recordNotExists, " +
@@ -69,15 +70,15 @@ public class CalcStudentDebtsScheduler {
                     .setParameter("gid", groupId)
                     .setParameter("sid", studentId)
                     .setParameter("cegodnya", WaterClock.getStrDateTime()).getResultList();
-            System.out.println("QUERY SIZE : " + results.size());
-            System.out.println(groupId + " " + studentId);
-            System.out.println("----------------------------");
+           // System.out.println("QUERY SIZE : " + results.size());
+           // System.out.println(groupId + " " + studentId);
+           // System.out.println("----------------------------");
             for (Object[] studentGroup : results) {
 
-                System.out.println("not exists " + studentGroup[0]);
+               // System.out.println("not exists " + studentGroup[0]);
                 lesson_year = studentGroup[1].toString();
                 monthId = studentGroup[2].toString();
-                System.out.println(lesson_year + " " + monthId);
+               // System.out.println(lesson_year + " " + monthId);
                 recordNotExists = Integer.parseInt(studentGroup[0].toString());
 
                 if (recordNotExists == 1) {
@@ -91,7 +92,7 @@ public class CalcStudentDebtsScheduler {
 
 
                     String q = "INSERT IGNORE INTO `student_debts` (`created_at`, `updated_at`, `student_id`, `amount`, `group_id`, `month_id`, `lesson_year`,`starts_at`,`ends_at`) VALUES (NOW(),NOW(),'" + String.valueOf(studentId) + "',0,'" + String.valueOf(groupId) + "','" + String.valueOf(monthId) + "', '" + String.valueOf(lesson_year) + "','" + leftLimit + "','" + rightLimit + "') ";
-                    System.out.println(q);
+                   // System.out.println(q);
                     Query persistableQuery = em.createNativeQuery(q);
                     persistableQuery.executeUpdate();
 

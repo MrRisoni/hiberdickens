@@ -5,10 +5,10 @@
       layout:decorator="default">
 <body>
 <section class="groupSection" layout:fragment="content">
-    <form action="#" th:action="@{/students}" th:object="${postObj}" method="post">
+    <form action="#" th:action="@{/students}" th:object="${StudentListPostObj}" method="post">
         <div class="row">
             <div class="col-4 form-group">
-                <select class="form-control" id="pagesSel">
+                <select class="form-control" id="pagesSel" th:field="*{perPage}">
                     <option value="5">Per Page</option>
                     <option th:value="15" th:text="15"></option>                    
                     <option value="25">25</option>

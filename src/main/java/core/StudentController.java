@@ -83,6 +83,10 @@ public class StudentController {
         Pageable foo = PageRequest.of(0,5);
         mod.addAttribute("students",studPageRepo.findAll(foo));
         mod.addAttribute("currentPage",4);
+
+        StudentListPostObj form = new StudentListPostObj();
+        mod.addAttribute("StudentListPostObj", form);
+
         return "studentsList";
     }
 

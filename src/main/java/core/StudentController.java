@@ -3,6 +3,7 @@ package core;
 import form_posts.StudentListPostObj;
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -96,8 +97,13 @@ public class StudentController {
         System.out.println("POSTTT");
         System.out.println(formObj.getPerPage());
         Pageable foo = PageRequest.of(0,formObj.getPerPage());
-        mod.addAttribute("students",studPageRepo.findAll(foo));
+        Page<Student> paginationResult = studPageRepo.findAll(foo);
+
+        mod.addAttribute("students",paginationResult);
         mod.addAttribute("currentPage",4);
+        mod.addAttribute("totalPages", paginationResult.getTotalPages());
+        mod.addAttribute("totalRecords", paginationResult.getTotalElements());
+        mod.addAttribute("itemsInPage", formObj.getPerPage());
         mod.addAttribute("formObj", formObj);
 
         return "studentsList";

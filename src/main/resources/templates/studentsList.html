@@ -23,11 +23,8 @@
         </div>
     </form>
 
-    <div th:with="rowId=${0}">
-
     <table class="table table-bordered table-striped table-hover">
         <thead>
-            <th>Id</th>
             <th>Student Id</th>
             <th>Name</th>
             <th>Registration Date</th>
@@ -38,7 +35,6 @@
         </thead>
         <tbody>
         <tr th:each="std: ${students}">
-            <td th:text="${rowId}" />
             <td th:text="${std.id}" />
             <td>
                 <a th:href="@{'/student/info/' + ${std.id}}"> <p th:text="${std.member.name}" /> <p th:text="${std.member.surname}" />  </a>
@@ -52,6 +48,7 @@
         </tr>
         </tbody>
         </table>
+    Showing <p th:text="${itemsInPage}"> of total <p th:text="${totalRecords}"></p>
 </section>
 </body>
 </html>

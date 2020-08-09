@@ -87,13 +87,12 @@
 
     Payments and Debts
     <div class="row">
-        <div class="col-9">
+        <div class="col-5">
             <table class="table table-bordered table-stripped">
                 <thead>
                 <th>id</th>
                 <th>Group</th>
                 <th>Payed</th>
-                <th>In Debt</th>
                 <th>period</th>
                 </thead>
                 <tbody>
@@ -101,8 +100,26 @@
                     <td th:text="${pay.entityId}" />
                     <td th:text="${pay.courseName}" />
                     <td th:text="${pay.amount}" />
-                    <td th:text="${pay.amount}" />
                     <td th:text="${pay.monthTitle}" />
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-5">
+            <table class="table table-bordered table-stripped">
+                <thead>
+                <th>id</th>
+                <th>Group</th>
+                <th>Debts</th>
+                <th>period</th>
+                </thead>
+                <tbody>
+                <tr th:each="db: ${debts}">
+                    <td th:text="${db.entityId}" />
+                    <td th:text="${db.courseName}" />
+                    <td th:text="${db.amount}" />
+                    <td th:text="${db.monthTitle}" />
                 </tr>
                 </tbody>
             </table>

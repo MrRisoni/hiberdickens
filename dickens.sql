@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 09, 2020 at 10:02 AM
+-- Generation Time: Aug 11, 2020 at 07:06 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -372,6 +372,13 @@ CREATE TABLE `discounts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `discounts`
+--
+
+INSERT INTO `discounts` (`id`, `student_id`, `discount_id`, `group_id`, `active`, `created_at`, `updated_at`) VALUES
+(1, 178, 1, 7, 1, '2019-07-01 15:10:09', '2019-07-01 15:10:09');
+
 -- --------------------------------------------------------
 
 --
@@ -387,6 +394,13 @@ CREATE TABLE `discount_model` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `expires_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `discount_model`
+--
+
+INSERT INTO `discount_model` (`id`, `title`, `percentage`, `active`, `created_at`, `updated_at`, `expires_at`) VALUES
+(1, 'Πολύτεκνοι', 14.00, 1, '2019-07-01 15:10:09', '2019-07-01 15:10:09', '2020-09-01 18:10:09');
 
 -- --------------------------------------------------------
 
@@ -3793,13 +3807,13 @@ ALTER TABLE `disciplines`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `discount_model`
 --
 ALTER TABLE `discount_model`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `grading_sys`
@@ -4231,7 +4245,7 @@ ALTER TABLE `speeds`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- AUTO_INCREMENT for table `student_debts`

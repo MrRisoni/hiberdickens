@@ -9,15 +9,8 @@ a little more than 100 tables!!!
 https://dickenserp.herokuapp.com/
 
 
-Retrieve functions only
+Retrieve functions only ,no create
 
 
-
-TODO
-
-mutliple choice test platform
-teacher review multiple choice platform
-
-interviews planning...
 
 

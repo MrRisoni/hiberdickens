@@ -15,15 +15,18 @@ public class CalcStudentDebtsScheduler {
    // @Scheduled(fixedRate = 8000)
     public void populateStudentDebts() {
         // per month!!!
-        String q=" SELECT stb.id, SUM(h.fee* h.duration) FROM student_debts stb " +
+        String q=" SELECT stb.id SUM(h.fee* h.duration) FROM student_debts stb " +
         " JOIN history h ON h.group_id = stb.group_id " +
         " WHERE :cegodnya >=stb.starts_at " +
         " AND stb.ends_at >=:cegodnya " +
         " AND h.started >= stb.starts_at " +
-        " AND stb.ends_at >= h.started AND MONTH(h.started) =8 " +
+        " AND stb.ends_at >= h.started " +
         " GROUP BY stb.id ";
         EntityManager em = HibernateUtil.getEM();
         em.getTransaction().begin();
+
+        // check if discount!
+
 
         // discounts
         List<Object[]> results = em.createNativeQuery(q).setParameter("cegodnya", WaterClock.getStrDateTime()).getResultList();

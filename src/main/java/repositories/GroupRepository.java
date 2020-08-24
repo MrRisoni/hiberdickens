@@ -1,11 +1,17 @@
 package repositories;
 
 
+import core.Utilities;
+import hqlmappers.GroupRecord;
 import hqlmappers.TimetableDTO;
 import models.*;
+import pojos.GroupRecordsAPI;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -122,4 +128,34 @@ public class GroupRepository extends Repository {
 
     }
 
+
+    public GroupRecordsAPI getGroupsList(int currentPage, int perPage, String sortOrder, String sortProperty)
+    {
+
+        String sqlCount = "SELECT id FROM groupakia";
+        int totalRecords = this.getEntityManager().createNativeQuery(sqlCount).getResultList().size();
+        HashMap<String,Integer> pages = Utilities.getPaginationPages(currentPage, perPage, totalRecords);
+
+        String hql = "SELECT new hqlmappers.GroupRecord(g.id,g.title,spd.title, age.title,fee.amount,wage.amount, " +
+                "  g.created_at ,g.ends_at, g.studentsNum," +
+                " g.sumHours, g.paymentsSumTeachers,g.paymentsSumStudents, g.remainingTeacherDebt ,g.remainingStudentDebt )" +
+                "  FROM GroupModel g " +
+                "  JOIN g.speedObj spd" +
+                "  JOIN g.ageObj age" +
+                "  JOIN g.feeObj fee" +
+                "  JOIN g.wageObj wage " +
+                "  WHERE g.active =1 ORDER BY g.remainingStudentDebt DESC";
+
+
+
+        List<GroupRecord> results =  this.getEntityManager().createQuery(hql).setFirstResult(pages.get("start")).setMaxResults(perPage).getResultList();
+;
+        GroupRecordsAPI rsp = new GroupRecordsAPI();
+        rsp.setGroups(results);
+        rsp.setCurrentPage(currentPage);
+        rsp.setTotalPages(pages.get("totalPages"));
+        rsp.setTotalRecords(totalRecords);
+
+        return rsp;
+    }
 }

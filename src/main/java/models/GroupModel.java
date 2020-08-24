@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
@@ -41,34 +42,34 @@ public class GroupModel {
     private int remaining_seats;
 
     @Formula("(SELECT IF(COUNT(gs.id) IS NULL,0,COUNT(gs.id)) FROM group_students gs WHERE gs.group_id = id)")
-    private int studentsNum;
+    private BigDecimal studentsNum;
 
     @Formula("(SELECT IF(SUM(stp.amount) IS NULL,0,SUM(stp.amount))  FROM student_payed stp WHERE stp.group_id = id)")
-    private float paymentsSumStudents;
+    private BigDecimal paymentsSumStudents;
 
     @Formula("(SELECT IF(SUM(tp.amount) IS NULL,0, SUM(tp.amount)) FROM teacher_payments tp WHERE tp.group_id = id)")
-    private float paymentsSumTeachers;
+    private BigDecimal paymentsSumTeachers;
 
     @Formula("(SELECT IF(SUM(stb.amount) IS NULL,0,SUM(stb.amount))  FROM student_debts stb WHERE stb.group_id = id)")
-    private float debtsSumStudents;
+    private BigDecimal debtsSumStudents;
 
     @Formula("(SELECT IF(SUM(tb.amount) IS NULL,0, SUM(tb.amount))  FROM  teacher_debts tb WHERE tb.group_id = id)")
-    private float debtsSumTeachers;
+    private BigDecimal debtsSumTeachers;
 
     @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
             "    FROM student_payed stp " +
             "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
             "    WHERE dbt.group_id = id)")
-    private float remainingStudentDebt;
+    private BigDecimal remainingStudentDebt;
 
     @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
             "    FROM student_payed stp " +
             "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
             "    WHERE dbt.group_id = id)")
-    private float remainingTeacherDebt;
+    private BigDecimal remainingTeacherDebt;
 
     @Formula("(SELECT IF(SUM(h.duration) IS NULL,0,SUM(h.duration)) FROM history h JOIN groupakia g ON g.id = h.group_id WHERE h.group_id= id)")
-    private float sumHours;
+    private BigDecimal sumHours;
 
     @Column
     @UpdateTimestamp
@@ -272,59 +273,59 @@ public class GroupModel {
         this.ends_at = ends_at;
     }
 
-    public float getPaymentsSumStudents() {
+    public BigDecimal getPaymentsSumStudents() {
         return paymentsSumStudents;
     }
 
-    public void setPaymentsSumStudents(float paymentsSumStudents) {
+    public void setPaymentsSumStudents(BigDecimal paymentsSumStudents) {
         this.paymentsSumStudents = paymentsSumStudents;
     }
 
-    public float getPaymentsSumTeachers() {
+    public BigDecimal getPaymentsSumTeachers() {
         return paymentsSumTeachers;
     }
 
-    public void setPaymentsSumTeachers(float paymentsSumTeachers) {
+    public void setPaymentsSumTeachers(BigDecimal paymentsSumTeachers) {
         this.paymentsSumTeachers = paymentsSumTeachers;
     }
 
-    public float getDebtsSumStudents() {
+    public BigDecimal getDebtsSumStudents() {
         return debtsSumStudents;
     }
 
-    public void setDebtsSumStudents(float debtsSumStudents) {
+    public void setDebtsSumStudents(BigDecimal debtsSumStudents) {
         this.debtsSumStudents = debtsSumStudents;
     }
 
-    public float getDebtsSumTeachers() {
+    public BigDecimal getDebtsSumTeachers() {
         return debtsSumTeachers;
     }
 
-    public void setDebtsSumTeachers(float debtsSumTeachers) {
+    public void setDebtsSumTeachers(BigDecimal debtsSumTeachers) {
         this.debtsSumTeachers = debtsSumTeachers;
     }
 
-    public float getRemainingStudentDebt() {
+    public BigDecimal getRemainingStudentDebt() {
         return remainingStudentDebt;
     }
 
-    public void setRemainingStudentDebt(float remainingStudentDebt) {
+    public void setRemainingStudentDebt(BigDecimal remainingStudentDebt) {
         this.remainingStudentDebt = remainingStudentDebt;
     }
 
-    public float getRemainingTeacherDebt() {
+    public BigDecimal getRemainingTeacherDebt() {
         return remainingTeacherDebt;
     }
 
-    public void setRemainingTeacherDebt(float remainingTeacherDebt) {
+    public void setRemainingTeacherDebt(BigDecimal remainingTeacherDebt) {
         this.remainingTeacherDebt = remainingTeacherDebt;
     }
 
-    public float getSumHours() {
+    public BigDecimal getSumHours() {
         return sumHours;
     }
 
-    public void setSumHours(float sumHours) {
+    public void setSumHours(BigDecimal sumHours) {
         this.sumHours = sumHours;
     }
 
@@ -336,11 +337,11 @@ public class GroupModel {
         this.modulesSet = modulesSet;
     }
 
-    public int getStudentsNum() {
+    public BigDecimal getStudentsNum() {
         return studentsNum;
     }
 
-    public void setStudentsNum(int studentsNum) {
+    public void setStudentsNum(BigDecimal studentsNum) {
         this.studentsNum = studentsNum;
     }
 }

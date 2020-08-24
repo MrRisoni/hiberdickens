@@ -1,7 +1,7 @@
 package models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "course_wages")
@@ -11,9 +11,8 @@ public class CourseWage {
     @Column
     private Long id;
 
-    @NotNull
     @Column
-    private float amount;
+    private BigDecimal amount;
 
     public CourseWage() {
     }
@@ -26,11 +25,11 @@ public class CourseWage {
         this.id = id;
     }
 
-    public float getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 }

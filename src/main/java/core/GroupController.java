@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import models.*;
 
 import org.springframework.web.bind.annotation.*;
+import pojos.GroupRecordsAPI;
 import repositories.GroupMember;
 import repositories.GroupRepository;
 import spring_repos.SprGroupRepository;
@@ -66,16 +67,16 @@ public class GroupController {
 
     }
 
-    @RequestMapping(value="/groups",method = RequestMethod.GET)
-    public String getGroupList(Model mdl)
+    @RequestMapping(value="/api/groups",method = RequestMethod.GET)
+    public GroupRecordsAPI getGroupList()
     {
+        int perPage = 10;
+        int currentPage = 1;
+        GroupRepository groupRepo = new GroupRepository();
+        groupRepo.setEntityManager(HibernateUtil.getEM());
 
+        return  groupRepo.getGroupsList(currentPage, perPage,"DESC","remainingDebt");
 
-        // num hours
-        // sum payment
-        // sum students debt
-        mdl.addAttribute("groupList",grRepo.findAll());
-        return "groupList";
     }
 
     @RequestMapping(value = "/group/info/{groupId}", method = RequestMethod.GET)

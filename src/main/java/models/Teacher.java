@@ -5,10 +5,7 @@ import org.hibernate.annotations.Formula;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "teachers")
@@ -39,19 +36,17 @@ public class Teacher {
     @Formula("(SELECT COUNT(gs.id) FROM groups_teachers gs WHERE gs.teacher_id = id)")
     private int numGroups;
 
-
     @Formula("(SELECT COUNT(ts.id) FROM teaches ts WHERE ts.teacher_id = id)")
     private int numCourses;
 
-    @Formula("(SELECT SUM(tp.amount) FROM teacher_payments tp WHERE tp.teacher_id = id)")
+    @Column(name="total_payed")
     private BigDecimal totalPayed;
 
+    @Column(name="total_debt")
+    private BigDecimal remainingDebt;
 
-    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
-            "    FROM teacher_payments stp " +
-            "    JOIN teacher_debts  dbt ON stp.teacher_id=dbt.teacher_id " +
-            "    WHERE dbt.teacher_id = id)")
-    private float remainingDebt;
+    @Column(name="calculated_at")
+    private Date calculatedAt;
 
     public Teacher() {
     }
@@ -117,7 +112,23 @@ public class Teacher {
         return totalPayed;
     }
 
-    public float getRemainingDebt() {
+    public BigDecimal getRemainingDebt() {
         return remainingDebt;
+    }
+
+    public void setTotalPayed(BigDecimal totalPayed) {
+        this.totalPayed = totalPayed;
+    }
+
+    public void setRemainingDebt(BigDecimal remainingDebt) {
+        this.remainingDebt = remainingDebt;
+    }
+
+    public Date getCalculatedAt() {
+        return calculatedAt;
+    }
+
+    public void setCalculatedAt(Date calculatedAt) {
+        this.calculatedAt = calculatedAt;
     }
 }

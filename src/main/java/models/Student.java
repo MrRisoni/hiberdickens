@@ -31,6 +31,9 @@ public class Student {
     @Column(name="total_debt")
     private BigDecimal remainingDebt;
 
+    @Column(name="calculated_at")
+    private Date calculatedAt;
+
     @Formula("(SELECT COUNT(gs.id) FROM group_students gs WHERE gs.student_id = id)")
     private int numGroups;
 
@@ -138,5 +141,13 @@ public class Student {
 
     public void setDiscountList(List<Discount> discountList) {
         this.discountList = discountList;
+    }
+
+    public Date getCalculatedAt() {
+        return calculatedAt;
+    }
+
+    public void setCalculatedAt(Date calculatedAt) {
+        this.calculatedAt = calculatedAt;
     }
 }

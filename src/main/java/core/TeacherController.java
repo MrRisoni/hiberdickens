@@ -1,6 +1,7 @@
 package core;
 
 import hqlmappers.TimetableDTO;
+import models.HibernateUtil;
 import models.HourModel;
 import models.Member;
 import models.Teacher;
@@ -8,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pojos.StudentRecordsAPI;
+import pojos.TeacherRecordsAPI;
 import repositories.GeneralRepository;
+import repositories.StudentRepository;
 import repositories.TeacherRepository;
 import spring_repos.MemberRepository;
 import spring_repos.SprTeacherRepository;
@@ -47,10 +51,15 @@ public class TeacherController {
        // tchRepoSpr.save(t);
     }
 
-    @RequestMapping(value = "/teachers", method = RequestMethod.GET)
-    public String getData( Model mod) {
-        mod.addAttribute("teachers",tchRepoSpr.findAll());
-        return "teachersList";
+    @RequestMapping(value = "/api/teachers", method = RequestMethod.GET)
+    public TeacherRecordsAPI getTeachersList() {
+        int perPage = 10;
+        int currentPage = 1;
+
+        TeacherRepository tchRp = new TeacherRepository();
+        tchRp.setEntityManager(HibernateUtil.getEM());
+
+        return  tchRp.getTeachersList(currentPage, perPage,"DESC","remainingDebt");
     }
 
     @RequestMapping(value = "/teacher/info/{teacherId}", method = RequestMethod.GET)

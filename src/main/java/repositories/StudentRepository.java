@@ -148,7 +148,7 @@ public class StudentRepository extends Repository {
                 " FROM Student st " +
                 " JOIN st.member m ";
 
-        String sortPropertySQL = " ORDER BY st.totalDebt ";
+        String sortPropertySQL = " ORDER BY st.remainingDebt ";
         String sortBySQL = sortOrder.equals("ASC") ? "ASC" : "DESC";
 
         hql += sortPropertySQL + sortBySQL;

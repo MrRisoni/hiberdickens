@@ -3,28 +3,26 @@ package hqlmappers;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class StudentRecord  extends MemberRecord{
+public class TeacherRecord extends MemberRecord {
 
     private int numGroups;
     private BigDecimal payments;
     private BigDecimal debt;
-    private Date lastPayed;
 
-    public StudentRecord() {
+    public TeacherRecord() {
     }
 
-    public StudentRecord(Long studentId) {
-        this.entityId = studentId;
+    public TeacherRecord(Long teacherId) {
+        this.entityId = teacherId;
     }
 
-    public StudentRecord(Long studentId, String fullName, Date registrationDate, int numGroups, BigDecimal payments, BigDecimal debt, Date lastPayed) {
-        this.entityId = studentId;
+    public TeacherRecord(Long teacherId, String fullName, Date registrationDate, int numGroups, BigDecimal payments, BigDecimal debt) {
+        this.entityId = teacherId;
         this.fullName = fullName;
         this.registrationDate = registrationDate;
         this.numGroups = numGroups;
         this.payments = payments;
         this.debt = debt;
-        this.lastPayed = lastPayed;
     }
 
 
@@ -66,13 +64,5 @@ public class StudentRecord  extends MemberRecord{
 
     public void setDebt(BigDecimal debt) {
         this.debt = debt;
-    }
-
-    public Date getLastPayed() {
-        return lastPayed;
-    }
-
-    public void setLastPayed(Date lastPayed) {
-        this.lastPayed = lastPayed;
     }
 }

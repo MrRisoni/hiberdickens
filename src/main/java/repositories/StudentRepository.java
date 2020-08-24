@@ -3,6 +3,7 @@ package repositories;
 import core.WaterClock;
 import hqlmappers.ExamResultTextDTO;
 import hqlmappers.StudentGroupDTO;
+import hqlmappers.StudentRecord;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
 import models.StudentDebt;
@@ -135,6 +136,19 @@ public class StudentRepository extends Repository {
                 " JOIN abs.histObj.groupObj  " +
                 " JOIN abs.histObj.groupObj.courseObj crs  " +
                 " JOIN abs.studentObj stObj WHERE stObj.id = :sid").setParameter("sid",studentId).getResultList();
+
+    }
+
+    public List<StudentRecord> getStudentsList(int perPage,int sortOrder,String sortProperty)
+    {
+        String hql = "SELECT new hqlmappers.StudentRecord(st.id, hs.started, crs.title, abs.justified) " +
+                " FROM Student st " +
+                " JOIN abs.histObj hs " +
+                " JOIN abs.histObj.groupObj  " +
+                " JOIN abs.histObj.groupObj.courseObj crs  " +
+                " JOIN abs.studentObj stObj WHERE stObj.id = :sid";
+
+        return this.getEntityManager().createQuery(hql).setParameter("sid",studentId).getResultList();
 
     }
 

@@ -1,4 +1,4 @@
-package form_posts;
+package pojos;
 
 public class StudentListPostObj {
     private int perPage;

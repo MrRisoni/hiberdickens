@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import spring_repos.LanguageRepository;
 
-@CrossOrigin
+
 @RestController
 public class LanguageController {
 

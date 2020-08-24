@@ -13,8 +13,8 @@ import spring_repos.SprDiplomaRepository;
 
 import java.util.List;
 
-@CrossOrigin
-@Controller
+
+@RestController
 public class CoursesController {
 
     @Autowired

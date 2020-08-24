@@ -14,7 +14,7 @@ import spring_repos.SprGroupRepository;
 
 import java.util.*;
 
-@Controller
+@RestController
 public class GroupController {
 
     @Autowired

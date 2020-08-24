@@ -8,7 +8,7 @@ import spring_repos.SprPayRollRepository;
 
 import java.util.Optional;
 
-@CrossOrigin
+
 @RestController
 public class PayRollController {
 

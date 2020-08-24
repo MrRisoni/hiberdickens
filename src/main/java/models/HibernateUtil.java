@@ -22,7 +22,7 @@ public class HibernateUtil {
         if (em == null) {
             Map<String, Object> configOverrides = new HashMap<String, Object>();
                 System.out.println("SYSTEM ENV");
-            configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_DB_PASSWD"));
+            configOverrides.put("javax.persistence.jdbc.password", getDBPass());
             configOverrides.put("javax.persistence.jdbc.user", System.getenv("SPRING_APP_DB_USR"));
             if (System.getenv("SPRING_APP_DB_HOST") != null) {
                 String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_DB_NAME") + "?serverTimezone=UTC";
@@ -42,7 +42,7 @@ public class HibernateUtil {
         // A SessionFactory is set up once for an application!
 
         Map<String,String> HerokuSettings = new HashMap<>();
-        HerokuSettings.put("hibernate.connection.password",System.getenv("SPRING_APP_DB_PASSWD"));
+        HerokuSettings.put("hibernate.connection.password",getDBPass());
         HerokuSettings.put("hibernate.connection.user",System.getenv("SPRING_APP_DB_USR"));
         if (System.getenv("SPRING_APP_DB_HOST") != null) {
             String dbUrl = "jdbc:mysql://" + System.getenv("SPRING_APP_DB_HOST") + ":3306/" + System.getenv("SPRING_APP_DB_NAME") + "?serverTimezone=UTC";
@@ -77,4 +77,11 @@ public class HibernateUtil {
         sessionFactory.close();
     }
 
+    private static String getDBPass() {
+        if (System.getenv("SPRING_APP_DB_PASSWD") != null) {
+            return System.getenv("SPRING_APP_DB_PASSWD");
+        } else {
+            return "";
+        }
+    }
 }

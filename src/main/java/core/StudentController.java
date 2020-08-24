@@ -1,13 +1,13 @@
 package core;
 
-import form_posts.StudentListPostObj;
+import pojos.StudentRecordsAPI;
+import pojos.StudentListPostObj;
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +16,14 @@ import spring_repos.MemberRepository;
 import spring_repos.ParentRepository;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@CrossOrigin
-@Controller
+
+@RestController
 public class StudentController {
 
     @Autowired
@@ -37,8 +35,6 @@ public class StudentController {
     @Autowired
     spring_repos.StudentRepository studRepo;
 
-    @Autowired
-    spring_repos.StudentPagingRepository studPageRepo;
 
     @RequestMapping(value = "/api/student/update")
     public void updateStudent() {
@@ -79,39 +75,22 @@ public class StudentController {
         parRepo.save(par);
     }
 
-    @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String getData(Model mod) {
-        // pagination
-        Pageable foo = PageRequest.of(0,5);
-        mod.addAttribute("students",studPageRepo.findAll(foo));
-        mod.addAttribute("currentPage",4);
 
-        StudentListPostObj form = new StudentListPostObj();
-        mod.addAttribute("formObj", form);
+    @RequestMapping(value = "/api/students", method = RequestMethod.GET)
+    public StudentRecordsAPI getStudentsList() {
+        int perPage = 10;
 
-        return "studentsList";
+
+
+        StudentRecordsAPI rsp = new StudentRecordsAPI();
+        rsp.setTotalPages( paginationResult.getTotalPages());
+        rsp.setCurrentPage(4);
+        rsp.setTotalRecords(paginationResult.getTotalElements());
+        rsp.setStudents( paginationResult.toList());
+
+        return rsp;
     }
 
-    @RequestMapping(value = "/students", method = RequestMethod.POST)
-    public String paginateSubmit(@ModelAttribute StudentListPostObj formObj,Model mod,BindingResult bindingResult) {
-        // pagination
-        System.out.println("POSTTT");
-        System.out.println(formObj.getPerPage());
-
-        //Sort srt = new Sort(new Sort.Order(Sort.Direction.DESC, "remainingDebt"));
-
-        Pageable foo = PageRequest.of(0,formObj.getPerPage(),Sort.by(Sort.Direction.DESC, "remainingDebt"));
-        Page<Student> paginationResult = studPageRepo.findAll(foo);
-
-        mod.addAttribute("students",paginationResult);
-        mod.addAttribute("currentPage",4);
-        mod.addAttribute("totalPages", paginationResult.getTotalPages());
-        mod.addAttribute("totalRecords", paginationResult.getTotalElements());
-        mod.addAttribute("itemsInPage", formObj.getPerPage());
-        mod.addAttribute("formObj", formObj);
-
-        return "studentsList";
-    }
 
     @RequestMapping(value = "/student/info/{studentId}", method = RequestMethod.GET)
     public String getData(@PathVariable Long studentId, Model mod) {

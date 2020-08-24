@@ -9,7 +9,7 @@ import repositories.TestsRepository;
 import java.util.HashMap;
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
 public class TestsController {
 

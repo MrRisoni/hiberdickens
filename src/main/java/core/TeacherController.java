@@ -18,8 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin
-@Controller
+@RestController
 public class TeacherController {
 
     @Autowired

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2020 at 10:35 AM
+-- Generation Time: Aug 24, 2020 at 08:02 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -222,16 +222,17 @@ INSERT INTO `course_fees` (`id`, `amount`, `created_at`, `updated_at`, `course_i
 CREATE TABLE `course_grades` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `grade_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1
+  `course_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `rankiing` tinyint(3) UNSIGNED NOT NULL COMMENT 'from bad to worse'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `course_grades`
 --
 
-INSERT INTO `course_grades` (`id`, `grade_title`, `course_id`) VALUES
-(1, 'Sehr Gut', 2),
-(2, 'Gut', 2);
+INSERT INTO `course_grades` (`id`, `grade_title`, `course_id`, `rankiing`) VALUES
+(1, 'Sehr Gut', 2, 2),
+(2, 'Gut', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -1756,6 +1757,28 @@ CREATE TABLE `registration_fees` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `revenue`
+--
+
+CREATE TABLE `revenue` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `profit` decimal(10,2) UNSIGNED NOT NULL,
+  `gross_income` decimal(10,2) UNSIGNED NOT NULL,
+  `net_income` decimal(10,2) UNSIGNED NOT NULL,
+  `student_payments` decimal(10,0) UNSIGNED NOT NULL,
+  `total_expenses` decimal(10,2) UNSIGNED NOT NULL,
+  `taxes` decimal(10,2) UNSIGNED NOT NULL,
+  `staff_payments` decimal(10,2) UNSIGNED NOT NULL,
+  `staff_insurances` decimal(10,2) UNSIGNED NOT NULL,
+  `staff_net_payments` decimal(10,2) UNSIGNED NOT NULL,
+  `student_debts` decimal(10,0) UNSIGNED NOT NULL,
+  `staff_in_debt` decimal(10,2) UNSIGNED NOT NULL,
+  `created_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `review_questionnaire`
 --
 
@@ -2568,18 +2591,19 @@ CREATE TABLE `teachers` (
   `afm` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `member_id` bigint(20) UNSIGNED NOT NULL,
   `total_debt` decimal(10,2) UNSIGNED NOT NULL DEFAULT 0.00,
-  `total_payed` decimal(10,2) UNSIGNED DEFAULT 0.00
+  `total_payed` decimal(10,2) UNSIGNED DEFAULT 0.00,
+  `calculated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `teachers`
 --
 
-INSERT INTO `teachers` (`id`, `amka`, `afm`, `member_id`, `total_debt`, `total_payed`) VALUES
-(1, '', '', 1, '0.00', '0.00'),
-(2, '', '', 2, '0.00', '0.00'),
-(3, '24021983356', '5674359093', 190, '0.00', '0.00'),
-(4, '29021981535', '56883090345', 191, '0.00', '0.00');
+INSERT INTO `teachers` (`id`, `amka`, `afm`, `member_id`, `total_debt`, `total_payed`, `calculated_at`) VALUES
+(1, '', '', 1, '210.00', '0.00', '2020-08-24 11:40:23'),
+(2, '', '', 2, '210.00', '0.00', '2020-08-24 11:40:23'),
+(3, '24021983356', '5674359093', 190, '0.00', '0.00', NULL),
+(4, '29021981535', '56883090345', 191, '0.00', '0.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -3375,6 +3399,13 @@ ALTER TABLE `registration_fees`
   ADD KEY `registration_fees_student_id_foreign` (`student_id`);
 
 --
+-- Indexes for table `revenue`
+--
+ALTER TABLE `revenue`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `created_at` (`created_at`);
+
+--
 -- Indexes for table `review_questionnaire`
 --
 ALTER TABLE `review_questionnaire`
@@ -4101,6 +4132,12 @@ ALTER TABLE `real_exams_results_text`
 -- AUTO_INCREMENT for table `registration_fees`
 --
 ALTER TABLE `registration_fees`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `revenue`
+--
+ALTER TABLE `revenue`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --

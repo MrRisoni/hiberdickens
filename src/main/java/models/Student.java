@@ -22,16 +22,13 @@ public class Student {
     @Formula("(SELECT MAX(stp.created_at) FROM student_payed stp WHERE stp.student_id = id)")
     private Date lastPaymentDate;
 
-    @Formula("(SELECT IF(SUM(tp.amount) IS NULL,0,SUM(tp.amount)) FROM student_payed tp WHERE tp.student_id = id)")
+    @Column(name="total_profit")
     private BigDecimal totalPayed;
 
     @Formula("(SELECT IF(SUM(tdb.amount) IS NULL,0,SUM(tdb.amount)) FROM student_debts tdb WHERE tdb.student_id = id)")
     private BigDecimal totalDebt;
 
-    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
-            "    FROM student_payed stp " +
-            "    JOIN student_debts dbt ON stp.student_id=dbt.student_id " +
-            "    WHERE dbt.student_id = id)")
+    @Column(name="total_debt")
     private BigDecimal remainingDebt;
 
     @Formula("(SELECT COUNT(gs.id) FROM group_students gs WHERE gs.student_id = id)")

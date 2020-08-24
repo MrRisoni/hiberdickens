@@ -32,7 +32,7 @@ public class Student {
             "    FROM student_payed stp " +
             "    JOIN student_debts dbt ON stp.student_id=dbt.student_id " +
             "    WHERE dbt.student_id = id)")
-    private float remainingDebt;
+    private BigDecimal remainingDebt;
 
     @Formula("(SELECT COUNT(gs.id) FROM group_students gs WHERE gs.student_id = id)")
     private int numGroups;
@@ -126,11 +126,11 @@ public class Student {
         this.numGroups = numGroups;
     }
 
-    public float getRemainingDebt() {
+    public BigDecimal getRemainingDebt() {
         return remainingDebt;
     }
 
-    public void setRemainingDebt(float remainingDebt) {
+    public void setRemainingDebt(BigDecimal remainingDebt) {
         this.remainingDebt = remainingDebt;
     }
 

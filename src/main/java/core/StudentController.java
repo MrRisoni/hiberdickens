@@ -1,5 +1,6 @@
 package core;
 
+import org.hibernate.Hibernate;
 import pojos.StudentRecordsAPI;
 import pojos.StudentListPostObj;
 import models.*;
@@ -79,16 +80,12 @@ public class StudentController {
     @RequestMapping(value = "/api/students", method = RequestMethod.GET)
     public StudentRecordsAPI getStudentsList() {
         int perPage = 10;
+        int currentPage = 1;
 
+        StudentRepository stRp = new StudentRepository();
+        stRp.setEntityManager(HibernateUtil.getEM());
 
-
-        StudentRecordsAPI rsp = new StudentRecordsAPI();
-        rsp.setTotalPages( paginationResult.getTotalPages());
-        rsp.setCurrentPage(4);
-        rsp.setTotalRecords(paginationResult.getTotalElements());
-        rsp.setStudents( paginationResult.toList());
-
-        return rsp;
+        return  stRp.getStudentsList(currentPage, perPage,"DESC","remainingDebt");
     }
 
 

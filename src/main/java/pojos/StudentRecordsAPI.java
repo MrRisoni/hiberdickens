@@ -1,15 +1,13 @@
 package pojos;
 
 import hqlmappers.StudentRecord;
-import models.Student;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public class StudentRecordsAPI {
     private int totalPages;
     private int currentPage;
-    private Long totalRecords;
+    private int totalRecords;
     private List<StudentRecord> students;
 
     public StudentRecordsAPI() {
@@ -31,11 +29,11 @@ public class StudentRecordsAPI {
         this.currentPage = currentPage;
     }
 
-    public Long getTotalRecords() {
+    public int getTotalRecords() {
         return totalRecords;
     }
 
-    public void setTotalRecords(Long totalRecords) {
+    public void setTotalRecords(int totalRecords) {
         this.totalRecords = totalRecords;
     }
 

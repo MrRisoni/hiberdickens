@@ -1,5 +1,6 @@
 package repositories;
 
+import core.Utilities;
 import core.WaterClock;
 import hqlmappers.ExamResultTextDTO;
 import hqlmappers.StudentGroupDTO;
@@ -8,9 +9,11 @@ import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
 import models.StudentDebt;
 import models.StudentPayment;
+import pojos.StudentRecordsAPI;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,16 +142,34 @@ public class StudentRepository extends Repository {
 
     }
 
-    public List<StudentRecord> getStudentsList(int perPage,int sortOrder,String sortProperty)
+    public StudentRecordsAPI getStudentsList(int currentPage,int perPage,String sortOrder,String sortProperty)
     {
-        String hql = "SELECT new hqlmappers.StudentRecord(st.id, hs.started, crs.title, abs.justified) " +
+        String hql = "SELECT new hqlmappers.StudentRecord(st.id, CONCAT(m.name,' ',m.surname), m.created_at, st.numGroups, st.totalPayed, st.remainingDebt,st.lastPaymentDate) " +
                 " FROM Student st " +
-                " JOIN abs.histObj hs " +
-                " JOIN abs.histObj.groupObj  " +
-                " JOIN abs.histObj.groupObj.courseObj crs  " +
-                " JOIN abs.studentObj stObj WHERE stObj.id = :sid";
+                " JOIN st.member m ";
 
-        return this.getEntityManager().createQuery(hql).setParameter("sid",studentId).getResultList();
+        String sortPropertySQL = " ORDER BY st.totalDebt ";
+        String sortBySQL = sortOrder.equals("ASC") ? "ASC" : "DESC";
+
+        hql += sortPropertySQL + sortBySQL;
+
+        String sqlCount = "SELECT id FROM students";
+        int totalRecords = this.getEntityManager().createNativeQuery(sqlCount).getResultList().size();
+
+
+        HashMap<String,Integer> pages = Utilities.getPaginationPages(currentPage, perPage, totalRecords);
+
+        List<StudentRecord> results =  this.getEntityManager().createQuery(hql).setFirstResult(pages.get("start")).setMaxResults(perPage).getResultList();
+
+
+        StudentRecordsAPI rsp = new StudentRecordsAPI();
+        rsp.setStudents(results);
+        rsp.setCurrentPage(currentPage);
+        rsp.setTotalPages(pages.get("totalPages"));
+        rsp.setTotalRecords(totalRecords);
+
+        return rsp;
+
 
     }
 

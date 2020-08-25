@@ -1,6 +1,11 @@
 package repositories;
 
 import models.*;
+import models.general.Building;
+import models.groups.HourModel;
+import models.school.SchoolClass;
+import models.languages.Diploma;
+import models.languages.Language;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,7 +20,7 @@ public class GeneralRepository extends Repository {
     }
 
     public List<SchoolClass> getClasses(){
-        return this.getEntityManager().createQuery("FROM SchoolClass ORDER BY shownOrder ASC",SchoolClass.class).getResultList();
+        return this.getEntityManager().createQuery("FROM SchoolClass ORDER BY shownOrder ASC", SchoolClass.class).getResultList();
     }
 
     public List<HourModel> getHours(){

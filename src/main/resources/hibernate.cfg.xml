@@ -14,81 +14,81 @@
         <property name="use_sql_comments">true</property>
         <property name="connection.pool_size">100</property>
 
-        <mapping class="models.CourseModel"/>
-        <mapping class="models.GroupModel"/>
-        <mapping class="models.HistoryModel"/>
-        <mapping class="models.Teacher"/>
-        <mapping class="models.Member"/>
-        <mapping class="models.Room"/>
-        <mapping class="models.Building"/>
-        <mapping class="models.Language"/>
-        <mapping class="models.CourseType"/>
-        <mapping class="models.SchoolClass"/>
-        <mapping class="models.Diploma"/>
-        <mapping class="models.HourModel"/>
-        <mapping class="models.MockExam"/>
-        <mapping class="models.Revenue"/>
+        <mapping class="models.groups.CourseModel"/>
+        <mapping class="models.groups.GroupModel"/>
+        <mapping class="models.groups.HistoryModel"/>
+        <mapping class="models.people.Teacher"/>
+        <mapping class="models.people.Member"/>
+        <mapping class="models.general.Room"/>
+        <mapping class="models.general.Building"/>
+        <mapping class="models.languages.Language"/>
+        <mapping class="models.groups.CourseType"/>
+        <mapping class="models.school.SchoolClass"/>
+        <mapping class="models.languages.Diploma"/>
+        <mapping class="models.groups.HourModel"/>
+        <mapping class="models.exams.MockExam"/>
+        <mapping class="models.money.Revenue"/>
 
-        <mapping class="models.MockExamResultText"/>
-        <mapping class="models.MockExamResultNumeric"/>
-        <mapping class="models.Student"/>
-        <mapping class="models.RealExam"/>
-        <mapping class="models.RealExamResult"/>
-        <mapping class="models.Period"/>
-        <mapping class="models.GradingSystem"/>
-        <mapping class="models.GroupStudent"/>
-        <mapping class="models.TeacherDebt"/>
-        <mapping class="models.TeacherPayment"/>
-        <mapping class="models.StudentDebt"/>
-        <mapping class="models.StudentPayment"/>
-        <mapping class="models.Age"/>
-        <mapping class="models.Speed"/>
-        <mapping class="models.Town"/>
-        <mapping class="models.Suburb"/>
-        <mapping class="models.Perfecture"/>
-        <mapping class="models.Discipline"/>
-        <mapping class="models.Month"/>
+        <mapping class="models.exams.MockExamResultText"/>
+        <mapping class="models.exams.MockExamResultNumeric"/>
+        <mapping class="models.people.Student"/>
+        <mapping class="models.exams.RealExam"/>
+        <mapping class="models.exams.RealExamResult"/>
+        <mapping class="models.general.Period"/>
+        <mapping class="models.groups.GradingSystem"/>
+        <mapping class="models.groups.GroupStudent"/>
+        <mapping class="models.money.TeacherDebt"/>
+        <mapping class="models.money.TeacherPayment"/>
+        <mapping class="models.money.StudentDebt"/>
+        <mapping class="models.money.StudentPayment"/>
+        <mapping class="models.groups.Age"/>
+        <mapping class="models.groups.Speed"/>
+        <mapping class="models.general.Town"/>
+        <mapping class="models.general.Suburb"/>
+        <mapping class="models.general.Perfecture"/>
+        <mapping class="models.school.Discipline"/>
+        <mapping class="models.general.Month"/>
 
-        <mapping class="models.ReviewQuestionnaire"/>
-        <mapping class="models.ReviewQuestionnaireChapter"/>
-        <mapping class="models.ReviewQuestionnaireQuestion"/>
-        <mapping class="models.PoolReviewQuestion"/>
+        <mapping class="models.evaluation.ReviewQuestionnaire"/>
+        <mapping class="models.evaluation.ReviewQuestionnaireChapter"/>
+        <mapping class="models.evaluation.ReviewQuestionnaireQuestion"/>
+        <mapping class="models.interviews.PoolReviewQuestion"/>
 
-        <mapping class="models.Pools"/>
-        <mapping class="models.PoolChapter"/>
-        <mapping class="models.PoolQuestion"/>
-        <mapping class="models.PoolQuestionAnswer"/>
-        <mapping class="models.TestSubmission"/>
-        <mapping class="models.TestModel"/>
+        <mapping class="models.interviews.Pools"/>
+        <mapping class="models.interviews.PoolChapter"/>
+        <mapping class="models.interviews.PoolQuestion"/>
+        <mapping class="models.interviews.PoolQuestionAnswer"/>
+        <mapping class="models.interviews.TestSubmission"/>
+        <mapping class="models.interviews.TestModel"/>
 
-        <mapping class="models.InterViewStage"/>
-        <mapping class="models.InterViewGrade"/>
-        <mapping class="models.JobApplication"/>
-        <mapping class="models.JobOpening"/>
-        <mapping class="models.JobOpeningCourse"/>
-        <mapping class="models.InterViewSchedule"/>
+        <mapping class="models.interviews.InterViewStage"/>
+        <mapping class="models.interviews.InterViewGrade"/>
+        <mapping class="models.interviews.JobApplication"/>
+        <mapping class="models.interviews.JobOpening"/>
+        <mapping class="models.interviews.JobOpeningCourse"/>
+        <mapping class="models.interviews.InterViewSchedule"/>
 
-        <mapping class="models.GroupRank"/>
-        <mapping class="models.CourseFee"/>
-        <mapping class="models.CourseWage"/>
-        <mapping class="models.CourseGrade"/>
-        <mapping class="models.Absency"/>
+        <mapping class="models.groups.GroupRank"/>
+        <mapping class="models.groups.CourseFee"/>
+        <mapping class="models.groups.CourseWage"/>
+        <mapping class="models.groups.CourseGrade"/>
+        <mapping class="models.people.Absency"/>
 
-        <mapping class="models.ParentsModel"/>
-        <mapping class="models.GroupTeachers"/>
-        <mapping class="models.Institut"/>
+        <mapping class="models.people.ParentsModel"/>
+        <mapping class="models.groups.GroupTeachers"/>
+        <mapping class="models.languages.Institut"/>
 
-        <mapping class="models.PayRoll"/>
-        <mapping class="models.PayRollAnalysis"/>
-        <mapping class="models.PayRollCategory"/>
-        <mapping class="models.PayRollGroupAnalysis"/>
+        <mapping class="models.money.PayRoll"/>
+        <mapping class="models.money.PayRollAnalysis"/>
+        <mapping class="models.money.PayRollCategory"/>
+        <mapping class="models.money.PayRollGroupAnalysis"/>
 
-        <mapping class="models.Seminars"/>
-        <mapping class="models.SeminarsCategory"/>
-        <mapping class="models.SeminarModules"/>
+        <mapping class="models.seminars.Seminars"/>
+        <mapping class="models.seminars.SeminarsCategory"/>
+        <mapping class="models.seminars.SeminarModules"/>
 
-        <mapping class="models.DiscountModel"/>
-        <mapping class="models.Discount"/>
+        <mapping class="models.money.DiscountModel"/>
+        <mapping class="models.money.Discount"/>
 
 
     </session-factory>

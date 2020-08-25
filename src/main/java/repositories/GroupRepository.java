@@ -4,13 +4,12 @@ package repositories;
 import core.Utilities;
 import hqlmappers.GroupRecord;
 import hqlmappers.TimetableDTO;
-import models.*;
+import models.groups.GroupModel;
+import models.money.TeacherDebt;
+import models.people.Member;
 import pojos.GroupRecordsAPI;
 
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,14 +21,14 @@ public class GroupRepository extends Repository {
 
     public GroupModel getGroup(Long groupId)
     {
-        return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid",GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
+        return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid", GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
     }
     public List<Member> getGroupTeachers(Long groupId) {
         return this.getEntityManager().createQuery("SELECT mb FROM GroupTeachers gt " +
                 " JOIN gt.groupObj " +
                 " JOIN gt.teacherObj " +
                 " JOIN gt.teacherObj.member mb " +
-                " WHERE gt.groupObj.id=:gid ",Member.class).setParameter("gid",groupId).getResultList();
+                " WHERE gt.groupObj.id=:gid ", Member.class).setParameter("gid",groupId).getResultList();
     }
 
     public List<GroupMember> getGroupStudents(Long groupId) {

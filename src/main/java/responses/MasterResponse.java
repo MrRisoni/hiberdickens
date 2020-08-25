@@ -1,6 +1,5 @@
 package responses;
 
-import models.GroupStudent;
 import repositories.GroupMember;
 
 import java.util.List;

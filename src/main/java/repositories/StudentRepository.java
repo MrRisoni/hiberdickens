@@ -7,11 +7,10 @@ import hqlmappers.StudentGroupDTO;
 import hqlmappers.StudentRecord;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
-import models.StudentDebt;
-import models.StudentPayment;
+import models.money.StudentDebt;
+import models.money.StudentPayment;
 import pojos.StudentRecordsAPI;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

@@ -2,11 +2,10 @@ package core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.HibernateUtil;
-import models.MockExam;
-import models.RealExam;
+import models.exams.MockExam;
+import models.exams.RealExam;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

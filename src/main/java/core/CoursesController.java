@@ -1,17 +1,16 @@
 package core;
 
+import models.groups.CourseModel;
+import models.groups.CourseType;
+import models.languages.Diploma;
+import models.languages.Institut;
+import models.languages.Language;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-import models.*;
-import org.hibernate.Session;
 import org.springframework.web.bind.annotation.*;
 import spring_repos.SprCourseRepository;
 import spring_repos.SprDiplomaRepository;
-
-import java.util.List;
 
 
 @RestController

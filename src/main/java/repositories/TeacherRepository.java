@@ -2,11 +2,10 @@ package repositories;
 
 import core.Utilities;
 import core.WaterClock;
-import hqlmappers.StudentRecord;
 import hqlmappers.TeacherRecord;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
-import models.TeacherPayment;
+import models.money.TeacherPayment;
 import pojos.TeacherRecordsAPI;
 
 import java.util.HashMap;

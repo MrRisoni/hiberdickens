@@ -1,6 +1,9 @@
 package repositories;
 
 import models.*;
+import models.interviews.InterViewSchedule;
+import models.interviews.InterViewStage;
+import models.interviews.JobOpening;
 
 import java.util.List;
 

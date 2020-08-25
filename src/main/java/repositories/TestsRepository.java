@@ -1,7 +1,10 @@
 package repositories;
 
 import core.WaterClock;
-import models.*;
+import models.interviews.PoolQuestion;
+import models.interviews.PoolQuestionAnswer;
+import models.interviews.Pools;
+import models.interviews.TestSubmission;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -16,9 +19,9 @@ public class TestsRepository extends Repository {
     public List<Pools> getTestQuestions(int courseId)
     {
         CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<models.Pools> query = builder.createQuery(models.Pools.class);
-        Root<models.Pools> root = query.from(models.Pools.class);
-    //    Join<models.Pools, CourseModel> courseJoin = root.join("courseObj");
+        CriteriaQuery<Pools> query = builder.createQuery(Pools.class);
+        Root<Pools> root = query.from(Pools.class);
+    //    Join<models.interviews.Pools, CourseModel> courseJoin = root.join("courseObj");
         return this.getEntityManager().createQuery(query).getResultList();
     }
 
@@ -67,7 +70,7 @@ public class TestsRepository extends Repository {
     public HashMap<String,Object> getNextQuestionObj(String sesionId)
     {
         TestSubmission submiss =  this.getEntityManager().createQuery("FROM TestSubmission sb" +
-                " INNER JOIN FETCH sb.testObj WHERE  sb.session_id = :sessionId ",TestSubmission.class)
+                " INNER JOIN FETCH sb.testObj WHERE  sb.session_id = :sessionId ", TestSubmission.class)
                 .setParameter( "sessionId", sesionId ).getResultList().get(0);
 
         Long windowStarts = submiss.getTime_window_starts().getTime()/ 1000L;

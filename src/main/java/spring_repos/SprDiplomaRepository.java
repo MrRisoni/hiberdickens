@@ -1,7 +1,7 @@
 package spring_repos;
 
 
-import models.Diploma;
+import models.languages.Diploma;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

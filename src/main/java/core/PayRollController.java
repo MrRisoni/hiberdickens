@@ -1,7 +1,7 @@
 package core;
 
 
-import models.PayRoll;
+import models.money.PayRoll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import spring_repos.SprPayRollRepository;

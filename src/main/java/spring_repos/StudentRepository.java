@@ -1,6 +1,6 @@
 package spring_repos;
 
-import models.Student;
+import models.people.Student;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

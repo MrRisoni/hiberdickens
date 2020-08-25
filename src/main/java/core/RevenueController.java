@@ -2,21 +2,17 @@ package core;
 
 
 import models.HibernateUtil;
-import models.PayRoll;
-import models.Revenue;
+import models.money.Revenue;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import spring_repos.SprRevenueRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController

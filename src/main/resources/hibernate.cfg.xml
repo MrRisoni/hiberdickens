@@ -27,6 +27,7 @@
         <mapping class="models.Diploma"/>
         <mapping class="models.HourModel"/>
         <mapping class="models.MockExam"/>
+        <mapping class="models.Revenue"/>
 
         <mapping class="models.MockExamResultText"/>
         <mapping class="models.MockExamResultNumeric"/>

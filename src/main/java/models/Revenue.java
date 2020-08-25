@@ -52,6 +52,29 @@ public class Revenue {
     @Column(name = "created_at")
     private Date createdAt;
 
+
+    public Revenue() {
+    }
+
+    public Revenue(Long id) {
+        this.id = id;
+    }
+
+    public Revenue(Long id, BigDecimal profit, BigDecimal grossIncome, BigDecimal netIncome, BigDecimal studentPayments, BigDecimal totalExpenses, BigDecimal taxes, BigDecimal staffPayments, BigDecimal staffInsurances, BigDecimal staffNetPayments, BigDecimal studentDebts, BigDecimal staffInDebt) {
+        this.id = id;
+        this.profit = profit;
+        this.grossIncome = grossIncome;
+        this.netIncome = netIncome;
+        this.studentPayments = studentPayments;
+        this.totalExpenses = totalExpenses;
+        this.taxes = taxes;
+        this.staffPayments = staffPayments;
+        this.staffInsurances = staffInsurances;
+        this.staffNetPayments = staffNetPayments;
+        this.studentDebts = studentDebts;
+        this.staffInDebt = staffInDebt;
+    }
+
     public Long getId() {
         return id;
     }

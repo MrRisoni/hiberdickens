@@ -1,4 +1,7 @@
 package models.groups;
+import com.fasterxml.jackson.annotation.JsonView;
+import models.JackSonViewer;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -8,16 +11,16 @@ public class CourseType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @JsonView(JackSonViewer.ICourse.class)
     private Long id;
 
     @NotNull
     @Column
+    @JsonView(JackSonViewer.ICourse.class)
     private String title;
-
 
     public CourseType() {
     }
-
 
     public Long getId() {
         return id;

@@ -1,5 +1,8 @@
 package core;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import models.JackSonViewer;
 import models.groups.CourseModel;
 import models.groups.CourseType;
 import models.languages.Diploma;
@@ -52,10 +55,17 @@ public class CoursesController {
 
     }
 
-    @RequestMapping(value= "/courses" , method = RequestMethod.GET)
-    public String getCourses(Model mod)
+    @RequestMapping(value= "/api/courses" , method = RequestMethod.GET)
+    public String  getCourses()
     {
-        mod.addAttribute("courses",spr_course_repo.findAll());
-        return "coursesList";
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
+
+            return mapper.writerWithView(JackSonViewer.ICourse.class).writeValueAsString(spr_course_repo.findAll());
+        }
+        catch (Exception ex){
+            return ex.getMessage();
+        }
     }
 }

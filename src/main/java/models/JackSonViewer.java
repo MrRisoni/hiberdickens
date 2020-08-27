@@ -1,13 +1,9 @@
 package models;
 
 public class JackSonViewer {
-    public interface IOrder {
+
+    public interface ICourse {
     }
 
-    public interface IFavoriteRestau {
-    }
-
-
-   
 
 }

@@ -23,8 +23,9 @@ public class GroupRepository extends Repository {
     {
         return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid", GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
     }
+
     public List<Member> getGroupTeachers(Long groupId) {
-        return this.getEntityManager().createQuery("SELECT mb FROM GroupTeachers gt " +
+        return this.getEntityManager().createQuery("SELECT new models.people.Member(mb.id,mb.name,mb.surname,mb.phone,mb.created_at)  FROM GroupTeachers gt " +
                 " JOIN gt.groupObj " +
                 " JOIN gt.teacherObj " +
                 " JOIN gt.teacherObj.member mb " +

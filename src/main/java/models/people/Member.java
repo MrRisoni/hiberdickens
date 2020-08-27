@@ -53,6 +53,14 @@ public class Member {
     public Member() {
     }
 
+    public Member(Long id, @NotNull String name, @NotNull String surname, @NotNull String phone, Date created_at) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.created_at = created_at;
+    }
+
     public Long getId() {
         return id;
     }

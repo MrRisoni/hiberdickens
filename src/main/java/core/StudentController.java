@@ -16,6 +16,7 @@ import spring_repos.ParentRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -86,8 +87,8 @@ public class StudentController {
     }
 
 
-    @RequestMapping(value = "/student/info/{studentId}", method = RequestMethod.GET)
-    public String getData(@PathVariable Long studentId, Model mod) {
+    @RequestMapping(value = "/api/student/info/{studentId}", method = RequestMethod.GET)
+    public HashMap<String,Object> getData(@PathVariable Long studentId) {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
@@ -95,22 +96,26 @@ public class StudentController {
         Optional<Student> result = studRepo.findById(studentId);
         Student student  =result.orElse(null);
         StudentRepository stdRepo = new StudentRepository();
-        mod.addAttribute("lastPayed",student.getLastPaymentDate());
-        mod.addAttribute("absencies",stdRepo.getAbsenciesList(studentId));
-        mod.addAttribute("payments", stdRepo.getStudentPayments(studentId));
-        mod.addAttribute("debts", stdRepo.getStudentDebts(studentId));
-        mod.addAttribute("groups",stdRepo.getStudentGroups(studentId));
-        mod.addAttribute("mockResultsText",stdRepo.getMockTextResults(studentId));
-        mod.addAttribute("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
-        mod.addAttribute("timetable",stdRepo.getTimetableHQL(studentId));
-        mod.addAttribute("fullName",student.getMember().getName()+ " " + student.getMember().getSurname());
-        mod.addAttribute("totalPayed",student.getTotalPayed());
-        mod.addAttribute("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
-        mod.addAttribute("parents",student.getParents());
-        mod.addAttribute("discounts",student.getDiscountList());
-        System.out.println("Discounts!!");
-        System.out.println(student.getDiscountList().size());
-        return "studentDetails";
+
+        HashMap<String,Object> rsp = new HashMap<>();
+
+        rsp.put("lastPayed",student.getLastPaymentDate());
+        rsp.put("absencies",stdRepo.getAbsenciesList(studentId));
+        rsp.put("payments", stdRepo.getStudentPayments(studentId));
+        rsp.put("debts", stdRepo.getStudentDebts(studentId));
+        rsp.put("groups",stdRepo.getStudentGroups(studentId));
+        rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
+        rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
+        rsp.put("timetable",stdRepo.getTimetableHQL(studentId));
+        rsp.put("fullName",student.getMember().getName()+ " " + student.getMember().getSurname());
+        rsp.put("totalPayed",student.getTotalPayed());
+        rsp.put("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
+        rsp.put("parents",student.getParents());
+        rsp.put("discounts",student.getDiscountList());
+
+        
+
+        return rsp;
 
     }
 }

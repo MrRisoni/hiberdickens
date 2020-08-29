@@ -3,6 +3,7 @@ package models.groups;
 import models.people.Student;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -13,9 +14,11 @@ public class GroupStudent {
     @Column
     private Long id;
 
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date joined;
 
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dropped;
 
@@ -27,6 +30,8 @@ public class GroupStudent {
    @JoinColumn(name = "group_id")
    private GroupModel groupObj;
 
+    @Column(name="total_debt")
+    private BigDecimal totalDebt ;
 
     public GroupStudent() {
     }
@@ -72,5 +77,11 @@ public class GroupStudent {
         this.groupObj = groupObj;
     }
 
+    public BigDecimal getTotalDebt() {
+        return totalDebt;
+    }
 
+    public void setTotalDebt(BigDecimal totalDebt) {
+        this.totalDebt = totalDebt;
+    }
 }

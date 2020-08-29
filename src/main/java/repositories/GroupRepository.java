@@ -36,27 +36,11 @@ public class GroupRepository extends Repository {
 
                 Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, CONCAT(m.name,' ',m.surname), " +
                 " IF (CURRENT_DATE > gs.dropped, 1,0) AS hasDropped,  " +
-                " IF (studentsPayed.student_id IS NULL,0, studentsPayed.sumPayed) AS hasPayed,  " +
-                " IF (studentsDebt.student_id IS NULL,0,  " +
-                "         IF (studentsPayed.student_id IS NULL,studentsDebt.sumInDebt, studentsDebt.sumInDebt-studentsPayed.sumPayed)  " +
-                " ) AS remainingDebt  " +
+                " gs.total_payed AS hasPayed, gs.total_debt AS remainingDebt  " +
                 " FROM group_students gs  " +
                 " JOIN students s ON s.id = gs.student_id  " +
                 " JOIN members m ON m.id = s.member_id  " +
-
-                " LEFT JOIN  " +
-                "    (  " +
-                "       SELECT SUM(amount) AS sumPayed,student_id FROM student_payed  " +
-                "       WHERE group_id = :id  " +
-                "       GROUP BY student_id  " +
-                "    ) AS studentsPayed ON  studentsPayed.student_id = gs.student_id  " +
-                " LEFT JOIN  " +
-                " (  " +
-                "      SELECT SUM(amount) AS sumInDebt,student_id FROM student_debts  " +
-                "       WHERE group_id = :id  " +
-                "   GROUP BY student_id  " +
-                " ) AS studentsDebt ON  studentsDebt.student_id = gs.student_id  " +
-                " WHERE gs.group_id = :id ");
+                 " WHERE gs.group_id = :id ");
 
                 List<Object[]> results = qry.setParameter( "id", groupId ).getResultList();
 

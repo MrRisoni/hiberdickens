@@ -2,6 +2,7 @@ package repositories;
 
 
 import core.Utilities;
+import hqlmappers.GroupMember;
 import hqlmappers.GroupRecord;
 import hqlmappers.TimetableDTO;
 import models.groups.GroupModel;
@@ -21,7 +22,10 @@ public class GroupRepository extends Repository {
 
     public GroupModel getGroup(Long groupId)
     {
-        return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid", GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
+        return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid", GroupModel.class)
+                .setParameter("grid",groupId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList().get(0);
     }
 
     public List<Member> getGroupTeachers(Long groupId) {
@@ -29,7 +33,9 @@ public class GroupRepository extends Repository {
                 " JOIN gt.groupObj " +
                 " JOIN gt.teacherObj " +
                 " JOIN gt.teacherObj.member mb " +
-                " WHERE gt.groupObj.id=:gid ", Member.class).setParameter("gid",groupId).getResultList();
+                " WHERE gt.groupObj.id=:gid ", Member.class).setParameter("gid",groupId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<GroupMember> getGroupStudents(Long groupId) {
@@ -65,7 +71,10 @@ public class GroupRepository extends Repository {
          " JOIN sp.studentObj stObj " +
          " JOIN stObj.member m  " +
          " JOIN sp.groupObj " +
-         " WHERE sp.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+         " WHERE sp.groupObj.id = :id ")
+         .setParameter( "id", groupId )
+         .setHint("org.hibernate.cacheable", true)
+         .getResultList();
 
     }
 
@@ -77,7 +86,10 @@ public class GroupRepository extends Repository {
                 " JOIN sb.studentObj stObj " +
                 " JOIN stObj.member m  " +
                 " JOIN sb.groupObj " +
-                " WHERE sb.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+                " WHERE sb.groupObj.id = :id ")
+                .setParameter( "id", groupId )
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<Object> getTeacherPaymentsList(Long groupId)
@@ -87,7 +99,10 @@ public class GroupRepository extends Repository {
                 " JOIN tp.teacherObj  " +
                 " JOIN tp.teacherObj.member m  " +
                 " JOIN tp.monthObj mon " +
-                " WHERE tp.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+                " WHERE tp.groupObj.id = :id ")
+                .setParameter( "id", groupId )
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
 
@@ -98,7 +113,10 @@ public class GroupRepository extends Repository {
                 " JOIN tb.teacherObj  " +
                 " JOIN tb.teacherObj.member m  " +
                 " JOIN tb.monthObj mon " +
-                " WHERE tb.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+                " WHERE tb.groupObj.id = :id ")
+                .setParameter( "id", groupId )
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
 
@@ -132,7 +150,12 @@ public class GroupRepository extends Repository {
 
 
 
-        List<GroupRecord> results =  this.getEntityManager().createQuery(hql).setFirstResult(pages.get("start")).setMaxResults(perPage).getResultList();
+        List<GroupRecord> results =  this.getEntityManager()
+                .createQuery(hql)
+                .setFirstResult(pages.get("start"))
+                .setMaxResults(perPage)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
 ;
         GroupRecordsAPI rsp = new GroupRecordsAPI();
         rsp.setGroups(results);

@@ -3,13 +3,12 @@ package core;
 import models.groups.*;
 import models.people.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
 
 import org.springframework.web.bind.annotation.*;
 import pojos.GroupRecordsAPI;
-import repositories.GroupMember;
+import hqlmappers.GroupMember;
 import repositories.GroupRepository;
 import spring_repos.SprGroupRepository;
 

@@ -1,6 +1,6 @@
 package responses;
 
-import repositories.GroupMember;
+import hqlmappers.GroupMember;
 
 import java.util.List;
 

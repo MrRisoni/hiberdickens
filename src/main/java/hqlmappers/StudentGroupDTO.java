@@ -1,5 +1,6 @@
 package hqlmappers;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class StudentGroupDTO {
@@ -12,13 +13,18 @@ public class StudentGroupDTO {
     private Date joined;
     private Date dropped;
 
-    public StudentGroupDTO(Long groupId, String courseName, String ageName, String speedName, Date joined, Date dropped) {
+    private BigDecimal totalPayed;
+    private BigDecimal totalDebt;
+
+    public StudentGroupDTO(Long groupId, String courseName, String ageName, String speedName, Date joined, Date dropped, BigDecimal ttlp,BigDecimal ttldbt) {
         this.groupId = groupId;
         this.courseName = courseName;
         this.ageName = ageName;
         this.speedName = speedName;
         this.joined = joined;
         this.dropped = dropped;
+        this.totalPayed = ttlp;
+        this.totalDebt = ttldbt;
     }
 
     public Long getGroupId() {
@@ -67,5 +73,21 @@ public class StudentGroupDTO {
 
     public void setDropped(Date dropped) {
         this.dropped = dropped;
+    }
+
+    public BigDecimal getTotalPayed() {
+        return totalPayed;
+    }
+
+    public void setTotalPayed(BigDecimal totalPayed) {
+        this.totalPayed = totalPayed;
+    }
+
+    public BigDecimal getTotalDebt() {
+        return totalDebt;
+    }
+
+    public void setTotalDebt(BigDecimal totalDebt) {
+        this.totalDebt = totalDebt;
     }
 }

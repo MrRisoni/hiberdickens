@@ -20,11 +20,17 @@ public class GeneralRepository extends Repository {
     }
 
     public List<SchoolClass> getClasses(){
-        return this.getEntityManager().createQuery("FROM SchoolClass ORDER BY shownOrder ASC", SchoolClass.class).getResultList();
+        return this.getEntityManager()
+                .createQuery("FROM SchoolClass ORDER BY shownOrder ASC", SchoolClass.class)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<HourModel> getHours(){
-        return this.getEntityManager().createQuery("FROM HourModel ORDER BY id ASC", HourModel.class).getResultList();
+        return this.getEntityManager()
+                .createQuery("FROM HourModel ORDER BY id ASC", HourModel.class)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<Building> getBuildings()
@@ -32,7 +38,9 @@ public class GeneralRepository extends Repository {
         CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Building> query = builder.createQuery(Building.class);
         Root<Building> grp = query.from(Building.class);
-        return this.getEntityManager().createQuery(query).getResultList();
+        return this.getEntityManager().createQuery(query)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<Language> getLanguages()

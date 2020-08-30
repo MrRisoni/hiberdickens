@@ -33,6 +33,9 @@ public class GroupStudent {
    @JoinColumn(name = "group_id")
    private GroupModel groupObj;
 
+    @Column(name="total_payed")
+    private BigDecimal totalPayed;
+
     @Column(name="total_debt")
     private BigDecimal totalDebt ;
 
@@ -86,5 +89,13 @@ public class GroupStudent {
 
     public void setTotalDebt(BigDecimal totalDebt) {
         this.totalDebt = totalDebt;
+    }
+
+    public BigDecimal getTotalPayed() {
+        return totalPayed;
+    }
+
+    public void setTotalPayed(BigDecimal totalPayed) {
+        this.totalPayed = totalPayed;
     }
 }

@@ -15,17 +15,24 @@ public class InterViewsRepository extends Repository {
 
     public List<JobOpening> fetchJobOpenings(Long openingId)
     {
-        return this.getEntityManager().createQuery("FROM JobOpening", JobOpening.class).getResultList();
+        return this.getEntityManager().createQuery("FROM JobOpening", JobOpening.class)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<InterViewStage> fetchStagesAndApplicants(Long openingId)
     {
-        return this.getEntityManager().createQuery("FROM InterViewStage ORDER BY shown_order ASC", InterViewStage.class).getResultList();
+        return this.getEntityManager()
+                .createQuery("FROM InterViewStage ORDER BY shown_order ASC", InterViewStage.class)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
 
     public List<InterViewSchedule> fetchInterviews()
     {
-        return this.getEntityManager().createQuery("FROM InterViewSchedule ", InterViewSchedule.class).getResultList();
+        return this.getEntityManager().createQuery("FROM InterViewSchedule ", InterViewSchedule.class)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 }

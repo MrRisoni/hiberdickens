@@ -16,6 +16,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,13 +45,15 @@ public class TimetableController {
     private String startingDate;
 
 
-    @RequestMapping(value = "/timetable", method = RequestMethod.GET)
-    public String istoria(Model modelo)
+    @RequestMapping(value = "/api/timetable", method = RequestMethod.GET)
+    public HashMap<String,Object> istoria()
     {
         try {
             EntityManager entityManager= HibernateUtil.getEM();
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
+
+            HashMap<String,Object> ttblRsp = new HashMap<>();
 
             List<TimetableDTO> timetable = entityManager.createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id,hr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                     " FROM HistoryModel hs  JOIN hs.room rm " +
@@ -64,6 +67,7 @@ public class TimetableController {
                     "  AND hs.started <= :endtime ORDER  BY hs.started ASC", TimetableDTO.class)
                     .setParameter("starttime",WaterClock.getDate())
                     .setParameter("endtime",WaterClock.getDateAWeekAhead())
+                    .setHint("org.hibernate.cacheable", true)
                     .getResultList();
 
             List<String> days = new ArrayList<>();
@@ -80,7 +84,7 @@ public class TimetableController {
             days = days.stream().distinct().collect(Collectors.toList());
             days.add("#");
             days.add(0, "#");
-            modelo.addAttribute("days", days);
+            ttblRsp.put("days", days);
 
 
             GeneralRepository gRepo = new GeneralRepository();
@@ -134,23 +138,24 @@ public class TimetableController {
                 finalTimeTabling.add(thisHour);
             } // end for hours
 
-            modelo.addAttribute("timetabling", finalTimeTabling);
+            ttblRsp.put("timetabling", finalTimeTabling);
 
             GeneralRepository genRepo = new GeneralRepository();
             genRepo.setEntityManager(HibernateUtil.getEM());
-            modelo.addAttribute("classes",genRepo.getClasses());
-            modelo.addAttribute("courseTypes",typeRsp.findAll());
-            modelo.addAttribute("disciplines",dscplRepo.findAll());
-            modelo.addAttribute("ages",agrp.findAll());
-            modelo.addAttribute("speeds", spdRp.findAll());
-            modelo.addAttribute("buildings",genRepo.getBuildings());
-            modelo.addAttribute("languages",genRepo.getLanguages());
+            ttblRsp.put("classes",genRepo.getClasses());
+         //   ttblRsp.put("courseTypes",typeRsp.findAll());
+            ttblRsp.put("disciplines",dscplRepo.findAll());
+            ttblRsp.put("ages",agrp.findAll());
+            ttblRsp.put("speeds", spdRp.findAll());
+         //   ttblRsp.put("buildings",genRepo.getBuildings());
+         //   ttblRsp.put("languages",genRepo.getLanguages());
 
-            return "timetable";
+            return ttblRsp;
         }
         catch (Exception ex) {
             ex.printStackTrace();
-            return ex.getMessage();
+
+            return null;
         }
     }
 

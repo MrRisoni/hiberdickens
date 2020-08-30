@@ -3,6 +3,7 @@ package models.money;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import models.people.Teacher;
 import models.general.Month;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -11,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "payroll")
 public class PayRoll {
     @Id

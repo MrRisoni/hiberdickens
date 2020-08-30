@@ -1,10 +1,13 @@
 package models.groups;
 
 import models.people.Teacher;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "groups_teachers")
 public class GroupTeachers {
     @Id

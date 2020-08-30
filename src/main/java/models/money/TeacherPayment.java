@@ -4,11 +4,14 @@ package models.money;
 import models.people.Teacher;
 import models.general.Month;
 import models.groups.GroupModel;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "teacher_payments")
 public class TeacherPayment {
     @Id

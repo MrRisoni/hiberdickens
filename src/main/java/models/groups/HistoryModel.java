@@ -2,6 +2,7 @@ package models.groups;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import models.general.Room;
 import models.people.Teacher;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,6 +19,8 @@ import java.util.Date;
                 }
         )
 })
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HistoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

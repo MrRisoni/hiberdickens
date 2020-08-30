@@ -6,6 +6,7 @@ import models.money.StudentDebt;
 import models.people.Absency;
 import models.people.Member;
 import models.people.ParentsModel;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
@@ -13,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "students")
 public class Student {
     @Id

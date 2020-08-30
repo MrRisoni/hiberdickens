@@ -2,6 +2,7 @@ package models.interviews;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import models.groups.CourseModel;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "pools")
 public class Pools {
     @Id

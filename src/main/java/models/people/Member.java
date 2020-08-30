@@ -1,5 +1,6 @@
 package models.people;
 import models.general.Suburb;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
@@ -9,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "members")
 public class Member {
     @Id

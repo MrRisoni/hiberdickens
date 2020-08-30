@@ -1,12 +1,15 @@
 package models.money;
 
 import models.groups.GroupModel;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.Date;
 
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "payroll_groups_analysis")
 public class PayRollGroupAnalysis {
     @Id

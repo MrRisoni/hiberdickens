@@ -57,8 +57,6 @@ public class GroupRepository extends Repository {
                 }).collect(Collectors.toList());
     }
 
-
-
     public List<Object> getStudentPaymentsList(Long groupId)
     {
          return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id,  concat(m.name,' ',m.surname),'') " +
@@ -108,7 +106,9 @@ public class GroupRepository extends Repository {
     {
       return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
-                " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
+                " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter( "id", groupId )
+              .setHint("org.hibernate.cacheable", true)
+              .getResultList();
 
     }
 

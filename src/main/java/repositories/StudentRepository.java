@@ -1,15 +1,18 @@
 package repositories;
 
+import core.Utilities;
 import core.WaterClock;
 import hqlmappers.ExamResultTextDTO;
 import hqlmappers.StudentGroupDTO;
+import hqlmappers.StudentRecord;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
-import models.StudentDebt;
-import models.StudentPayment;
+import models.money.StudentDebt;
+import models.money.StudentPayment;
+import pojos.StudentRecordsAPI;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +29,10 @@ public class StudentRepository extends Repository {
                 " JOIN sp.monthObj mon " +
                 " JOIN sp.groupObj  " +
                 " JOIN sp.groupObj.courseObj courseObj " +
-                " WHERE sp.studentObj.id = :sid ORDER BY  mon.id ASC,sp.lesson_year ASC ").setParameter("sid", studentId).getResultList();
+                " WHERE sp.studentObj.id = :sid ORDER BY  mon.id ASC,sp.lesson_year ASC ")
+                .setParameter("sid", studentId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
 
     }
 
@@ -36,17 +42,23 @@ public class StudentRepository extends Repository {
                 " JOIN stb.monthObj mon " +
                 " JOIN stb.groupObj  " +
                 " JOIN stb.groupObj.courseObj courseObj " +
-                " WHERE stb.studentObj.id = :sid ORDER BY  mon.id ASC,stb.lesson_year ASC ").setParameter("sid", studentId).getResultList();
+                " WHERE stb.studentObj.id = :sid ORDER BY  mon.id ASC,stb.lesson_year ASC ")
+                .setParameter("sid", studentId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<StudentGroupDTO> getStudentGroups(Long studentId){
-        return  this.getEntityManager().createQuery("SELECT new hqlmappers.StudentGroupDTO(grst.groupObj.id,courseObj.title,ageObj.title,speedObj.title ,grst.joined,grst.dropped ) " +
+        return  this.getEntityManager().createQuery("SELECT new hqlmappers.StudentGroupDTO(grst.groupObj.id,courseObj.title,ageObj.title,speedObj.title ,grst.joined,grst.dropped ,grst.totalPayed, grst.totalDebt ) " +
                 " FROM GroupStudent grst" +
                 " JOIN grst.groupObj  " +
                 " JOIN grst.groupObj.courseObj courseObj " +
                 " JOIN grst.groupObj.ageObj ageObj " +
                 " JOIN grst.groupObj.speedObj speedObj " +
-                " WHERE grst.studentObj.id = :sid ").setParameter("sid",studentId).getResultList();
+                " WHERE grst.studentObj.id = :sid ")
+                .setParameter("sid",studentId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<ExamResultTextDTO> getMockTextResults(Long studentId)
@@ -57,7 +69,10 @@ public class StudentRepository extends Repository {
                 " JOIN mockResText.mockExamObj exObj  " +
                 " JOIN mockResText.mockExamObj.groupObj  " +
                 " JOIN mockResText.mockExamObj.groupObj.courseObj courseObj " +
-                " WHERE mockResText.student.id = :sid ").setParameter("sid",studentId).getResultList();
+                " WHERE mockResText.student.id = :sid ")
+                .setParameter("sid",studentId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<ExamResultTextDTO> getMockNumericResults(Long studentId)
@@ -67,7 +82,10 @@ public class StudentRepository extends Repository {
                 " JOIN mockResNumber.mockExamObj exObj  " +
                 " JOIN mockResNumber.mockExamObj.groupObj  " +
                 " JOIN mockResNumber.mockExamObj.groupObj.courseObj courseObj " +
-                " WHERE mockResNumber.student.id = :sid ").setParameter("sid",studentId).getResultList();
+                " WHERE mockResNumber.student.id = :sid ")
+                .setParameter("sid",studentId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<TimetableDTO> getStudentTimeTable(Long studentId) {
@@ -123,7 +141,9 @@ public class StudentRepository extends Repository {
                 " AND hs.started <= :endtime ORDER  BY hs.started ASC ", TimetableDTO.class)
                 .setParameter("starttime", WaterClock.getDate())
                 .setParameter("endtime", WaterClock.getDateAWeekAhead())
-                .setParameter("sid",studentId).getResultList();
+                .setParameter("sid",studentId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
 
@@ -134,7 +154,41 @@ public class StudentRepository extends Repository {
                 " JOIN abs.histObj hs " +
                 " JOIN abs.histObj.groupObj  " +
                 " JOIN abs.histObj.groupObj.courseObj crs  " +
-                " JOIN abs.studentObj stObj WHERE stObj.id = :sid").setParameter("sid",studentId).getResultList();
+                " JOIN abs.studentObj stObj WHERE stObj.id = :sid")
+                .setParameter("sid",studentId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
+
+    }
+
+    public StudentRecordsAPI getStudentsList(int currentPage,int perPage,String sortOrder,String sortProperty)
+    {
+        String hql = "SELECT new hqlmappers.StudentRecord(st.id, CONCAT(m.name,' ',m.surname), m.created_at, st.numGroups, st.totalPayed, st.remainingDebt,st.lastPaymentDate) " +
+                " FROM Student st " +
+                " JOIN st.member m ";
+
+        String sortPropertySQL = " ORDER BY st.remainingDebt ";
+        String sortBySQL = sortOrder.equals("ASC") ? "ASC" : "DESC";
+
+        hql += sortPropertySQL + sortBySQL;
+
+        String sqlCount = "SELECT id FROM students";
+        int totalRecords = this.getEntityManager().createNativeQuery(sqlCount).getResultList().size();
+
+
+        HashMap<String,Integer> pages = Utilities.getPaginationPages(currentPage, perPage, totalRecords);
+
+        List<StudentRecord> results =  this.getEntityManager().createQuery(hql).setFirstResult(pages.get("start")).setMaxResults(perPage).getResultList();
+
+
+        StudentRecordsAPI rsp = new StudentRecordsAPI();
+        rsp.setStudents(results);
+        rsp.setCurrentPage(currentPage);
+        rsp.setTotalPages(pages.get("totalPages"));
+        rsp.setTotalRecords(totalRecords);
+
+        return rsp;
+
 
     }
 

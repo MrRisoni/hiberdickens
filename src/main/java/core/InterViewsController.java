@@ -1,8 +1,7 @@
 package core;
 
 
-import models.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import models.interviews.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
 public class InterViewsController {
 

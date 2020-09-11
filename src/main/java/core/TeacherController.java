@@ -1,13 +1,14 @@
 package core;
 
 import hqlmappers.TimetableDTO;
-import models.HourModel;
-import models.Member;
-import models.Teacher;
+import models.HibernateUtil;
+import models.groups.HourModel;
+import models.people.Member;
+import models.people.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pojos.TeacherRecordsAPI;
 import repositories.GeneralRepository;
 import repositories.TeacherRepository;
 import spring_repos.MemberRepository;
@@ -18,8 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin
-@Controller
+@RestController
 public class TeacherController {
 
     @Autowired
@@ -48,25 +48,34 @@ public class TeacherController {
        // tchRepoSpr.save(t);
     }
 
-    @RequestMapping(value = "/teachers", method = RequestMethod.GET)
-    public String getData( Model mod) {
-        mod.addAttribute("teachers",tchRepoSpr.findAll());
-        return "teachersList";
+    @RequestMapping(value = "/api/teachers", method = RequestMethod.GET)
+    public TeacherRecordsAPI getTeachersList() {
+        int perPage = 10;
+        int currentPage = 1;
+
+        TeacherRepository tchRp = new TeacherRepository();
+        tchRp.setEntityManager(HibernateUtil.getEM());
+
+        return  tchRp.getTeachersList(currentPage, perPage,"DESC","remainingDebt");
     }
 
-    @RequestMapping(value = "/teacher/info/{teacherId}", method = RequestMethod.GET)
-    public String getData(@PathVariable Long teacherId, Model mod) {
+    @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
+    public HashMap<String,Object> getData(@PathVariable Long teacherId, Model mod) {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
         Optional<Teacher> searchResult = tchRepoSpr.findById(teacherId);
         Teacher daskalos =searchResult.orElse(null);
-        mod.addAttribute("courses",daskalos.getCourses());
+
+        HashMap<String,Object> rsp = new HashMap<>();
+
+        
+        rsp.put("courses",daskalos.getCourses());
 
         TeacherRepository tchRepo = new TeacherRepository();
-        mod.addAttribute("payments", tchRepo.getTeacherPayments(teacherId));
-        mod.addAttribute("debts", tchRepo.getTeacherDebts(teacherId));
+        rsp.put("payments", tchRepo.getTeacherPayments(teacherId));
+        rsp.put("debts", tchRepo.getTeacherDebts(teacherId));
 
         List<TimetableDTO> timetabl = tchRepo.getTeacherTimeTable(teacherId);
 
@@ -84,7 +93,7 @@ public class TeacherController {
         days = days.stream().distinct().collect(Collectors.toList());
         days.add("#");
         days.add(0, "#");
-        mod.addAttribute("days", days);
+        rsp.put("days", days);
 
         GeneralRepository gRepo = new GeneralRepository();
         List<HourModel> hoursList = gRepo.getHours();
@@ -137,10 +146,10 @@ public class TeacherController {
             finalTimeTabling.add(thisHour);
         } // end for hours
 
-        mod.addAttribute("timetable", timetabl); // delete this later
-        mod.addAttribute("timetabling", finalTimeTabling);
+        rsp.put("timetable", timetabl); // delete this later
+        rsp.put("timetabling", finalTimeTabling);
 
-        return "teacherDetails";
+      return  rsp;
 
     }
 }

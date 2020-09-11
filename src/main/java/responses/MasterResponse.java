@@ -1,7 +1,6 @@
 package responses;
 
-import models.GroupStudent;
-import repositories.GroupMember;
+import hqlmappers.GroupMember;
 
 import java.util.List;
 

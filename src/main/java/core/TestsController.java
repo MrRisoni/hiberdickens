@@ -1,7 +1,7 @@
 package core;
 
 import models.HibernateUtil;
-import models.Pools;
+import models.interviews.Pools;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import repositories.TestsRepository;
@@ -9,7 +9,7 @@ import repositories.TestsRepository;
 import java.util.HashMap;
 import java.util.List;
 
-@CrossOrigin
+
 @RestController
 public class TestsController {
 

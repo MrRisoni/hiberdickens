@@ -1,6 +1,6 @@
 package spring_repos;
 
-import models.ParentsModel;
+import models.people.ParentsModel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

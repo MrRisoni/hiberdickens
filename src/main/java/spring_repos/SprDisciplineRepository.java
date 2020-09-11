@@ -1,6 +1,6 @@
 package spring_repos;
 
-import models.Discipline;
+import models.school.Discipline;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

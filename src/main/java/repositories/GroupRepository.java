@@ -1,11 +1,17 @@
 package repositories;
 
 
+import core.Utilities;
+import hqlmappers.GroupMember;
+import hqlmappers.GroupRecord;
 import hqlmappers.TimetableDTO;
-import models.*;
+import models.groups.GroupModel;
+import models.money.TeacherDebt;
+import models.people.Member;
+import pojos.GroupRecordsAPI;
 
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,41 +22,31 @@ public class GroupRepository extends Repository {
 
     public GroupModel getGroup(Long groupId)
     {
-        return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid",GroupModel.class).setParameter("grid",groupId).getResultList().get(0);
+        return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid", GroupModel.class)
+                .setParameter("grid",groupId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList().get(0);
     }
+
     public List<Member> getGroupTeachers(Long groupId) {
-        return this.getEntityManager().createQuery("SELECT mb FROM GroupTeachers gt " +
+        return this.getEntityManager().createQuery("SELECT new models.people.Member(mb.id,mb.name,mb.surname,mb.phone,mb.created_at)  FROM GroupTeachers gt " +
                 " JOIN gt.groupObj " +
                 " JOIN gt.teacherObj " +
                 " JOIN gt.teacherObj.member mb " +
-                " WHERE gt.groupObj.id=:gid ",Member.class).setParameter("gid",groupId).getResultList();
+                " WHERE gt.groupObj.id=:gid ", Member.class).setParameter("gid",groupId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<GroupMember> getGroupStudents(Long groupId) {
 
                 Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, CONCAT(m.name,' ',m.surname), " +
                 " IF (CURRENT_DATE > gs.dropped, 1,0) AS hasDropped,  " +
-                " IF (studentsPayed.student_id IS NULL,0, studentsPayed.sumPayed) AS hasPayed,  " +
-                " IF (studentsDebt.student_id IS NULL,0,  " +
-                "         IF (studentsPayed.student_id IS NULL,studentsDebt.sumInDebt, studentsDebt.sumInDebt-studentsPayed.sumPayed)  " +
-                " ) AS remainingDebt  " +
+                " gs.total_payed AS hasPayed, gs.total_debt AS remainingDebt  " +
                 " FROM group_students gs  " +
                 " JOIN students s ON s.id = gs.student_id  " +
                 " JOIN members m ON m.id = s.member_id  " +
-
-                " LEFT JOIN  " +
-                "    (  " +
-                "       SELECT SUM(amount) AS sumPayed,student_id FROM student_payed  " +
-                "       WHERE group_id = :id  " +
-                "       GROUP BY student_id  " +
-                "    ) AS studentsPayed ON  studentsPayed.student_id = gs.student_id  " +
-                " LEFT JOIN  " +
-                " (  " +
-                "      SELECT SUM(amount) AS sumInDebt,student_id FROM student_debts  " +
-                "       WHERE group_id = :id  " +
-                "   GROUP BY student_id  " +
-                " ) AS studentsDebt ON  studentsDebt.student_id = gs.student_id  " +
-                " WHERE gs.group_id = :id ");
+                 " WHERE gs.group_id = :id ");
 
                 List<Object[]> results = qry.setParameter( "id", groupId ).getResultList();
 
@@ -67,8 +63,6 @@ public class GroupRepository extends Repository {
                 }).collect(Collectors.toList());
     }
 
-
-
     public List<Object> getStudentPaymentsList(Long groupId)
     {
          return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(sp.amount,mon.title, sp.lesson_year, sp.groupObj.id, sp.studentObj.id,  concat(m.name,' ',m.surname),'') " +
@@ -77,7 +71,10 @@ public class GroupRepository extends Repository {
          " JOIN sp.studentObj stObj " +
          " JOIN stObj.member m  " +
          " JOIN sp.groupObj " +
-         " WHERE sp.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+         " WHERE sp.groupObj.id = :id ")
+         .setParameter( "id", groupId )
+         .setHint("org.hibernate.cacheable", true)
+         .getResultList();
 
     }
 
@@ -89,7 +86,10 @@ public class GroupRepository extends Repository {
                 " JOIN sb.studentObj stObj " +
                 " JOIN stObj.member m  " +
                 " JOIN sb.groupObj " +
-                " WHERE sb.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+                " WHERE sb.groupObj.id = :id ")
+                .setParameter( "id", groupId )
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
     public List<Object> getTeacherPaymentsList(Long groupId)
@@ -99,7 +99,10 @@ public class GroupRepository extends Repository {
                 " JOIN tp.teacherObj  " +
                 " JOIN tp.teacherObj.member m  " +
                 " JOIN tp.monthObj mon " +
-                " WHERE tp.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+                " WHERE tp.groupObj.id = :id ")
+                .setParameter( "id", groupId )
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
 
@@ -110,7 +113,10 @@ public class GroupRepository extends Repository {
                 " JOIN tb.teacherObj  " +
                 " JOIN tb.teacherObj.member m  " +
                 " JOIN tb.monthObj mon " +
-                " WHERE tb.groupObj.id = :id ").setParameter( "id", groupId ).getResultList();
+                " WHERE tb.groupObj.id = :id ")
+                .setParameter( "id", groupId )
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
 
@@ -118,8 +124,45 @@ public class GroupRepository extends Repository {
     {
       return  this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
-                " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter( "id", groupId ).getResultList();
+                " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter( "id", groupId )
+              .setHint("org.hibernate.cacheable", true)
+              .getResultList();
 
     }
 
+
+    public GroupRecordsAPI getGroupsList(int currentPage, int perPage, String sortOrder, String sortProperty)
+    {
+
+        String sqlCount = "SELECT id FROM groupakia";
+        int totalRecords = this.getEntityManager().createNativeQuery(sqlCount).getResultList().size();
+        HashMap<String,Integer> pages = Utilities.getPaginationPages(currentPage, perPage, totalRecords);
+
+        String hql = "SELECT new hqlmappers.GroupRecord(g.id,g.title,spd.title, age.title,fee.amount,wage.amount, " +
+                "  g.created_at ,g.ends_at, g.studentsNum," +
+                " g.sumHours, g.paymentsSumTeachers,g.paymentsSumStudents, g.remainingTeacherDebt ,g.remainingStudentDebt )" +
+                "  FROM GroupModel g " +
+                "  JOIN g.speedObj spd" +
+                "  JOIN g.ageObj age" +
+                "  JOIN g.feeObj fee" +
+                "  JOIN g.wageObj wage " +
+                "  WHERE g.active =1 ORDER BY g.remainingStudentDebt DESC";
+
+
+
+        List<GroupRecord> results =  this.getEntityManager()
+                .createQuery(hql)
+                .setFirstResult(pages.get("start"))
+                .setMaxResults(perPage)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
+;
+        GroupRecordsAPI rsp = new GroupRecordsAPI();
+        rsp.setGroups(results);
+        rsp.setCurrentPage(currentPage);
+        rsp.setTotalPages(pages.get("totalPages"));
+        rsp.setTotalRecords(totalRecords);
+
+        return rsp;
+    }
 }

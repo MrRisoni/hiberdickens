@@ -2,14 +2,13 @@ package core;
 
 
 import models.HibernateUtil;
-import models.ReviewQuestionnaire;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import models.evaluation.ReviewQuestionnaire;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import repositories.ReviewRepository;
 
-@CrossOrigin
+
 @RestController
 public class ReviewController {
 

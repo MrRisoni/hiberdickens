@@ -1,10 +1,14 @@
 package repositories;
 
+import core.Utilities;
 import core.WaterClock;
+import hqlmappers.TeacherRecord;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;
-import models.TeacherPayment;
+import models.money.TeacherPayment;
+import pojos.TeacherRecordsAPI;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class TeacherRepository extends Repository {
@@ -20,7 +24,11 @@ public class TeacherRepository extends Repository {
                 " JOIN tp.monthObj mon " +
                 " JOIN tp.groupObj  " +
                 " JOIN tp.groupObj.courseObj courseObj " +
-                " WHERE tp.teacherObj.id = :tid ORDER BY  mon.id ASC,tp.lesson_year ASC ").setParameter("tid", teacherId).getResultList();
+                " WHERE tp.teacherObj.id = :tid " +
+                " ORDER BY  mon.id ASC,tp.lesson_year ASC ")
+                .setParameter("tid", teacherId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
 
     }
 
@@ -31,7 +39,11 @@ public class TeacherRepository extends Repository {
                 " JOIN tb.monthObj mon " +
                 " JOIN tb.groupObj  " +
                 " JOIN tb.groupObj.courseObj courseObj " +
-                " WHERE tb.teacherObj.id = :tid ORDER BY  mon.id ASC,tb.lesson_year ASC ").setParameter("tid", teacherId).getResultList();
+                " WHERE tb.teacherObj.id = :tid " +
+                " ORDER BY  mon.id ASC,tb.lesson_year ASC ")
+                .setParameter("tid", teacherId)
+                .setHint("org.hibernate.cacheable", true)
+                .getResultList();
     }
 
 
@@ -49,6 +61,38 @@ public class TeacherRepository extends Repository {
                 .setParameter("starttime", WaterClock.getDate())
                 .setParameter("endtime", WaterClock.getDateAWeekAhead())
                 .setParameter("tid",teacherId).getResultList();
+    }
+
+
+    public TeacherRecordsAPI getTeachersList(int currentPage, int perPage, String sortOrder, String sortProperty)
+    {
+        String hql = "SELECT new hqlmappers.TeacherRecord(t.id, CONCAT(m.name,' ',m.surname), m.created_at, t.numGroups, t.totalPayed, t.remainingDebt) " +
+                " FROM Teacher t " +
+                " JOIN t.member m ";
+
+        String sortPropertySQL = " ORDER BY t.remainingDebt ";
+        String sortBySQL = sortOrder.equals("ASC") ? "ASC" : "DESC";
+
+        hql += sortPropertySQL + sortBySQL;
+
+        String sqlCount = "SELECT id FROM teachers";
+        int totalRecords = this.getEntityManager().createNativeQuery(sqlCount).getResultList().size();
+
+
+        HashMap<String,Integer> pages = Utilities.getPaginationPages(currentPage, perPage, totalRecords);
+
+        List<TeacherRecord> results =  this.getEntityManager().createQuery(hql).setFirstResult(pages.get("start")).setMaxResults(perPage).getResultList();
+
+
+        TeacherRecordsAPI rsp = new TeacherRecordsAPI();
+        rsp.setTeachers(results);
+        rsp.setCurrentPage(currentPage);
+        rsp.setTotalPages(pages.get("totalPages"));
+        rsp.setTotalRecords(totalRecords);
+
+        return rsp;
+
+
     }
 
 

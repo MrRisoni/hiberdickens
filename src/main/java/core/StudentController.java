@@ -1,22 +1,19 @@
 package core;
 
-import form_posts.StudentListPostObj;
+import models.general.Suburb;
+import models.people.Member;
+import models.people.ParentsModel;
+import models.people.Student;
+import pojos.StudentRecordsAPI;
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import repositories.StudentRepository;
 import spring_repos.MemberRepository;
 import spring_repos.ParentRepository;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -24,8 +21,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@CrossOrigin
-@Controller
+
+@RestController
 public class StudentController {
 
     @Autowired
@@ -37,8 +34,6 @@ public class StudentController {
     @Autowired
     spring_repos.StudentRepository studRepo;
 
-    @Autowired
-    spring_repos.StudentPagingRepository studPageRepo;
 
     @RequestMapping(value = "/api/student/update")
     public void updateStudent() {
@@ -79,42 +74,21 @@ public class StudentController {
         parRepo.save(par);
     }
 
-    @RequestMapping(value = "/students", method = RequestMethod.GET)
-    public String getData(Model mod) {
-        // pagination
-        Pageable foo = PageRequest.of(0,5);
-        mod.addAttribute("students",studPageRepo.findAll(foo));
-        mod.addAttribute("currentPage",4);
 
-        StudentListPostObj form = new StudentListPostObj();
-        mod.addAttribute("formObj", form);
+    @RequestMapping(value = "/api/students", method = RequestMethod.GET)
+    public StudentRecordsAPI getStudentsList() {
+        int perPage = 10;
+        int currentPage = 1;
 
-        return "studentsList";
+        StudentRepository stRp = new StudentRepository();
+        stRp.setEntityManager(HibernateUtil.getEM());
+
+        return  stRp.getStudentsList(currentPage, perPage,"DESC","remainingDebt");
     }
 
-    @RequestMapping(value = "/students", method = RequestMethod.POST)
-    public String paginateSubmit(@ModelAttribute StudentListPostObj formObj,Model mod,BindingResult bindingResult) {
-        // pagination
-        System.out.println("POSTTT");
-        System.out.println(formObj.getPerPage());
 
-        //Sort srt = new Sort(new Sort.Order(Sort.Direction.DESC, "remainingDebt"));
-
-        Pageable foo = PageRequest.of(0,formObj.getPerPage(),Sort.by(Sort.Direction.DESC, "remainingDebt"));
-        Page<Student> paginationResult = studPageRepo.findAll(foo);
-
-        mod.addAttribute("students",paginationResult);
-        mod.addAttribute("currentPage",4);
-        mod.addAttribute("totalPages", paginationResult.getTotalPages());
-        mod.addAttribute("totalRecords", paginationResult.getTotalElements());
-        mod.addAttribute("itemsInPage", formObj.getPerPage());
-        mod.addAttribute("formObj", formObj);
-
-        return "studentsList";
-    }
-
-    @RequestMapping(value = "/student/info/{studentId}", method = RequestMethod.GET)
-    public String getData(@PathVariable Long studentId, Model mod) {
+    @RequestMapping(value = "/api/student/info/{studentId}", method = RequestMethod.GET)
+    public HashMap<String,Object> getData(@PathVariable Long studentId) {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
@@ -122,22 +96,26 @@ public class StudentController {
         Optional<Student> result = studRepo.findById(studentId);
         Student student  =result.orElse(null);
         StudentRepository stdRepo = new StudentRepository();
-        mod.addAttribute("lastPayed",student.getLastPaymentDate());
-        mod.addAttribute("absencies",stdRepo.getAbsenciesList(studentId));
-        mod.addAttribute("payments", stdRepo.getStudentPayments(studentId));
-        mod.addAttribute("debts", stdRepo.getStudentDebts(studentId));
-        mod.addAttribute("groups",stdRepo.getStudentGroups(studentId));
-        mod.addAttribute("mockResultsText",stdRepo.getMockTextResults(studentId));
-        mod.addAttribute("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
-        mod.addAttribute("timetable",stdRepo.getTimetableHQL(studentId));
-        mod.addAttribute("fullName",student.getMember().getName()+ " " + student.getMember().getSurname());
-        mod.addAttribute("totalPayed",student.getTotalPayed());
-        mod.addAttribute("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
-        mod.addAttribute("parents",student.getParents());
-        mod.addAttribute("discounts",student.getDiscountList());
-        System.out.println("Discounts!!");
-        System.out.println(student.getDiscountList().size());
-        return "studentDetails";
+
+        HashMap<String,Object> rsp = new HashMap<>();
+
+        rsp.put("lastPayed",student.getLastPaymentDate());
+        rsp.put("absencies",stdRepo.getAbsenciesList(studentId));
+        rsp.put("payments", stdRepo.getStudentPayments(studentId));
+        rsp.put("debts", stdRepo.getStudentDebts(studentId));
+        rsp.put("groups",stdRepo.getStudentGroups(studentId));
+        rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
+        rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
+        rsp.put("timetable",stdRepo.getTimetableHQL(studentId));
+        rsp.put("fullName",student.getMember().getName()+ " " + student.getMember().getSurname());
+        rsp.put("totalPayed",student.getTotalPayed());
+        rsp.put("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
+        rsp.put("parents",student.getParents());
+        rsp.put("discounts",student.getDiscountList());
+
+        
+
+        return rsp;
 
     }
 }

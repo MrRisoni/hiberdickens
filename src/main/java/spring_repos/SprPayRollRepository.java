@@ -1,6 +1,6 @@
 package spring_repos;
 
-import models.PayRoll;
+import models.money.PayRoll;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

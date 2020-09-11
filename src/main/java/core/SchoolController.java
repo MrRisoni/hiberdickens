@@ -11,7 +11,7 @@ import spring_repos.SprSchoolClassRepository;
 import java.util.HashMap;
 import java.util.HashSet;
 
-@CrossOrigin
+
 @RestController
 public class SchoolController {
 

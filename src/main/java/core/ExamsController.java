@@ -21,10 +21,7 @@ public class ExamsController {
 
             //  EntityManager entityManager =  HibernateUtil.getEM();
 
-            Session session = HibernateUtil.getSessionFactory().openSession();
-
-            return omp.writeValueAsString( session.createCriteria(MockExam.class)
-                    .add(Restrictions.eq("groupObj.id", 1)).list());
+         return "foo";
 
 
         }
@@ -39,10 +36,8 @@ public class ExamsController {
         try {
             ObjectMapper omp = new ObjectMapper();
 
-            Session session = HibernateUtil.getSessionFactory().openSession();
+            return "foo";
 
-            return omp.writeValueAsString( session.createCriteria(RealExam.class)
-                    .add(Restrictions.eq("groupObj.id", 1)).list());
 
 
         }

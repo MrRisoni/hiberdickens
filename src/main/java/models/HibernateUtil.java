@@ -15,9 +15,10 @@ public class HibernateUtil {
 
 
     private static EntityManager em = null;
+    private static EntityManagerFactory emFactory = null;
 
     public static EntityManager getEM() {
-        if (em == null) {
+        if (emFactory == null) {
             Map<String, Object> configOverrides = new HashMap<String, Object>();
             System.out.println("SYSTEM ENV");
             configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_DB_PASSWD"));
@@ -28,12 +29,13 @@ public class HibernateUtil {
             System.out.println("URL CON");
             System.out.println(dbUrl);
 
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dickensdb", configOverrides);
-            em = entityManagerFactory.createEntityManager();
+            emFactory = Persistence.createEntityManagerFactory("dickensdb", configOverrides);
+            em = emFactory.createEntityManager();
         }
         return em;
     }
 
-
-
+    public static EntityManagerFactory getEmFactory() {
+        return emFactory;
+    }
 }

@@ -77,13 +77,15 @@ public class StudentController {
 
     @RequestMapping(value = "/api/students", method = RequestMethod.GET)
     public StudentRecordsAPI getStudentsList() {
-        int perPage = 10;
+        int perPage = 100;
         int currentPage = 1;
 
         StudentRepository stRp = new StudentRepository();
         stRp.setEntityManager(HibernateUtil.getEM());
 
-        return  stRp.getStudentsList(currentPage, perPage,"DESC","remainingDebt");
+        HibernateUtil.getEmFactory().close();
+        StudentRecordsAPI stdApi = stRp.getStudentsList(currentPage, perPage,"DESC","remainingDebt");
+        return  stdApi;
     }
 
 
@@ -113,7 +115,7 @@ public class StudentController {
         rsp.put("parents",student.getParents());
         rsp.put("discounts",student.getDiscountList());
 
-        
+        HibernateUtil.getEmFactory().close();
 
         return rsp;
 

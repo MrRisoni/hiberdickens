@@ -69,12 +69,14 @@ public class GroupController {
     @RequestMapping(value="/api/groups",method = RequestMethod.GET)
     public GroupRecordsAPI getGroupList()
     {
-        int perPage = 10;
+        int perPage = 100;
         int currentPage = 1;
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
-        return  groupRepo.getGroupsList(currentPage, perPage,"DESC","remainingDebt");
+        GroupRecordsAPI grapi =  groupRepo.getGroupsList(currentPage, perPage,"DESC","remainingDebt");
+        HibernateUtil.getEmFactory().close();
+        return grapi;
 
     }
 
@@ -119,6 +121,9 @@ public class GroupController {
         rsp.put("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
         rsp.put("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
         rsp.put("seminarModules",geFundenGroup.getModulesSet());
+
+
+        HibernateUtil.getEmFactory().close();
 
 
        return rsp;

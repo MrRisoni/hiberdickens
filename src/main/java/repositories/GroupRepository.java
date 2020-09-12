@@ -5,9 +5,11 @@ import core.Utilities;
 import hqlmappers.GroupMember;
 import hqlmappers.GroupRecord;
 import hqlmappers.TimetableDTO;
+import models.HibernateUtil;
 import models.groups.GroupModel;
 import models.money.TeacherDebt;
 import models.people.Member;
+import org.hibernate.Hibernate;
 import pojos.GroupRecordsAPI;
 
 import javax.persistence.Query;
@@ -163,6 +165,7 @@ public class GroupRepository extends Repository {
         rsp.setTotalPages(pages.get("totalPages"));
         rsp.setTotalRecords(totalRecords);
 
+        HibernateUtil.getEmFactory().close();
         return rsp;
     }
 }

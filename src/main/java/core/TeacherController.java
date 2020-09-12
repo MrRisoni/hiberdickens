@@ -50,13 +50,15 @@ public class TeacherController {
 
     @RequestMapping(value = "/api/teachers", method = RequestMethod.GET)
     public TeacherRecordsAPI getTeachersList() {
-        int perPage = 10;
+        int perPage = 100;
         int currentPage = 1;
 
         TeacherRepository tchRp = new TeacherRepository();
         tchRp.setEntityManager(HibernateUtil.getEM());
 
-        return  tchRp.getTeachersList(currentPage, perPage,"DESC","remainingDebt");
+        HibernateUtil.getEmFactory().close();
+        TeacherRecordsAPI tchapi = tchRp.getTeachersList(currentPage, perPage,"DESC","remainingDebt");
+        return  tchapi;
     }
 
     @RequestMapping(value = "/api/teacher/info/{teacherId}", method = RequestMethod.GET)
@@ -148,6 +150,7 @@ public class TeacherController {
 
         rsp.put("timetable", timetabl); // delete this later
         rsp.put("timetabling", finalTimeTabling);
+        HibernateUtil.getEmFactory().close();
 
       return  rsp;
 

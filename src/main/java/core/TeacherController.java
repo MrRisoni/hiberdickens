@@ -56,7 +56,7 @@ public class TeacherController {
         TeacherRepository tchRp = new TeacherRepository();
         tchRp.setEntityManager(HibernateUtil.getEM());
 
-        HibernateUtil.getEmFactory().close();
+
         TeacherRecordsAPI tchapi = tchRp.getTeachersList(currentPage, perPage,"DESC","remainingDebt");
         return  tchapi;
     }
@@ -150,7 +150,7 @@ public class TeacherController {
 
         rsp.put("timetable", timetabl); // delete this later
         rsp.put("timetabling", finalTimeTabling);
-        HibernateUtil.getEmFactory().close();
+
 
       return  rsp;
 

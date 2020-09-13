@@ -150,7 +150,7 @@ public class TimetableController {
          //   ttblRsp.put("buildings",genRepo.getBuildings());
          //   ttblRsp.put("languages",genRepo.getLanguages());
 
-            HibernateUtil.getEmFactory().close();
+
 
             return ttblRsp;
         }

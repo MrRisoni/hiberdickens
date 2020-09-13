@@ -83,7 +83,7 @@ public class StudentController {
         StudentRepository stRp = new StudentRepository();
         stRp.setEntityManager(HibernateUtil.getEM());
 
-        HibernateUtil.getEmFactory().close();
+
         StudentRecordsAPI stdApi = stRp.getStudentsList(currentPage, perPage,"DESC","remainingDebt");
         return  stdApi;
     }
@@ -115,7 +115,7 @@ public class StudentController {
         rsp.put("parents",student.getParents());
         rsp.put("discounts",student.getDiscountList());
 
-        HibernateUtil.getEmFactory().close();
+
 
         return rsp;
 

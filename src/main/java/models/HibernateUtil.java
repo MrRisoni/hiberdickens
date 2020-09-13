@@ -19,6 +19,7 @@ public class HibernateUtil {
 
     public static EntityManager getEM() {
         if (emFactory == null) {
+            System.out.println("CREATING NEW EM");
             Map<String, Object> configOverrides = new HashMap<String, Object>();
             System.out.println("SYSTEM ENV");
             configOverrides.put("javax.persistence.jdbc.password", System.getenv("SPRING_APP_DB_PASSWD"));

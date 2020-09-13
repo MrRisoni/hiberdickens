@@ -165,7 +165,7 @@ public class GroupRepository extends Repository {
         rsp.setTotalPages(pages.get("totalPages"));
         rsp.setTotalRecords(totalRecords);
 
-        HibernateUtil.getEmFactory().close();
+
         return rsp;
     }
 }

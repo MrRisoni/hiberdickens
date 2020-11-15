@@ -1,4 +1,4 @@
-package core;
+package controllers;
 
 import models.groups.*;
 import models.people.Teacher;

@@ -4,7 +4,7 @@ import models.general.Perfecture;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Cacheable
@@ -16,7 +16,7 @@ public class Town {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
     private String title;
 

@@ -3,7 +3,7 @@ package models.people;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,15 +17,15 @@ public class ParentsModel {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
     private String name;
 
-    @NotNull
+
     @Column
     private String surname;
 
-    @NotNull
+
     @Column
     private String phone;
 

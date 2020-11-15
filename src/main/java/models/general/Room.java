@@ -2,7 +2,7 @@ package models.general;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Cacheable
@@ -14,7 +14,7 @@ public class Room {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
     private String title;
 

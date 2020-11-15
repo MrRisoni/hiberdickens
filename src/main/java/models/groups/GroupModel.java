@@ -9,7 +9,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class GroupModel {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
     private String title;
 

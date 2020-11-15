@@ -3,7 +3,7 @@ package models.interviews;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 @Entity
@@ -22,7 +22,7 @@ public class InterViewGrade {
     @Column(nullable = true)
     private int passed;
 
-    @NotNull
+
     @Column
     private String notes;
 

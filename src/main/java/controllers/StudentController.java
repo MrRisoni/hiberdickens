@@ -1,4 +1,4 @@
-package core;
+package controllers;
 
 import models.general.Suburb;
 import models.people.Member;

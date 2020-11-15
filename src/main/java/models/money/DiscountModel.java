@@ -3,7 +3,7 @@ package models.money;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -16,7 +16,7 @@ public class DiscountModel {
     @Column
     private int id;
 
-    @NotNull
+
     @Column
     private String title;
 

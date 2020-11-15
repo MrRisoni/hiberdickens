@@ -1,7 +1,7 @@
 package repositories;
 
-import core.Utilities;
-import core.WaterClock;
+import controllers.Utilities;
+import controllers.WaterClock;
 import hqlmappers.TeacherRecord;
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;

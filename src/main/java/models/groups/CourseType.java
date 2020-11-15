@@ -4,7 +4,7 @@ import models.JackSonViewer;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Cacheable
@@ -17,7 +17,7 @@ public class CourseType {
     @JsonView(JackSonViewer.ICourse.class)
     private Long id;
 
-    @NotNull
+
     @Column
     @JsonView(JackSonViewer.ICourse.class)
     private String title;

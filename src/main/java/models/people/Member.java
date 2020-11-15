@@ -3,10 +3,10 @@ import models.general.Suburb;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.envers.Audited;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 @Entity
@@ -19,22 +19,22 @@ public class Member {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
-    @Audited
+
     private String name;
 
-    @NotNull
+
     @Column
-    @Audited
+
     private String surname;
 
-    @NotNull
+
     @Column
-    @Audited
+
     private String phone;
 
-    @NotNull
+
     @Column
     private String email;
 
@@ -56,7 +56,7 @@ public class Member {
     public Member() {
     }
 
-    public Member(Long id, @NotNull String name, @NotNull String surname, @NotNull String phone, Date created_at) {
+    public Member(Long id,  String name,  String surname,  String phone, Date created_at) {
         this.id = id;
         this.name = name;
         this.surname = surname;

@@ -5,7 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -19,11 +19,11 @@ public class Teacher {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
     private String amka;
 
-    @NotNull
+
     @Column
     private String afm;
 

@@ -7,7 +7,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -21,7 +21,7 @@ public class CourseModel {
     @JsonView(JackSonViewer.ICourse.class)
     private Long id;
 
-    @NotNull
+
     @Column
     @JsonView(JackSonViewer.ICourse.class)
     private String title;

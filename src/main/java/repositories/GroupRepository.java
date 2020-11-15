@@ -1,15 +1,13 @@
 package repositories;
 
 
-import core.Utilities;
+import controllers.Utilities;
 import hqlmappers.GroupMember;
 import hqlmappers.GroupRecord;
 import hqlmappers.TimetableDTO;
-import models.HibernateUtil;
 import models.groups.GroupModel;
 import models.money.TeacherDebt;
 import models.people.Member;
-import org.hibernate.Hibernate;
 import pojos.GroupRecordsAPI;
 
 import javax.persistence.Query;

@@ -1,4 +1,4 @@
-package core;
+package controllers;
 
 import models.HibernateUtil;
 import models.interviews.Pools;

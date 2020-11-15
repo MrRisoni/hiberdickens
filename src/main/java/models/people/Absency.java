@@ -4,7 +4,7 @@ import models.groups.HistoryModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Cacheable
@@ -16,7 +16,7 @@ public class Absency {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
     private int justified;
 

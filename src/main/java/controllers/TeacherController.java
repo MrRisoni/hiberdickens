@@ -1,4 +1,4 @@
-package core;
+package controllers;
 
 import hqlmappers.TimetableDTO;
 import models.HibernateUtil;

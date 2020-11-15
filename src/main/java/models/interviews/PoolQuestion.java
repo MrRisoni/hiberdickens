@@ -3,7 +3,7 @@ package models.interviews;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class PoolQuestion {
     @Column
     private int id;
 
-    @NotNull
+
     @Column
     private String body;
 

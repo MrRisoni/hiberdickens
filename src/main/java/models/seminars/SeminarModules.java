@@ -4,7 +4,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 @Entity
@@ -17,7 +17,7 @@ public class SeminarModules {
     @Column
     private Long id;
 
-    @NotNull
+
     @Column
     private String title;
 

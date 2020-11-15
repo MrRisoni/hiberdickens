@@ -1,6 +1,6 @@
 package repositories;
 
-import core.WaterClock;
+import controllers.WaterClock;
 import models.interviews.PoolQuestion;
 import models.interviews.PoolQuestionAnswer;
 import models.interviews.Pools;

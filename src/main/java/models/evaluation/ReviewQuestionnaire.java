@@ -1,6 +1,8 @@
 package models.evaluation;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
@@ -12,6 +14,8 @@ import java.util.List;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "review_questionnaire")
 public class ReviewQuestionnaire {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -22,14 +26,6 @@ public class ReviewQuestionnaire {
     private List<ReviewQuestionnaireQuestion> questionsList = new ArrayList<ReviewQuestionnaireQuestion>();
 
     public ReviewQuestionnaire() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public List<ReviewQuestionnaireQuestion> getQuestionsList() {

@@ -2,6 +2,8 @@ package models.evaluation;
 
 
 
+import lombok.Getter;
+import lombok.Setter;
 import models.interviews.PoolReviewQuestion;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,11 +14,12 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "review_questionnaire_questions")
 public class ReviewQuestionnaireQuestion {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chapter_id")
@@ -27,14 +30,6 @@ public class ReviewQuestionnaireQuestion {
     private PoolReviewQuestion questionObj;
 
     public ReviewQuestionnaireQuestion() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public ReviewQuestionnaireChapter getChapterObj() {

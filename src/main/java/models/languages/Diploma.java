@@ -1,4 +1,6 @@
 package models.languages;
+import lombok.Getter;
+import lombok.Setter;
 import models.groups.CourseModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,15 +14,20 @@ import java.util.Date;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "diplomas")
 public class Diploma {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
+    @Getter
+    @Setter
     @Column
     private int active;
 
-
+    @Getter
+    @Setter
     @Column
     private String level;
 
@@ -44,47 +51,12 @@ public class Diploma {
     public Diploma() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
-
-
     public CourseModel getCours() {
         return cours;
     }
 
     public void setCours(CourseModel cours) {
         this.cours = cours;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
     }
 
     public Language getLangObj() {

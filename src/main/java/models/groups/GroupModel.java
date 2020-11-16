@@ -1,5 +1,7 @@
 package models.groups;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.exams.MockExam;
 import models.people.Teacher;
 import models.seminars.SeminarModules;
@@ -18,64 +20,95 @@ import java.util.*;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "groupakia")
 public class GroupModel {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-
+    @Getter
+    @Setter
     @Column
     private String title;
 
+    @Getter
+    @Setter
     @Column
     private int active;
 
+    @Getter
+    @Setter
     @Column
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date created_at;
 
+    @Getter
+    @Setter
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
+    @Getter
+    @Setter
     @Column
     private int max_seats;
 
+    @Getter
+    @Setter
     @Column
     private int remaining_seats;
 
+    @Getter
+    @Setter
     @Formula("(SELECT IF(COUNT(gs.id) IS NULL,0,COUNT(gs.id)) FROM group_students gs WHERE gs.group_id = id)")
     private BigDecimal studentsNum;
 
+    @Getter
+    @Setter
     @Formula("(SELECT IF(SUM(stp.amount) IS NULL,0,SUM(stp.amount))  FROM student_payed stp WHERE stp.group_id = id)")
     private BigDecimal paymentsSumStudents;
 
+    @Getter
+    @Setter
     @Formula("(SELECT IF(SUM(tp.amount) IS NULL,0, SUM(tp.amount)) FROM teacher_payments tp WHERE tp.group_id = id)")
     private BigDecimal paymentsSumTeachers;
 
+    @Getter
+    @Setter
     @Formula("(SELECT IF(SUM(stb.amount) IS NULL,0,SUM(stb.amount))  FROM student_debts stb WHERE stb.group_id = id)")
     private BigDecimal debtsSumStudents;
 
+    @Getter
+    @Setter
     @Formula("(SELECT IF(SUM(tb.amount) IS NULL,0, SUM(tb.amount))  FROM  teacher_debts tb WHERE tb.group_id = id)")
     private BigDecimal debtsSumTeachers;
 
+    @Getter
+    @Setter
     @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
             "    FROM student_payed stp " +
             "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
             "    WHERE dbt.group_id = id)")
     private BigDecimal remainingStudentDebt;
 
+    @Getter
+    @Setter
     @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
             "    FROM student_payed stp " +
             "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
             "    WHERE dbt.group_id = id)")
     private BigDecimal remainingTeacherDebt;
 
+    @Getter
+    @Setter
     @Formula("(SELECT IF(SUM(h.duration) IS NULL,0,SUM(h.duration)) FROM history h JOIN groupakia g ON g.id = h.group_id WHERE h.group_id= id)")
     private BigDecimal sumHours;
 
+    @Getter
+    @Setter
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -130,23 +163,6 @@ public class GroupModel {
 
 
     public GroupModel() {
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public List<HistoryModel> getHistoryList() {
@@ -221,22 +237,6 @@ public class GroupModel {
         this.wageObj = wageObj;
     }
 
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
-    }
-
     public Set<Teacher> getTeacherSet() {
         return teacherSet;
     }
@@ -245,108 +245,11 @@ public class GroupModel {
         this.teacherSet = teacherSet;
     }
 
-    public int getMax_seats() {
-        return max_seats;
-    }
-
-    public void setMax_seats(int max_seats) {
-        this.max_seats = max_seats;
-    }
-
-    public int getRemaining_seats() {
-        return remaining_seats;
-    }
-
-    public void setRemaining_seats(int remaining_seats) {
-        this.remaining_seats = remaining_seats;
-    }
-
-
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
-
-    public Date getEnds_at() {
-        return ends_at;
-    }
-
-    public void setEnds_at(Date ends_at) {
-        this.ends_at = ends_at;
-    }
-
-    public BigDecimal getPaymentsSumStudents() {
-        return paymentsSumStudents;
-    }
-
-    public void setPaymentsSumStudents(BigDecimal paymentsSumStudents) {
-        this.paymentsSumStudents = paymentsSumStudents;
-    }
-
-    public BigDecimal getPaymentsSumTeachers() {
-        return paymentsSumTeachers;
-    }
-
-    public void setPaymentsSumTeachers(BigDecimal paymentsSumTeachers) {
-        this.paymentsSumTeachers = paymentsSumTeachers;
-    }
-
-    public BigDecimal getDebtsSumStudents() {
-        return debtsSumStudents;
-    }
-
-    public void setDebtsSumStudents(BigDecimal debtsSumStudents) {
-        this.debtsSumStudents = debtsSumStudents;
-    }
-
-    public BigDecimal getDebtsSumTeachers() {
-        return debtsSumTeachers;
-    }
-
-    public void setDebtsSumTeachers(BigDecimal debtsSumTeachers) {
-        this.debtsSumTeachers = debtsSumTeachers;
-    }
-
-    public BigDecimal getRemainingStudentDebt() {
-        return remainingStudentDebt;
-    }
-
-    public void setRemainingStudentDebt(BigDecimal remainingStudentDebt) {
-        this.remainingStudentDebt = remainingStudentDebt;
-    }
-
-    public BigDecimal getRemainingTeacherDebt() {
-        return remainingTeacherDebt;
-    }
-
-    public void setRemainingTeacherDebt(BigDecimal remainingTeacherDebt) {
-        this.remainingTeacherDebt = remainingTeacherDebt;
-    }
-
-    public BigDecimal getSumHours() {
-        return sumHours;
-    }
-
-    public void setSumHours(BigDecimal sumHours) {
-        this.sumHours = sumHours;
-    }
-
     public Set<SeminarModules> getModulesSet() {
         return modulesSet;
     }
 
     public void setModulesSet(Set<SeminarModules> modulesSet) {
         this.modulesSet = modulesSet;
-    }
-
-    public BigDecimal getStudentsNum() {
-        return studentsNum;
-    }
-
-    public void setStudentsNum(BigDecimal studentsNum) {
-        this.studentsNum = studentsNum;
     }
 }

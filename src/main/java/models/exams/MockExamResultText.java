@@ -1,6 +1,8 @@
 package models.exams;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import models.people.Student;
 import models.groups.CourseGrade;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -12,6 +14,8 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "mock_exams_results_text")
 public class MockExamResultText {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -32,16 +36,6 @@ public class MockExamResultText {
 
     public MockExamResultText() {
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
 
     public Student getStudent() {
         return student;

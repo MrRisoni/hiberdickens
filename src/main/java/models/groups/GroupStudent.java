@@ -1,5 +1,7 @@
 package models.groups;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.people.Student;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,60 +14,45 @@ import java.util.Date;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "group_students")
 public class GroupStudent {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
+    @Getter
+    @Setter
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date joined;
 
+    @Getter
+    @Setter
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dropped;
 
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id")
     private Student studentObj;
 
-   @OneToOne(fetch = FetchType.LAZY,optional = false)
-   @JoinColumn(name = "group_id")
-   private GroupModel groupObj;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "group_id")
+    private GroupModel groupObj;
 
-    @Column(name="total_payed")
+    @Getter
+    @Setter
+    @Column(name = "total_payed")
     private BigDecimal totalPayed;
 
-    @Column(name="total_debt")
-    private BigDecimal totalDebt ;
+    @Getter
+    @Setter
+    @Column(name = "total_debt")
+    private BigDecimal totalDebt;
 
     public GroupStudent() {
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getJoined() {
-        return joined;
-    }
-
-    public void setJoined(Date joined) {
-        this.joined = joined;
-    }
-
-    public Date getDropped() {
-        return dropped;
-    }
-
-    public void setDropped(Date dropped) {
-        this.dropped = dropped;
-    }
-
 
     public Student getStudentObj() {
         return studentObj;
@@ -81,21 +68,5 @@ public class GroupStudent {
 
     public void setGroupObj(GroupModel groupObj) {
         this.groupObj = groupObj;
-    }
-
-    public BigDecimal getTotalDebt() {
-        return totalDebt;
-    }
-
-    public void setTotalDebt(BigDecimal totalDebt) {
-        this.totalDebt = totalDebt;
-    }
-
-    public BigDecimal getTotalPayed() {
-        return totalPayed;
-    }
-
-    public void setTotalPayed(BigDecimal totalPayed) {
-        this.totalPayed = totalPayed;
     }
 }

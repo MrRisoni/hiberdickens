@@ -1,6 +1,8 @@
 package models.money;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import models.people.Student;
 import models.general.Month;
 import models.groups.GroupModel;
@@ -14,16 +16,20 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "student_payed")
 public class StudentPayment {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-
+    @Getter
+    @Setter
     @Column
     private float amount;
 
-
+    @Getter
+    @Setter
     @Column
     private int lesson_year;
 
@@ -42,31 +48,6 @@ public class StudentPayment {
 
     public StudentPayment() {
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
-    public int getLesson_year() {
-        return lesson_year;
-    }
-
-    public void setLesson_year(int lesson_year) {
-        this.lesson_year = lesson_year;
-    }
-
 
     public Student getStudentObj() {
         return studentObj;

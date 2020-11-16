@@ -88,22 +88,14 @@ public class GroupController {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
-        Optional<GroupModel> crudGroup = grRepo.findById(groupId);
-        GroupModel geFundenGroup  =crudGroup.orElse(null);
+        GroupModel foundGroup  =grRepo.findById(groupId).orElse(null);
 
-        return modelMapper.map(geFundenGroup, GroupDto.class);
+        GroupDto groupDto =  modelMapper.map(foundGroup, GroupDto.class);
+        groupDto.setHistory(groupRepo.getHistory(groupId));
+        return groupDto;
 
+      /*
 
-      /*  rsp.put("fee",groupData.getFeeObj().getAmount());
-        rsp.put("wage",groupData.getWageObj().getAmount());
-        rsp.put("speed",groupData.getSpeedObj().getTitle());
-        rsp.put("age",groupData.getAgeObj().getTitle());
-        rsp.put("rank",groupData.getRankObj().getTitle());
-        rsp.put("course",groupData.getCourseObj().getTitle());
-        rsp.put("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
-        rsp.put("courseTitle",geFundenGroup.getCourseObj().getTitle());
-
-        rsp.put("history",groupRepo.getHistory(groupId));
 
         List<GroupMember> students_list = groupRepo.getGroupStudents(groupId);
         rsp.put("studentsList", groupRepo.getGroupStudents(groupId));

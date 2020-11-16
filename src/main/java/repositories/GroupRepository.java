@@ -127,7 +127,6 @@ public class GroupRepository extends Repository {
                 " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter( "id", groupId )
               .setHint("org.hibernate.cacheable", true)
               .getResultList();
-
     }
 
 

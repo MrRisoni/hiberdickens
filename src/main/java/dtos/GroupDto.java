@@ -1,8 +1,10 @@
 package dtos;
 
+import hqlmappers.TimetableDTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class GroupDto {
@@ -26,5 +28,9 @@ public class GroupDto {
 
     private CourseFeeDto feeObj;
     private CourseWageDto wageObj;
-
+    private RankDto rankObj;
+    private SpeedDto speedObj;
+    private AgeDto ageObj;
+    private CourseDto courseObj;
+    private List<TimetableDTO> history;
 }

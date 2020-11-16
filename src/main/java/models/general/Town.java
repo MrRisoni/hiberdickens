@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import models.general.Perfecture;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +17,6 @@ public class Town {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-
 
     @Column
     private String title;

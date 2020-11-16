@@ -1,11 +1,11 @@
 package models.interviews;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import models.groups.CourseModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +14,15 @@ import java.util.List;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "pools")
 public class Pools {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
-
+    @Getter
+    @Setter
     @Column
     private String title;
 
@@ -36,14 +39,6 @@ public class Pools {
     public Pools() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public CourseModel getCourseObj() {
         return courseObj;
     }
@@ -51,15 +46,6 @@ public class Pools {
     public void setCourseObj(CourseModel courseObj) {
         this.courseObj = courseObj;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
 
     public List<PoolChapter> getPoolChaptersList() {
         return poolChaptersList;

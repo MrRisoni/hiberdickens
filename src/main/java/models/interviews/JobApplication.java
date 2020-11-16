@@ -1,9 +1,9 @@
 package models.interviews;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -11,15 +11,20 @@ import java.util.Date;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "job_applications")
 public class JobApplication {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
-
+    @Getter
+    @Setter
     @Column
     private String full_name;
 
+    @Getter
+    @Setter
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dob;
@@ -29,30 +34,6 @@ public class JobApplication {
     private JobOpening jobOpenObj;
 
     public JobApplication() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     public JobOpening getJobOpenObj() {

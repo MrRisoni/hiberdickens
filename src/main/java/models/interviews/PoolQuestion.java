@@ -1,9 +1,9 @@
 package models.interviews;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +12,15 @@ import java.util.List;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "pool_questions")
 public class PoolQuestion {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
-
+    @Getter
+    @Setter
     @Column
     private String body;
 
@@ -26,24 +29,6 @@ public class PoolQuestion {
     private List<PoolQuestionAnswer> answersList = new ArrayList<PoolQuestionAnswer>();
 
     public PoolQuestion() {
-    }
-
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
     }
 
     public List<PoolQuestionAnswer> getAnswersList() {

@@ -1,11 +1,10 @@
 package models.languages;
+
 import lombok.Getter;
 import lombok.Setter;
 import models.languages.Diploma;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class Language {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "language_id")
     private List<Diploma> diplomas = new ArrayList<Diploma>();
-
 
     public Language() {
     }

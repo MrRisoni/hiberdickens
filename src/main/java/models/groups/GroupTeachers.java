@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import models.people.Teacher;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity

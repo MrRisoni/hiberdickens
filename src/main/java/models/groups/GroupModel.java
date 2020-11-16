@@ -6,12 +6,10 @@ import models.exams.MockExam;
 import models.people.Teacher;
 import models.seminars.SeminarModules;
 import org.hibernate.annotations.*;
-
 import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 import java.math.BigDecimal;
 import java.util.*;
 

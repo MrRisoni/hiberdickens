@@ -6,7 +6,6 @@ import lombok.Setter;
 import models.exams.MockExamResultText;
 import models.groups.GroupModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ public class RealExam {
 
     public RealExam() {
     }
-
 
     public List<MockExamResultText> getExam_results() {
         return exam_results;

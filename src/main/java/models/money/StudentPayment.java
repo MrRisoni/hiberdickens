@@ -7,7 +7,6 @@ import models.people.Student;
 import models.general.Month;
 import models.groups.GroupModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 

@@ -5,7 +5,6 @@ import lombok.Setter;
 import models.groups.GroupModel;
 import models.people.Student;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity

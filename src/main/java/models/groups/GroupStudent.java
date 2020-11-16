@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import models.people.Student;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Entity
 @Cacheable

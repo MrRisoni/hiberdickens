@@ -1,7 +1,5 @@
 package models.evaluation;
 
-
-
 import lombok.Getter;
 import lombok.Setter;
 import models.interviews.PoolReviewQuestion;

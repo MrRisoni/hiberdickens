@@ -37,6 +37,5 @@ public class GroupRecord {
         this.debtsStudents = debtsStudents;
         this.fee = f;
         this.wage = w;
-        this.wage = w;
     }
 }

@@ -1,6 +1,5 @@
 package models.people;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import models.money.Discount;

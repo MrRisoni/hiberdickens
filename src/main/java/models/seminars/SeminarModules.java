@@ -1,12 +1,12 @@
 package models.seminars;
 
+import lombok.Data;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
-
 import javax.persistence.*;
-
 import java.util.Date;
 
+@Data
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -58,101 +58,5 @@ public class SeminarModules {
 
 
     public SeminarModules() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
-
-    public int getPart_time() {
-        return part_time;
-    }
-
-    public void setPart_time(int part_time) {
-        this.part_time = part_time;
-    }
-
-    public int getOn_site() {
-        return on_site;
-    }
-
-    public void setOn_site(int on_site) {
-        this.on_site = on_site;
-    }
-
-    public float getCost() {
-        return cost;
-    }
-
-    public void setCost(float cost) {
-        this.cost = cost;
-    }
-
-    public Date getStarts() {
-        return starts;
-    }
-
-    public void setStarts(Date starts) {
-        this.starts = starts;
-    }
-
-    public Date getEnds() {
-        return ends;
-    }
-
-    public void setEnds(Date ends) {
-        this.ends = ends;
-    }
-
-    public int getMax_seats() {
-        return max_seats;
-    }
-
-    public void setMax_seats(int max_seats) {
-        this.max_seats = max_seats;
-    }
-
-    public int getTotal_hours() {
-        return total_hours;
-    }
-
-    public void setTotal_hours(int total_hours) {
-        this.total_hours = total_hours;
-    }
-
-    public float getCost_per_hour() {
-        return cost_per_hour;
-    }
-
-    public void setCost_per_hour(float cost_per_hour) {
-        this.cost_per_hour = cost_per_hour;
-    }
-
-    public int getNumTeachers() {
-        return numTeachers;
-    }
-
-    public int getNumGroups() {
-        return numGroups;
     }
 }

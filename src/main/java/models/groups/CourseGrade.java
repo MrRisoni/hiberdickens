@@ -1,12 +1,9 @@
 package models.groups;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 
 @Entity
 @Cacheable

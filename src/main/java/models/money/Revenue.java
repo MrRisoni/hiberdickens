@@ -1,6 +1,8 @@
 package models.money;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -52,7 +54,7 @@ public class Revenue {
     @Column(name = "staff_in_debt")
     private BigDecimal staffInDebt;
 
-    @Temporal(TemporalType.DATE)
+        @Temporal(TemporalType.DATE)
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;

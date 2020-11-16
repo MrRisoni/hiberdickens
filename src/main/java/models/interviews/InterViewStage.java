@@ -1,9 +1,9 @@
 package models.interviews;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +12,25 @@ import java.util.List;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "interview_stages")
 public class InterViewStage {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
-
+    @Getter
+    @Setter
     @Column
     private String title;
 
+    @Getter
+    @Setter
     @Column
     private int active;
 
+    @Getter
+    @Setter
     @Column
     private int shown_order;
 
@@ -32,38 +39,6 @@ public class InterViewStage {
     private List<InterViewGrade> gradesList = new ArrayList<InterViewGrade>();
 
     public InterViewStage() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
-    }
-
-    public int getShown_order() {
-        return shown_order;
-    }
-
-    public void setShown_order(int shown_order) {
-        this.shown_order = shown_order;
     }
 
     public List<InterViewGrade> getGradesList() {

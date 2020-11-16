@@ -1,12 +1,11 @@
 package models.languages;
+
 import lombok.Getter;
 import lombok.Setter;
 import models.groups.CourseModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
-
 import java.util.Date;
 
 @Entity

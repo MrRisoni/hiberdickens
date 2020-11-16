@@ -3,9 +3,7 @@ package models.money;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity

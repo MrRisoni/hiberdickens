@@ -1,12 +1,10 @@
 package models.exams;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import models.people.Student;
 import models.groups.CourseGrade;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity

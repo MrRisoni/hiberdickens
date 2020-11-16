@@ -1,7 +1,5 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dtos.CourseDto;
 import models.groups.CourseModel;
 import models.groups.CourseType;

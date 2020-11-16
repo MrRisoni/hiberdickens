@@ -1,6 +1,5 @@
 package models.groups;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import models.general.Room;
@@ -33,7 +32,6 @@ public class HistoryModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
-    @JsonIgnoreProperties("historyList")
     private GroupModel groupObj;
 
     @Getter

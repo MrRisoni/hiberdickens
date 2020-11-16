@@ -159,7 +159,6 @@ public class GroupModel {
             inverseJoinColumns = @JoinColumn(name = "module_id"))
     private Set<SeminarModules> modulesSet = new HashSet<>();
 
-
     public GroupModel() {
     }
 

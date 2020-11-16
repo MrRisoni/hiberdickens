@@ -133,7 +133,6 @@ public class GroupRepository extends Repository {
 
     public GroupRecordsAPI getGroupsList(int currentPage, int perPage, String sortOrder, String sortProperty)
     {
-
         String sqlCount = "SELECT id FROM groupakia";
         int totalRecords = this.getEntityManager().createNativeQuery(sqlCount).getResultList().size();
         HashMap<String,Integer> pages = Utilities.getPaginationPages(currentPage, perPage, totalRecords);
@@ -148,8 +147,6 @@ public class GroupRepository extends Repository {
                 "  JOIN g.wageObj wage " +
                 "  WHERE g.active =1 ORDER BY g.remainingStudentDebt DESC";
 
-
-
         List<GroupRecord> results =  this.getEntityManager()
                 .createQuery(hql)
                 .setFirstResult(pages.get("start"))
@@ -162,8 +159,6 @@ public class GroupRepository extends Repository {
         rsp.setCurrentPage(currentPage);
         rsp.setTotalPages(pages.get("totalPages"));
         rsp.setTotalRecords(totalRecords);
-
-
         return rsp;
     }
 }

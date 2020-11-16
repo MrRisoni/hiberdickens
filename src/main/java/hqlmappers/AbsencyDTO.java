@@ -1,7 +1,10 @@
 package hqlmappers;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class AbsencyDTO {
     private  Long historyId;
     private java.util.Date started;
@@ -13,38 +16,6 @@ public class AbsencyDTO {
         this.historyId = historyId;
         this.started = started;
         this.courseTitle = courseTitle;
-        this.justified = justified;
-    }
-
-    public Long getHistoryId() {
-        return historyId;
-    }
-
-    public void setHistoryId(Long historyId) {
-        this.historyId = historyId;
-    }
-
-    public Date getStarted() {
-        return started;
-    }
-
-    public void setStarted(Date started) {
-        this.started = started;
-    }
-
-    public String getCourseTitle() {
-        return courseTitle;
-    }
-
-    public void setCourseTitle(String courseTitle) {
-        this.courseTitle = courseTitle;
-    }
-
-    public int getJustified() {
-        return justified;
-    }
-
-    public void setJustified(int justified) {
         this.justified = justified;
     }
 }

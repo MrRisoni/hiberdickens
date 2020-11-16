@@ -1,8 +1,11 @@
 package hqlmappers;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Data
 public class StudentGroupDTO {
 
     private Long groupId;
@@ -25,69 +28,5 @@ public class StudentGroupDTO {
         this.dropped = dropped;
         this.totalPayed = ttlp;
         this.totalDebt = ttldbt;
-    }
-
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getAgeName() {
-        return ageName;
-    }
-
-    public void setAgeName(String ageName) {
-        this.ageName = ageName;
-    }
-
-    public String getSpeedName() {
-        return speedName;
-    }
-
-    public void setSpeedName(String speedName) {
-        this.speedName = speedName;
-    }
-
-    public Date getJoined() {
-        return joined;
-    }
-
-    public void setJoined(Date joined) {
-        this.joined = joined;
-    }
-
-    public Date getDropped() {
-        return dropped;
-    }
-
-    public void setDropped(Date dropped) {
-        this.dropped = dropped;
-    }
-
-    public BigDecimal getTotalPayed() {
-        return totalPayed;
-    }
-
-    public void setTotalPayed(BigDecimal totalPayed) {
-        this.totalPayed = totalPayed;
-    }
-
-    public BigDecimal getTotalDebt() {
-        return totalDebt;
-    }
-
-    public void setTotalDebt(BigDecimal totalDebt) {
-        this.totalDebt = totalDebt;
     }
 }

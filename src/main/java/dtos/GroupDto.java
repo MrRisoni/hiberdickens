@@ -1,5 +1,7 @@
 package dtos;
 
+import hqlmappers.GroupMemberDto;
+import hqlmappers.PaymentDebtDTO;
 import hqlmappers.TimetableDTO;
 import lombok.Data;
 
@@ -33,4 +35,10 @@ public class GroupDto {
     private AgeDto ageObj;
     private CourseDto courseObj;
     private List<TimetableDTO> history;
+    private List<GroupMemberDto> studentsList;
+    private int totalMembers;
+    private List<PaymentDebtDTO> studentsDebtsList;
+    private List<PaymentDebtDTO> studentsPaymentsList;
+    private List<PaymentDebtDTO> teachersDebtsList;
+    private List<PaymentDebtDTO> teachersPaymentsList;
 }

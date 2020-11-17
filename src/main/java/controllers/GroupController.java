@@ -3,6 +3,7 @@ package controllers;
 import dtos.GroupDto;
 import models.groups.*;
 import models.people.Teacher;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +11,7 @@ import models.*;
 
 import org.springframework.web.bind.annotation.*;
 import pojos.GroupRecordsAPI;
-import hqlmappers.GroupMember;
+import hqlmappers.GroupMemberDto;
 import repositories.GroupRepository;
 import spring_repos.SprGroupRepository;
 
@@ -68,7 +69,6 @@ public class GroupController {
         grm.setCourseObj(crsm);
 
         //grRepo.save(grm);
-
     }
 
     @RequestMapping(value="/api/groups",method = RequestMethod.GET)
@@ -90,23 +90,17 @@ public class GroupController {
 
         GroupModel foundGroup  =grRepo.findById(groupId).orElse(null);
 
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+
         GroupDto groupDto =  modelMapper.map(foundGroup, GroupDto.class);
         groupDto.setHistory(groupRepo.getHistory(groupId));
+        List<GroupMemberDto> studentsList =  groupRepo.getGroupStudents(groupId);
+        groupDto.setStudentsList( studentsList);
+        groupDto.setTotalMembers(studentsList.size());
+        groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
+        groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
+        groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
+        groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
         return groupDto;
-
-      /*
-
-
-        List<GroupMember> students_list = groupRepo.getGroupStudents(groupId);
-        rsp.put("studentsList", groupRepo.getGroupStudents(groupId));
-        rsp.put("teachersList", groupRepo.getGroupTeachers(groupId));
-        rsp.put("totalMembers",students_list.size());
-        rsp.put("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
-        rsp.put("studentsDebts",groupRepo.getStudentDebtsList(groupId));
-
-        rsp.put("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
-        rsp.put("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
-*/
-
     }
 }

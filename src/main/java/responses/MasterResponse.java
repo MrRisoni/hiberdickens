@@ -1,6 +1,6 @@
 package responses;
 
-import hqlmappers.GroupMember;
+import hqlmappers.GroupMemberDto;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class MasterResponse {
     private String errorMessage;
     private boolean hasError;
     private List<Object> data;
-    private List<GroupMember> datei;
+    private List<GroupMemberDto> datei;
 
     public MasterResponse() {
         this.hasError = false;
@@ -41,11 +41,11 @@ public class MasterResponse {
         this.data = data;
     }
 
-    public List<GroupMember> getDatei() {
+    public List<GroupMemberDto> getDatei() {
         return datei;
     }
 
-    public void setDatei(List<GroupMember> datei) {
+    public void setDatei(List<GroupMemberDto> datei) {
         this.datei = datei;
     }
 }

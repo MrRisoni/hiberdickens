@@ -1,5 +1,6 @@
 package controllers;
 
+import logic.MiniHour;
 import models.*;
 import models.groups.HourModel;
 import org.springframework.beans.factory.annotation.Autowired;

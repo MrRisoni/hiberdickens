@@ -1,6 +1,7 @@
 package controllers;
 
 import hqlmappers.TimetableDTO;
+import logic.MiniHour;
 import models.HibernateUtil;
 import models.groups.HourModel;
 import models.people.Member;

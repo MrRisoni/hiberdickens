@@ -1,6 +1,6 @@
-package controllers;
+package logic;
 
-class MiniHour {
+public class MiniHour {
     private int startin;
     private int ending;
     private String title;

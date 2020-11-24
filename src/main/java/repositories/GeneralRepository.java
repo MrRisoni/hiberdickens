@@ -1,6 +1,5 @@
 package repositories;
 
-import models.*;
 import models.general.Building;
 import models.groups.HourModel;
 import models.school.SchoolClass;
@@ -16,7 +15,6 @@ import java.util.List;
 public class GeneralRepository extends Repository {
 
     public GeneralRepository()  {
-        this.setEntityManager(HibernateUtil.getEM());
     }
 
     public List<SchoolClass> getClasses(){

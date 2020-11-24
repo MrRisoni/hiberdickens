@@ -15,12 +15,4 @@ public class Repository {
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
 }

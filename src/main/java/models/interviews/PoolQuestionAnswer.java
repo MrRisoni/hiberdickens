@@ -1,25 +1,29 @@
 package models.interviews;
 
-
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "pool_question_answers")
 public class PoolQuestionAnswer {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
-
+    @Getter
+    @Setter
     @Column
     private String body;
 
+    @Getter
+    @Setter
     @Column
     private int wrong;
 
@@ -29,29 +33,5 @@ public class PoolQuestionAnswer {
     }
 
     public PoolQuestionAnswer() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public int getWrong() {
-        return wrong;
-    }
-
-    public void setWrong(int wrong) {
-        this.wrong = wrong;
     }
 }

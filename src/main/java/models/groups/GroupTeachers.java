@@ -1,8 +1,9 @@
 package models.groups;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.people.Teacher;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +11,8 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "groups_teachers")
 public class GroupTeachers {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -24,14 +27,6 @@ public class GroupTeachers {
     private GroupModel groupObj;
 
     public GroupTeachers() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Teacher getTeacherObj() {

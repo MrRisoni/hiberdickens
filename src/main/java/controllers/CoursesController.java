@@ -1,18 +1,19 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import models.JackSonViewer;
+import dtos.CourseDto;
 import models.groups.CourseModel;
 import models.groups.CourseType;
 import models.languages.Diploma;
 import models.languages.Institut;
 import models.languages.Language;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import spring_repos.SprCourseRepository;
 import spring_repos.SprDiplomaRepository;
+
+import java.util.Optional;
 
 
 @RestController
@@ -23,6 +24,9 @@ public class CoursesController {
 
     @Autowired
     SprDiplomaRepository spr_diploma_repo;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @RequestMapping(value=  "/api/course/new" , method = RequestMethod.GET)
     public void newCourse()
@@ -55,16 +59,16 @@ public class CoursesController {
     }
 
     @RequestMapping(value= "/api/courses" , method = RequestMethod.GET)
-    public String  getCourses()
+    public CourseDto getCourses()
     {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-
-            return mapper.writerWithView(JackSonViewer.ICourse.class).writeValueAsString(spr_course_repo.findAll());
+           Optional<CourseModel> optCourse = spr_course_repo.findById(1L);
+           CourseModel courseEntity =optCourse.orElse(null);
+           return modelMapper.map(courseEntity, CourseDto.class);
         }
         catch (Exception ex){
-            return ex.getMessage();
+            ex.printStackTrace();
+            return null;
         }
     }
 }

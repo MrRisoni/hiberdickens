@@ -1,5 +1,8 @@
 package models.money;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -7,6 +10,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Data
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -50,7 +54,7 @@ public class Revenue {
     @Column(name = "staff_in_debt")
     private BigDecimal staffInDebt;
 
-    @Temporal(TemporalType.DATE)
+        @Temporal(TemporalType.DATE)
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
@@ -76,109 +80,5 @@ public class Revenue {
         this.staffNetPayments = staffNetPayments;
         this.studentDebts = studentDebts;
         this.staffInDebt = staffInDebt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getProfit() {
-        return profit;
-    }
-
-    public void setProfit(BigDecimal profit) {
-        this.profit = profit;
-    }
-
-    public BigDecimal getGrossIncome() {
-        return grossIncome;
-    }
-
-    public void setGrossIncome(BigDecimal grossIncome) {
-        this.grossIncome = grossIncome;
-    }
-
-    public BigDecimal getNetIncome() {
-        return netIncome;
-    }
-
-    public void setNetIncome(BigDecimal netIncome) {
-        this.netIncome = netIncome;
-    }
-
-    public BigDecimal getStudentPayments() {
-        return studentPayments;
-    }
-
-    public void setStudentPayments(BigDecimal studentPayments) {
-        this.studentPayments = studentPayments;
-    }
-
-    public BigDecimal getTotalExpenses() {
-        return totalExpenses;
-    }
-
-    public void setTotalExpenses(BigDecimal totalExpenses) {
-        this.totalExpenses = totalExpenses;
-    }
-
-    public BigDecimal getTaxes() {
-        return taxes;
-    }
-
-    public void setTaxes(BigDecimal taxes) {
-        this.taxes = taxes;
-    }
-
-    public BigDecimal getStaffPayments() {
-        return staffPayments;
-    }
-
-    public void setStaffPayments(BigDecimal staffPayments) {
-        this.staffPayments = staffPayments;
-    }
-
-    public BigDecimal getStaffInsurances() {
-        return staffInsurances;
-    }
-
-    public void setStaffInsurances(BigDecimal staffInsurances) {
-        this.staffInsurances = staffInsurances;
-    }
-
-    public BigDecimal getStaffNetPayments() {
-        return staffNetPayments;
-    }
-
-    public void setStaffNetPayments(BigDecimal staffNetPayments) {
-        this.staffNetPayments = staffNetPayments;
-    }
-
-    public BigDecimal getStudentDebts() {
-        return studentDebts;
-    }
-
-    public void setStudentDebts(BigDecimal studentDebts) {
-        this.studentDebts = studentDebts;
-    }
-
-    public BigDecimal getStaffInDebt() {
-        return staffInDebt;
-    }
-
-    public void setStaffInDebt(BigDecimal staffInDebt) {
-        this.staffInDebt = staffInDebt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 }

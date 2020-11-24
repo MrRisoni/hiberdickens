@@ -1,7 +1,6 @@
 package hqlmappers;
 
 import lombok.Data;
-
 import java.util.Date;
 
 @Data
@@ -21,6 +20,9 @@ public class TimetableDTO {
     private int cancelled;
     private float wage;
     private float fee;
+
+    public TimetableDTO() {
+    }
 
     public TimetableDTO(Long historyId, Long groupId, Long hourId, String courseName, String teacherName, String ageName, String speedName, Date started, float duration, String roomName, int cancelled, float wage, float fee) {
         this.historyId = historyId;

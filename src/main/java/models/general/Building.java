@@ -1,21 +1,24 @@
 package models.general;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "buildings")
 public class Building {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-
+    @Getter
+    @Setter
     @Column
     private String address;
 
@@ -25,23 +28,6 @@ public class Building {
 
     public Building() {
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public Suburb getSuburbObj() {
         return suburbObj;
     }

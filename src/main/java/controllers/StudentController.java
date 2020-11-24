@@ -1,5 +1,6 @@
 package controllers;
 
+import dtos.StudentResponseDto;
 import models.general.Suburb;
 import models.people.Member;
 import models.people.ParentsModel;
@@ -90,18 +91,21 @@ public class StudentController {
 
 
     @RequestMapping(value = "/api/student/info/{studentId}", method = RequestMethod.GET)
-    public HashMap<String,Object> getData(@PathVariable Long studentId) {
+    public StudentResponseDto getData(@PathVariable Long studentId) {
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
         Optional<Student> result = studRepo.findById(studentId);
         Student student  =result.orElse(null);
-        StudentRepository stdRepo = new StudentRepository();
+        StudentRepository studentRepo = new StudentRepository();
 
-        HashMap<String,Object> rsp = new HashMap<>();
+        StudentResponseDto stdRsp = new StudentResponseDto();
+        stdRsp.setLastPayed(student.getLastPaymentDate());
+        stdRsp.setFullName(student.getMember().getName()+ " " + student.getMember().getSurname());
+        stdRsp.setTotalPayed(student.getTotalPayed());
+        stdRsp.setRemainDebt(student.getTotalDebt().subtract(student.getTotalPayed()));
 
-        rsp.put("lastPayed",student.getLastPaymentDate());
         rsp.put("absencies",stdRepo.getAbsenciesList(studentId));
         rsp.put("payments", stdRepo.getStudentPayments(studentId));
         rsp.put("debts", stdRepo.getStudentDebts(studentId));
@@ -109,15 +113,13 @@ public class StudentController {
         rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
         rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
         rsp.put("timetable",stdRepo.getTimetableHQL(studentId));
-        rsp.put("fullName",student.getMember().getName()+ " " + student.getMember().getSurname());
-        rsp.put("totalPayed",student.getTotalPayed());
-        rsp.put("remainDebt",student.getTotalDebt().subtract(student.getTotalPayed()));
+
         rsp.put("parents",student.getParents());
         rsp.put("discounts",student.getDiscountList());
 
 
 
-        return rsp;
+        return stdRsp;
 
     }
 }

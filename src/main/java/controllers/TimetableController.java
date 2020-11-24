@@ -1,7 +1,15 @@
 package controllers;
 
+import dtos.*;
+import logic.MiniHour;
 import models.*;
+import models.groups.Age;
+import models.groups.CourseType;
 import models.groups.HourModel;
+import models.groups.Speed;
+import models.school.Discipline;
+import models.school.SchoolClass;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +23,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,20 +48,22 @@ public class TimetableController {
     @Autowired
     private DisciplineRepository dscplRepo;
 
+    @Autowired
+    ModelMapper modelMapper;
 
     @Value("${app.beginning}")
     private String startingDate;
 
 
     @RequestMapping(value = "/api/timetable", method = RequestMethod.GET)
-    public HashMap<String,Object> istoria()
+    public TimetableResponseDto istoria()
     {
         try {
             EntityManager entityManager= HibernateUtil.getEM();
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
-            HashMap<String,Object> ttblRsp = new HashMap<>();
+            TimetableResponseDto timetableresponsedto = new TimetableResponseDto();
 
             List<TimetableDTO> timetable = entityManager.createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id,hr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                     " FROM HistoryModel hs  JOIN hs.room rm " +
@@ -83,10 +94,11 @@ public class TimetableController {
             days = days.stream().distinct().collect(Collectors.toList());
             days.add("#");
             days.add(0, "#");
-            ttblRsp.put("days", days);
+            timetableresponsedto.setDays(days);
 
 
             GeneralRepository gRepo = new GeneralRepository();
+            gRepo.setEntityManager(entityManager);
             List<HourModel> hoursList = gRepo.getHours();
     
             ArrayList<MiniHour> hourRanges = new ArrayList<>();
@@ -137,21 +149,61 @@ public class TimetableController {
                 finalTimeTabling.add(thisHour);
             } // end for hours
 
-            ttblRsp.put("timetabling", finalTimeTabling);
+            timetableresponsedto.setTimetabling( finalTimeTabling);
 
             GeneralRepository genRepo = new GeneralRepository();
             genRepo.setEntityManager(HibernateUtil.getEM());
-            ttblRsp.put("classes",genRepo.getClasses());
-         //   ttblRsp.put("courseTypes",typeRsp.findAll());
-            ttblRsp.put("disciplines",dscplRepo.findAll());
-            ttblRsp.put("ages",agrp.findAll());
-            ttblRsp.put("speeds", spdRp.findAll());
-         //   ttblRsp.put("buildings",genRepo.getBuildings());
-         //   ttblRsp.put("languages",genRepo.getLanguages());
 
+            ArrayList<SchoolClassDto> schoolClasses = new ArrayList<>();
+            genRepo.getClasses().stream().forEach(schoolClassEntity -> {
+                SchoolClassDto schuleKlassDto = modelMapper.map(schoolClassEntity,SchoolClassDto.class);
+                schoolClasses.add(schuleKlassDto);
+            });
+            timetableresponsedto.setSchoolClasses(schoolClasses);
 
+            ArrayList<CourseTypeDto> courseTypeDtos = new ArrayList<CourseTypeDto>();
+            for (CourseType courseTypeEntity : typeRsp.findAll()) {
+                CourseTypeDto crsTypDto = modelMapper.map(courseTypeEntity,CourseTypeDto.class);
+                courseTypeDtos.add(crsTypDto);
+            }
+            timetableresponsedto.setCourseTypes(courseTypeDtos);
 
-            return ttblRsp;
+            ArrayList<DisciplineDto> disciplinesDtos = new ArrayList<DisciplineDto>();
+            for (Discipline discEntity : dscplRepo.findAll()) {
+                DisciplineDto discDto = modelMapper.map(discEntity,DisciplineDto.class);
+                disciplinesDtos.add(discDto);
+            }
+            timetableresponsedto.setDisciplines(disciplinesDtos);
+
+            ArrayList<AgeDto> agesDtos = new ArrayList<AgeDto>();
+            for (Age ageEntity : agrp.findAll()) {
+                AgeDto agDto = modelMapper.map(ageEntity,AgeDto.class);
+                agesDtos.add(agDto);
+            }
+            timetableresponsedto.setAges(agesDtos);
+
+            ArrayList<SpeedDto> speedsDtos = new ArrayList<SpeedDto>();
+            for (Speed speedEntity : spdRp.findAll()) {
+                SpeedDto spdDto = modelMapper.map(speedEntity,SpeedDto.class);
+                speedsDtos.add(spdDto);
+            }
+            timetableresponsedto.setSpeeds(speedsDtos);
+
+            ArrayList<LanguageDto> langDtos = new ArrayList<LanguageDto>();
+            genRepo.getLanguages().stream().forEach(langEntity -> {
+                LanguageDto lgDto = modelMapper.map(langEntity,LanguageDto.class);
+                langDtos.add(lgDto);
+            });
+            timetableresponsedto.setLanguages(langDtos);
+
+            ArrayList<BuildingDto> buildingDtos = new ArrayList<BuildingDto>();
+            genRepo.getBuildings().stream().forEach(bldEntity -> {
+                BuildingDto dtoBuild = modelMapper.map(bldEntity, BuildingDto.class);
+                buildingDtos.add(dtoBuild);
+            });
+            timetableresponsedto.setBuildings(buildingDtos);
+
+            return timetableresponsedto;
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -159,5 +211,4 @@ public class TimetableController {
             return null;
         }
     }
-
 }

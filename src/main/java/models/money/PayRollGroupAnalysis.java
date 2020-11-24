@@ -1,8 +1,9 @@
 package models.money;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.groups.GroupModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,22 +13,32 @@ import java.util.Date;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "payroll_groups_analysis")
 public class PayRollGroupAnalysis {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
+    @Getter
+    @Setter
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date from_day;
 
+    @Getter
+    @Setter
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date to_day;
 
+    @Getter
+    @Setter
     @Column
     private float hourly_rate;
 
+    @Getter
+    @Setter
     @Column
     private float amount;
 
@@ -36,46 +47,6 @@ public class PayRollGroupAnalysis {
     private GroupModel groupObj;
 
     public PayRollGroupAnalysis() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getFrom_day() {
-        return from_day;
-    }
-
-    public void setFrom_day(Date from_day) {
-        this.from_day = from_day;
-    }
-
-    public Date getTo_day() {
-        return to_day;
-    }
-
-    public void setTo_day(Date to_day) {
-        this.to_day = to_day;
-    }
-
-    public float getHourly_rate() {
-        return hourly_rate;
-    }
-
-    public void setHourly_rate(float hourly_rate) {
-        this.hourly_rate = hourly_rate;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
     }
 
     public GroupModel getGroupObj() {

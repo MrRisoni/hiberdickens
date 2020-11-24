@@ -1,9 +1,9 @@
 package models.exams;
 
-
+import lombok.Getter;
+import lombok.Setter;
 import models.people.Student;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,11 +11,15 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "real_exams_results")
 public class RealExamResult {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
+    @Getter
+    @Setter
     @Column
     private  float grade;
 
@@ -25,24 +29,6 @@ public class RealExamResult {
 
     public RealExamResult() {
     }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public float getGrade() {
-        return grade;
-    }
-
-    public void setGrade(float grade) {
-        this.grade = grade;
-    }
-
     public Student getStudent() {
         return student;
     }

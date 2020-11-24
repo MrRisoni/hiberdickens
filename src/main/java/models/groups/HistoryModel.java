@@ -1,5 +1,7 @@
 package models.groups;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Getter;
+import lombok.Setter;
 import models.general.Room;
 import models.people.Teacher;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -7,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "history")
@@ -22,68 +23,79 @@ import java.util.Date;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HistoryModel {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="group_id", nullable=false)
-    @JsonIgnoreProperties("historyList")
+    @JoinColumn(name = "group_id", nullable = false)
     private GroupModel groupObj;
 
+    @Getter
+    @Setter
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date started;
 
+    @Getter
+    @Setter
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date ended;
 
+    @Getter
+    @Setter
     @Column
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date created_at;
 
+    @Getter
+    @Setter
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "room_id")
     private Room room;
 
+    @Getter
+    @Setter
     @Column
     private float duration;
 
+    @Getter
+    @Setter
     @Column
     private float wage;
 
+    @Getter
+    @Setter
     @Column
     private float fee;
 
+    @Getter
+    @Setter
     @Column
     private float vat;
 
+    @Getter
+    @Setter
     @Column
     private int cancelled;
 
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "hour_id")
     private HourModel hour;
 
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "teacher_id")
     private Teacher daskalos;
 
     public HistoryModel() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public GroupModel getGroupObj() {
@@ -92,14 +104,6 @@ public class HistoryModel {
 
     public void setGroupObj(GroupModel groupObj) {
         this.groupObj = groupObj;
-    }
-
-    public Date getStarted() {
-        return started;
-    }
-
-    public void setStarted(Date started) {
-        this.started = started;
     }
 
     public Room getRoom() {
@@ -111,69 +115,8 @@ public class HistoryModel {
     }
 
 
-    public float getDuration() {
-        return duration;
-    }
-
-    public void setDuration(float duration) {
-        this.duration = duration;
-    }
-
-
     public HourModel getHour() {
         return hour;
-    }
-
-    public void setHour(HourModel hour) {
-        this.hour = hour;
-    }
-
-    public float getFee() {
-        return fee;
-    }
-
-    public void setFee(float fee) {
-        this.fee = fee;
-    }
-
-    public float getVat() {
-        return vat;
-    }
-
-    public void setVat(float vat) {
-        this.vat = vat;
-    }
-
-    public int getCancelled() {
-        return cancelled;
-    }
-
-    public void setCancelled(int cancelled) {
-        this.cancelled = cancelled;
-    }
-
-    public Date getEnded() {
-        return ended;
-    }
-
-    public void setEnded(Date ended) {
-        this.ended = ended;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
     }
 
     public Teacher getDaskalos() {
@@ -182,13 +125,5 @@ public class HistoryModel {
 
     public void setDaskalos(Teacher daskalos) {
         this.daskalos = daskalos;
-    }
-
-    public float getWage() {
-        return wage;
-    }
-
-    public void setWage(float wage) {
-        this.wage = wage;
     }
 }

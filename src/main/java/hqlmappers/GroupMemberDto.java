@@ -3,7 +3,7 @@ package hqlmappers;
 import lombok.Data;
 
 @Data
-public class GroupMember {
+public class GroupMemberDto {
 
     private int studentId;
     private String joined;
@@ -13,7 +13,7 @@ public class GroupMember {
     private float sumPayed;
     private float sumOwns;
 
-    public GroupMember() {
+    public GroupMemberDto() {
         this.hasDropped = false;
         this.sumOwns = this.sumPayed = 0;
     }

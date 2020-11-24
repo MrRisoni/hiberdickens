@@ -1,4 +1,6 @@
 package models.people;
+import lombok.Getter;
+import lombok.Setter;
 import models.general.Suburb;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,35 +16,42 @@ import java.util.Date;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "members")
 public class Member {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-
+    @Getter
+    @Setter
     @Column
-
     private String name;
 
-
+    @Getter
+    @Setter
     @Column
-
     private String surname;
 
-
+    @Getter
+    @Setter
     @Column
-
     private String phone;
 
-
+    @Getter
+    @Setter
     @Column
     private String email;
 
+    @Getter
+    @Setter
     @Column
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date created_at;
 
+    @Getter
+    @Setter
     @Column
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,7 +60,6 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "suburb_id")
     private Suburb suburbObj;
-
 
     public Member() {
     }
@@ -62,47 +70,6 @@ public class Member {
         this.surname = surname;
         this.phone = phone;
         this.created_at = created_at;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Suburb getSuburbObj() {

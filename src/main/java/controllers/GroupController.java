@@ -1,14 +1,17 @@
 package controllers;
 
+import dtos.GroupDto;
 import models.groups.*;
 import models.people.Teacher;
+import org.modelmapper.Conditions;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import models.*;
 
 import org.springframework.web.bind.annotation.*;
 import pojos.GroupRecordsAPI;
-import hqlmappers.GroupMember;
+import hqlmappers.GroupMemberDto;
 import repositories.GroupRepository;
 import spring_repos.SprGroupRepository;
 
@@ -19,6 +22,9 @@ public class GroupController {
 
     @Autowired
     SprGroupRepository grRepo;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @RequestMapping(value = "/api/group/new")
     public void newGroup()
@@ -63,7 +69,6 @@ public class GroupController {
         grm.setCourseObj(crsm);
 
         //grRepo.save(grm);
-
     }
 
     @RequestMapping(value="/api/groups",method = RequestMethod.GET)
@@ -73,55 +78,29 @@ public class GroupController {
         int currentPage = 1;
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
-
         GroupRecordsAPI grapi =  groupRepo.getGroupsList(currentPage, perPage,"DESC","remainingDebt");
-
         return grapi;
-
     }
 
     @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
-    public HashMap<String,Object> getGroupDetails(@PathVariable Long groupId)
+    public GroupDto getGroupDetails(@PathVariable Long groupId)
     {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
-        Optional<GroupModel> crudGroup = grRepo.findById(groupId);
-        GroupModel geFundenGroup  =crudGroup.orElse(null);
+        GroupModel foundGroup  =grRepo.findById(groupId).orElse(null);
 
-        GroupModel groupData = groupRepo.getGroup(groupId);
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 
-        HashMap<String,Object> rsp = new HashMap<>();
-
-        rsp.put("fee",groupData.getFeeObj().getAmount());
-        rsp.put("wage",groupData.getWageObj().getAmount());
-        rsp.put("speed",groupData.getSpeedObj().getTitle());
-        rsp.put("age",groupData.getAgeObj().getTitle());
-        rsp.put("rank",groupData.getRankObj().getTitle());
-        rsp.put("createdAt",groupData.getCreated_at());
-        rsp.put("updatedAt",groupData.getUpdated_at());
-        rsp.put("course",groupData.getCourseObj().getTitle());
-        rsp.put("course_type",groupData.getCourseObj().getCourseTypeObj().getTitle());
-        rsp.put("courseTitle",geFundenGroup.getCourseObj().getTitle());
-
-        rsp.put("sumTeacherPayments",geFundenGroup.getPaymentsSumTeachers());
-        rsp.put("sumTeacherDebts",geFundenGroup.getRemainingTeacherDebt());
-        rsp.put("sumHours",geFundenGroup.getSumHours());
-        rsp.put("history",groupRepo.getHistory(groupId));
-
-        rsp.put("sumStudentPayments",geFundenGroup.getPaymentsSumStudents());
-        rsp.put("sumStudentDebts",geFundenGroup.getRemainingStudentDebt());
-        List<GroupMember> students_list = groupRepo.getGroupStudents(groupId);
-        rsp.put("studentsList", groupRepo.getGroupStudents(groupId));
-        rsp.put("teachersList", groupRepo.getGroupTeachers(groupId));
-        rsp.put("totalMembers",students_list.size());
-        rsp.put("studentsPayments",groupRepo.getStudentPaymentsList(groupId));
-        rsp.put("studentsDebts",groupRepo.getStudentDebtsList(groupId));
-
-        rsp.put("teacherPayments",groupRepo.getTeacherPaymentsList(groupId));
-        rsp.put("teacherDebts",groupRepo.getTeacherDebtsList(groupId));
-        rsp.put("seminarModules",geFundenGroup.getModulesSet());
-
-       return rsp;
+        GroupDto groupDto =  modelMapper.map(foundGroup, GroupDto.class);
+        groupDto.setHistory(groupRepo.getHistory(groupId));
+        List<GroupMemberDto> studentsList =  groupRepo.getGroupStudents(groupId);
+        groupDto.setStudentsList( studentsList);
+        groupDto.setTotalMembers(studentsList.size());
+        groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
+        groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
+        groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
+        groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
+        return groupDto;
     }
 }

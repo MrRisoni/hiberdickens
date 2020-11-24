@@ -1,29 +1,33 @@
 package models.money;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import models.people.Teacher;
 import models.general.Month;
 import models.groups.GroupModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
-
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "teacher_payments")
 public class TeacherPayment {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-
+    @Getter
+    @Setter
     @Column
     private float amount;
 
-
+    @Getter
+    @Setter
     @Column
     private int lesson_year;
 
@@ -40,33 +44,7 @@ public class TeacherPayment {
     @JoinColumn(name = "month_id")
     private Month monthObj;
 
-
     public TeacherPayment() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
-    public int getLesson_year() {
-        return lesson_year;
-    }
-
-    public void setLesson_year(int lesson_year) {
-        this.lesson_year = lesson_year;
     }
 
     public Teacher getTeacherObj() {

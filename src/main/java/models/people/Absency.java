@@ -1,22 +1,26 @@
 package models.people;
 
+import lombok.Getter;
+import lombok.Setter;
 import models.groups.HistoryModel;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "absencies")
 public class Absency {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
-
+    @Getter
+    @Setter
     @Column
     private int justified;
 
@@ -28,24 +32,7 @@ public class Absency {
     @JoinColumn(name = "student_id")
     private Student studentObj;
 
-
     public Absency() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getJustified() {
-        return justified;
-    }
-
-    public void setJustified(int justified) {
-        this.justified = justified;
     }
 
     public HistoryModel getHistObj() {

@@ -1,8 +1,9 @@
 package models.money;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,11 +11,15 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "payroll_analysis")
 public class PayRollAnalysis {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
+    @Getter
+    @Setter
     @Column
     private float amount;
 
@@ -28,22 +33,6 @@ public class PayRollAnalysis {
     private PayRollCategory payRollCatObj;
 
     public PayRollAnalysis() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
     }
 
     public PayRoll getPayrollObj() {

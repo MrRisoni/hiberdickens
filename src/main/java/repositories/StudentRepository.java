@@ -2,10 +2,7 @@ package repositories;
 
 import controllers.Utilities;
 import controllers.WaterClock;
-import hqlmappers.ExamResultTextDTO;
-import hqlmappers.StudentGroupDTO;
-import hqlmappers.StudentRecord;
-import hqlmappers.TimetableDTO;
+import hqlmappers.*;
 import models.HibernateUtil;
 import models.money.StudentDebt;
 import models.money.StudentPayment;
@@ -105,7 +102,6 @@ public class StudentRepository extends Repository {
                 .setParameter("endtime", WaterClock.getDateAWeekAhead())
                 .setParameter("sid",studentId).getResultList();
 
-      ///  ArrayList<TimetableDTO> procList  = new ArrayList<>();
         return result.stream().map( reObj -> {
             Long historyId = Long.parseLong(reObj[0].toString());
             Long groupId = Long.parseLong(reObj[1].toString());
@@ -147,14 +143,14 @@ public class StudentRepository extends Repository {
     }
 
 
-    public List<Object[]> getAbsenciesList(Long studentId)
+    public List<AbsencyDTO> getAbsenciesList(Long studentId)
     {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.AbsencyDTO(hs.id, hs.started, crs.title, abs.justified) " +
                 " FROM Absency abs " +
                 " JOIN abs.histObj hs " +
                 " JOIN abs.histObj.groupObj  " +
                 " JOIN abs.histObj.groupObj.courseObj crs  " +
-                " JOIN abs.studentObj stObj WHERE stObj.id = :sid")
+                " JOIN abs.studentObj stObj WHERE stObj.id = :sid", AbsencyDTO.class)
                 .setParameter("sid",studentId)
                 .setHint("org.hibernate.cacheable", true)
                 .getResultList();
@@ -175,22 +171,14 @@ public class StudentRepository extends Repository {
         String sqlCount = "SELECT id FROM students";
         int totalRecords = this.getEntityManager().createNativeQuery(sqlCount).getResultList().size();
 
-
         HashMap<String,Integer> pages = Utilities.getPaginationPages(currentPage, perPage, totalRecords);
-
         List<StudentRecord> results =  this.getEntityManager().createQuery(hql).setFirstResult(pages.get("start")).setMaxResults(perPage).getResultList();
-
 
         StudentRecordsAPI rsp = new StudentRecordsAPI();
         rsp.setStudents(results);
         rsp.setCurrentPage(currentPage);
         rsp.setTotalPages(pages.get("totalPages"));
         rsp.setTotalRecords(totalRecords);
-
         return rsp;
-
-
     }
-
-
 }

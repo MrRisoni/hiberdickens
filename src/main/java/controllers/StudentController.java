@@ -85,9 +85,6 @@ public class StudentController {
     @RequestMapping(value = "/api/student/info/{studentId}", method = RequestMethod.GET)
     public StudentResponseDto getData(@PathVariable Long studentId) {
 
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
-
         Optional<Student> result = studRepo.findById(studentId);
         Student student  =result.orElse(null);
         StudentRepository studentRepo = new StudentRepository();

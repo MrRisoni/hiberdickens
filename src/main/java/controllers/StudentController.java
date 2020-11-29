@@ -8,16 +8,13 @@ import models.people.Student;
 import pojos.StudentRecordsAPI;
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import repositories.StudentRepository;
 import spring_repos.MemberRepository;
 import spring_repos.ParentRepository;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -75,26 +72,18 @@ public class StudentController {
         parRepo.save(par);
     }
 
-
     @RequestMapping(value = "/api/students", method = RequestMethod.GET)
     public StudentRecordsAPI getStudentsList() {
         int perPage = 100;
         int currentPage = 1;
-
         StudentRepository stRp = new StudentRepository();
         stRp.setEntityManager(HibernateUtil.getEM());
-
-
         StudentRecordsAPI stdApi = stRp.getStudentsList(currentPage, perPage,"DESC","remainingDebt");
         return  stdApi;
     }
 
-
     @RequestMapping(value = "/api/student/info/{studentId}", method = RequestMethod.GET)
     public StudentResponseDto getData(@PathVariable Long studentId) {
-
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat hourFormatter = new SimpleDateFormat("HH:mm");
 
         Optional<Student> result = studRepo.findById(studentId);
         Student student  =result.orElse(null);
@@ -105,17 +94,17 @@ public class StudentController {
         stdRsp.setFullName(student.getMember().getName()+ " " + student.getMember().getSurname());
         stdRsp.setTotalPayed(student.getTotalPayed());
         stdRsp.setRemainDebt(student.getTotalDebt().subtract(student.getTotalPayed()));
+        stdRsp.setAbscencies(studentRepo.getAbsenciesList(studentId));
+        stdRsp.setPayments(studentRepo.getStudentPayments(studentId));
+        stdRsp.setDebts(studentRepo.getStudentDebts(studentId));
+        stdRsp.setGroups(studentRepo.getStudentGroups(studentId));
+        stdRsp.setTimetable(studentRepo.getTimetableHQL(studentId));
 
-        rsp.put("absencies",stdRepo.getAbsenciesList(studentId));
-        rsp.put("payments", stdRepo.getStudentPayments(studentId));
-        rsp.put("debts", stdRepo.getStudentDebts(studentId));
-        rsp.put("groups",stdRepo.getStudentGroups(studentId));
-        rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
-        rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
-        rsp.put("timetable",stdRepo.getTimetableHQL(studentId));
+      //  rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
+      //  rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
 
-        rsp.put("parents",student.getParents());
-        rsp.put("discounts",student.getDiscountList());
+       // rsp.put("parents",student.getParents());
+      //  rsp.put("discounts",student.getDiscountList());
 
 
 

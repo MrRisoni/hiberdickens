@@ -2,3 +2,5 @@ model mapper lombok everwywhere
 use stream.forEach()
 Student
 Teacher Cont
+
+create stored procs

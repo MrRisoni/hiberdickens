@@ -1,8 +1,7 @@
-package core.schedulers;
+package schedulers;
 
 import controllers.WaterClock;
 import models.HibernateUtil;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

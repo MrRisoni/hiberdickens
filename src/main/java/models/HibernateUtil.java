@@ -21,7 +21,7 @@ public class HibernateUtil {
 
             configOverrides.put("javax.persistence.jdbc.url", "jdbc:sqlserver://localhost;databaseName=dickenserp");
 
-            emFactory = Persistence.createEntityManagerFactory("ebaymssql", configOverrides);
+            emFactory = Persistence.createEntityManagerFactory("dickens_mssqldb", configOverrides);
             em = emFactory.createEntityManager();
         }
         return em;

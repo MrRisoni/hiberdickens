@@ -36,11 +36,13 @@ public class HistoryModel {
 
     @Getter
     @Setter
+    @Column(name="starts_at")
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date started;
 
     @Getter
     @Setter
+    @Column(name="ends_at")
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date ended;
 

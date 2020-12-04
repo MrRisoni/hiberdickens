@@ -28,7 +28,7 @@ public class Diploma {
     @Getter
     @Setter
     @Column
-    private String level;
+    private String lvl;
 
     @Column
     @CreationTimestamp

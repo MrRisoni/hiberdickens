@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-@Component
+//@Component
 public class CalcStudentDebtsScheduler {
 
    // @Scheduled(fixedRate = 8000)

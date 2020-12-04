@@ -68,11 +68,8 @@ public class TimetableController {
                     " JOIN gr.speedObj spd " +
                     " JOIN gr.ageObj ag " +
                     " JOIN hs.daskalos dsk JOIN dsk.member mb " +
-                    " JOIN gr.courseObj crs" +
-                    " WHERE hs.started >= :starttime " +
-                    "  AND hs.started <= :endtime ORDER  BY hs.started ASC", TimetableDTO.class)
-                    .setParameter("starttime",WaterClock.getDate())
-                    .setParameter("endtime",WaterClock.getDateAWeekAhead())
+                    " JOIN gr.courseObj crs  ORDER  BY hs.started ASC"
+                   , TimetableDTO.class)
                     .setHint("org.hibernate.cacheable", true)
                     .getResultList();
 
@@ -162,7 +159,7 @@ public class TimetableController {
                 CourseTypeDto crsTypDto = modelMapper.map(courseTypeEntity,CourseTypeDto.class);
                 courseTypeDtos.add(crsTypDto);
             }
-            timetableresponsedto.setCourseTypes(courseTypeDtos);
+          /*  timetableresponsedto.setCourseTypes(courseTypeDtos);
 
             ArrayList<DisciplineDto> disciplinesDtos = new ArrayList<DisciplineDto>();
             for (Discipline discEntity : dscplRepo.findAll()) {
@@ -198,12 +195,11 @@ public class TimetableController {
                 buildingDtos.add(dtoBuild);
             });
             timetableresponsedto.setBuildings(buildingDtos);
-
+*/
             return timetableresponsedto;
         }
         catch (Exception ex) {
             ex.printStackTrace();
-
             return null;
         }
     }

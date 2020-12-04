@@ -50,7 +50,7 @@ public class LanguageController {
             for (Diploma dplMdl : foundLag.getDiplomas()) {
                 DiplomaDto dpldto = new DiplomaDto();
                 dpldto.setId(dplMdl.getId());
-                dpldto.setLevel(dplMdl.getLevel());
+                dpldto.setLvl(dplMdl.getLvl());
                 CourseDto dplCourseDto = new CourseDto();
                 dplCourseDto.setId(dplMdl.getCours().getId());
                 dplCourseDto.setTitle(dplMdl.getCours().getTitle());

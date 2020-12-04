@@ -159,7 +159,7 @@ public class TimetableController {
                 CourseTypeDto crsTypDto = modelMapper.map(courseTypeEntity,CourseTypeDto.class);
                 courseTypeDtos.add(crsTypDto);
             }
-          /*  timetableresponsedto.setCourseTypes(courseTypeDtos);
+            timetableresponsedto.setCourseTypes(courseTypeDtos);
 
             ArrayList<DisciplineDto> disciplinesDtos = new ArrayList<DisciplineDto>();
             for (Discipline discEntity : dscplRepo.findAll()) {
@@ -182,14 +182,14 @@ public class TimetableController {
             }
             timetableresponsedto.setSpeeds(speedsDtos);
 
-            ArrayList<LanguageDto> langDtos = new ArrayList<LanguageDto>();
+           ArrayList<LanguageDto> langDtos = new ArrayList<LanguageDto>();
             genRepo.getLanguages().stream().forEach(langEntity -> {
                 LanguageDto lgDto = modelMapper.map(langEntity,LanguageDto.class);
                 langDtos.add(lgDto);
             });
             timetableresponsedto.setLanguages(langDtos);
 
-            ArrayList<BuildingDto> buildingDtos = new ArrayList<BuildingDto>();
+         /*    ArrayList<BuildingDto> buildingDtos = new ArrayList<BuildingDto>();
             genRepo.getBuildings().stream().forEach(bldEntity -> {
                 BuildingDto dtoBuild = modelMapper.map(bldEntity, BuildingDto.class);
                 buildingDtos.add(dtoBuild);

@@ -36,7 +36,7 @@ public class GroupDto {
     private AgeDto ageObj;
     private CourseDto courseObj;
     private List<TimetableDTO> history;
-    private List<GroupStudent> studentsCollection;
+    private List<GroupStudentDto> studentsCollection;
     private int totalMembers;
     private List<PaymentDebtDTO> studentsDebtsList;
     private List<PaymentDebtDTO> studentsPaymentsList;

@@ -11,6 +11,7 @@ import models.money.Revenue;
 import models.money.TeacherDebt;
 import models.people.Member;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 import pojos.GroupRecordsAPI;
 
 import javax.persistence.Query;
@@ -44,6 +45,14 @@ public class GroupRepository extends Repository {
         return this.getEntityManager().createNativeQuery("EXECUTE GetGroupStudents :groupId ")
                 .setParameter("groupId", groupId)
                 .unwrap(org.hibernate.query.NativeQuery.class)
+                .addScalar("student_id", StandardBasicTypes.LONG)
+                .addScalar("joined")
+                .addScalar("fullName")
+                .addScalar("hasDropped")
+                .addScalar("lastPayed")
+                .addScalar("hasPayed")
+                .addScalar("remainingDebt")
+                .addScalar("updated_at")
                 .setResultTransformer(Transformers.aliasToBean(GroupStudentDto.class))
                 .getResultList();
     }

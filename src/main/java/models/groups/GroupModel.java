@@ -84,7 +84,7 @@ public class GroupModel {
     @Formula("(SELECT CASE WHEN SUM(tb.amount) IS NULL THEN 0 ELSE SUM(tb.amount) END FROM teacher_debts tb WHERE tb.group_id = id)")
     private BigDecimal debtsSumTeachers;
 
-   @Getter
+    @Getter
     @Setter
     @Formula("(SELECT  CASE WHEN SUM(dbt.amount) - SUM(stp.amount) IS NULL THEN SUM(dbt.amount) ELSE SUM(dbt.amount) - SUM(stp.amount) END " +
             " FROM student_debts dbt " +

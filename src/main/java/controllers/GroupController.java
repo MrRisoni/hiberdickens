@@ -28,8 +28,7 @@ public class GroupController {
     ModelMapper modelMapper;
 
     @RequestMapping(value = "/api/group/new")
-    public void newGroup()
-    {
+    public void newGroup() {
         Teacher tch = new Teacher();
         tch.setId(1L);
 
@@ -60,7 +59,7 @@ public class GroupController {
         HashSet<Teacher> daskaloi = new HashSet<>();
         daskaloi.add(tch);
         grm.setTeacherSet(daskaloi);
-    //    grm.setDaskalos(tch);
+        //    grm.setDaskalos(tch);
 
         grm.setSpeedObj(sp);
         grm.setAgeObj(ag);
@@ -72,37 +71,32 @@ public class GroupController {
         //grRepo.save(grm);
     }
 
-    @RequestMapping(value="/api/groups",method = RequestMethod.GET)
-    public GroupRecordsAPI getGroupList()
-    {
+    @RequestMapping(value = "/api/groups", method = RequestMethod.GET)
+    public GroupRecordsAPI getGroupList() {
         int perPage = 100;
         int currentPage = 1;
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
-        GroupRecordsAPI grapi =  groupRepo.getGroupsList(currentPage, perPage,"DESC","remainingDebt");
+        GroupRecordsAPI grapi = groupRepo.getGroupsList(currentPage, perPage, "DESC", "remainingDebt");
         return grapi;
     }
 
     @RequestMapping(value = "/api/group/info/{groupId}", method = RequestMethod.GET)
-    public GroupDto getGroupDetails(@PathVariable Long groupId)
-    {
+    public GroupDto getGroupDetails(@PathVariable Long groupId) {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
-       GroupModel foundGroup  =grRepo.findById(groupId).orElse(null);
-
+        GroupModel foundGroup = grRepo.findById(groupId).orElse(null);
         modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+        GroupDto groupDto = modelMapper.map(foundGroup, GroupDto.class);
+        // groupDto.setHistory(groupRepo.getHistory(groupId));
 
-        GroupDto groupDto =  modelMapper.map(foundGroup, GroupDto.class);
-       // groupDto.setHistory(groupRepo.getHistory(groupId));
-  //      List<GroupStudentDto> studentsList =  groupRepo.getGroupStudents(groupId);
-
-    //    groupDto.setStudentsList( studentsList);
-   //     groupDto.setTotalMembers(studentsList.size());
-   //     groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
-    //    groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
-    //    groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
-    //    groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
+        groupDto.setStudentsCollection(groupRepo.getGroupStudents(groupId));
+        //     groupDto.setTotalMembers(studentsList.size());
+        //     groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
+        //    groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
+        //    groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
+        //    groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
         return groupDto;
     }
 }

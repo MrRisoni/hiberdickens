@@ -13,14 +13,10 @@ public class HibernateUtil {
     public static EntityManager getEM() {
 
         if (emFactory == null) {
-            System.out.println("SETTING UP EntityManager");
-            System.out.println("CREATING NEW EM");
             Map<String, Object> configOverrides = new HashMap<String, Object>();
             configOverrides.put("javax.persistence.jdbc.password", System.getenv("MSSQL_PASSWD"));
             configOverrides.put("javax.persistence.jdbc.user", System.getenv("MSSQL_USR"));
-
-            configOverrides.put("javax.persistence.jdbc.url", "jdbc:sqlserver://localhost;databaseName=dickenserp");
-
+            configOverrides.put("javax.persistence.jdbc.url", "jdbc:sqlserver://"+ System.getenv("MSSQL_HOST") +";databaseName=dickenserp");
             emFactory = Persistence.createEntityManagerFactory("dickens_mssqldb", configOverrides);
             em = emFactory.createEntityManager();
         }

@@ -54,6 +54,11 @@ public class LanguageController {
                 CourseDto dplCourseDto = new CourseDto();
                 dplCourseDto.setId(dplMdl.getCours().getId());
                 dplCourseDto.setTitle(dplMdl.getCours().getTitle());
+                dplCourseDto.setNumStudents(dplMdl.getCours().getNumStudents());
+                dplCourseDto.setSumPayments(dplMdl.getCours().getSumPayments());
+                dplCourseDto.setSumHours(dplMdl.getCours().getSumHours());
+                dplCourseDto.setLatestFee(dplMdl.getCours().getLatestFee());
+                dplCourseDto.setLatestWage(dplMdl.getCours().getLatestWage());
                 dpldto.setCours(dplCourseDto);
                 diplomas.add(dpldto);
             }

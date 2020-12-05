@@ -36,22 +36,22 @@ public class CourseModel {
 
     @Getter
     @Setter
-    @Formula("(SELECT COUNT(gs.id) FROM groupakia g JOIN group_students gs ON gs.group_id = g.id WHERE g.course_id = id)")
+    @Formula("(SELECT COUNT(gs.id)  FROM groupakia g JOIN group_students gs ON gs.group_id = g.id WHERE g.course_id = id)")
     private int numStudents;
 
-  /*  @Getter
+    @Getter
     @Setter
     @Formula("(SELECT COUNT(t.id) FROM teaches t WHERE t.course_id = id)")
     private int numTeachers;
 
     @Getter
     @Setter
-    @Formula("(SELECT COUNT(g.id) AS numGroups FROM groupakia g WHERE g.course_id = id)")
+    @Formula("(SELECT COUNT(g.id) FROM groupakia g WHERE g.course_id = id)")
     private int numGroups;
 
     @Getter
     @Setter
-    @Formula("( SELECT CASE WHEN SUM(stp.amount) IS NULL THEN 0 ELSE SUM(stp.amount) END  FROM student_payed stp JOIN groupakia g ON g.id = stp.group_id WHERE g.course_id =id)")
+    @Formula("(SELECT CASE WHEN SUM(stp.amount) IS NULL THEN 0 ELSE SUM(stp.amount) END FROM student_payed stp JOIN groupakia g ON g.id = stp.group_id WHERE g.course_id =id)")
     private BigDecimal sumPayments;
 
     @Getter
@@ -67,7 +67,7 @@ public class CourseModel {
     @Getter
     @Setter
     @Formula("(SELECT TOP 1 CASE WHEN w.wage IS NULL THEN 0  ELSE w.wage END FROM course_wages w WHERE w.course_id = id ORDER BY w.updated_at)")
-    private BigDecimal latestWage;*/
+    private BigDecimal latestWage;
 
     public CourseModel() {
     }

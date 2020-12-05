@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class DiplomaDto {
     private Long id;
-    private String level;
+    private String lvl;
     private CourseDto cours;
 }

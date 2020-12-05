@@ -1,14 +1,13 @@
-package core.schedulers;
+package schedulers;
 
 import controllers.WaterClock;
 import models.HibernateUtil;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-@Component
+//@Component
 public class CalcTeacherDebtsScheduler {
 
 

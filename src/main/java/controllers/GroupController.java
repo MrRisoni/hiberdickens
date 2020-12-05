@@ -1,6 +1,7 @@
 package controllers;
 
 import dtos.GroupDto;
+import dtos.GroupStudentDto;
 import models.groups.*;
 import models.people.Teacher;
 import org.modelmapper.Conditions;
@@ -88,19 +89,20 @@ public class GroupController {
         GroupRepository groupRepo = new GroupRepository();
         groupRepo.setEntityManager(HibernateUtil.getEM());
 
-        GroupModel foundGroup  =grRepo.findById(groupId).orElse(null);
+       GroupModel foundGroup  =grRepo.findById(groupId).orElse(null);
 
         modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 
         GroupDto groupDto =  modelMapper.map(foundGroup, GroupDto.class);
-        groupDto.setHistory(groupRepo.getHistory(groupId));
-        List<GroupMemberDto> studentsList =  groupRepo.getGroupStudents(groupId);
-        groupDto.setStudentsList( studentsList);
-        groupDto.setTotalMembers(studentsList.size());
-        groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
-        groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
-        groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
-        groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
+       // groupDto.setHistory(groupRepo.getHistory(groupId));
+  //      List<GroupStudentDto> studentsList =  groupRepo.getGroupStudents(groupId);
+
+    //    groupDto.setStudentsList( studentsList);
+   //     groupDto.setTotalMembers(studentsList.size());
+   //     groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
+    //    groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
+    //    groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
+    //    groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
         return groupDto;
     }
 }

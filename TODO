@@ -1,6 +1,9 @@
 model mapper lombok everwywhere
 use stream.forEach()
-Student
-Teacher Cont
+Student Ctrl
+Teacher Ctrl
+GroupController
 
 create stored procs
+
+

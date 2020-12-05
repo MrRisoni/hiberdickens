@@ -31,6 +31,18 @@ public class GroupStudent {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date dropped;
 
+    @Getter
+    @Setter
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date last_payed_at;
+
+    @Getter
+    @Setter
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date updated_at;
+
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id")
     private Student studentObj;

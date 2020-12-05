@@ -20,7 +20,7 @@ public class Discipline {
     @Getter
     @Setter
     @Column
-    private String name;
+    private String title;
 
     public Discipline() {
     }

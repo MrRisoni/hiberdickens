@@ -23,15 +23,11 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @RestController
 public class TimetableController {
-
 
     @Autowired
     private LanguageRepository lgrepo;
@@ -72,11 +68,8 @@ public class TimetableController {
                     " JOIN gr.speedObj spd " +
                     " JOIN gr.ageObj ag " +
                     " JOIN hs.daskalos dsk JOIN dsk.member mb " +
-                    " JOIN gr.courseObj crs" +
-                    " WHERE hs.started >= :starttime " +
-                    "  AND hs.started <= :endtime ORDER  BY hs.started ASC", TimetableDTO.class)
-                    .setParameter("starttime",WaterClock.getDate())
-                    .setParameter("endtime",WaterClock.getDateAWeekAhead())
+                    " JOIN gr.courseObj crs  ORDER  BY hs.started ASC"
+                   , TimetableDTO.class)
                     .setHint("org.hibernate.cacheable", true)
                     .getResultList();
 
@@ -189,13 +182,6 @@ public class TimetableController {
             }
             timetableresponsedto.setSpeeds(speedsDtos);
 
-            ArrayList<LanguageDto> langDtos = new ArrayList<LanguageDto>();
-            genRepo.getLanguages().stream().forEach(langEntity -> {
-                LanguageDto lgDto = modelMapper.map(langEntity,LanguageDto.class);
-                langDtos.add(lgDto);
-            });
-            timetableresponsedto.setLanguages(langDtos);
-
             ArrayList<BuildingDto> buildingDtos = new ArrayList<BuildingDto>();
             genRepo.getBuildings().stream().forEach(bldEntity -> {
                 BuildingDto dtoBuild = modelMapper.map(bldEntity, BuildingDto.class);
@@ -203,11 +189,21 @@ public class TimetableController {
             });
             timetableresponsedto.setBuildings(buildingDtos);
 
+            ArrayList<LanguageDto> langDtos = new ArrayList<LanguageDto>();
+            genRepo.getLanguages().stream().forEach(langEntity -> {
+                if (langEntity.getActive() ==1) {
+                    LanguageDto lgDto = new LanguageDto();
+                    lgDto.setId(langEntity.getId());
+                    lgDto.setTitle(langEntity.getTitle());
+                    langDtos.add(lgDto);
+                }
+            });
+            timetableresponsedto.setLanguages(langDtos);
+
             return timetableresponsedto;
         }
         catch (Exception ex) {
             ex.printStackTrace();
-
             return null;
         }
     }

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"controllers"})
+@ComponentScan(basePackages = {"controllers","services"})
 //@EnableScheduling
 @SpringBootApplication
 @EntityScan("models")

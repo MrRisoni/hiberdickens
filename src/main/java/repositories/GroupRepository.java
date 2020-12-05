@@ -68,7 +68,6 @@ public class GroupRepository extends Repository {
                 .setParameter("id", groupId)
                 .setHint("org.hibernate.cacheable", true)
                 .getResultList();
-
     }
 
     public List<PaymentDebtDTO> getStudentDebtsList(Long groupId) {
@@ -96,7 +95,6 @@ public class GroupRepository extends Repository {
                 .getResultList();
     }
 
-
     public List<PaymentDebtDTO> getTeacherDebtsList(Long groupId) {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tb.amount,mon.title, tb.lesson_year, tb.groupObj.id, tb.teacherObj.id,  concat(m.name,' ',m.surname) ,'') " +
                 " FROM TeacherDebt tb " +
@@ -117,7 +115,6 @@ public class GroupRepository extends Repository {
                 .setHint("org.hibernate.cacheable", true)
                 .getResultList();
     }
-
 
     public GroupRecordsAPI getGroupsList(int currentPage, int perPage, String sortOrder, String sortProperty) {
         String sqlCount = "SELECT id FROM groupakia";

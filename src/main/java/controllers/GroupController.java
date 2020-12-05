@@ -89,14 +89,13 @@ public class GroupController {
         GroupModel foundGroup = grRepo.findById(groupId).orElse(null);
         modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
         GroupDto groupDto = modelMapper.map(foundGroup, GroupDto.class);
-        // groupDto.setHistory(groupRepo.getHistory(groupId));
+        groupDto.setHistory(groupRepo.getHistory(groupId));
 
         groupDto.setStudentsCollection(groupRepo.getGroupStudents(groupId));
-        //     groupDto.setTotalMembers(studentsList.size());
-        //     groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
-        //    groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
-        //    groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
-        //    groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
+        groupDto.setStudentsDebtsList(groupRepo.getStudentDebtsList(groupId));
+        groupDto.setStudentsPaymentsList(groupRepo.getStudentPaymentsList(groupId));
+        groupDto.setTeachersDebtsList(groupRepo.getTeacherDebtsList(groupId));
+        groupDto.setTeachersPaymentsList(groupRepo.getTeacherDebtsList(groupId));
         return groupDto;
     }
 }

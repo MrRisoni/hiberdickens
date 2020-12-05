@@ -4,6 +4,7 @@ import hqlmappers.GroupMemberDto;
 import hqlmappers.PaymentDebtDTO;
 import hqlmappers.TimetableDTO;
 import lombok.Data;
+import models.groups.GroupStudent;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,7 +36,7 @@ public class GroupDto {
     private AgeDto ageObj;
     private CourseDto courseObj;
     private List<TimetableDTO> history;
-    private List<GroupMemberDto> studentsList;
+    private List<GroupStudent> studentsCollection;
     private int totalMembers;
     private List<PaymentDebtDTO> studentsDebtsList;
     private List<PaymentDebtDTO> studentsPaymentsList;

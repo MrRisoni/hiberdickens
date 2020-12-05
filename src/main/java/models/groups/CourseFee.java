@@ -21,7 +21,7 @@ public class CourseFee {
     @Getter
     @Setter
     @Column
-    private BigDecimal amount;
+    private BigDecimal fee;
 
     public CourseFee() {
     }

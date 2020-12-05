@@ -1,1 +1,0 @@
-EXECUTE GetGroupStudents 1

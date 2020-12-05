@@ -1,13 +1,16 @@
 package repositories;
 
 import controllers.Utilities;
+import dtos.GroupStudentDto;
 import hqlmappers.GroupMemberDto;
 import hqlmappers.GroupRecord;
 import hqlmappers.PaymentDebtDTO;
 import hqlmappers.TimetableDTO;
 import models.groups.GroupModel;
+import models.money.Revenue;
 import models.money.TeacherDebt;
 import models.people.Member;
+import org.hibernate.transform.Transformers;
 import pojos.GroupRecordsAPI;
 
 import javax.persistence.Query;
@@ -37,29 +40,12 @@ public class GroupRepository extends Repository {
                 .getResultList();
     }
 
-    public List<GroupMemberDto> getGroupStudents(Long groupId) {
-
-        Query qry = this.getEntityManager().createNativeQuery("SELECT gs.student_id , gs.joined,gs.dropped, CONCAT(m.name,' ',m.surname), " +
-                " IF (CURRENT_DATE > gs.dropped, 1,0) AS hasDropped,  " +
-                " gs.total_payed AS hasPayed, gs.total_debt AS remainingDebt  " +
-                " FROM group_students gs  " +
-                " JOIN students s ON s.id = gs.student_id  " +
-                " JOIN members m ON m.id = s.member_id  " +
-                " WHERE gs.group_id = :id ");
-
-        List<Object[]> results = qry.setParameter("id", groupId).getResultList();
-
-        return results.stream().map(el -> {
-            GroupMemberDto gpm = new GroupMemberDto();
-            gpm.setFullName(el[3].toString());
-            gpm.setDropped(el[2].toString());
-            gpm.setHasDropped(Boolean.parseBoolean(el[4].toString()));
-            gpm.setJoined(el[1].toString());
-            gpm.setStudentId(Integer.parseInt(el[0].toString()));
-            gpm.setSumOwns(Float.parseFloat(el[6].toString()));
-            gpm.setSumPayed(Float.parseFloat(el[5].toString()));
-            return gpm;
-        }).collect(Collectors.toList());
+    public List<GroupStudentDto> getGroupStudents(Long groupId) {
+        return this.getEntityManager().createNativeQuery("EXECUTE GetGroupStudents :groupId ")
+                .setParameter("groupId", groupId)
+                .unwrap(org.hibernate.query.NativeQuery.class)
+                .setResultTransformer(Transformers.aliasToBean(GroupStudentDto.class))
+                .getResultList();
     }
 
     public List<PaymentDebtDTO> getStudentPaymentsList(Long groupId) {

@@ -61,7 +61,7 @@ public class GroupModel {
 
     @Getter
     @Setter // dropped ???
-    @Formula("(SELECT CASE WHEN COUNT(gs.id) IS NULL THEN 0 ELSE COUNT(gs.id) END FROM group_students gs WHERE gs.group_id = id)")
+    @Formula("(SELECT CASE WHEN COUNT(gs.id) IS NULL THEN 0 ELSE COUNT(gs.id) END FROM group_students gs WHERE gs.dropped IS NULL AND gs.group_id = id)")
     private BigDecimal studentsNum;
 
     @Getter
@@ -81,25 +81,25 @@ public class GroupModel {
 
     @Getter
     @Setter
-    @Formula("(SELECT CASE WHEN SUM(tb.amount) IS NULL THEN 0 ELSE  SUM(tb.amount) END FROM teacher_debts tb WHERE tb.group_id = id)")
+    @Formula("(SELECT CASE WHEN SUM(tb.amount) IS NULL THEN 0 ELSE SUM(tb.amount) END FROM teacher_debts tb WHERE tb.group_id = id)")
     private BigDecimal debtsSumTeachers;
 
-  /*  @Getter
+   @Getter
     @Setter
-    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
-            "    FROM student_payed stp " +
-            "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
-            "    WHERE dbt.group_id = id)")
+    @Formula("(SELECT  CASE WHEN SUM(dbt.amount) - SUM(stp.amount) IS NULL THEN SUM(dbt.amount) ELSE SUM(dbt.amount) - SUM(stp.amount) END " +
+            " FROM student_debts dbt " +
+            " LEFT JOIN student_payed stp ON stp.group_id=dbt.group_id " +
+            " WHERE dbt.group_id = id)")
     private BigDecimal remainingStudentDebt;
 
     @Getter
     @Setter
-    @Formula("( SELECT  IF(SUM(dbt.amount) - SUM(stp.amount) IS NULL,0,SUM(dbt.amount) - SUM(stp.amount))  " +
-            "    FROM student_payed stp " +
-            "    JOIN student_debts dbt ON stp.group_id=dbt.group_id " +
-            "    WHERE dbt.group_id = id)")
+    @Formula("(SELECT  CASE WHEN SUM(dbt.amount) - SUM(stp.amount) IS NULL THEN SUM(dbt.amount) ELSE SUM(dbt.amount) - SUM(stp.amount) END " +
+            " FROM teacher_debts dbt " +
+            " LEFT JOIN teacher_payments stp ON stp.group_id=dbt.group_id " +
+            " WHERE dbt.group_id = id)")
     private BigDecimal remainingTeacherDebt;
-*/
+
     @Getter
     @Setter
     @Formula("(SELECT CASE WHEN SUM(h.duration) IS NULL THEN 0 ELSE SUM(h.duration) END FROM history h JOIN groupakia g ON g.id = h.group_id WHERE h.group_id= id)")

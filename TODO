@@ -2,20 +2,8 @@ model mapper lombok everwywhere
 use stream.forEach()
 Student Ctrl
 Teacher Ctrl
+GroupController
 
 create stored procs
 
 
-select coursemode0_.id as id1_7_0_,
-coursemode0_.active as active2_7_0_,
-coursemode0_.course_type_id as course_t4_7_0_,
-coursemode0_.title as title3_7_0_,
-select coursemode0_.id as id1_7_0_,
-coursemode0_.active as active2_7_0_,
-coursemode0_.course_type_id as course_t4_7_0_,
-coursemode0_.title as title3_7_0_,
-(SELECT COUNT(g.id) AS coursemode0_.numGroups FROM groupakia g WHERE g.course_id = coursemode0_.id) as formula1_0_,
-(SELECT COUNT(gs.id)  FROM groupakia g JOIN group_students gs ON gs.group_id = g.id WHERE g.course_id = coursemode0_.id) as formula2_0_,
-(SELECT COUNT(t.id) FROM teaches t WHERE t.course_id = coursemode0_.id) as formula3_0_,
-( SELECT CASE WHEN SUM(stp.amount) IS NULL THEN 0 ELSE SUM(stp.amount) END  FROM student_payed stp JOIN groupakia g ON g.id = stp.group_id WHERE g.course_id =coursemode0_.id) as formula4_0_
-from courses coursemode0_ where coursemode0_.id=1

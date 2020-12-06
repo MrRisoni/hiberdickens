@@ -13,8 +13,6 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "teachers")
 public class Teacher {
     @Getter

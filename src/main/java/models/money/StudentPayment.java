@@ -11,8 +11,6 @@ import javax.persistence.*;
 
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "student_payed")
 public class StudentPayment {
     @Getter

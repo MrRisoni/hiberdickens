@@ -7,8 +7,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "test_submissions")
 public class TestSubmission {
     @Getter

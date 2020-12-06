@@ -26,9 +26,7 @@ public class TeacherRepository extends Repository {
                 " JOIN tp.groupObj.courseObj courseObj " +
                 " WHERE tp.teacherObj.id = :tid " +
                 " ORDER BY  mon.id ASC,tp.lesson_year ASC ")
-                .setParameter("tid", teacherId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("tid", teacherId) .getResultList();
 
     }
 
@@ -41,9 +39,7 @@ public class TeacherRepository extends Repository {
                 " JOIN tb.groupObj.courseObj courseObj " +
                 " WHERE tb.teacherObj.id = :tid " +
                 " ORDER BY  mon.id ASC,tb.lesson_year ASC ")
-                .setParameter("tid", teacherId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("tid", teacherId) .getResultList();
     }
 
 

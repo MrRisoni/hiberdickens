@@ -9,8 +9,6 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "courses")
 public class CourseModel {
     @Getter

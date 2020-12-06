@@ -27,9 +27,7 @@ public class StudentRepository extends Repository {
                 " JOIN sp.groupObj  " +
                 " JOIN sp.groupObj.courseObj courseObj " +
                 " WHERE sp.studentObj.id = :sid ORDER BY  mon.id ASC,sp.lesson_year ASC ")
-                .setParameter("sid", studentId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("sid", studentId) .getResultList();
 
     }
 
@@ -40,9 +38,7 @@ public class StudentRepository extends Repository {
                 " JOIN stb.groupObj  " +
                 " JOIN stb.groupObj.courseObj courseObj " +
                 " WHERE stb.studentObj.id = :sid ORDER BY  mon.id ASC,stb.lesson_year ASC ")
-                .setParameter("sid", studentId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("sid", studentId) .getResultList();
     }
 
     public List<StudentGroupDTO> getStudentGroups(Long studentId){
@@ -53,9 +49,7 @@ public class StudentRepository extends Repository {
                 " JOIN grst.groupObj.ageObj ageObj " +
                 " JOIN grst.groupObj.speedObj speedObj " +
                 " WHERE grst.studentObj.id = :sid ")
-                .setParameter("sid",studentId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("sid",studentId) .getResultList();
     }
 
     public List<ExamResultTextDTO> getMockTextResults(Long studentId)
@@ -67,9 +61,7 @@ public class StudentRepository extends Repository {
                 " JOIN mockResText.mockExamObj.groupObj  " +
                 " JOIN mockResText.mockExamObj.groupObj.courseObj courseObj " +
                 " WHERE mockResText.student.id = :sid ")
-                .setParameter("sid",studentId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("sid",studentId) .getResultList();
     }
 
     public List<ExamResultTextDTO> getMockNumericResults(Long studentId)
@@ -80,9 +72,7 @@ public class StudentRepository extends Repository {
                 " JOIN mockResNumber.mockExamObj.groupObj  " +
                 " JOIN mockResNumber.mockExamObj.groupObj.courseObj courseObj " +
                 " WHERE mockResNumber.student.id = :sid ")
-                .setParameter("sid",studentId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("sid",studentId) .getResultList();
     }
 
     public List<TimetableDTO> getStudentTimeTable(Long studentId) {
@@ -132,14 +122,8 @@ public class StudentRepository extends Repository {
                 " JOIN gr.ageObj ag " +
                 " JOIN gr.studentsList stdList  " +
                 " JOIN  stdList.studentObj studObj  " +
-                " JOIN gr.courseObj crs WHERE studObj.id = :sid" +
-                " AND hs.started >= :starttime " +
-                " AND hs.started <= :endtime ORDER  BY hs.started ASC ", TimetableDTO.class)
-                .setParameter("starttime", WaterClock.getDate())
-                .setParameter("endtime", WaterClock.getDateAWeekAhead())
-                .setParameter("sid",studentId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                " JOIN gr.courseObj crs WHERE studObj.id = :sid ORDER  BY hs.started ASC ", TimetableDTO.class)
+                .setParameter("sid",studentId) .getResultList();
     }
 
 
@@ -151,9 +135,7 @@ public class StudentRepository extends Repository {
                 " JOIN abs.histObj.groupObj  " +
                 " JOIN abs.histObj.groupObj.courseObj crs  " +
                 " JOIN abs.studentObj stObj WHERE stObj.id = :sid", AbsencyDTO.class)
-                .setParameter("sid",studentId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("sid",studentId) .getResultList();
 
     }
 

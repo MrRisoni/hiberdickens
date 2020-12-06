@@ -27,7 +27,7 @@ public class GroupRepository extends Repository {
     public GroupModel getGroup(Long groupId) {
         return this.getEntityManager().createQuery("FROM GroupModel WHERE id=:grid", GroupModel.class)
                 .setParameter("grid", groupId)
-                .setHint("org.hibernate.cacheable", true)
+
                 .getResultList().get(0);
     }
 
@@ -36,9 +36,7 @@ public class GroupRepository extends Repository {
                 " JOIN gt.groupObj " +
                 " JOIN gt.teacherObj " +
                 " JOIN gt.teacherObj.member mb " +
-                " WHERE gt.groupObj.id=:gid ", Member.class).setParameter("gid", groupId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                " WHERE gt.groupObj.id=:gid ", Member.class).setParameter("gid", groupId) .getResultList();
     }
 
     public List<GroupStudentDto> getGroupStudents(Long groupId) {
@@ -65,9 +63,7 @@ public class GroupRepository extends Repository {
                 " JOIN stObj.member m  " +
                 " JOIN sp.groupObj " +
                 " WHERE sp.groupObj.id = :id ")
-                .setParameter("id", groupId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("id", groupId) .getResultList();
     }
 
     public List<PaymentDebtDTO> getStudentDebtsList(Long groupId) {
@@ -78,9 +74,7 @@ public class GroupRepository extends Repository {
                 " JOIN stObj.member m  " +
                 " JOIN sb.groupObj " +
                 " WHERE sb.groupObj.id = :id ")
-                .setParameter("id", groupId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("id", groupId) .getResultList();
     }
 
     public List<PaymentDebtDTO> getTeacherPaymentsList(Long groupId) {
@@ -90,9 +84,7 @@ public class GroupRepository extends Repository {
                 " JOIN tp.teacherObj.member m  " +
                 " JOIN tp.monthObj mon " +
                 " WHERE tp.groupObj.id = :id ")
-                .setParameter("id", groupId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("id", groupId) .getResultList();
     }
 
     public List<PaymentDebtDTO> getTeacherDebtsList(Long groupId) {
@@ -102,18 +94,14 @@ public class GroupRepository extends Repository {
                 " JOIN tb.teacherObj.member m  " +
                 " JOIN tb.monthObj mon " +
                 " WHERE tb.groupObj.id = :id ")
-                .setParameter("id", groupId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setParameter("id", groupId) .getResultList();
     }
 
 
     public List<TimetableDTO> getHistory(Long groupId) {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id,  hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
                 " FROM HistoryModel hs  JOIN hs.room rm " +
-                " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter("id", groupId)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                " JOIN hs.groupObj gr WHERE gr.id= :id ORDER BY hs.started ASC", TimetableDTO.class).setParameter("id", groupId) .getResultList();
     }
 
     public GroupRecordsAPI getGroupsList(int currentPage, int perPage, String sortOrder, String sortProperty) {
@@ -134,9 +122,7 @@ public class GroupRepository extends Repository {
         List<GroupRecord> results = this.getEntityManager()
                 .createQuery(hql)
                 .setFirstResult(pages.get("start"))
-                .setMaxResults(perPage)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                .setMaxResults(perPage) .getResultList();
         ;
         GroupRecordsAPI rsp = new GroupRecordsAPI();
         rsp.setGroups(results);

@@ -65,9 +65,7 @@ public class TimetableSrvc {
                         " JOIN gr.ageObj ag " +
                         " JOIN hs.daskalos dsk JOIN dsk.member mb " +
                         " JOIN gr.courseObj crs  ORDER  BY hs.started ASC"
-                , TimetableDTO.class)
-                .setHint("org.hibernate.cacheable", true)
-                .getResultList();
+                , TimetableDTO.class) .getResultList();
 
         List<String> days = new ArrayList<>();
 

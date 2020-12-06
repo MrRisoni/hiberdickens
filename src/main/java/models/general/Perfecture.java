@@ -7,8 +7,6 @@ import javax.persistence.*;
 
 
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "perfectures")
 public class Perfecture {
     @Getter

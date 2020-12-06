@@ -20,8 +20,7 @@ import javax.persistence.*;
                 }
         )
 })
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
 public class HistoryModel {
     @Getter
     @Setter

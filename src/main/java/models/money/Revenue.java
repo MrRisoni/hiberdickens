@@ -12,8 +12,6 @@ import java.util.Date;
 
 @Data
 @Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "revenue")
 public class Revenue {
     @Id

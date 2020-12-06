@@ -5,16 +5,17 @@ import models.general.Suburb;
 import models.people.Member;
 import models.people.ParentsModel;
 import models.people.Student;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import pojos.StudentRecordsAPI;
 import models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import repositories.StudentRepository;
+import services.StudentSrvc;
+import services.TimetableSrvc;
 import spring_repos.MemberRepository;
 import spring_repos.ParentRepository;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -31,6 +32,8 @@ public class StudentController {
     @Autowired
     spring_repos.StudentRepository studRepo;
 
+    @Autowired
+    StudentSrvc studentSrvc;
 
     @RequestMapping(value = "/api/student/update")
     public void updateStudent() {
@@ -44,15 +47,11 @@ public class StudentController {
     @RequestMapping(value = "/api/student/new")
     public void newStudent()
     {
-        Suburb sb = new Suburb();
-        sb.setId(2L);
-
         Member m = new Member();
         m.setName("Henrik");
         m.setSurname("Vokakios");
         m.setPhone("210123456789");
         m.setEmail("foo@goo.gr");
-        m.setSuburbObj(sb);
         membRepo.save(m);
 
         Student st = new Student();
@@ -82,32 +81,13 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/api/student/info/{studentId}", method = RequestMethod.GET)
-    public StudentResponseDto getData(@PathVariable Long studentId) {
-
-        Optional<Student> result = studRepo.findById(studentId);
-        Student student  =result.orElse(null);
-        StudentRepository studentRepo = new StudentRepository();
-
-        StudentResponseDto stdRsp = new StudentResponseDto();
-        stdRsp.setLastPayed(student.getLastPaymentDate());
-        stdRsp.setFullName(student.getMember().getName()+ " " + student.getMember().getSurname());
-        stdRsp.setTotalPayed(student.getTotalPayed());
-        stdRsp.setRemainDebt(student.getTotalDebt().subtract(student.getTotalPayed()));
-        stdRsp.setAbscencies(studentRepo.getAbsenciesList(studentId));
-        stdRsp.setPayments(studentRepo.getStudentPayments(studentId));
-        stdRsp.setDebts(studentRepo.getStudentDebts(studentId));
-        stdRsp.setGroups(studentRepo.getStudentGroups(studentId));
-        stdRsp.setTimetable(studentRepo.getTimetableHQL(studentId));
-
-      //  rsp.put("mockResultsText",stdRepo.getMockTextResults(studentId));
-      //  rsp.put("mockResultsNumeric",stdRepo.getMockNumericResults(studentId));
-
-       // rsp.put("parents",student.getParents());
-      //  rsp.put("discounts",student.getDiscountList());
-
-
-
-        return stdRsp;
+    public ResponseEntity<StudentResponseDto> getData(@PathVariable Long studentId) {
+        try {
+            return new ResponseEntity<>(studentSrvc.getStudentData(studentId), HttpStatus.OK);
+        }
+        catch (Exception ex){
+            return new ResponseEntity<>(null, HttpStatus.BAD_GATEWAY);
+        }
 
     }
 }

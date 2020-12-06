@@ -37,12 +37,12 @@ public class Student {
 
     @Getter
     @Setter
-    @Column(name = "total_profit")
+    @Column(name = "total_payed")
     private BigDecimal totalPayed;
 
     @Getter
     @Setter
-    @Formula("(SELECT IF(SUM(tdb.amount) IS NULL,0,SUM(tdb.amount)) FROM student_debts tdb WHERE tdb.student_id = id)")
+    @Formula("(SELECT CASE WHEN SUM(tdb.amount) IS NULL THEN 0 ELSE SUM(tdb.amount) END FROM student_debts tdb WHERE tdb.student_id = id)")
     private BigDecimal totalDebt;
 
     @Getter
@@ -59,7 +59,6 @@ public class Student {
     @Setter
     @Formula("(SELECT COUNT(gs.id) FROM group_students gs WHERE gs.student_id = id)")
     private int numGroups;
-
 
     @OneToMany(mappedBy = "studentObj", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<StudentDebt> debtsList = new ArrayList<StudentDebt>();
@@ -104,7 +103,6 @@ public class Student {
     public void setAbsenciesList(List<Absency> absenciesList) {
         this.absenciesList = absenciesList;
     }
-
 
     public Set<ParentsModel> getParents() {
         return parents;

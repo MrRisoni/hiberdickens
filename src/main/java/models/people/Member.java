@@ -57,10 +57,6 @@ public class Member {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updated_at;
 
-    @OneToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "suburb_id")
-    private Suburb suburbObj;
-
     public Member() {
     }
 
@@ -70,14 +66,6 @@ public class Member {
         this.surname = surname;
         this.phone = phone;
         this.created_at = created_at;
-    }
-
-    public Suburb getSuburbObj() {
-        return suburbObj;
-    }
-
-    public void setSuburbObj(Suburb suburbObj) {
-        this.suburbObj = suburbObj;
     }
 
     public Date getCreated_at() {

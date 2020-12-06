@@ -7,7 +7,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "groups_teachers")
+@Table(name = "group_teachers")
 public class GroupTeachers {
     @Getter
     @Setter

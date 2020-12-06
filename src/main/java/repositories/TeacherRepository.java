@@ -18,7 +18,6 @@ public class TeacherRepository extends Repository {
     }
 
     public List<TeacherPayment> getTeacherPayments(Long teacherId) {
-
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tp.amount,mon.title, tp.lesson_year, tp.groupObj.id, tp.teacherObj.id, '',courseObj.title ) " +
                 " FROM TeacherPayment tp " +
                 " JOIN tp.monthObj mon " +
@@ -31,7 +30,6 @@ public class TeacherRepository extends Repository {
     }
 
     public List<TeacherPayment> getTeacherDebts(Long teacherId) {
-
         return this.getEntityManager().createQuery("SELECT new hqlmappers.PaymentDebtDTO(tb.amount,mon.title, tb.lesson_year, tb.groupObj.id, tb.teacherObj.id, '',courseObj.title ) " +
                 " FROM TeacherDebt tb " +
                 " JOIN tb.monthObj mon " +
@@ -41,7 +39,6 @@ public class TeacherRepository extends Repository {
                 " ORDER BY  mon.id ASC,tb.lesson_year ASC ")
                 .setParameter("tid", teacherId) .getResultList();
     }
-
 
     public List<TimetableDTO> getTeacherTimeTable(Long teacherId) {
         return this.getEntityManager().createQuery("SELECT new hqlmappers.TimetableDTO(hs.id, gr.id,uhr.id, crs.title,mb.name, ag.title, spd.title, hs.started, hs.duration, rm.title, hs.cancelled, hs.wage, hs.fee) " +
@@ -85,11 +82,6 @@ public class TeacherRepository extends Repository {
         rsp.setCurrentPage(currentPage);
         rsp.setTotalPages(pages.get("totalPages"));
         rsp.setTotalRecords(totalRecords);
-
         return rsp;
-
-
     }
-
-
 }

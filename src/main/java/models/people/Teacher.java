@@ -44,7 +44,7 @@ public class Teacher {
 
     @Getter
     @Setter
-    @Formula("(SELECT COUNT(gs.id) FROM groups_teachers gs WHERE gs.teacher_id = id)")
+    @Formula("(SELECT COUNT(gs.id) FROM group_teachers gs WHERE gs.teacher_id = id)")
     private int numGroups;
 
     @Getter

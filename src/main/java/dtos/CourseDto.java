@@ -18,4 +18,10 @@ public class CourseDto {
     private BigDecimal latestWage;
     private CourseTypeDto courseTypeObj;
 
+    public CourseDto(Long id, String title) {
+    }
+
+    public CourseDto() {
+
+    }
 }
